@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "jake_notes"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - href: ballot_notes.qmd
+        text: Bayesian Inference
+      - href: linear_models.qmd
+        text: ANOVA Proof
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
