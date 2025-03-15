@@ -1,5 +1,5 @@
 ---
-title: "Math Notes"
+title: "Ballot Sampling with Bayes"
 author: "Jake Baker"
 toc: true
 toc-location: left
@@ -98,3 +98,5 @@ $\square$
 :::
 
 :::
+
+Reference other file [here](linear_models.qmd#def-standard_normal).

@@ -3,11 +3,9 @@ project:
   output-dir: docs
 
 website:
-  title: "jake_notes"
+  title: "Jake Notes"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
       - about.qmd
       - href: ballot_notes.qmd
         text: Bayesian Inference
