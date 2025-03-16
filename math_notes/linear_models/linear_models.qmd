@@ -215,7 +215,7 @@ r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
 $$
 
 ::: {.proof appearance="default"}
-Take $\mathbf{y = \hat{y}} + \varepsilon$, project into $\mathbf{1^\perp}$ to get 
+Take $\mathbf{y = \hat{y}} + \hat{\varepsilon}$, project into $\mathbf{1^\perp}$ to get 
 
 $\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}$ since $\hat{\varepsilon} \in U^\perp \leq 1^\perp$. 
 
