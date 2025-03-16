@@ -173,8 +173,8 @@ r(\mathbf{x,y})
 \cfrac{(\mathbf{x-P_1 x})^T (\mathbf{y-P_1 y})}{\| \mathbf{x-P_1 x} \| \| \mathbf{y-P_1 y} \|}
 \\ &=
 \bigg\langle
-  \cfrac{\mathbf{P_{1^T} x}}{\|\mathbf{P_{1^T} x}\|},
-  \cfrac{\mathbf{P_{1^T} y}}{\|\mathbf{P_{1^T} y}\|}
+  \cfrac{\mathbf{P_{1^\perp} x}}{\|\mathbf{P_{1^\perp} x}\|},
+  \cfrac{\mathbf{P_{1^\perp} y}}{\|\mathbf{P_{1^\perp} y}\|}
 \bigg\rangle
 \end{align*}
 $$
