@@ -114,7 +114,6 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Linear Model Notes – Jake Notes">
-<meta property="og:description" content="">
 <meta property="og:image" content="geometry_lss_extended.png">
 <meta property="og:site_name" content="Jake Notes">
 </head>
@@ -178,7 +177,6 @@ window.Quarto = {
   <li><a href="#ols-basics" id="toc-ols-basics" class="nav-link active" data-scroll-target="#ols-basics"><span class="header-section-number">1</span> OLS Basics</a></li>
   <li><a href="#large-model-vs-submodel" id="toc-large-model-vs-submodel" class="nav-link" data-scroll-target="#large-model-vs-submodel"><span class="header-section-number">2</span> Large Model vs Submodel</a></li>
   <li><a href="#r2-and-sample-correlation" id="toc-r2-and-sample-correlation" class="nav-link" data-scroll-target="#r2-and-sample-correlation"><span class="header-section-number">3</span> R2 and Sample Correlation</a></li>
-  <li><a href="#intro" id="toc-intro" class="nav-link" data-scroll-target="#intro"><span class="header-section-number">4</span> Intro</a></li>
   </ul>
 </nav>
 </nav>
@@ -322,7 +320,7 @@ Figure&nbsp;1: Visualisation of the geometry of the null and full model.
 <section id="r2-and-sample-correlation" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="r2-and-sample-correlation"><span class="header-section-number">3</span> R2 and Sample Correlation</h2>
 <div id="def-sample_correlation" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3</strong></span> The sample correlation between vectors <span class="math inline">\mathbf{x,y}</span> is defined as</p>
+<p><span class="theorem-title"><strong>Definition 3</strong></span> The <strong>sample correlation</strong> between vectors <span class="math inline">\mathbf{x,y}</span> is defined as</p>
 <p><span class="math display">
 \begin{align*}
 r(\mathbf{x,y})
@@ -339,10 +337,30 @@ r(\mathbf{x,y})
 </span></p>
 <p>Where we are lax with notation and let <span class="math inline">\mathbf{1}</span> denote <span class="math inline">\text{span}\set{\mathbf{1}}</span> for <span class="math inline">\mathbf{1} = [1,\ ...\ ,1]^T</span>.</p>
 </div>
-</section>
-<section id="intro" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="intro"><span class="header-section-number">4</span> Intro</h2>
-<p>Here is a TikZ picture!</p>
+<div id="def-R2" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 4</strong></span> Given real and predicted <span class="math inline">\mathbf{y}</span>, <span class="math inline">\mathbf{\hat{y}}</span>, the <strong>coefficent of determination</strong> is defined as <span class="math inline">R2(\mathbf{y,\hat{y}})</span> <span class="math display">
+\begin{align*}
+&amp;
+R2(\mathbf{y,\hat{y}}) = 1 - \frac{SS_{res}}{SS_{tot}},
+&amp; \text{for }
+SS_{res} = \| \mathbf{y-\hat{y}} \|^2
+&amp; &amp;
+SS_{tot} = \| \mathbf{y-\bar{y}} \|^2
+\end{align*}
+</span></p>
+</div>
+<div id="rem-R2_general" class="proof remark">
+<p><span class="proof-title"><em>Remark 1</em>. </span>Note that <span class="math inline">\mathbf{\hat{y}}</span> in <a href="#def-R2" class="quarto-xref">Definition&nbsp;4</a> is general. We will specify details to prove the following.</p>
+</div>
+<div id="lem-R2_as_squared_correlation" class="theorem lemma">
+<p><span class="theorem-title"><strong>Lemma 1</strong></span> If the predictions <span class="math inline">\mathbf{\hat{y}}</span> are calculated as in <a href="#def-ols_lm" class="quarto-xref">Definition&nbsp;2</a>, then it holds that <span class="math display">
+r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
+</span></p>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Take <span class="math inline">\mathbf{y = \hat{y}} + \varepsilon</span>, project into <span class="math inline">\mathbf{1^\perp}</span> to get <span class="math inline">\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}</span> since <span class="math inline">\hat{\varepsilon} \in U^\perp \leq 1^\perp</span>. Since <span class="math inline">\mathbf{\hat{y}} \in U</span> and <span class="math inline">\hat{\varepsilon} \in U^\perp</span> are perpendicular the same therefore holds for <span class="math inline">\mathbf{P_{1^\perp}\hat{y}} \in U \cap \mathbf{1^\perp}</span> and <span class="math inline">\hat{\varepsilon} \in U^\perp</span>.</p>
+<p>This is 2d picture.</p>
+</div>
+</div>
 
 
 </section>

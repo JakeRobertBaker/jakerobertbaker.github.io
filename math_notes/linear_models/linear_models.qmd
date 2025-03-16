@@ -162,7 +162,7 @@ $W \in \set{U_1, U^\perp} \ \mathbf{P}_W \mathbf{y} = \mathbf{P}_W \mathbf{\vare
 ## R2 and Sample Correlation
 
 ::: {#def-sample_correlation}
-The sample correlation between vectors $\mathbf{x,y}$ is defined as
+The **sample correlation** between vectors $\mathbf{x,y}$ is defined as
 
 $$
 \begin{align*}
@@ -183,6 +183,39 @@ Where we are lax with notation and let $\mathbf{1}$ denote $\text{span}\set{\mat
 $\mathbf{1} = [1,\ ...\ ,1]^T$.
 :::
 
-## Intro
-Here is a TikZ picture!
+
+::: {#def-R2}
+Given real and predicted $\mathbf{y}$, $\mathbf{\hat{y}}$, the **coefficent of determination** is defined as $R2(\mathbf{y,\hat{y}})$
+$$
+\begin{align*}
+&
+R2(\mathbf{y,\hat{y}}) = 1 - \frac{SS_{res}}{SS_{tot}},
+& \text{for }
+SS_{res} = \| \mathbf{y-\hat{y}} \|^2
+& &
+SS_{tot} = \| \mathbf{y-\bar{y}} \|^2
+\end{align*}
+$$
+
+:::
+
+::: {#rem-R2_general}
+Note that $\mathbf{\hat{y}}$ in @def-R2 is general. We will specify details to prove the following.
+:::
+
+::: {#lem-R2_as_squared_correlation}
+If the predictions $\mathbf{\hat{y}}$ are calculated as in @def-ols_lm, then it holds that
+$$
+r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
+$$
+
+::: {.proof}
+Take $\mathbf{y = \hat{y}} + \varepsilon$, project into $\mathbf{1^\perp}$ to get $\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}$ since $\hat{\varepsilon} \in U^\perp \leq 1^\perp$. Since $\mathbf{\hat{y}} \in U$ and $\hat{\varepsilon} \in U^\perp$ are perpendicular the same therefore holds for $\mathbf{P_{1^\perp}\hat{y}} \in U \cap \mathbf{1^\perp}$ and $\hat{\varepsilon} \in U^\perp$.
+
+This is 2d picture.
+
+
+:::
+
+:::
 
