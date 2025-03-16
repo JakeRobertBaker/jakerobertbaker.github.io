@@ -99,4 +99,4 @@ $\square$
 
 :::
 
-Reference other file [here](linear_models.qmd#def-standard_normal).
+Reference other file [here](../linear_models/linear_models.qmd).

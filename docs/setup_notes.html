@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Current works in progress… – Jake Notes</title>
+<title>setup_notes – Jake Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,8 +69,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Current works in progress… – Jake Notes">
-<meta property="og:description" content="">
+<meta property="og:title" content="Jake Notes">
 <meta property="og:site_name" content="Jake Notes">
 </head>
 
@@ -130,9 +129,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pymc-prophet" id="toc-pymc-prophet" class="nav-link active" data-scroll-target="#pymc-prophet">PyMC Prophet</a></li>
-  <li><a href="#ballots-bayes" id="toc-ballots-bayes" class="nav-link" data-scroll-target="#ballots-bayes">Ballots + Bayes</a></li>
-  <li><a href="#linear-model-notes" id="toc-linear-model-notes" class="nav-link" data-scroll-target="#linear-model-notes">Linear Model Notes</a></li>
+  <li><a href="#notes-from-fresh-setup" id="toc-notes-from-fresh-setup" class="nav-link active" data-scroll-target="#notes-from-fresh-setup">Notes from Fresh Setup</a>
+  <ul class="collapse">
+  <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -141,40 +141,19 @@ ul.task-list li input[type="checkbox"] {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Current works in progress…</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
+<section id="notes-from-fresh-setup" class="level1">
+<h1>Notes from Fresh Setup</h1>
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
+<p>Install quarto via CLI on the quarto website instructions. Then install Quarto VSCode Extension.</p>
 
 
-<section id="pymc-prophet" class="level3">
-<h3 class="anchored" data-anchor-id="pymc-prophet">PyMC Prophet</h3>
-<p>Reimplementing Prophet linear model with PyMC to add some extra pieces like hierachical prior on changepoints, changepoints in seasonality.</p>
 </section>
-<section id="ballots-bayes" class="level3">
-<h3 class="anchored" data-anchor-id="ballots-bayes">Ballots + Bayes</h3>
-<p>Current work in progress. Use of nice conjugate prior to get a nice <a href="./math_notes/bayesian_inference/ballot_notes.html">posterior</a> of an election result given a sample.</p>
-</section>
-<section id="linear-model-notes" class="level3">
-<h3 class="anchored" data-anchor-id="linear-model-notes">Linear Model Notes</h3>
-<p>Need to prove geometry of ANOVA and R2 to compare feature engineering method. The latter is <a href="./math_notes/linear_models/linear_models.html">TODO</a>.</p>
-
-
 </section>
 
 </main> <!-- /main -->

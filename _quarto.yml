@@ -4,19 +4,31 @@ project:
 
 website:
   title: "Jake Notes"
+  open-graph: true
+  
   navbar:
     left:
       - about.qmd
-      - href: ballot_notes.qmd
-        text: Bayesian Inference
-      - href: linear_models.qmd
-        text: ANOVA Proof
+      - href: math_notes/bayesian_inference/ballot_notes.qmd
+        text: Ballot Bayesian Analysis
+      - href: math_notes/linear_models/linear_models.qmd
+        text: Linear Models and ANOVA Proof
+
+    right:
+      - icon: github
+        href: https://github.com/JakeRobertBaker
+        aria-label: GitHub
+
+      - icon: linkedin
+        href: https://www.linkedin.com/in/jake-robert-baker/
+        aria-label: LinkedIn
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
+    toc-location: left
 
 
 
