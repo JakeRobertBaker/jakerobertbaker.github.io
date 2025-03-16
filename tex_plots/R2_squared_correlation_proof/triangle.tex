@@ -1,0 +1,17 @@
+\documentclass[tikz, border=5mm]{standalone}
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+    % Draw the triangle
+    \draw[thick] (0,0) -- (4,0) node[midway, below] {$\mathbf{a=P_{1^\perp}\hat{y}}$} -- 
+                 (4,3) node[midway, right] {$\mathbf{b=\hat{\varepsilon}}$} -- 
+                 cycle node[midway, above, left]{$\mathbf{c=P_{1^\perp}y}$};
+
+
+    % Draw the right angle symbol
+    \draw (3.6,0) -- (3.6,0.4) -- (4,0.4);
+\end{tikzpicture}
+
+\end{document}

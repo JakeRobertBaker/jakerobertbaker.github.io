@@ -32,7 +32,7 @@
     "href": "math_notes/linear_models/linear_models.html#r2-and-sample-correlation",
     "title": "Linear Model Notes",
     "section": "3 R2 and Sample Correlation",
-    "text": "3 R2 and Sample Correlation\n\nDefinition 3 The sample correlation between vectors \\mathbf{x,y} is defined as\n\n\\begin{align*}\nr(\\mathbf{x,y})\n&=\n\\cfrac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}{ \\sqrt{\\sum_i (x_i - \\bar{x})^2}  \\sqrt{\\sum_i (y_i - \\bar{y})^2}}\n\\\\ &=\n\\cfrac{(\\mathbf{x-P_1 x})^T (\\mathbf{y-P_1 y})}{\\| \\mathbf{x-P_1 x} \\| \\| \\mathbf{y-P_1 y} \\|}\n\\\\ &=\n\\bigg\\langle\n  \\cfrac{\\mathbf{P_{1^\\perp} x}}{\\|\\mathbf{P_{1^\\perp} x}\\|},\n  \\cfrac{\\mathbf{P_{1^\\perp} y}}{\\|\\mathbf{P_{1^\\perp} y}\\|}\n\\bigg\\rangle\n\\end{align*}\n\nWhere we are lax with notation and let \\mathbf{1} denote \\text{span}\\set{\\mathbf{1}} for \\mathbf{1} = [1,\\ ...\\ ,1]^T.\n\n\nDefinition 4 Given real and predicted \\mathbf{y}, \\mathbf{\\hat{y}}, the coefficent of determination is defined as R2(\\mathbf{y,\\hat{y}}) \n\\begin{align*}\n&\nR2(\\mathbf{y,\\hat{y}}) = 1 - \\frac{SS_{res}}{SS_{tot}},\n& \\text{for }\nSS_{res} = \\| \\mathbf{y-\\hat{y}} \\|^2\n& &\nSS_{tot} = \\| \\mathbf{y-\\bar{y}} \\|^2\n\\end{align*}\n\n\n\nRemark 1. Note that \\mathbf{\\hat{y}} in Definition 4 is general. We will specify details to prove the following.\n\n\nLemma 1 If the predictions \\mathbf{\\hat{y}} are calculated as in Definition 2, then it holds that \nr(\\mathbf{y}, \\mathbf{\\hat{y}}) = R2(\\mathbf{y,\\hat{y}})\n\n\nProof. Take \\mathbf{y = \\hat{y}} + \\varepsilon, project into \\mathbf{1^\\perp} to get \\mathbf{P_{1^\\perp}y} = \\mathbf{P_{1^\\perp}\\hat{y}} + \\hat{\\varepsilon} since \\hat{\\varepsilon} \\in U^\\perp \\leq 1^\\perp. Since \\mathbf{\\hat{y}} \\in U and \\hat{\\varepsilon} \\in U^\\perp are perpendicular the same therefore holds for \\mathbf{P_{1^\\perp}\\hat{y}} \\in U \\cap \\mathbf{1^\\perp} and \\hat{\\varepsilon} \\in U^\\perp.\nThis is 2d picture."
+    "text": "3 R2 and Sample Correlation\n\nDefinition 3 The sample correlation between vectors \\mathbf{x,y} is defined as\n\n\\begin{align*}\nr(\\mathbf{x,y})\n&=\n\\cfrac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}{ \\sqrt{\\sum_i (x_i - \\bar{x})^2}  \\sqrt{\\sum_i (y_i - \\bar{y})^2}}\n\\\\ &=\n\\cfrac{(\\mathbf{x-P_1 x})^T (\\mathbf{y-P_1 y})}{\\| \\mathbf{x-P_1 x} \\| \\| \\mathbf{y-P_1 y} \\|}\n\\\\ &=\n\\bigg\\langle\n  \\cfrac{\\mathbf{P_{1^\\perp} x}}{\\|\\mathbf{P_{1^\\perp} x}\\|},\n  \\cfrac{\\mathbf{P_{1^\\perp} y}}{\\|\\mathbf{P_{1^\\perp} y}\\|}\n\\bigg\\rangle\n\\end{align*}\n\nWhere we are lax with notation and let \\mathbf{1} denote \\text{span}\\set{\\mathbf{1}} for \\mathbf{1} = [1,\\ ...\\ ,1]^T.\n\n\nDefinition 4 Given real and predicted \\mathbf{y}, \\mathbf{\\hat{y}}, the coefficent of determination is defined as R2(\\mathbf{y,\\hat{y}}) \n\\begin{align*}\n&\nR2(\\mathbf{y,\\hat{y}}) = 1 - \\frac{SS_{res}}{SS_{tot}},\n& \\text{for }\nSS_{res} &= \\| \\mathbf{y-\\hat{y}} \\|^2\n&\nSS_{tot} &= \\| \\mathbf{y-\\bar{y}} \\|^2\n\\\\\n&&&=\n\\|\\varepsilon\\|^2\n&&=\n\\mathbf{\\|P_{1^\\perp} y\\|^2}\n\\end{align*}\n\n\n\nRemark 1. Note that \\mathbf{\\hat{y}} in Definition 4 is general. We will specify details to prove the following.\n\n\nLemma 1 If the predictions \\mathbf{\\hat{y}} are standard ols as in Definition 2, then it holds that \nr(\\mathbf{y}, \\mathbf{\\hat{y}}) = R2(\\mathbf{y,\\hat{y}})\n\n\nProof. Take \\mathbf{y = \\hat{y}} + \\varepsilon, project into \\mathbf{1^\\perp} to get\n\\mathbf{P_{1^\\perp}y} = \\mathbf{P_{1^\\perp}\\hat{y}} + \\hat{\\varepsilon} since \\hat{\\varepsilon} \\in U^\\perp \\leq 1^\\perp.\nSince \\mathbf{\\hat{y}} \\in U and \\hat{\\varepsilon} \\in U^\\perp are perpendicular the same therefore holds for \\mathbf{P_{1^\\perp}\\hat{y}} \\in U \\cap \\mathbf{1^\\perp} and \\hat{\\varepsilon} \\in U^\\perp.\nThe following picture summarises things well. \n\n\n\n\n\n\nNote that for any right angled triangle the following holds: \n[\\mathbf{b = c-a}] \\perp \\mathbf{a}\n\\implies \\langle \\mathbf{c,a} \\rangle = \\| \\mathbf{a} \\|^2\n\\implies \\langle \\mathbf{\\frac{a}{\\|a\\|}, \\frac{c}{\\|c\\|}} \\rangle\n= \\mathbf{\\frac{\\|a\\|}{\\|c\\|}}\n\n\n\n\nSo we have \n\\begin{align*}\nr(\\mathbf{y}, \\mathbf{\\hat{y}})\n&=\n\\bigg\\langle\n  \\cfrac{\\mathbf{P_{1^\\perp} y}}{\\|\\mathbf{P_{1^\\perp} y}\\|},\n  \\cfrac{\\mathbf{P_{1^\\perp} \\hat{y}}}{\\|\\mathbf{P_{1^\\perp} \\hat{y}}\\|}\n\\bigg\\rangle\n=\n\\bigg\\langle\n  \\cfrac{\\mathbf{c}}{\\|\\mathbf{c}\\|},\n  \\cfrac{\\mathbf{a}}{\\|\\mathbf{a}\\|}\n\\bigg\\rangle\n=\n\\mathbf{\\frac{\\|a\\|}{\\|c\\|}}\n\\\\ &=\n\\mathbf{\\frac{\\|P_{1^\\perp} \\hat{y}\\|}{\\|P_{1^\\perp} y\\|} }\n\\end{align*}\n\nand thus,\n\nr(\\mathbf{y}, \\mathbf{\\hat{y}})^2\n=\n\\mathbf{\\frac{\\|P_{1^\\perp} \\hat{y}\\|^2}{\\|P_{1^\\perp} y\\|^2} }\n=\n\\mathbf{\\frac{\\|P_{1^\\perp} y\\|^2 - \\|\\varepsilon\\|^2}{\\|P_{1^\\perp} y\\|^2} }\n=\n1 - \\frac{SS_{res}}{SS_{tot}}\n\n\\square"
   },
   {
     "objectID": "about.html",
@@ -53,7 +53,7 @@
     "href": "setup_notes.html",
     "title": "Notes from Fresh Setup",
     "section": "",
-    "text": "Install quarto via CLI on the quarto website instructions. Then install Quarto VSCode Extension."
+    "text": "Install quarto via CLI on the quarto website instructions. Then install Quarto VSCode Extension.\n\n\n\nFor the TIKZ plots. sudo apt install texlive Then sudo apt install texlive-full"
   },
   {
     "objectID": "setup_notes.html#quarto",
@@ -61,5 +61,12 @@
     "title": "Notes from Fresh Setup",
     "section": "",
     "text": "Install quarto via CLI on the quarto website instructions. Then install Quarto VSCode Extension."
+  },
+  {
+    "objectID": "setup_notes.html#tex",
+    "href": "setup_notes.html#tex",
+    "title": "Notes from Fresh Setup",
+    "section": "",
+    "text": "For the TIKZ plots. sudo apt install texlive Then sudo apt install texlive-full"
   }
 ]

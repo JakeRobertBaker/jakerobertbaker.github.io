@@ -191,9 +191,14 @@ $$
 &
 R2(\mathbf{y,\hat{y}}) = 1 - \frac{SS_{res}}{SS_{tot}},
 & \text{for }
-SS_{res} = \| \mathbf{y-\hat{y}} \|^2
-& &
-SS_{tot} = \| \mathbf{y-\bar{y}} \|^2
+SS_{res} &= \| \mathbf{y-\hat{y}} \|^2
+&
+SS_{tot} &= \| \mathbf{y-\bar{y}} \|^2
+\\
+&&&=
+\|\varepsilon\|^2
+&&=
+\mathbf{\|P_{1^\perp} y\|^2}
 \end{align*}
 $$
 
@@ -204,17 +209,65 @@ Note that $\mathbf{\hat{y}}$ in @def-R2 is general. We will specify details to p
 :::
 
 ::: {#lem-R2_as_squared_correlation}
-If the predictions $\mathbf{\hat{y}}$ are calculated as in @def-ols_lm, then it holds that
+If the predictions $\mathbf{\hat{y}}$ are standard ols as in @def-ols_lm, then it holds that
 $$
 r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
 $$
 
-::: {.proof}
-Take $\mathbf{y = \hat{y}} + \varepsilon$, project into $\mathbf{1^\perp}$ to get $\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}$ since $\hat{\varepsilon} \in U^\perp \leq 1^\perp$. Since $\mathbf{\hat{y}} \in U$ and $\hat{\varepsilon} \in U^\perp$ are perpendicular the same therefore holds for $\mathbf{P_{1^\perp}\hat{y}} \in U \cap \mathbf{1^\perp}$ and $\hat{\varepsilon} \in U^\perp$.
+::: {.proof appearance="default"}
+Take $\mathbf{y = \hat{y}} + \varepsilon$, project into $\mathbf{1^\perp}$ to get 
 
-This is 2d picture.
+$\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}$ since $\hat{\varepsilon} \in U^\perp \leq 1^\perp$. 
 
+Since $\mathbf{\hat{y}} \in U$ and $\hat{\varepsilon} \in U^\perp$ are perpendicular the same therefore holds for $\mathbf{P_{1^\perp}\hat{y}} \in U \cap \mathbf{1^\perp}$ and $\hat{\varepsilon} \in U^\perp$.
 
+The following picture summarises things well.
+![projections](../../tex_plots/R2_squared_correlation_proof/triangle.png){width=50%}
+
+::: {.callout-note appearance="minimal"}
+Note that for any right angled triangle the following holds:
+$$
+[\mathbf{b = c-a}] \perp \mathbf{a} 
+\implies \langle \mathbf{c,a} \rangle = \| \mathbf{a} \|^2
+\implies \langle \mathbf{\frac{a}{\|a\|}, \frac{c}{\|c\|}} \rangle 
+= \mathbf{\frac{\|a\|}{\|c\|}}
+$$
+:::
+
+So we have
+$$
+\begin{align*}
+r(\mathbf{y}, \mathbf{\hat{y}}) 
+&= 
+\bigg\langle
+  \cfrac{\mathbf{P_{1^\perp} y}}{\|\mathbf{P_{1^\perp} y}\|},
+  \cfrac{\mathbf{P_{1^\perp} \hat{y}}}{\|\mathbf{P_{1^\perp} \hat{y}}\|}
+\bigg\rangle
+=
+\bigg\langle
+  \cfrac{\mathbf{c}}{\|\mathbf{c}\|},
+  \cfrac{\mathbf{a}}{\|\mathbf{a}\|}
+\bigg\rangle
+= 
+\mathbf{\frac{\|a\|}{\|c\|}}
+\\ &=
+\mathbf{\frac{\|P_{1^\perp} \hat{y}\|}{\|P_{1^\perp} y\|} }
+\end{align*}
+$$
+
+and thus,
+
+$$
+r(\mathbf{y}, \mathbf{\hat{y}})^2
+= 
+\mathbf{\frac{\|P_{1^\perp} \hat{y}\|^2}{\|P_{1^\perp} y\|^2} }
+=
+\mathbf{\frac{\|P_{1^\perp} y\|^2 - \|\varepsilon\|^2}{\|P_{1^\perp} y\|^2} }
+=
+1 - \frac{SS_{res}}{SS_{tot}}
+$$
+
+$\square$
 :::
 
 :::
