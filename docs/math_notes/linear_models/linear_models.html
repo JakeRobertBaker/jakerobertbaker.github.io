@@ -343,9 +343,14 @@ r(\mathbf{x,y})
 &amp;
 R2(\mathbf{y,\hat{y}}) = 1 - \frac{SS_{res}}{SS_{tot}},
 &amp; \text{for }
-SS_{res} = \| \mathbf{y-\hat{y}} \|^2
-&amp; &amp;
-SS_{tot} = \| \mathbf{y-\bar{y}} \|^2
+SS_{res} &amp;= \| \mathbf{y-\hat{y}} \|^2
+&amp;
+SS_{tot} &amp;= \| \mathbf{y-\bar{y}} \|^2
+\\
+&amp;&amp;&amp;=
+\|\varepsilon\|^2
+&amp;&amp;=
+\mathbf{\|P_{1^\perp} y\|^2}
 \end{align*}
 </span></p>
 </div>
@@ -353,12 +358,59 @@ SS_{tot} = \| \mathbf{y-\bar{y}} \|^2
 <p><span class="proof-title"><em>Remark 1</em>. </span>Note that <span class="math inline">\mathbf{\hat{y}}</span> in <a href="#def-R2" class="quarto-xref">Definition&nbsp;4</a> is general. We will specify details to prove the following.</p>
 </div>
 <div id="lem-R2_as_squared_correlation" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 1</strong></span> If the predictions <span class="math inline">\mathbf{\hat{y}}</span> are calculated as in <a href="#def-ols_lm" class="quarto-xref">Definition&nbsp;2</a>, then it holds that <span class="math display">
+<p><span class="theorem-title"><strong>Lemma 1</strong></span> If the predictions <span class="math inline">\mathbf{\hat{y}}</span> are standard ols as in <a href="#def-ols_lm" class="quarto-xref">Definition&nbsp;2</a>, then it holds that <span class="math display">
 r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
 </span></p>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Take <span class="math inline">\mathbf{y = \hat{y}} + \varepsilon</span>, project into <span class="math inline">\mathbf{1^\perp}</span> to get <span class="math inline">\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}</span> since <span class="math inline">\hat{\varepsilon} \in U^\perp \leq 1^\perp</span>. Since <span class="math inline">\mathbf{\hat{y}} \in U</span> and <span class="math inline">\hat{\varepsilon} \in U^\perp</span> are perpendicular the same therefore holds for <span class="math inline">\mathbf{P_{1^\perp}\hat{y}} \in U \cap \mathbf{1^\perp}</span> and <span class="math inline">\hat{\varepsilon} \in U^\perp</span>.</p>
-<p>This is 2d picture.</p>
+<div class="proof" data-appearance="default">
+<p><span class="proof-title"><em>Proof</em>. </span>Take <span class="math inline">\mathbf{y = \hat{y}} + \varepsilon</span>, project into <span class="math inline">\mathbf{1^\perp}</span> to get</p>
+<p><span class="math inline">\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}</span> since <span class="math inline">\hat{\varepsilon} \in U^\perp \leq 1^\perp</span>.</p>
+<p>Since <span class="math inline">\mathbf{\hat{y}} \in U</span> and <span class="math inline">\hat{\varepsilon} \in U^\perp</span> are perpendicular the same therefore holds for <span class="math inline">\mathbf{P_{1^\perp}\hat{y}} \in U \cap \mathbf{1^\perp}</span> and <span class="math inline">\hat{\varepsilon} \in U^\perp</span>.</p>
+<p>The following picture summarises things well. <img src="../../tex_plots/R2_squared_correlation_proof/triangle.png" class="img-fluid" style="width:50.0%" alt="projections"></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Note that for any right angled triangle the following holds: <span class="math display">
+[\mathbf{b = c-a}] \perp \mathbf{a}
+\implies \langle \mathbf{c,a} \rangle = \| \mathbf{a} \|^2
+\implies \langle \mathbf{\frac{a}{\|a\|}, \frac{c}{\|c\|}} \rangle
+= \mathbf{\frac{\|a\|}{\|c\|}}
+</span></p>
+</div>
+</div>
+</div>
+<p>So we have <span class="math display">
+\begin{align*}
+r(\mathbf{y}, \mathbf{\hat{y}})
+&amp;=
+\bigg\langle
+  \cfrac{\mathbf{P_{1^\perp} y}}{\|\mathbf{P_{1^\perp} y}\|},
+  \cfrac{\mathbf{P_{1^\perp} \hat{y}}}{\|\mathbf{P_{1^\perp} \hat{y}}\|}
+\bigg\rangle
+=
+\bigg\langle
+  \cfrac{\mathbf{c}}{\|\mathbf{c}\|},
+  \cfrac{\mathbf{a}}{\|\mathbf{a}\|}
+\bigg\rangle
+=
+\mathbf{\frac{\|a\|}{\|c\|}}
+\\ &amp;=
+\mathbf{\frac{\|P_{1^\perp} \hat{y}\|}{\|P_{1^\perp} y\|} }
+\end{align*}
+</span></p>
+<p>and thus,</p>
+<p><span class="math display">
+r(\mathbf{y}, \mathbf{\hat{y}})^2
+=
+\mathbf{\frac{\|P_{1^\perp} \hat{y}\|^2}{\|P_{1^\perp} y\|^2} }
+=
+\mathbf{\frac{\|P_{1^\perp} y\|^2 - \|\varepsilon\|^2}{\|P_{1^\perp} y\|^2} }
+=
+1 - \frac{SS_{res}}{SS_{tot}}
+</span></p>
+<p><span class="math inline">\square</span></p>
 </div>
 </div>
 
