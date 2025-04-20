@@ -213,6 +213,7 @@ If the predictions $\mathbf{\hat{y}}$ are standard ols as in @def-ols_lm, then i
 $$
 r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
 $$
+:::
 
 ::: {.proof appearance="default"}
 Take $\mathbf{y = \hat{y}} + \hat{\varepsilon}$, project into $\mathbf{1^\perp}$ to get 
@@ -268,7 +269,5 @@ r(\mathbf{y}, \mathbf{\hat{y}})^2
 $$
 
 $\square$
-:::
-
 :::
 

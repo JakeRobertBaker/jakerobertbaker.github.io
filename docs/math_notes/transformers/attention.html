@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jake Baker">
 
-<title>Ballot Sampling with Bayes – Jake Notes</title>
+<title>Attention Transformer Details – Jake Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -113,7 +113,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Ballot Sampling with Bayes – Jake Notes">
+<meta property="og:title" content="Attention Transformer Details – Jake Notes">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Jake Notes">
 </head>
@@ -127,7 +127,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../math_notes/bayesian_inference/ballot_notes.html">Bayes</a></li><li class="breadcrumb-item"><a href="../../math_notes/bayesian_inference/ballot_notes.html">Ballot Analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../math_notes/transformers/attention.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="../../math_notes/transformers/attention.html">Attention Is All You Need</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -173,7 +173,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../math_notes/bayesian_inference/ballot_notes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../math_notes/bayesian_inference/ballot_notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ballot Analysis</span></a>
   </div>
 </li>
@@ -207,7 +207,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../math_notes/transformers/attention.html" class="sidebar-item-text sidebar-link">
+  <a href="../../math_notes/transformers/attention.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Attention Is All You Need</span></a>
   </div>
 </li>
@@ -219,9 +219,32 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#beta-binomial" id="toc-beta-binomial" class="nav-link active" data-scroll-target="#beta-binomial"><span class="header-section-number">1</span> Beta Binomial</a></li>
-  <li><a href="#hypergeometric-distribution" id="toc-hypergeometric-distribution" class="nav-link" data-scroll-target="#hypergeometric-distribution"><span class="header-section-number">2</span> Hypergeometric Distribution</a></li>
-  <li><a href="#conjugate-prior" id="toc-conjugate-prior" class="nav-link" data-scroll-target="#conjugate-prior"><span class="header-section-number">3</span> Conjugate Prior</a></li>
+  <li><a href="#transformer-overview" id="toc-transformer-overview" class="nav-link active" data-scroll-target="#transformer-overview"><span class="header-section-number">1</span> Transformer Overview</a></li>
+  <li><a href="#input-embeddings" id="toc-input-embeddings" class="nav-link" data-scroll-target="#input-embeddings"><span class="header-section-number">2</span> Input Embeddings</a>
+  <ul class="collapse">
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">2.1</span> Example</a></li>
+  </ul></li>
+  <li><a href="#positional-encoding" id="toc-positional-encoding" class="nav-link" data-scroll-target="#positional-encoding"><span class="header-section-number">3</span> Positional Encoding</a>
+  <ul class="collapse">
+  <li><a href="#model-input" id="toc-model-input" class="nav-link" data-scroll-target="#model-input"><span class="header-section-number">3.1</span> Model Input</a></li>
+  </ul></li>
+  <li><a href="#self-attention" id="toc-self-attention" class="nav-link" data-scroll-target="#self-attention"><span class="header-section-number">4</span> Self Attention</a>
+  <ul class="collapse">
+  <li><a href="#attention-definition" id="toc-attention-definition" class="nav-link" data-scroll-target="#attention-definition"><span class="header-section-number">4.1</span> Attention Definition</a></li>
+  <li><a href="#explanation" id="toc-explanation" class="nav-link" data-scroll-target="#explanation"><span class="header-section-number">4.2</span> Explanation</a>
+  <ul class="collapse">
+  <li><a href="#compatibility-function" id="toc-compatibility-function" class="nav-link" data-scroll-target="#compatibility-function"><span class="header-section-number">4.2.1</span> Compatibility Function</a></li>
+  </ul></li>
+  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks"><span class="header-section-number">4.3</span> Remarks</a>
+  <ul class="collapse">
+  <li><a href="#attention-is-permutation-invariant" id="toc-attention-is-permutation-invariant" class="nav-link" data-scroll-target="#attention-is-permutation-invariant"><span class="header-section-number">4.3.1</span> Attention is permutation invariant</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#muti-head-attention" id="toc-muti-head-attention" class="nav-link" data-scroll-target="#muti-head-attention"><span class="header-section-number">5</span> Muti Head Attention</a>
+  <ul class="collapse">
+  <li><a href="#old-def" id="toc-old-def" class="nav-link" data-scroll-target="#old-def"><span class="header-section-number">5.1</span> Old Def</a></li>
+  <li><a href="#attention-visualisation" id="toc-attention-visualisation" class="nav-link" data-scroll-target="#attention-visualisation"><span class="header-section-number">5.2</span> Attention Visualisation</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -232,9 +255,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../math_notes/bayesian_inference/ballot_notes.html">Bayes</a></li><li class="breadcrumb-item"><a href="../../math_notes/bayesian_inference/ballot_notes.html">Ballot Analysis</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../math_notes/transformers/attention.html">Deep Learning</a></li><li class="breadcrumb-item"><a href="../../math_notes/transformers/attention.html">Attention Is All You Need</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Ballot Sampling with Bayes</h1>
+<h1 class="title">Attention Transformer Details</h1>
 </div>
 
 
@@ -257,76 +280,240 @@ window.Quarto = {
 </header>
 
 
-<section id="beta-binomial" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Beta Binomial</h1>
-<div id="def-Beta-Binomial" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> A random variable <span class="math inline">X</span> has a Beta-Binomial distribution, <span class="math inline">X \sim \mathrm{BetaBin} (n,\alpha ,\beta)</span> iff <span class="math display">
-\mathbb{P}(X=x) = f(x|n,\alpha ,\beta) = {n \choose x} \Gamma(x+\alpha) \Gamma(n-x + \beta)
-</span></p>
-<p>for <span class="math inline">x \in \{1,...,n\}</span>.</p>
-</div>
-<div id="rem-Beta-Binomial-Proportion" class="proof remark">
-<p><span class="proof-title"><em>Remark 1</em>. </span>Note that <span class="math inline">f(x|n,\alpha ,\beta) \propto \frac{1}{x! (n-x)!} \Gamma(x+\alpha) \Gamma(n-x + \beta)</span> when we consider <span class="math inline">x</span> to be the only variable.</p>
-</div>
-<p>This distribution can be derived from a binomial likelihood with a beta distributed prior <span class="math inline">\theta=\mathbb{P}(\text{success})</span>.</p>
+<section id="transformer-overview" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Transformer Overview</h1>
+<p>Input Matrix <span class="math inline">X \in \mathbb{R}^{s \times d}</span>. Let’s denote as <span class="math inline">X : (s,d)</span> since it is more readable. We mean s and d to mean sequence length and dimension of model respectively.</p>
 </section>
-<section id="hypergeometric-distribution" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Hypergeometric Distribution</h1>
-<div id="lem-hypergeometric" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 1</strong></span> Suppose there are <span class="math inline">N</span> balls, <span class="math inline">X</span> of the balls are red. Suppose we sample <span class="math inline">M</span> balls without replacement. Let <span class="math inline">Y</span> denote the number of red balls in the sample. Then, <span class="math display">
-\mathbb{P}(Y=y) = \frac{{x \choose y} {N-X \choose M-y}}{N \choose M}
+<section id="input-embeddings" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Input Embeddings</h1>
+<p>The raw text is a sequence of vocabulary terms. Tokenization is the process of splitting the sentence into a sequence of vocabulary terms. Vocab terms can be single words but often tokenizers split the sentences into smaller components than words. In illustrative examples we usually show tokens as words.</p>
+<section id="example" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="example"><span class="header-section-number">2.1</span> Example</h2>
+<p><span class="math inline">s=5</span>, <span class="math inline">d</span> is usually 512 in the traditional paper. <span class="math display">
+\begin{array}{ccc}
+\text{Sentence}=
+\begin{bmatrix}
+\text{THE} \\
+\text{WEATHER} \\
+\text{IS} \\
+\text{LOVELY} \\
+\text{TODAY}
+\end{bmatrix} &amp;
+\mapsto
+\quad
+\text{Input IDs}=
+\begin{bmatrix}
+105 \\
+12 \\
+24 \\
+107 \\
+57
+\end{bmatrix} &amp;
+\mapsto
+\quad
+\text{Embedding, } X: (5,d)=
+\begin{bmatrix}
+\boldsymbol{x_1^T} \\
+\boldsymbol{x_2^T} \\
+\boldsymbol{x_3^T} \\
+\boldsymbol{x_4^T} \\
+\boldsymbol{x_5^T}
+\end{bmatrix}
+\end{array}
 </span></p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>As a result of the multiplication principle. The number of combinations that contain y red balls is <span class="math inline">{X \choose y} \times {N-X \choose M-y}</span>.</p>
-</div>
 </section>
-<section id="conjugate-prior" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Conjugate Prior</h1>
-<div id="lem-hypergeometric-conjugate" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 2</strong></span> Suppose there are <span class="math inline">N</span> ballots and we sample <span class="math inline">M \in \{1, ..., N \}</span>. Let the random variable <span class="math inline">X</span> be the total number of Labour ballots. Let <span class="math inline">Y</span> be the number of Labour ballots in the sample.</p>
-<p>If we place the following prior on <span class="math inline">X</span>, <span class="math display">
-p(x) = f(x|N,\alpha ,\beta)
-</span></p>
-<p>then likelihood of <span class="math inline">Y</span> given <span class="math inline">X</span> is hypergeometric and the posterior distribution of <span class="math inline">X</span> is given by <span class="math display">
-p(x|y) = f(x-y|N-M, \alpha+y, \beta + M-y)
-</span></p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Notice that if we consider <span class="math inline">x</span> the only variable, <span class="math display">
-\begin{align*}
-f(\textcolor{green}{x-y} | N-M, \textcolor{blue}{\alpha+y}, \textcolor{red}{\beta + M-y})
-&amp; \propto
-\frac
-{\Gamma(\textcolor{green}{x-y} + \textcolor{blue}{\alpha+y}) \Gamma(N-M \textcolor{green}{-x+y} + \textcolor{red}{\beta + M-y})}
-{(\textcolor{green}{x-y})! (N-M \textcolor{green}{-x+y})!}
-\\ &amp; =
-\frac{\Gamma(x+\alpha) \Gamma(N-x+\beta)}{(x-y)! (N-M-x+y)!} = (*)
-\end{align*}
-</span></p>
-<p>The posterior calculation then gives a multiple of this when <span class="math inline">x</span> is the only variable, <span class="math display">
-\begin{align*}
-p(x|y) \propto p(y|x)p(x)
-&amp; =
-\frac{\textcolor{red}{{x \choose y}} \textcolor{blue}{N-x \choose M-y}}
-{N \choose M}
-{N \choose x}
-\Gamma(x+\alpha) \Gamma(N-x + \beta)
+</section>
+<section id="positional-encoding" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Positional Encoding</h1>
+<p>Fixed definition for each position <span class="math inline">p \in \left\{1,...,s \right\}</span> and dimension index <span class="math inline">2i \text{ or } 2i+1 \text{ for } i \in \left\{1,...,d \right\}</span>.</p>
+<p><span class="math display">
+PE :(s,d)  =
+\begin{cases}
+PE_{p, 2i}     &amp;=&amp;   \sin \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\right)}} \right)
 \\
-&amp; \propto
-\textcolor{red}{\frac{x!}{(x-y!)}} \textcolor{blue}{\frac{(N-x)!}{(N-x-M+y)!}}
-\frac{1}{x! (N-x)!}
-\Gamma(x+\alpha) \Gamma(N-x + \beta)
-\\ &amp;=
-\frac{1}{(x-y)! (N-x-M+y)!}
-\Gamma(x+\alpha) \Gamma(N-x + \beta)
-\\ &amp; = (*) \propto f(x-y|N-M, \alpha+y, \beta + M-y)
-\end{align*}
-</span> <span class="math inline">\square</span></p>
+\\
+PE_{p, 2i+1}   &amp;=&amp;   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\right)}} \right)
+\end{cases}
+</span></p>
+<section id="model-input" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="model-input"><span class="header-section-number">3.1</span> Model Input</h2>
+<p>Model recieves <span class="math inline">X + PE : (s,d)</span></p>
+</section>
+</section>
+<section id="self-attention" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Self Attention</h1>
+<p>This mechanism is what changed everything.</p>
+<section id="attention-definition" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="attention-definition"><span class="header-section-number">4.1</span> Attention Definition</h2>
+<p>Let Query, Key and Value Matricies be <span class="math inline">\boldsymbol{Q}:(t,d_k)</span>, <span class="math inline">\boldsymbol{K}:(s,d_k)</span> and <span class="math inline">\boldsymbol{V}:(s,d_v)</span>. We also let <span class="math inline">t \in \mathbb{N}</span> denote a sequence length not neccessarily equal to <span class="math inline">s \in \mathbb{N}</span>.</p>
+<div id="def-Attention" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> <span class="math inline">\text{Attention}: (t,d_k) \times (s,d_k) \times (s,d_v) \to (s,d_v)</span> maps</p>
+<p><span class="math display">
+\boldsymbol{Q,K,V} \mapsto
+\sigma \left( \dfrac{\boldsymbol{Q K^T}}{\sqrt{d_k}} \right) \boldsymbol{V}
+: (t,d_v)
+</span> for row wise softmax <span class="math inline">\sigma</span></p>
 </div>
-<p>Reference other file <a href="../../math_notes/linear_models/linear_models.html">here</a>.</p>
+</section>
+<section id="explanation" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="explanation"><span class="header-section-number">4.2</span> Explanation</h2>
+<p>Write the matricies as, <span class="math display">
+\boldsymbol{Q}=
+\begin{bmatrix}
+   \boldsymbol{q_1^T}   \\
+   \vdots   \\
+   \boldsymbol{q_s^T}
+\end{bmatrix}
+\boldsymbol{K}=
+\begin{bmatrix}
+   \boldsymbol{k_1^T}   \\
+   \vdots   \\
+   \boldsymbol{k_s^T}
+\end{bmatrix}
+\boldsymbol{V}=
+\begin{bmatrix}
+   \boldsymbol{v_1^T}   \\
+   \vdots   \\
+   \boldsymbol{v_s^T}
+\end{bmatrix}
+\text{for }
+\boldsymbol{q_i, k_i, v_i} \in \mathbb{R}^{d_v}, i=1,...,s
+</span></p>
+<p>We see that <span class="math inline">\boldsymbol{Z}_{i,j}\coloneqq \boldsymbol{QK^T}_{i,j} = \boldsymbol{q_i \cdotp k_j}</span> is like a similarity score between query <span class="math inline">i</span> and key <span class="math inline">j</span>.</p>
+<section id="compatibility-function" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="compatibility-function"><span class="header-section-number">4.2.1</span> Compatibility Function</h3>
+<p>If we observe the softmax applied to <span class="math inline">\boldsymbol{Z}</span>, we see that each element is a compatibility function, <span class="math inline">\alpha</span>, between query <span class="math inline">i</span> and key <span class="math inline">j</span>. <span class="math display">
+\sigma \left( \boldsymbol{Z} \right)_{i,j} =
+\cfrac{
+   \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{Z}_{i,j} \right)
+   }
+   {\sum_{r=1}^s \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{Z}_{i,r} \right)
+   } =
+\cfrac{
+   \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{q_i \cdotp k_j} \right)
+   }
+   {\sum_{r=1}^s \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{q_i \cdotp k_r} \right)
+   } =
+\cfrac{\text{score}(i,j)}{\sum_{r=1}^s \text{score}(i,r)}
+\equalscolon
+\alpha(\boldsymbol{q_i},\boldsymbol{K},j)
+</span></p>
+<p>Let <span class="math inline">\boldsymbol{A} \coloneqq \text{Attention}(\boldsymbol{Q,K,V})</span>, then</p>
+<p><span class="math display">
+\begin{align*}
+\boldsymbol{A}_{i,j}
+= \sum_{r=1}^s \sigma \left( \boldsymbol{Z} \right)_{i,r}  \boldsymbol{V}_{r,j}
+&amp;= \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},j) [\boldsymbol{v_r}]_j
+\\
+\implies
+\text{row}_i \left( \boldsymbol{A} \right)
+&amp;= \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},j) \boldsymbol{v_r^T}
+\in \mathbb{R}^{1,d_v}
+\end{align*}
+</span></p>
+<p>row <span class="math inline">i</span> of <span class="math inline">\boldsymbol{A}</span> is the sum of values, each weighted by query <span class="math inline">i</span>’s similarity with that key.</p>
+</section>
+</section>
+<section id="remarks" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="remarks"><span class="header-section-number">4.3</span> Remarks</h2>
+<section id="attention-is-permutation-invariant" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="attention-is-permutation-invariant"><span class="header-section-number">4.3.1</span> Attention is permutation invariant</h3>
+<p>Notice that row <span class="math inline">i</span> of <span class="math inline">\boldsymbol{A}</span> is a function of <span class="math inline">\boldsymbol{q_i, K,V}</span>, <span class="math display">
+\text{row}_i \left( \boldsymbol{A} \right) =
+\sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},j) \boldsymbol{v_r^T}
+\eqqcolon f(\boldsymbol{q_i, K,V})
+</span></p>
+<p>Therefore if we permute two rows of A, the output of Attention has the same two rows permuted.</p>
+</section>
+</section>
+</section>
+<section id="muti-head-attention" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Muti Head Attention</h1>
+<p>Let <span class="math inline">\boldsymbol{Q}:(t,d_q), \boldsymbol{K}:(s,d_k), \boldsymbol{V}:(s,d_v)</span>.</p>
+<div id="def-MHA" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> Given sequence length <span class="math inline">s,t \in \mathbb{N}</span>, dimension lengths <span class="math inline">d_q, d_k, d_v, d \in \mathbb{N}</span>, <span class="math inline">h\in \mathbb{N}</span> that divides <span class="math inline">d</span> and parameters <span class="math inline">\boldsymbol{W_i^Q, W_i^K, W_i^V}</span>, for <span class="math inline">i=1,...,h</span>.</p>
+<p><span class="math inline">\text{MultiHeadAttention}: (t,d_q) \times (s,d_k) \times (s,d_v) \to (s,d)</span> maps</p>
+<p><span class="math display">
+\begin{split}
+\boldsymbol{Q,K,V}
+\mapsto
+\left[ \boldsymbol{H_1},...,\boldsymbol{H_h} \right]
+: (s,d)
+\\ \\
+\boldsymbol{H_i}
+\coloneqq
+\text{Attention} \left( \boldsymbol{Q'_i}, \boldsymbol{K'_i}, \boldsymbol{V'_i} \right)
+:(s,d_h)
+\\ \\
+\begin{array}{cc}
+   \boldsymbol{Q'_i} &amp;  = &amp; \boldsymbol{Q} &amp; \boldsymbol{W_i^Q} &amp;:(t,d_h), \\
+   &amp; &amp; (t,d_q) &amp; (d_q,d_h) &amp;
+   \\ \\
+   \boldsymbol{K'_i} &amp;  = &amp; \boldsymbol{K} &amp; \boldsymbol{W_i^K} &amp;:(s,d_h) \\
+   &amp; &amp; (s,d_k) &amp; (d_k,d_h) &amp;
+   \\ \\
+   \boldsymbol{V'_i} &amp;  = &amp; \boldsymbol{V} &amp; \boldsymbol{W_i^V} &amp;:(s,d_h) \\
+   &amp; &amp; (s,d_v) &amp; (d_v,d_h) &amp;
+   \\
+\end{array}
+\\ i=1,...,h, \quad d_h \coloneqq \frac{d}{h}
+\end{split}
+</span></p>
+</div>
+<section id="old-def" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="old-def"><span class="header-section-number">5.1</span> Old Def</h2>
+<p>Let <span class="math inline">s</span> be sequence length, <span class="math inline">d</span> be model dimension, <span class="math inline">h</span> be the number of heads and <span class="math inline">d_k=d_v=\frac{d}{h}</span>.</p>
+<p>Let <span class="math inline">\boldsymbol{Q,K,V}</span> be of dimension <span class="math inline">(s,d)</span>.</p>
+<p>Define,<br>
+<span class="math display">
+\begin{align*}
+\text{MultiHeadAttention}(\boldsymbol{Q,K,V})
+&amp;= [\boldsymbol{H_1},..., \boldsymbol{H_h}]
+&amp;&amp;:(s,h\times d_v = d)
+\\
+\boldsymbol{H_i}
+&amp;=
+\text{Attention}
+\left( \boldsymbol{QW_i^Q}, \boldsymbol{KW_i^K}, \boldsymbol{VW_i^V} \right)
+&amp;&amp;:(s, d_v)
+\end{align*}
+</span></p>
+<p>Where matricies</p>
+<p><span class="math display">
+\begin{array}{ccc}
+\boldsymbol{W^Q} =
+[\boldsymbol{W_1^Q} ,...,\boldsymbol{W_1^Q}], &amp;
+\boldsymbol{W^K} =
+[\boldsymbol{W_1^K} ,...,\boldsymbol{W_1^K}], &amp;
+\boldsymbol{W^Q} =
+[\boldsymbol{W_1^V} ,...,\boldsymbol{W_1^V}]
+\end{array}
+:(d,d)
+</span></p>
+<p>are learnable parameters with <span class="math inline">\boldsymbol{W_i^Q},\boldsymbol{W_i^K},\boldsymbol{W_i^V}:(d,d_v)</span> for <span class="math inline">i=1,...,h</span>.</p>
+<p>This is essentially a trick to do all the compute in one go.</p>
+<p><span class="math display">
+\begin{align*}
+\boldsymbol{QW^Q}
+&amp;= [\boldsymbol{QW_1^Q} ,...,\boldsymbol{QW_h^Q}]
+&amp;&amp;:(s,d)
+\\
+&amp;= [
+\underset{\textstyle (s,d_v)}{\boldsymbol{Q} \boldsymbol{W_1^Q}}
+,...,
+\underset{\textstyle (s,d_v)}{\boldsymbol{Q} \boldsymbol{W_h^Q}}
+]
+&amp;&amp;:(s,d)
+\end{align*}
+</span></p>
+<p>The general idea with different heads is for different heads to learn different roles that words can play.</p>
+</section>
+<section id="attention-visualisation" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="attention-visualisation"><span class="header-section-number">5.2</span> Attention Visualisation</h2>
+<p>The diagrams in the paper are show the similarity between words according to <span class="math inline">\sigma \left( \frac{\boldsymbol{QK^T}}{\sqrt{d_k}} \right)</span> of each head.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

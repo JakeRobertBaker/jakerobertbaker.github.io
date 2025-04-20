@@ -5,16 +5,12 @@ project:
 website:
   title: "Jake Notes"
   open-graph: true
-  
-  navbar:
-    left:
-      - about.qmd
-      - href: math_notes/bayesian_inference/ballot_notes.qmd
-        text: Ballot Bayesian Analysis
-      - href: math_notes/linear_models/linear_models.qmd
-        text: Linear Models and ANOVA Proof
 
-    right:
+  sidebar:
+    style: "docked"
+    search: true
+
+    tools:
       - icon: github
         href: https://github.com/JakeRobertBaker
         aria-label: GitHub
@@ -22,6 +18,24 @@ website:
       - icon: linkedin
         href: https://www.linkedin.com/in/jake-robert-baker/
         aria-label: LinkedIn
+
+    
+    contents:
+      - text: "About"
+        href: about.qmd
+      - section: "Bayes"
+        contents: 
+        - text: Ballot Analysis
+          href: math_notes/bayesian_inference/ballot_notes.qmd
+      - section: "Traditional Statistics"
+        contents: 
+        - text: OLS and ANOVA
+          href: math_notes/linear_models/linear_models.qmd
+      - section: "Deep Learning"
+        contents: 
+        - text: "Attention Is All You Need"
+          href: math_notes/transformers/attention.qmd
+        
 
 format:
   html:

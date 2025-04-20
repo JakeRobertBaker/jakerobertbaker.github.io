@@ -1,1 +1,40 @@
 /* css styles */
+/* Common box styling */
+.theorem, .definition, .lemma {
+    padding: 1em;
+    margin: 1.2em 0;
+    border-left: 5px solid;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Theorem styling */
+  .theorem {
+    border-color: #4f46e5;         /* Indigo */
+    background-color: #eef2ff;     /* Light indigo */
+  }
+  
+  /* Lemma styling */
+  .lemma {
+    border-color: #16a34a;         /* Green */
+    background-color: #f0fdf4;     /* Light green */
+  }
+  
+  /* Definition styling */
+  .definition {
+    border-color: #0ea5e9;         /* Sky blue */
+    background-color: #f0f9ff;     /* Light sky blue */
+  }
+  
+
+  /* Proof styling */
+.proof {
+    padding: 1em;
+    margin: 1.2em 0;
+    border-left: 5px solid #9ca3af;  /* Gray border */
+    border-radius: 8px;
+    /* background-color: #f9fafb;       Light gray background */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    font-style: normal;
+  }

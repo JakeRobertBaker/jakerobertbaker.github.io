@@ -38,12 +38,10 @@ Suppose there are $N$ balls, $X$ of the balls are red. Suppose we sample $M$ bal
 $$
 \mathbb{P}(Y=y) = \frac{{x \choose y} {N-X \choose M-y}}{N \choose M}
 $$
-
+:::
 
 ::: {.proof}
 As a result of the multiplication principle. The number of combinations that contain y red balls is ${X \choose y} \times {N-X \choose M-y}$.
-:::
-
 :::
 
 # Conjugate Prior
@@ -59,6 +57,7 @@ then likelihood of $Y$ given $X$ is hypergeometric and the posterior distributio
 $$
 p(x|y) = f(x-y|N-M, \alpha+y, \beta + M-y)
 $$ 
+:::
 
 ::: {.proof}
 Notice that if we consider $x$ the only variable,
@@ -95,8 +94,6 @@ p(x|y) \propto p(y|x)p(x)
 \end{align*}
 $$
 $\square$
-:::
-
 :::
 
 Reference other file [here](../linear_models/linear_models.qmd).
