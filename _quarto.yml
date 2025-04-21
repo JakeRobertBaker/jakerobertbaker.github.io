@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  render: 
+    - "about.qmd"
+    - "math_notes/*"
 
 website:
   title: "Jake Notes"
@@ -37,10 +40,12 @@ website:
           href: math_notes/transformers/attention.qmd
         
 
+
 format:
-  html:
-    theme: cosmo
-    css: styles.css
+  html: 
+    theme:
+      light: [scss_files/actual/flatly_custom.scss, scss_files/actual/light_theorems.scss, scss_files/actual/light_colours.scss]
+      dark: [scss_files/actual/darkly_custom.scss, scss_files/actual/dark_theorems.scss, scss_files/actual/dark_colours.scss]
     toc: true
     toc-location: left
 
