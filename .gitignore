@@ -7,3 +7,5 @@ tex_plots/**/*.fls
 tex_plots/**/*.log
 tex_plots/**/*.gz
 tex_plots/**/*.fdb_latexmk
+
+/scss_files/examples

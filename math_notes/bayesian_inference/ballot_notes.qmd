@@ -45,7 +45,7 @@ As a result of the multiplication principle. The number of combinations that con
 :::
 
 # Conjugate Prior
-::: {#lem-hypergeometric-conjugate}
+::: {#thm-hypergeometric-conjugate}
 Suppose there are $N$ ballots and we sample $M \in \{1, ..., N \}$. Let the random variable $X$ be the total number of Labour ballots. Let $Y$ be the number of Labour ballots in the sample.
 
 If we place the following prior on $X$,

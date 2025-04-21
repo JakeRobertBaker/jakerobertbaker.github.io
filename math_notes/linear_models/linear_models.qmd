@@ -19,7 +19,7 @@ $(\mathbf{z_i})_{i=1}^n$
 are independantly identically distributed $\mathcal{N}(\mathbf{0,I_n})$.
 :::
 
-::: {.callout-note}
+::: {.callout-note appearance="minimal"}
 If a vector in standard normal w.r.t one basis then it is standard normal w.r.t any basis.
 :::
 
@@ -222,7 +222,10 @@ $\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}$ since 
 
 Since $\mathbf{\hat{y}} \in U$ and $\hat{\varepsilon} \in U^\perp$ are perpendicular the same therefore holds for $\mathbf{P_{1^\perp}\hat{y}} \in U \cap \mathbf{1^\perp}$ and $\hat{\varepsilon} \in U^\perp$.
 
+
+
 The following picture summarises things well.
+
 ![projections](../../tex_plots/R2_squared_correlation_proof/triangle.png){width=50%}
 
 ::: {.callout-note appearance="minimal"}
