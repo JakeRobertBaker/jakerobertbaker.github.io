@@ -195,12 +195,12 @@ $$
 \boldsymbol{Q,K,V} 
  \mapsto
 \left[ \boldsymbol{H_1},...,\boldsymbol{H_h} \right]
-: (s,d)
+: (t,d)
 \\ \\
 \boldsymbol{H_i} 
  \coloneqq 
 \text{Attention} \left( \boldsymbol{Q'_i}, \boldsymbol{K'_i}, \boldsymbol{V'_i} \right)
-:(s,d_h)
+:(t,d_h)
 \\ \\
 \begin{array}{ccccc}
    \boldsymbol{Q'_i} &  = & \boldsymbol{Q} & \boldsymbol{W_i^Q} &:(t,d_h), \\
