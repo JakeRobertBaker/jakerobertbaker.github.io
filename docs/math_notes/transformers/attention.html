@@ -244,8 +244,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#muti-head-attention" id="toc-muti-head-attention" class="nav-link" data-scroll-target="#muti-head-attention"><span class="header-section-number">5</span> Muti Head Attention</a>
   <ul class="collapse">
-  <li><a href="#old-def" id="toc-old-def" class="nav-link" data-scroll-target="#old-def"><span class="header-section-number">5.1</span> Old Def</a></li>
-  <li><a href="#attention-visualisation" id="toc-attention-visualisation" class="nav-link" data-scroll-target="#attention-visualisation"><span class="header-section-number">5.2</span> Attention Visualisation</a></li>
+  <li><a href="#attention-visualisation" id="toc-attention-visualisation" class="nav-link" data-scroll-target="#attention-visualisation"><span class="header-section-number">5.1</span> Attention Visualisation</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -397,7 +396,7 @@ PE_{p, 2i+1}   &amp;=&amp;   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\r
    {\sum_{r=1}^s \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{q_i \cdotp k_r} \right)
    } =
 \cfrac{\text{score}(i,j)}{\sum_{r=1}^s \text{score}(i,r)}
-\equalscolon
+\eqqcolon
 \alpha(\boldsymbol{q_i},\boldsymbol{K},j)
 </span></p>
 <p>Let <span class="math inline">\boldsymbol{A} \coloneqq \text{Attention}(\boldsymbol{Q,K,V})</span>, then</p>
@@ -447,7 +446,7 @@ PE_{p, 2i+1}   &amp;=&amp;   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\r
 \text{Attention} \left( \boldsymbol{Q'_i}, \boldsymbol{K'_i}, \boldsymbol{V'_i} \right)
 :(s,d_h)
 \\ \\
-\begin{array}{cc}
+\begin{array}{ccccc}
    \boldsymbol{Q'_i} &amp;  = &amp; \boldsymbol{Q} &amp; \boldsymbol{W_i^Q} &amp;:(t,d_h), \\
    &amp; &amp; (t,d_q) &amp; (d_q,d_h) &amp;
    \\ \\
@@ -462,56 +461,36 @@ PE_{p, 2i+1}   &amp;=&amp;   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\r
 \end{split}
 </span></p>
 </div>
-<section id="old-def" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="old-def"><span class="header-section-number">5.1</span> Old Def</h2>
-<p>Let <span class="math inline">s</span> be sequence length, <span class="math inline">d</span> be model dimension, <span class="math inline">h</span> be the number of heads and <span class="math inline">d_k=d_v=\frac{d}{h}</span>.</p>
-<p>Let <span class="math inline">\boldsymbol{Q,K,V}</span> be of dimension <span class="math inline">(s,d)</span>.</p>
-<p>Define,<br>
-<span class="math display">
-\begin{align*}
-\text{MultiHeadAttention}(\boldsymbol{Q,K,V})
-&amp;= [\boldsymbol{H_1},..., \boldsymbol{H_h}]
-&amp;&amp;:(s,h\times d_v = d)
+<p>In practise we do the matrix multiplication all in one and then split. <span class="math display">
+\begin{array}{llllll}
+\boldsymbol{W^Q} &amp;= &amp;[\boldsymbol{W_1^Q}, &amp;...,  &amp;\boldsymbol{W_h^Q} ] &amp;:(d_q,d)
 \\
-\boldsymbol{H_i}
-&amp;=
-\text{Attention}
-\left( \boldsymbol{QW_i^Q}, \boldsymbol{KW_i^K}, \boldsymbol{VW_i^V} \right)
-&amp;&amp;:(s, d_v)
-\end{align*}
-</span></p>
-<p>Where matricies</p>
-<p><span class="math display">
-\begin{array}{ccc}
-\boldsymbol{W^Q} =
-[\boldsymbol{W_1^Q} ,...,\boldsymbol{W_1^Q}], &amp;
-\boldsymbol{W^K} =
-[\boldsymbol{W_1^K} ,...,\boldsymbol{W_1^K}], &amp;
-\boldsymbol{W^Q} =
-[\boldsymbol{W_1^V} ,...,\boldsymbol{W_1^V}]
+&amp;&amp;(d_q,d_h) &amp;   &amp;(d_q,d_h) &amp;
+\\ \\
+\boldsymbol{QW^Q} &amp;= &amp;[\boldsymbol{QW_1^Q}, &amp;...,  &amp;\boldsymbol{QW_h^Q} ] &amp;:(t,d)
+\\
+&amp;&amp;(t,d_h) &amp;   &amp;(t,d_h) &amp;
+\\ \\ \hline \\
+\boldsymbol{W^K} &amp;= &amp;[\boldsymbol{W_1^K}, &amp;...,  &amp;\boldsymbol{W_h^K} ] &amp;:(d_k,d)
+\\
+&amp;&amp;(d_k,d_h) &amp;   &amp;(d_k,d_h) &amp;
+\\ \\
+\boldsymbol{KW^K} &amp;= &amp;[\boldsymbol{KW_1^K}, &amp;...,  &amp;\boldsymbol{KW_h^K} ] &amp;:(s,d)
+\\
+&amp;&amp;(s,d_h) &amp;   &amp;(s,d_h) &amp;
+\\ \\ \hline \\
+\boldsymbol{W^V} &amp;= &amp;[\boldsymbol{W_1^V}, &amp;...,  &amp;\boldsymbol{W_h^V} ] &amp;:(d_v,d)
+\\
+&amp;&amp;(d_v,d_h) &amp;   &amp;(d_v,d_h) &amp;
+\\ \\
+\boldsymbol{VW^V} &amp;= &amp;[\boldsymbol{VW_1^V}, &amp;...,  &amp;\boldsymbol{VW_h^V} ] &amp;:(s,d)
+\\
+&amp;&amp;(s,d_h) &amp;   &amp;(s,d_h) &amp;
 \end{array}
-:(d,d)
-</span></p>
-<p>are learnable parameters with <span class="math inline">\boldsymbol{W_i^Q},\boldsymbol{W_i^K},\boldsymbol{W_i^V}:(d,d_v)</span> for <span class="math inline">i=1,...,h</span>.</p>
-<p>This is essentially a trick to do all the compute in one go.</p>
-<p><span class="math display">
-\begin{align*}
-\boldsymbol{QW^Q}
-&amp;= [\boldsymbol{QW_1^Q} ,...,\boldsymbol{QW_h^Q}]
-&amp;&amp;:(s,d)
-\\
-&amp;= [
-\underset{\textstyle (s,d_v)}{\boldsymbol{Q} \boldsymbol{W_1^Q}}
-,...,
-\underset{\textstyle (s,d_v)}{\boldsymbol{Q} \boldsymbol{W_h^Q}}
-]
-&amp;&amp;:(s,d)
-\end{align*}
 </span></p>
 <p>The general idea with different heads is for different heads to learn different roles that words can play.</p>
-</section>
-<section id="attention-visualisation" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="attention-visualisation"><span class="header-section-number">5.2</span> Attention Visualisation</h2>
+<section id="attention-visualisation" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="attention-visualisation"><span class="header-section-number">5.1</span> Attention Visualisation</h2>
 <p>The diagrams in the paper are show the similarity between words according to <span class="math inline">\sigma \left( \frac{\boldsymbol{QK^T}}{\sqrt{d_k}} \right)</span> of each head.</p>
 
 

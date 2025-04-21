@@ -48,7 +48,7 @@
     "href": "math_notes/transformers/attention.html#explanation",
     "title": "Attention Transformer Details",
     "section": "4.2 Explanation",
-    "text": "4.2 Explanation\nWrite the matricies as, \n\\boldsymbol{Q}=\n\\begin{bmatrix}\n   \\boldsymbol{q_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{q_s^T}\n\\end{bmatrix}\n\\boldsymbol{K}=\n\\begin{bmatrix}\n   \\boldsymbol{k_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{k_s^T}\n\\end{bmatrix}\n\\boldsymbol{V}=\n\\begin{bmatrix}\n   \\boldsymbol{v_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{v_s^T}\n\\end{bmatrix}\n\\text{for }\n\\boldsymbol{q_i, k_i, v_i} \\in \\mathbb{R}^{d_v}, i=1,...,s\n\nWe see that \\boldsymbol{Z}_{i,j}\\coloneqq \\boldsymbol{QK^T}_{i,j} = \\boldsymbol{q_i \\cdotp k_j} is like a similarity score between query i and key j.\n\n4.2.1 Compatibility Function\nIf we observe the softmax applied to \\boldsymbol{Z}, we see that each element is a compatibility function, \\alpha, between query i and key j. \n\\sigma \\left( \\boldsymbol{Z} \\right)_{i,j} =\n\\cfrac{\n   \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{Z}_{i,j} \\right)\n   }\n   {\\sum_{r=1}^s \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{Z}_{i,r} \\right)\n   } =\n\\cfrac{\n   \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{q_i \\cdotp k_j} \\right)\n   }\n   {\\sum_{r=1}^s \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{q_i \\cdotp k_r} \\right)\n   } =\n\\cfrac{\\text{score}(i,j)}{\\sum_{r=1}^s \\text{score}(i,r)}\n\\equalscolon\n\\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j)\n\nLet \\boldsymbol{A} \\coloneqq \\text{Attention}(\\boldsymbol{Q,K,V}), then\n\n\\begin{align*}\n\\boldsymbol{A}_{i,j}\n= \\sum_{r=1}^s \\sigma \\left( \\boldsymbol{Z} \\right)_{i,r}  \\boldsymbol{V}_{r,j}\n&= \\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j) [\\boldsymbol{v_r}]_j\n\\\\\n\\implies\n\\text{row}_i \\left( \\boldsymbol{A} \\right)\n&= \\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j) \\boldsymbol{v_r^T}\n\\in \\mathbb{R}^{1,d_v}\n\\end{align*}\n\nrow i of \\boldsymbol{A} is the sum of values, each weighted by query i’s similarity with that key.",
+    "text": "4.2 Explanation\nWrite the matricies as, \n\\boldsymbol{Q}=\n\\begin{bmatrix}\n   \\boldsymbol{q_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{q_s^T}\n\\end{bmatrix}\n\\boldsymbol{K}=\n\\begin{bmatrix}\n   \\boldsymbol{k_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{k_s^T}\n\\end{bmatrix}\n\\boldsymbol{V}=\n\\begin{bmatrix}\n   \\boldsymbol{v_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{v_s^T}\n\\end{bmatrix}\n\\text{for }\n\\boldsymbol{q_i, k_i, v_i} \\in \\mathbb{R}^{d_v}, i=1,...,s\n\nWe see that \\boldsymbol{Z}_{i,j}\\coloneqq \\boldsymbol{QK^T}_{i,j} = \\boldsymbol{q_i \\cdotp k_j} is like a similarity score between query i and key j.\n\n4.2.1 Compatibility Function\nIf we observe the softmax applied to \\boldsymbol{Z}, we see that each element is a compatibility function, \\alpha, between query i and key j. \n\\sigma \\left( \\boldsymbol{Z} \\right)_{i,j} =\n\\cfrac{\n   \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{Z}_{i,j} \\right)\n   }\n   {\\sum_{r=1}^s \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{Z}_{i,r} \\right)\n   } =\n\\cfrac{\n   \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{q_i \\cdotp k_j} \\right)\n   }\n   {\\sum_{r=1}^s \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{q_i \\cdotp k_r} \\right)\n   } =\n\\cfrac{\\text{score}(i,j)}{\\sum_{r=1}^s \\text{score}(i,r)}\n\\eqqcolon\n\\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j)\n\nLet \\boldsymbol{A} \\coloneqq \\text{Attention}(\\boldsymbol{Q,K,V}), then\n\n\\begin{align*}\n\\boldsymbol{A}_{i,j}\n= \\sum_{r=1}^s \\sigma \\left( \\boldsymbol{Z} \\right)_{i,r}  \\boldsymbol{V}_{r,j}\n&= \\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j) [\\boldsymbol{v_r}]_j\n\\\\\n\\implies\n\\text{row}_i \\left( \\boldsymbol{A} \\right)\n&= \\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j) \\boldsymbol{v_r^T}\n\\in \\mathbb{R}^{1,d_v}\n\\end{align*}\n\nrow i of \\boldsymbol{A} is the sum of values, each weighted by query i’s similarity with that key.",
     "crumbs": [
       "Deep Learning",
       "Attention Is All You Need"
@@ -66,22 +66,11 @@
     ]
   },
   {
-    "objectID": "math_notes/transformers/attention.html#old-def",
-    "href": "math_notes/transformers/attention.html#old-def",
-    "title": "Attention Transformer Details",
-    "section": "5.1 Old Def",
-    "text": "5.1 Old Def\nLet s be sequence length, d be model dimension, h be the number of heads and d_k=d_v=\\frac{d}{h}.\nLet \\boldsymbol{Q,K,V} be of dimension (s,d).\nDefine,\n\n\\begin{align*}\n\\text{MultiHeadAttention}(\\boldsymbol{Q,K,V})\n&= [\\boldsymbol{H_1},..., \\boldsymbol{H_h}]\n&&:(s,h\\times d_v = d)\n\\\\\n\\boldsymbol{H_i}\n&=\n\\text{Attention}\n\\left( \\boldsymbol{QW_i^Q}, \\boldsymbol{KW_i^K}, \\boldsymbol{VW_i^V} \\right)\n&&:(s, d_v)\n\\end{align*}\n\nWhere matricies\n\n\\begin{array}{ccc}\n\\boldsymbol{W^Q} =\n[\\boldsymbol{W_1^Q} ,...,\\boldsymbol{W_1^Q}], &\n\\boldsymbol{W^K} =\n[\\boldsymbol{W_1^K} ,...,\\boldsymbol{W_1^K}], &\n\\boldsymbol{W^Q} =\n[\\boldsymbol{W_1^V} ,...,\\boldsymbol{W_1^V}]\n\\end{array}\n:(d,d)\n\nare learnable parameters with \\boldsymbol{W_i^Q},\\boldsymbol{W_i^K},\\boldsymbol{W_i^V}:(d,d_v) for i=1,...,h.\nThis is essentially a trick to do all the compute in one go.\n\n\\begin{align*}\n\\boldsymbol{QW^Q}\n&= [\\boldsymbol{QW_1^Q} ,...,\\boldsymbol{QW_h^Q}]\n&&:(s,d)\n\\\\\n&= [\n\\underset{\\textstyle (s,d_v)}{\\boldsymbol{Q} \\boldsymbol{W_1^Q}}\n,...,\n\\underset{\\textstyle (s,d_v)}{\\boldsymbol{Q} \\boldsymbol{W_h^Q}}\n]\n&&:(s,d)\n\\end{align*}\n\nThe general idea with different heads is for different heads to learn different roles that words can play.",
-    "crumbs": [
-      "Deep Learning",
-      "Attention Is All You Need"
-    ]
-  },
-  {
     "objectID": "math_notes/transformers/attention.html#attention-visualisation",
     "href": "math_notes/transformers/attention.html#attention-visualisation",
     "title": "Attention Transformer Details",
-    "section": "5.2 Attention Visualisation",
-    "text": "5.2 Attention Visualisation\nThe diagrams in the paper are show the similarity between words according to \\sigma \\left( \\frac{\\boldsymbol{QK^T}}{\\sqrt{d_k}} \\right) of each head.",
+    "section": "5.1 Attention Visualisation",
+    "text": "5.1 Attention Visualisation\nThe diagrams in the paper are show the similarity between words according to \\sigma \\left( \\frac{\\boldsymbol{QK^T}}{\\sqrt{d_k}} \\right) of each head.",
     "crumbs": [
       "Deep Learning",
       "Attention Is All You Need"

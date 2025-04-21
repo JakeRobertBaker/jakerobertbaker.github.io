@@ -15,7 +15,6 @@ diagram:
 
 # Transformer Overview
 
-
 Input Matrix 
 $X \in \mathbb{R}^{s \times d}$. Let's denote as 
 $X : (s,d)$ since it is more readable. We mean s and d to mean sequence length and dimension of model respectively.
@@ -143,7 +142,7 @@ $$
    {\sum_{r=1}^s \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{q_i \cdotp k_r} \right)
    } = 
 \cfrac{\text{score}(i,j)}{\sum_{r=1}^s \text{score}(i,r)}
-\equalscolon 
+\eqqcolon 
 \alpha(\boldsymbol{q_i},\boldsymbol{K},j)
 $$
 
@@ -198,7 +197,7 @@ $$
 \text{Attention} \left( \boldsymbol{Q'_i}, \boldsymbol{K'_i}, \boldsymbol{V'_i} \right)
 :(s,d_h)
 \\ \\
-\begin{array}{cc}
+\begin{array}{ccccc}
    \boldsymbol{Q'_i} &  = & \boldsymbol{Q} & \boldsymbol{W_i^Q} &:(t,d_h), \\
    & & (t,d_q) & (d_q,d_h) &
    \\ \\
@@ -215,60 +214,33 @@ $$
 
 :::
 
-
-## Old Def
-Let $s$ be sequence length, $d$ be model dimension, $h$ be the number of heads and $d_k=d_v=\frac{d}{h}$. 
-
-Let $\boldsymbol{Q,K,V}$ be of dimension $(s,d)$.
-
-Define,    
+In practise we do the matrix multiplication all in one and then split.
 $$
-\begin{align*}
-\text{MultiHeadAttention}(\boldsymbol{Q,K,V})
-&= [\boldsymbol{H_1},..., \boldsymbol{H_h}]
-&&:(s,h\times d_v = d)
+\begin{array}{llllll}
+\boldsymbol{W^Q} &= &[\boldsymbol{W_1^Q}, &...,  &\boldsymbol{W_h^Q} ] &:(d_q,d)
 \\
-\boldsymbol{H_i}
-&= 
-\text{Attention}
-\left( \boldsymbol{QW_i^Q}, \boldsymbol{KW_i^K}, \boldsymbol{VW_i^V} \right)
-&&:(s, d_v) 
-\end{align*} 
-$$
-
-Where matricies
-
-$$
-\begin{array}{ccc}
-\boldsymbol{W^Q} =
-[\boldsymbol{W_1^Q} ,...,\boldsymbol{W_1^Q}], &
-\boldsymbol{W^K} =
-[\boldsymbol{W_1^K} ,...,\boldsymbol{W_1^K}], &
-\boldsymbol{W^Q} =
-[\boldsymbol{W_1^V} ,...,\boldsymbol{W_1^V}]
+&&(d_q,d_h) &   &(d_q,d_h) &
+\\ \\
+\boldsymbol{QW^Q} &= &[\boldsymbol{QW_1^Q}, &...,  &\boldsymbol{QW_h^Q} ] &:(t,d)
+\\
+&&(t,d_h) &   &(t,d_h) &
+\\ \\ \hline \\
+\boldsymbol{W^K} &= &[\boldsymbol{W_1^K}, &...,  &\boldsymbol{W_h^K} ] &:(d_k,d)
+\\
+&&(d_k,d_h) &   &(d_k,d_h) &
+\\ \\
+\boldsymbol{KW^K} &= &[\boldsymbol{KW_1^K}, &...,  &\boldsymbol{KW_h^K} ] &:(s,d)
+\\
+&&(s,d_h) &   &(s,d_h) &
+\\ \\ \hline \\
+\boldsymbol{W^V} &= &[\boldsymbol{W_1^V}, &...,  &\boldsymbol{W_h^V} ] &:(d_v,d)
+\\
+&&(d_v,d_h) &   &(d_v,d_h) &
+\\ \\
+\boldsymbol{VW^V} &= &[\boldsymbol{VW_1^V}, &...,  &\boldsymbol{VW_h^V} ] &:(s,d)
+\\
+&&(s,d_h) &   &(s,d_h) &
 \end{array}
-:(d,d)
-$$
-
-are learnable parameters with 
-$\boldsymbol{W_i^Q},\boldsymbol{W_i^K},\boldsymbol{W_i^V}:(d,d_v)$ for 
-$i=1,...,h$.
-
-This is essentially a trick to do all the compute in one go.
-
-$$
-\begin{align*}
-\boldsymbol{QW^Q}
-&= [\boldsymbol{QW_1^Q} ,...,\boldsymbol{QW_h^Q}]
-&&:(s,d)
-\\
-&= [
-\underset{\textstyle (s,d_v)}{\boldsymbol{Q} \boldsymbol{W_1^Q}} 
-,...,
-\underset{\textstyle (s,d_v)}{\boldsymbol{Q} \boldsymbol{W_h^Q}} 
-]
-&&:(s,d)
-\end{align*}
 $$
 
 The general idea with different heads is for different heads to learn different roles that words can play.
