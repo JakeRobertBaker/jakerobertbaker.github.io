@@ -13,40 +13,35 @@ diagram:
   cache: true
 ---
 
-# Transformer Overview
+# Notation
+Let $(s,d)$ denote $\mathbb{R}^{s,d}$ and write $\boldsymbol{X} \in \mathbb{R}^{s \times d}$ as 
+$\boldsymbol{X} : (s,d)$.
 
-Input Matrix 
-$X \in \mathbb{R}^{s \times d}$. Let's denote as 
-$X : (s,d)$ since it is more readable. We mean s and d to mean sequence length and dimension of model respectively.
+Generally $s,t$ refere to sequence lengths and $d$ is the embedding dimension. 
 
 # Input Embeddings
 The raw text is a sequence of vocabulary terms. Tokenization is the process of splitting the sentence into a sequence of vocabulary terms. Vocab terms can be single words but often tokenizers split the sentences into smaller components than words. In illustrative examples we usually show tokens as words.
 
-## Example
+::: {#exm-input_embeds}
 $s=5$, $d$ is usually 512 in the traditional paper.
 $$
-\begin{array}{ccc}
-\text{Sentence}=
+\begin{align*}
 \begin{bmatrix}
 \text{THE} \\
 \text{WEATHER} \\
 \text{IS} \\
 \text{LOVELY} \\
 \text{TODAY}
-\end{bmatrix} &
-\mapsto
-\quad
-\text{Input IDs}=
+\end{bmatrix} 
+&\mapsto
 \begin{bmatrix}
 105 \\
 12 \\
 24 \\
 107 \\
 57
-\end{bmatrix} &
-\mapsto
-\quad
-\text{Embedding, } X: (5,d)=
+\end{bmatrix} 
+&&\mapsto
 \begin{bmatrix}
 \boldsymbol{x_1^T} \\
 \boldsymbol{x_2^T} \\
@@ -54,8 +49,16 @@ $$
 \boldsymbol{x_4^T} \\
 \boldsymbol{x_5^T}
 \end{bmatrix}
-\end{array}
+\\ \\
+\text{Sentence} 
+&\mapsto
+\text{Input IDs} 
+&&\mapsto
+\text{Embedding}:(5,d)
+\end{align*}
 $$
+:::
+
 
 # Positional Encoding
 Fixed definition for each position 
@@ -165,8 +168,9 @@ $$
 row $i$ of $\boldsymbol{A}$ is the sum of values, each weighted by query $i$'s similarity with that key.
 
 ## Remarks
+:::{#rem-attention-permutation}
+**Attention is permutation invariant**
 
-### Attention is permutation invariant
 Notice that row $i$ of $\boldsymbol{A}$ is a function of $\boldsymbol{q_i, K,V}$,
 $$
 \text{row}_i \left( \boldsymbol{A} \right) =
@@ -175,6 +179,7 @@ $$
 $$
 
 Therefore if we permute two rows of A, the output of Attention has the same two rows permuted.
+:::
 
 # Muti Head Attention
 Let $\boldsymbol{Q}:(t,d_q), \boldsymbol{K}:(s,d_k), \boldsymbol{V}:(s,d_v)$.

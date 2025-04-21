@@ -4,18 +4,7 @@
     "href": "math_notes/transformers/attention.html",
     "title": "Attention Transformer Details",
     "section": "",
-    "text": "Input Matrix X \\in \\mathbb{R}^{s \\times d}. Let’s denote as X : (s,d) since it is more readable. We mean s and d to mean sequence length and dimension of model respectively.",
-    "crumbs": [
-      "Deep Learning",
-      "Attention Is All You Need"
-    ]
-  },
-  {
-    "objectID": "math_notes/transformers/attention.html#example",
-    "href": "math_notes/transformers/attention.html#example",
-    "title": "Attention Transformer Details",
-    "section": "2.1 Example",
-    "text": "2.1 Example\ns=5, d is usually 512 in the traditional paper. \n\\begin{array}{ccc}\n\\text{Sentence}=\n\\begin{bmatrix}\n\\text{THE} \\\\\n\\text{WEATHER} \\\\\n\\text{IS} \\\\\n\\text{LOVELY} \\\\\n\\text{TODAY}\n\\end{bmatrix} &\n\\mapsto\n\\quad\n\\text{Input IDs}=\n\\begin{bmatrix}\n105 \\\\\n12 \\\\\n24 \\\\\n107 \\\\\n57\n\\end{bmatrix} &\n\\mapsto\n\\quad\n\\text{Embedding, } X: (5,d)=\n\\begin{bmatrix}\n\\boldsymbol{x_1^T} \\\\\n\\boldsymbol{x_2^T} \\\\\n\\boldsymbol{x_3^T} \\\\\n\\boldsymbol{x_4^T} \\\\\n\\boldsymbol{x_5^T}\n\\end{bmatrix}\n\\end{array}",
+    "text": "Let (s,d) denote \\mathbb{R}^{s,d} and write \\boldsymbol{X} \\in \\mathbb{R}^{s \\times d} as \\boldsymbol{X} : (s,d).\nGenerally s,t refere to sequence lengths and d is the embedding dimension.",
     "crumbs": [
       "Deep Learning",
       "Attention Is All You Need"
@@ -59,7 +48,7 @@
     "href": "math_notes/transformers/attention.html#remarks",
     "title": "Attention Transformer Details",
     "section": "4.3 Remarks",
-    "text": "4.3 Remarks\n\n4.3.1 Attention is permutation invariant\nNotice that row i of \\boldsymbol{A} is a function of \\boldsymbol{q_i, K,V}, \n\\text{row}_i \\left( \\boldsymbol{A} \\right) =\n\\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j) \\boldsymbol{v_r^T}\n\\eqqcolon f(\\boldsymbol{q_i, K,V})\n\nTherefore if we permute two rows of A, the output of Attention has the same two rows permuted.",
+    "text": "4.3 Remarks\n\nRemark 1. Attention is permutation invariant\nNotice that row i of \\boldsymbol{A} is a function of \\boldsymbol{q_i, K,V}, \n\\text{row}_i \\left( \\boldsymbol{A} \\right) =\n\\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j) \\boldsymbol{v_r^T}\n\\eqqcolon f(\\boldsymbol{q_i, K,V})\n\nTherefore if we permute two rows of A, the output of Attention has the same two rows permuted.",
     "crumbs": [
       "Deep Learning",
       "Attention Is All You Need"

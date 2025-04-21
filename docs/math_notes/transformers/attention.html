@@ -221,11 +221,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#transformer-overview" id="toc-transformer-overview" class="nav-link active" data-scroll-target="#transformer-overview"><span class="header-section-number">1</span> Transformer Overview</a></li>
-  <li><a href="#input-embeddings" id="toc-input-embeddings" class="nav-link" data-scroll-target="#input-embeddings"><span class="header-section-number">2</span> Input Embeddings</a>
-  <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example"><span class="header-section-number">2.1</span> Example</a></li>
-  </ul></li>
+  <li><a href="#notation" id="toc-notation" class="nav-link active" data-scroll-target="#notation"><span class="header-section-number">1</span> Notation</a></li>
+  <li><a href="#input-embeddings" id="toc-input-embeddings" class="nav-link" data-scroll-target="#input-embeddings"><span class="header-section-number">2</span> Input Embeddings</a></li>
   <li><a href="#positional-encoding" id="toc-positional-encoding" class="nav-link" data-scroll-target="#positional-encoding"><span class="header-section-number">3</span> Positional Encoding</a>
   <ul class="collapse">
   <li><a href="#model-input" id="toc-model-input" class="nav-link" data-scroll-target="#model-input"><span class="header-section-number">3.1</span> Model Input</a></li>
@@ -237,10 +234,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#compatibility-function" id="toc-compatibility-function" class="nav-link" data-scroll-target="#compatibility-function"><span class="header-section-number">4.2.1</span> Compatibility Function</a></li>
   </ul></li>
-  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks"><span class="header-section-number">4.3</span> Remarks</a>
-  <ul class="collapse">
-  <li><a href="#attention-is-permutation-invariant" id="toc-attention-is-permutation-invariant" class="nav-link" data-scroll-target="#attention-is-permutation-invariant"><span class="header-section-number">4.3.1</span> Attention is permutation invariant</a></li>
-  </ul></li>
+  <li><a href="#remarks" id="toc-remarks" class="nav-link" data-scroll-target="#remarks"><span class="header-section-number">4.3</span> Remarks</a></li>
   </ul></li>
   <li><a href="#muti-head-attention" id="toc-muti-head-attention" class="nav-link" data-scroll-target="#muti-head-attention"><span class="header-section-number">5</span> Muti Head Attention</a>
   <ul class="collapse">
@@ -281,38 +275,33 @@ window.Quarto = {
 </header>
 
 
-<section id="transformer-overview" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Transformer Overview</h1>
-<p>Input Matrix <span class="math inline">X \in \mathbb{R}^{s \times d}</span>. Let’s denote as <span class="math inline">X : (s,d)</span> since it is more readable. We mean s and d to mean sequence length and dimension of model respectively.</p>
+<section id="notation" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Notation</h1>
+<p>Let <span class="math inline">(s,d)</span> denote <span class="math inline">\mathbb{R}^{s,d}</span> and write <span class="math inline">\boldsymbol{X} \in \mathbb{R}^{s \times d}</span> as <span class="math inline">\boldsymbol{X} : (s,d)</span>.</p>
+<p>Generally <span class="math inline">s,t</span> refere to sequence lengths and <span class="math inline">d</span> is the embedding dimension.</p>
 </section>
 <section id="input-embeddings" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Input Embeddings</h1>
 <p>The raw text is a sequence of vocabulary terms. Tokenization is the process of splitting the sentence into a sequence of vocabulary terms. Vocab terms can be single words but often tokenizers split the sentences into smaller components than words. In illustrative examples we usually show tokens as words.</p>
-<section id="example" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="example"><span class="header-section-number">2.1</span> Example</h2>
-<p><span class="math inline">s=5</span>, <span class="math inline">d</span> is usually 512 in the traditional paper. <span class="math display">
-\begin{array}{ccc}
-\text{Sentence}=
+<div id="exm-input_embeds" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1</strong></span> <span class="math inline">s=5</span>, <span class="math inline">d</span> is usually 512 in the traditional paper. <span class="math display">
+\begin{align*}
 \begin{bmatrix}
 \text{THE} \\
 \text{WEATHER} \\
 \text{IS} \\
 \text{LOVELY} \\
 \text{TODAY}
-\end{bmatrix} &amp;
-\mapsto
-\quad
-\text{Input IDs}=
+\end{bmatrix}
+&amp;\mapsto
 \begin{bmatrix}
 105 \\
 12 \\
 24 \\
 107 \\
 57
-\end{bmatrix} &amp;
-\mapsto
-\quad
-\text{Embedding, } X: (5,d)=
+\end{bmatrix}
+&amp;&amp;\mapsto
 \begin{bmatrix}
 \boldsymbol{x_1^T} \\
 \boldsymbol{x_2^T} \\
@@ -320,9 +309,15 @@ window.Quarto = {
 \boldsymbol{x_4^T} \\
 \boldsymbol{x_5^T}
 \end{bmatrix}
-\end{array}
+\\ \\
+\text{Sentence}
+&amp;\mapsto
+\text{Input IDs}
+&amp;&amp;\mapsto
+\text{Embedding}:(5,d)
+\end{align*}
 </span></p>
-</section>
+</div>
 </section>
 <section id="positional-encoding" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Positional Encoding</h1>
@@ -417,15 +412,15 @@ PE_{p, 2i+1}   &amp;=&amp;   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\r
 </section>
 <section id="remarks" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="remarks"><span class="header-section-number">4.3</span> Remarks</h2>
-<section id="attention-is-permutation-invariant" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="attention-is-permutation-invariant"><span class="header-section-number">4.3.1</span> Attention is permutation invariant</h3>
+<div id="rem-attention-permutation" class="proof remark">
+<p><span class="proof-title"><em>Remark 1</em>. </span><strong>Attention is permutation invariant</strong></p>
 <p>Notice that row <span class="math inline">i</span> of <span class="math inline">\boldsymbol{A}</span> is a function of <span class="math inline">\boldsymbol{q_i, K,V}</span>, <span class="math display">
 \text{row}_i \left( \boldsymbol{A} \right) =
 \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},j) \boldsymbol{v_r^T}
 \eqqcolon f(\boldsymbol{q_i, K,V})
 </span></p>
 <p>Therefore if we permute two rows of A, the output of Attention has the same two rows permuted.</p>
-</section>
+</div>
 </section>
 </section>
 <section id="muti-head-attention" class="level1" data-number="5">
