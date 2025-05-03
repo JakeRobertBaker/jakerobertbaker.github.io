@@ -188,7 +188,7 @@ Let $\boldsymbol{Q}:(t,d_q), \boldsymbol{K}:(s,d_k), \boldsymbol{V}:(s,d_v)$.
 ::: {#def-MHA}
 Given sequence length $s,t \in \mathbb{N}$, dimension lengths $d_q, d_k, d_v, d \in \mathbb{N}$, $h\in \mathbb{N}$ that divides $d$ and parameters $\boldsymbol{W_i^Q, W_i^K, W_i^V}$, for $i=1,...,h$. 
 
-$\text{MultiHeadAttention}: (t,d_q) \times (s,d_k) \times (s,d_v) \to (s,d)$ maps
+$\text{MultiHeadAttention}: (t,d_q) \times (s,d_k) \times (s,d_v) \to (t,d)$ maps
 
 $$
 \begin{split}
