@@ -399,11 +399,11 @@ PE_{p, 2i+1}   &amp;=&amp;   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\r
 \begin{align*}
 \boldsymbol{A}_{i,j}
 = \sum_{r=1}^s \sigma \left( \boldsymbol{Z} \right)_{i,r}  \boldsymbol{V}_{r,j}
-&amp;= \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},j) [\boldsymbol{v_r}]_j
+&amp;= \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},r) [\boldsymbol{v_r}]_j
 \\
 \implies
 \text{row}_i \left( \boldsymbol{A} \right)
-&amp;= \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},j) \boldsymbol{v_r^T}
+&amp;= \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},r) \boldsymbol{v_r^T}
 \in \mathbb{R}^{1,d_v}
 \end{align*}
 </span></p>
@@ -416,7 +416,7 @@ PE_{p, 2i+1}   &amp;=&amp;   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\r
 <p><span class="proof-title"><em>Remark 1</em>. </span><strong>Attention is permutation invariant</strong></p>
 <p>Notice that row <span class="math inline">i</span> of <span class="math inline">\boldsymbol{A}</span> is a function of <span class="math inline">\boldsymbol{q_i, K,V}</span>, <span class="math display">
 \text{row}_i \left( \boldsymbol{A} \right) =
-\sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},j) \boldsymbol{v_r^T}
+\sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},r) \boldsymbol{v_r^T}
 \eqqcolon f(\boldsymbol{q_i, K,V})
 </span></p>
 <p>Therefore if we permute two rows of A, the output of Attention has the same two rows permuted.</p>
