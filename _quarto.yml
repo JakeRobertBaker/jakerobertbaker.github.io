@@ -26,17 +26,23 @@ website:
     contents:
       - text: "About"
         href: about.qmd
-      - section: "Bayes"
+      - section: "Mathematics and Theory"
         contents: 
-        - text: Ballot Analysis
-          href: math_notes/bayesian_inference/ballot_notes.qmd
-      - section: "Traditional Statistics"
-        contents: 
-        - text: OLS and ANOVA
-          href: math_notes/linear_models/linear_models.qmd
+        - section: "Probability and Statistics"
+          contents:
+          - text: OLS and ANOVA
+            href: math_notes/linear_models/linear_models.qmd        
+          - text: Ballot Analysis
+            href: math_notes/bayesian_inference/ballot_notes.qmd
+        
+        - section: "Set Theory"
+          contents:
+          - text: "Universal Algebra"
+            href: math_notes/set_theory/universal_algebra.qmd
+      
       - section: "Deep Learning"
         contents: 
-        - text: "Attention Is All You Need"
+        - text: "Attention Is All You Need!"
           href: math_notes/transformers/attention.qmd
         
 

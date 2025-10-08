@@ -7,7 +7,7 @@
     "text": "Let (s,d) denote \\mathbb{R}^{s,d} and write \\boldsymbol{X} \\in \\mathbb{R}^{s \\times d} as \\boldsymbol{X} : (s,d).\nGenerally s,t refere to sequence lengths and d is the embedding dimension.",
     "crumbs": [
       "Deep Learning",
-      "Attention Is All You Need"
+      "Attention Is All You Need!"
     ]
   },
   {
@@ -18,7 +18,7 @@
     "text": "3.1 Model Input\nModel recieves X + PE : (s,d)",
     "crumbs": [
       "Deep Learning",
-      "Attention Is All You Need"
+      "Attention Is All You Need!"
     ]
   },
   {
@@ -29,7 +29,7 @@
     "text": "4.1 Attention Definition\nLet Query, Key and Value Matricies be \\boldsymbol{Q}:(t,d_k), \\boldsymbol{K}:(s,d_k) and \\boldsymbol{V}:(s,d_v). We also let t \\in \\mathbb{N} denote a sequence length not neccessarily equal to s \\in \\mathbb{N}.\n\nDefinition 1 \\text{Attention}: (t,d_k) \\times (s,d_k) \\times (s,d_v) \\to (s,d_v) maps\n\n\\boldsymbol{Q,K,V} \\mapsto\n\\sigma \\left( \\dfrac{\\boldsymbol{Q K^T}}{\\sqrt{d_k}} \\right) \\boldsymbol{V}\n: (t,d_v)\n for row wise softmax \\sigma",
     "crumbs": [
       "Deep Learning",
-      "Attention Is All You Need"
+      "Attention Is All You Need!"
     ]
   },
   {
@@ -40,7 +40,7 @@
     "text": "4.2 Explanation\nWrite the matricies as, \n\\boldsymbol{Q}=\n\\begin{bmatrix}\n   \\boldsymbol{q_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{q_s^T}\n\\end{bmatrix}\n\\boldsymbol{K}=\n\\begin{bmatrix}\n   \\boldsymbol{k_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{k_s^T}\n\\end{bmatrix}\n\\boldsymbol{V}=\n\\begin{bmatrix}\n   \\boldsymbol{v_1^T}   \\\\\n   \\vdots   \\\\\n   \\boldsymbol{v_s^T}\n\\end{bmatrix}\n\\text{for }\n\\boldsymbol{q_i, k_i, v_i} \\in \\mathbb{R}^{d_v}, i=1,...,s\n\nWe see that \\boldsymbol{Z}_{i,j}\\coloneqq \\boldsymbol{QK^T}_{i,j} = \\boldsymbol{q_i \\cdotp k_j} is like a similarity score between query i and key j.\n\n4.2.1 Compatibility Function\nIf we observe the softmax applied to \\boldsymbol{Z}, we see that each element is a compatibility function, \\alpha, between query i and key j. \n\\sigma \\left( \\boldsymbol{Z} \\right)_{i,j} =\n\\cfrac{\n   \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{Z}_{i,j} \\right)\n   }\n   {\\sum_{r=1}^s \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{Z}_{i,r} \\right)\n   } =\n\\cfrac{\n   \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{q_i \\cdotp k_j} \\right)\n   }\n   {\\sum_{r=1}^s \\exp \\left( \\frac{1}{\\sqrt{d_k}} \\boldsymbol{q_i \\cdotp k_r} \\right)\n   } =\n\\cfrac{\\text{score}(i,j)}{\\sum_{r=1}^s \\text{score}(i,r)}\n\\eqqcolon\n\\alpha(\\boldsymbol{q_i},\\boldsymbol{K},j)\n\nLet \\boldsymbol{A} \\coloneqq \\text{Attention}(\\boldsymbol{Q,K,V}), then\n\n\\begin{align*}\n\\boldsymbol{A}_{i,j}\n= \\sum_{r=1}^s \\sigma \\left( \\boldsymbol{Z} \\right)_{i,r}  \\boldsymbol{V}_{r,j}\n&= \\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},r) [\\boldsymbol{v_r}]_j\n\\\\\n\\implies\n\\text{row}_i \\left( \\boldsymbol{A} \\right)\n&= \\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},r) \\boldsymbol{v_r^T}\n\\in \\mathbb{R}^{1,d_v}\n\\end{align*}\n\nrow i of \\boldsymbol{A} is the sum of values, each weighted by query i’s similarity with that key.",
     "crumbs": [
       "Deep Learning",
-      "Attention Is All You Need"
+      "Attention Is All You Need!"
     ]
   },
   {
@@ -51,7 +51,7 @@
     "text": "4.3 Remarks\n\nRemark 1. Attention is permutation invariant\nNotice that row i of \\boldsymbol{A} is a function of \\boldsymbol{q_i, K,V}, \n\\text{row}_i \\left( \\boldsymbol{A} \\right) =\n\\sum_{r=1}^s \\alpha(\\boldsymbol{q_i},\\boldsymbol{K},r) \\boldsymbol{v_r^T}\n\\eqqcolon f(\\boldsymbol{q_i, K,V})\n\nTherefore if we permute two rows of A, the output of Attention has the same two rows permuted.",
     "crumbs": [
       "Deep Learning",
-      "Attention Is All You Need"
+      "Attention Is All You Need!"
     ]
   },
   {
@@ -62,7 +62,7 @@
     "text": "5.1 Attention Visualisation\nThe diagrams in the paper are show the similarity between words according to \\sigma \\left( \\frac{\\boldsymbol{QK^T}}{\\sqrt{d_k}} \\right) of each head.",
     "crumbs": [
       "Deep Learning",
-      "Attention Is All You Need"
+      "Attention Is All You Need!"
     ]
   },
   {
@@ -72,7 +72,8 @@
     "section": "",
     "text": "1 Beta Binomial\n\nDefinition 1 A random variable X has a Beta-Binomial distribution, X \\sim \\mathrm{BetaBin} (n,\\alpha ,\\beta) iff \n\\mathbb{P}(X=x) = f(x|n,\\alpha ,\\beta) = {n \\choose x} \\Gamma(x+\\alpha) \\Gamma(n-x + \\beta)\n\nfor x \\in \\{1,...,n\\}.\n\n\nRemark 1. Note that f(x|n,\\alpha ,\\beta) \\propto \\frac{1}{x! (n-x)!} \\Gamma(x+\\alpha) \\Gamma(n-x + \\beta) when we consider x to be the only variable.\n\nThis distribution can be derived from a binomial likelihood with a beta distributed prior \\theta=\\mathbb{P}(\\text{success}).\n\n\n2 Hypergeometric Distribution\n\nLemma 1 Suppose there are N balls, X of the balls are red. Suppose we sample M balls without replacement. Let Y denote the number of red balls in the sample. Then, \n\\mathbb{P}(Y=y) = \\frac{{x \\choose y} {N-X \\choose M-y}}{N \\choose M}\n\n\n\nProof. As a result of the multiplication principle. The number of combinations that contain y red balls is {X \\choose y} \\times {N-X \\choose M-y}.\n\n\n\n3 Conjugate Prior\n\nTheorem 1 Suppose there are N ballots and we sample M \\in \\{1, ..., N \\}. Let the random variable X be the total number of Labour ballots. Let Y be the number of Labour ballots in the sample.\nIf we place the following prior on X, \np(x) = f(x|N,\\alpha ,\\beta)\n\nthen likelihood of Y given X is hypergeometric and the posterior distribution of X is given by \np(x|y) = f(x-y|N-M, \\alpha+y, \\beta + M-y)\n\n\n\nProof. Notice that if we consider x the only variable, \n\\begin{align*}\nf(\\textcolor{green}{x-y} | N-M, \\textcolor{blue}{\\alpha+y}, \\textcolor{red}{\\beta + M-y})\n& \\propto\n\\frac\n{\\Gamma(\\textcolor{green}{x-y} + \\textcolor{blue}{\\alpha+y}) \\Gamma(N-M \\textcolor{green}{-x+y} + \\textcolor{red}{\\beta + M-y})}\n{(\\textcolor{green}{x-y})! (N-M \\textcolor{green}{-x+y})!}\n\\\\ & =\n\\frac{\\Gamma(x+\\alpha) \\Gamma(N-x+\\beta)}{(x-y)! (N-M-x+y)!} = (*)\n\\end{align*}\n\nThe posterior calculation then gives a multiple of this when x is the only variable, \n\\begin{align*}\np(x|y) \\propto p(y|x)p(x)\n& =\n\\frac{\\textcolor{red}{{x \\choose y}} \\textcolor{blue}{N-x \\choose M-y}}\n{N \\choose M}\n{N \\choose x}\n\\Gamma(x+\\alpha) \\Gamma(N-x + \\beta)\n\\\\\n& \\propto\n\\textcolor{red}{\\frac{x!}{(x-y!)}} \\textcolor{blue}{\\frac{(N-x)!}{(N-x-M+y)!}}\n\\frac{1}{x! (N-x)!}\n\\Gamma(x+\\alpha) \\Gamma(N-x + \\beta)\n\\\\ &=\n\\frac{1}{(x-y)! (N-x-M+y)!}\n\\Gamma(x+\\alpha) \\Gamma(N-x + \\beta)\n\\\\ & = (*) \\propto f(x-y|N-M, \\alpha+y, \\beta + M-y)\n\\end{align*}\n \\square\n\nReference other file here.",
     "crumbs": [
-      "Bayes",
+      "Mathematics and Theory",
+      "Probability and Statistics",
       "Ballot Analysis"
     ]
   },
@@ -93,7 +94,8 @@
     "section": "",
     "text": "Definition 1 A random vector \\mathbf{z} \\in \\mathbb{R^n} is standard normal iff components (\\mathbf{z_i})_{i=1}^n are independantly identically distributed \\mathcal{N}(\\mathbf{0,I_n}).\n\n\n\n\n\n\n\nIf a vector in standard normal w.r.t one basis then it is standard normal w.r.t any basis.\n\n\n\n\nDefinition 2 (OLS) An ordinary least squares linear model (OLM) provides an estimate \\hat{\\beta} of unknown coefficent \\beta \\in \\mathbb{R^{p \\times 1}} to the problem,\n\n\\mathbf{y} = \\mathbf{X} \\beta + \\mathbf{\\varepsilon}\n\nthat minimises \\| \\hat{\\varepsilon} \\| for \\hat{\\varepsilon} = \\mathbf{y-X \\hat{\\beta}}.\nItems \\mathbf{y} \\in \\mathbb{R}^{n \\times 1}, \\mathbf{X} \\in \\mathbb{R^{n \\times p}} are known.\nWe assume that \\dfrac{\\varepsilon}{\\sigma} is standard normal (Definition 1) \\Leftrightarrow \\varepsilon \\sim \\mathcal{N}(\\mathbf{0, \\sigma^2 I_n}), where we may not know \\sigma.\n\n\nTheorem 1 (Solution of OLS) Assume that \\mathbf{X} has full rank.\nThe solution of OLS is given by \\hat{\\beta} = \\mathbf{(X^TX)^{-1}X^Ty}.\n\n\nProof. Let subspace U \\leq \\mathbb{R^n} generated via the span of \\mathbf{X} columns. Then by property of orthogonal projection the \\mathbf{\\hat{y}=X \\beta} \\in U that minimises \\| \\hat{\\varepsilon} \\| = \\| \\mathbf{y-\\hat{y}} \\| is given by \\mathbf{P}_U \\mathbf{y}.\nTherefore, \n\\begin{align*}\n\\forall u \\in U,\n\\langle u, \\hat{\\varepsilon}\\rangle =0 &\\implies \\mathbf{(y-X \\hat{\\beta})^TX} = 0\n\\\\\n&\\Leftrightarrow\n\\mathbf{y^T X} = \\mathbf{\\hat{\\beta}^T X^TX}\n\\\\\n&\\Leftrightarrow\n\\mathbf{X^Ty} = \\mathbf{X^T X \\hat{\\beta}}\n\\\\\n&\\Leftrightarrow\n\\mathbf{\\hat{\\beta}} = \\mathbf{(X^TX)^{-1}X^Ty}\n\\end{align*}",
     "crumbs": [
-      "Traditional Statistics",
+      "Mathematics and Theory",
+      "Probability and Statistics",
       "OLS and ANOVA"
     ]
   },
@@ -104,7 +106,8 @@
     "section": "",
     "text": "Definition 1 A random vector \\mathbf{z} \\in \\mathbb{R^n} is standard normal iff components (\\mathbf{z_i})_{i=1}^n are independantly identically distributed \\mathcal{N}(\\mathbf{0,I_n}).\n\n\n\n\n\n\n\nIf a vector in standard normal w.r.t one basis then it is standard normal w.r.t any basis.\n\n\n\n\nDefinition 2 (OLS) An ordinary least squares linear model (OLM) provides an estimate \\hat{\\beta} of unknown coefficent \\beta \\in \\mathbb{R^{p \\times 1}} to the problem,\n\n\\mathbf{y} = \\mathbf{X} \\beta + \\mathbf{\\varepsilon}\n\nthat minimises \\| \\hat{\\varepsilon} \\| for \\hat{\\varepsilon} = \\mathbf{y-X \\hat{\\beta}}.\nItems \\mathbf{y} \\in \\mathbb{R}^{n \\times 1}, \\mathbf{X} \\in \\mathbb{R^{n \\times p}} are known.\nWe assume that \\dfrac{\\varepsilon}{\\sigma} is standard normal (Definition 1) \\Leftrightarrow \\varepsilon \\sim \\mathcal{N}(\\mathbf{0, \\sigma^2 I_n}), where we may not know \\sigma.\n\n\nTheorem 1 (Solution of OLS) Assume that \\mathbf{X} has full rank.\nThe solution of OLS is given by \\hat{\\beta} = \\mathbf{(X^TX)^{-1}X^Ty}.\n\n\nProof. Let subspace U \\leq \\mathbb{R^n} generated via the span of \\mathbf{X} columns. Then by property of orthogonal projection the \\mathbf{\\hat{y}=X \\beta} \\in U that minimises \\| \\hat{\\varepsilon} \\| = \\| \\mathbf{y-\\hat{y}} \\| is given by \\mathbf{P}_U \\mathbf{y}.\nTherefore, \n\\begin{align*}\n\\forall u \\in U,\n\\langle u, \\hat{\\varepsilon}\\rangle =0 &\\implies \\mathbf{(y-X \\hat{\\beta})^TX} = 0\n\\\\\n&\\Leftrightarrow\n\\mathbf{y^T X} = \\mathbf{\\hat{\\beta}^T X^TX}\n\\\\\n&\\Leftrightarrow\n\\mathbf{X^Ty} = \\mathbf{X^T X \\hat{\\beta}}\n\\\\\n&\\Leftrightarrow\n\\mathbf{\\hat{\\beta}} = \\mathbf{(X^TX)^{-1}X^Ty}\n\\end{align*}",
     "crumbs": [
-      "Traditional Statistics",
+      "Mathematics and Theory",
+      "Probability and Statistics",
       "OLS and ANOVA"
     ]
   },
@@ -115,7 +118,8 @@
     "section": "2 Large Model vs Submodel",
     "text": "2 Large Model vs Submodel\n\nTheorem 2 (ANOVA F-test) Let p=p_0+p_1, \\mathbf{X = [X_0, X_1]} \\in \\mathbb{R}^{n \\times p} for \\mathbf{X_0} \\in \\mathbb{R}^{n \\times p_0}, \\mathbf{X_1} \\in \\mathbb{R}^{n \\times p_1}\nConsider the following two hypothesis of a full model vs a submodel,\n\n\\begin{align*}\n\\textbf{H}_0 \\text{ (null)}&:\n\\mathbf{y = X_0 \\beta_\\mathcal{N} + \\varepsilon},\n\\quad\n&& \\mathbf{\\beta}_\\mathcal{N} \\in \\mathbb{R}^{p_0 \\times 1},\n\\quad\n&&&\\mathbf{\\varepsilon \\sim \\mathcal{N}(0,I_n)}\n\\\\\n\\textbf{H}_1 \\text{ (full)}&:\n\\mathbf{y = X \\beta_\\mathcal{F} + \\varepsilon},\n\\quad\n&& \\mathbf{\\beta}_\\mathcal{F} \\in \\mathbb{R}^{p \\times 1},\n\\quad\n&&&\\mathbf{\\varepsilon \\sim \\mathcal{N}(0,I_n)}\n\\end{align*}\n\nUnder the null hypothesis the following statistic is F distributed. \n\\dfrac{\\| \\mathbf{\\hat{\\varepsilon}_\\mathcal{N} - \\hat{\\varepsilon}_\\mathcal{F}} \\| /p_1}\n{\\| \\mathbf{\\hat{\\varepsilon}_\\mathcal{F}} \\|/(n-p)}\n\\sim\nF_{p_1, n-p}\n\n\n\n\nProof. The following picture is helpful:\n\n\n\n\n\n\nFigure 1: Visualisation of the geometry of the null and full model.\n\n\n\nLet U_0, U denote the column span of \\mathbf{X_0, X} respectively. Since U_0 \\leq U the orthogonal compliment of U_0 restricted to U is in the direct sum U = U_0 \\oplus U_0^{\\perp|_U}. Also V = U \\oplus U^\\perp. Therefore V is the direct sum of orthogonal subspaces U_0, U_1, U^\\perp, for U_1 = U_0^{\\perp|_U}.\nSince the components of \\mathbf{\\varepsilon} are independant w.r.t any normal basis it olds that it holds that projections \\mathbf{P}_{U_0} \\varepsilon, \\mathbf{P}_{U_1} \\varepsilon, \\mathbf{P}_{U^\\perp} \\varepsilon are independant because each projection can be expressed in terms of disjoint elements of the orthnormal basis created by combining orthonormal basis of U_0, U_1, U^\\perp.\nWe will now show that \\mathbf{\\hat{\\varepsilon}_\\mathcal{N} - \\hat{\\varepsilon}_\\mathcal{F}} = \\mathbf{P}_{U_1} \\varepsilon and \\mathbf{\\hat{\\varepsilon}_\\mathcal{F}} = \\mathbf{P}_{U^\\perp} \\varepsilon. This implies that they are independant normal and therefore the ratio of their norms divided by their dimension/degrees of freedom is eqivalent to an F distribution and thus completing the proof.\nWe see,\n\\mathbf{y} = \\mathbf{P}_U \\mathbf{y} + \\mathbf{P}_U^\\perp \\mathbf{y} from directness,\n\\mathbf{y} = \\mathbf{P}_U \\mathbf{y} + \\mathbf{\\hat{\\varepsilon}}_\\mathcal{F} from OLS definition and the fact that full fitted \\mathbf{y} is given by \\mathbf{P}_U \\mathbf{y}\nHence \\mathbf{\\hat{\\varepsilon}}_\\mathcal{F} = \\mathbf{P}_{U^\\perp} \\mathbf{y}. Also,\n\\mathbf{y} = \\mathbf{P}_{U_0} \\mathbf{y} + \\mathbf{P}_{U_1} \\mathbf{y} + \\mathbf{P}_{U^\\perp} \\mathbf{y} from directness,\n\\mathbf{y} = \\mathbf{P}_{U_0} \\mathbf{y} + \\mathbf{\\hat{\\varepsilon}}_\\mathcal{N} from OLS definition and the fact that null fitted \\mathbf{y} is given by \\mathbf{P}_{U_0} \\mathbf{y}\nHence \\mathbf{\\hat{\\varepsilon}}_\\mathcal{N} = \\mathbf{P}_{U_1} \\mathbf{y} + \\mathbf{P}_{U^\\perp }\\mathbf{y}. Therefore \\mathbf{\\hat{\\varepsilon}}_\\mathcal{N} - \\mathbf{\\hat{\\varepsilon}}_\\mathcal{F} = \\mathbf{P}_{U_1} \\mathbf{y}.\nNow under the null hypothesis \\mathbf{y} = \\mu_\\mathcal{N} + \\varepsilon for some \\mu_\\mathcal{N} \\in U_0, therefore since U_1, U^\\perp are orthogonal to U_0 it holds that for any W \\in \\set{U_1, U^\\perp} \\ \\mathbf{P}_W \\mathbf{y} = \\mathbf{P}_W \\mathbf{\\varepsilon}. This gives us what we wanted.",
     "crumbs": [
-      "Traditional Statistics",
+      "Mathematics and Theory",
+      "Probability and Statistics",
       "OLS and ANOVA"
     ]
   },
@@ -126,8 +130,33 @@
     "section": "3 R2 and Sample Correlation",
     "text": "3 R2 and Sample Correlation\n\nDefinition 3 The sample correlation between vectors \\mathbf{x,y} is defined as\n\n\\begin{align*}\nr(\\mathbf{x,y})\n&=\n\\cfrac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}{ \\sqrt{\\sum_i (x_i - \\bar{x})^2}  \\sqrt{\\sum_i (y_i - \\bar{y})^2}}\n\\\\ &=\n\\cfrac{(\\mathbf{x-P_1 x})^T (\\mathbf{y-P_1 y})}{\\| \\mathbf{x-P_1 x} \\| \\| \\mathbf{y-P_1 y} \\|}\n\\\\ &=\n\\bigg\\langle\n  \\cfrac{\\mathbf{P_{1^\\perp} x}}{\\|\\mathbf{P_{1^\\perp} x}\\|},\n  \\cfrac{\\mathbf{P_{1^\\perp} y}}{\\|\\mathbf{P_{1^\\perp} y}\\|}\n\\bigg\\rangle\n\\end{align*}\n\nWhere we are lax with notation and let \\mathbf{1} denote \\text{span}\\set{\\mathbf{1}} for \\mathbf{1} = [1,\\ ...\\ ,1]^T.\n\n\nDefinition 4 Given real and predicted \\mathbf{y}, \\mathbf{\\hat{y}}, the coefficent of determination is defined as R2(\\mathbf{y,\\hat{y}}) \n\\begin{align*}\n&\nR2(\\mathbf{y,\\hat{y}}) = 1 - \\frac{SS_{res}}{SS_{tot}},\n& \\text{for }\nSS_{res} &= \\| \\mathbf{y-\\hat{y}} \\|^2\n&\nSS_{tot} &= \\| \\mathbf{y-\\bar{y}} \\|^2\n\\\\\n&&&=\n\\|\\varepsilon\\|^2\n&&=\n\\mathbf{\\|P_{1^\\perp} y\\|^2}\n\\end{align*}\n\n\n\nRemark 1. Note that \\mathbf{\\hat{y}} in Definition 4 is general. We will specify details to prove the following.\n\n\nLemma 1 If the predictions \\mathbf{\\hat{y}} are standard ols as in Definition 2, then it holds that \nr(\\mathbf{y}, \\mathbf{\\hat{y}}) = R2(\\mathbf{y,\\hat{y}})\n\n\n\nProof. Take \\mathbf{y = \\hat{y}} + \\hat{\\varepsilon}, project into \\mathbf{1^\\perp} to get\n\\mathbf{P_{1^\\perp}y} = \\mathbf{P_{1^\\perp}\\hat{y}} + \\hat{\\varepsilon} since \\hat{\\varepsilon} \\in U^\\perp \\leq 1^\\perp.\nSince \\mathbf{\\hat{y}} \\in U and \\hat{\\varepsilon} \\in U^\\perp are perpendicular the same therefore holds for \\mathbf{P_{1^\\perp}\\hat{y}} \\in U \\cap \\mathbf{1^\\perp} and \\hat{\\varepsilon} \\in U^\\perp.\nThe following picture summarises things well.\n\n\n\nprojections\n\n\n\n\n\n\n\n\nNote that for any right angled triangle the following holds: \n[\\mathbf{b = c-a}] \\perp \\mathbf{a}\n\\implies \\langle \\mathbf{c,a} \\rangle = \\| \\mathbf{a} \\|^2\n\\implies \\langle \\mathbf{\\frac{a}{\\|a\\|}, \\frac{c}{\\|c\\|}} \\rangle\n= \\mathbf{\\frac{\\|a\\|}{\\|c\\|}}\n\n\n\n\nSo we have \n\\begin{align*}\nr(\\mathbf{y}, \\mathbf{\\hat{y}})\n&=\n\\bigg\\langle\n  \\cfrac{\\mathbf{P_{1^\\perp} y}}{\\|\\mathbf{P_{1^\\perp} y}\\|},\n  \\cfrac{\\mathbf{P_{1^\\perp} \\hat{y}}}{\\|\\mathbf{P_{1^\\perp} \\hat{y}}\\|}\n\\bigg\\rangle\n=\n\\bigg\\langle\n  \\cfrac{\\mathbf{c}}{\\|\\mathbf{c}\\|},\n  \\cfrac{\\mathbf{a}}{\\|\\mathbf{a}\\|}\n\\bigg\\rangle\n=\n\\mathbf{\\frac{\\|a\\|}{\\|c\\|}}\n\\\\ &=\n\\mathbf{\\frac{\\|P_{1^\\perp} \\hat{y}\\|}{\\|P_{1^\\perp} y\\|} }\n\\end{align*}\n\nand thus,\n\nr(\\mathbf{y}, \\mathbf{\\hat{y}})^2\n=\n\\mathbf{\\frac{\\|P_{1^\\perp} \\hat{y}\\|^2}{\\|P_{1^\\perp} y\\|^2} }\n=\n\\mathbf{\\frac{\\|P_{1^\\perp} y\\|^2 - \\|\\varepsilon\\|^2}{\\|P_{1^\\perp} y\\|^2} }\n=\n1 - \\frac{SS_{res}}{SS_{tot}}\n\n\\square",
     "crumbs": [
-      "Traditional Statistics",
+      "Mathematics and Theory",
+      "Probability and Statistics",
       "OLS and ANOVA"
+    ]
+  },
+  {
+    "objectID": "math_notes/set_theory/universal_algebra.html",
+    "href": "math_notes/set_theory/universal_algebra.html",
+    "title": "Set Theory Notes",
+    "section": "",
+    "text": "Based on the Johnstone notes.",
+    "crumbs": [
+      "Mathematics and Theory",
+      "Set Theory",
+      "Universal Algebra"
+    ]
+  },
+  {
+    "objectID": "math_notes/set_theory/universal_algebra.html#universal-algebra",
+    "href": "math_notes/set_theory/universal_algebra.html#universal-algebra",
+    "title": "Set Theory Notes",
+    "section": "1 Universal Algebra",
+    "text": "1 Universal Algebra\nWe denote the nullary set G^0 as \\{ \\emptyset \\}.\nDiscussion on singleton set..\n\nDefinition 1 (Structure) A structure is set equipped with finary operations.\n\n\nDefinition 2 (Finary Operation) A finary operation is a map from a set G to any of \nG^0, G^1=G, G^2 = G \\times G, ...\n.\n\n\nDefinition 3 (Operational Type) An operational type is a pair (\\Omega, \\alpha) with\n\nset of operation symbols \\Omega\na map \\alpha : \\Omega \\mapsto \\mathbb{N} that assigns each \\omega \\in \\Omega it’s arity \\alpha(\\omega).",
+    "crumbs": [
+      "Mathematics and Theory",
+      "Set Theory",
+      "Universal Algebra"
     ]
   }
 ]

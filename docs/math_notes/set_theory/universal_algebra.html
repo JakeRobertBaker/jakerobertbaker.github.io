@@ -8,7 +8,7 @@
 
 <meta name="author" content="Jake Baker">
 
-<title>Linear Model Notes – Jake Notes</title>
+<title>Set Theory Notes – Jake Notes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,8 +118,8 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Linear Model Notes – Jake Notes">
-<meta property="og:image" content="geometry_lss_extended.png">
+<meta property="og:title" content="Set Theory Notes – Jake Notes">
+<meta property="og:description" content="">
 <meta property="og:site_name" content="Jake Notes">
 </head>
 
@@ -294,7 +294,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Mathematics and Theory</li><li class="breadcrumb-item"><a href="../../math_notes/linear_models/linear_models.html">Probability and Statistics</a></li><li class="breadcrumb-item"><a href="../../math_notes/linear_models/linear_models.html">OLS and ANOVA</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Mathematics and Theory</li><li class="breadcrumb-item"><a href="../../math_notes/set_theory/universal_algebra.html">Set Theory</a></li><li class="breadcrumb-item"><a href="../../math_notes/set_theory/universal_algebra.html">Universal Algebra</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -340,16 +340,16 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">Probability and Statistics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../math_notes/linear_models/linear_models.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../math_notes/linear_models/linear_models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">OLS and ANOVA</span></a>
   </div>
 </li>
@@ -363,16 +363,16 @@ window.Quarto = {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Set Theory</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../math_notes/set_theory/universal_algebra.html" class="sidebar-item-text sidebar-link">
+  <a href="../../math_notes/set_theory/universal_algebra.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Universal Algebra</span></a>
   </div>
 </li>
@@ -403,9 +403,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ols-basics" id="toc-ols-basics" class="nav-link active" data-scroll-target="#ols-basics"><span class="header-section-number">1</span> OLS Basics</a></li>
-  <li><a href="#large-model-vs-submodel" id="toc-large-model-vs-submodel" class="nav-link" data-scroll-target="#large-model-vs-submodel"><span class="header-section-number">2</span> Large Model vs Submodel</a></li>
-  <li><a href="#r2-and-sample-correlation" id="toc-r2-and-sample-correlation" class="nav-link" data-scroll-target="#r2-and-sample-correlation"><span class="header-section-number">3</span> R2 and Sample Correlation</a></li>
+  <li><a href="#universal-algebra" id="toc-universal-algebra" class="nav-link active" data-scroll-target="#universal-algebra"><span class="header-section-number">1</span> Universal Algebra</a></li>
   </ul>
 </nav>
 </nav>
@@ -417,9 +415,9 @@ window.Quarto = {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Mathematics and Theory</li><li class="breadcrumb-item"><a href="../../math_notes/linear_models/linear_models.html">Probability and Statistics</a></li><li class="breadcrumb-item"><a href="../../math_notes/linear_models/linear_models.html">OLS and ANOVA</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Mathematics and Theory</li><li class="breadcrumb-item"><a href="../../math_notes/set_theory/universal_algebra.html">Set Theory</a></li><li class="breadcrumb-item"><a href="../../math_notes/set_theory/universal_algebra.html">Universal Algebra</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Linear Model Notes</h1>
+<h1 class="title">Set Theory Notes</h1>
 </div>
 
 
@@ -442,209 +440,25 @@ window.Quarto = {
 </header>
 
 
-<section id="ols-basics" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="ols-basics"><span class="header-section-number">1</span> OLS Basics</h2>
-<div id="def-standard_normal" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> A random vector <span class="math inline">\mathbf{z} \in \mathbb{R^n}</span> is standard normal <strong>iff</strong> components <span class="math inline">(\mathbf{z_i})_{i=1}^n</span> are independantly identically distributed <span class="math inline">\mathcal{N}(\mathbf{0,I_n})</span>.</p>
+<p>Based on the Johnstone notes.</p>
+<section id="universal-algebra" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="universal-algebra"><span class="header-section-number">1</span> Universal Algebra</h2>
+<p>We denote the nullary set <span class="math inline">G^0</span> as <span class="math inline">\{ \emptyset \}</span>.</p>
+<p><a href="https://math.stackexchange.com/questions/921712/what-is-a-set-raised-to-the-0-power-in-relation-to-the-definition-of-a-nullary">Discussion on singleton set.</a>.</p>
+<div id="def-Structure" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1 (Structure)</strong></span> A structure is set equipped with finary operations.</p>
 </div>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<div id="def-FinaryOperation" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2 (Finary Operation)</strong></span> A finary operation is a map from a set <span class="math inline">G</span> to any of <span class="math display">
+G^0, G^1=G, G^2 = G \times G, ...
+</span>.</p>
 </div>
-<div class="callout-body-container">
-<p>If a vector in standard normal w.r.t one basis then it is standard normal w.r.t any basis.</p>
-</div>
-</div>
-</div>
-<div id="def-ols_lm" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (OLS)</strong></span> An ordinary least squares linear model (OLM) provides an estimate <span class="math inline">\hat{\beta}</span> of unknown coefficent <span class="math inline">\beta \in \mathbb{R^{p \times 1}}</span> to the problem,</p>
-<p><span class="math display">
-\mathbf{y} = \mathbf{X} \beta + \mathbf{\varepsilon}
-</span></p>
-<p>that minimises <span class="math inline">\| \hat{\varepsilon} \|</span> for <span class="math inline">\hat{\varepsilon} = \mathbf{y-X \hat{\beta}}</span>.</p>
-<p>Items <span class="math inline">\mathbf{y} \in \mathbb{R}^{n \times 1}, \mathbf{X} \in \mathbb{R^{n \times p}}</span> are known.</p>
-<p>We <strong>assume</strong> that <span class="math inline">\dfrac{\varepsilon}{\sigma}</span> is standard normal (<a href="#def-standard_normal" class="quarto-xref">Definition&nbsp;1</a>) <span class="math inline">\Leftrightarrow \varepsilon \sim \mathcal{N}(\mathbf{0, \sigma^2 I_n})</span>, where we may not know <span class="math inline">\sigma</span>.</p>
-</div>
-<div id="thm-ols_solution" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (Solution of OLS)</strong></span> Assume that <span class="math inline">\mathbf{X}</span> has full rank.</p>
-<p>The solution of OLS is given by <span class="math inline">\hat{\beta} = \mathbf{(X^TX)^{-1}X^Ty}</span>.</p>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Let subspace <span class="math inline">U \leq \mathbb{R^n}</span> generated via the span of <span class="math inline">\mathbf{X}</span> columns. Then by property of orthogonal projection the <span class="math inline">\mathbf{\hat{y}=X \beta} \in U</span> that minimises <span class="math inline">\| \hat{\varepsilon} \| = \| \mathbf{y-\hat{y}} \|</span> is given by <span class="math inline">\mathbf{P}_U \mathbf{y}</span>.</p>
-<p>Therefore, <span class="math display">
-\begin{align*}
-\forall u \in U,
-\langle u, \hat{\varepsilon}\rangle =0 &amp;\implies \mathbf{(y-X \hat{\beta})^TX} = 0
-\\
-&amp;\Leftrightarrow
-\mathbf{y^T X} = \mathbf{\hat{\beta}^T X^TX}
-\\
-&amp;\Leftrightarrow
-\mathbf{X^Ty} = \mathbf{X^T X \hat{\beta}}
-\\
-&amp;\Leftrightarrow
-\mathbf{\hat{\beta}} = \mathbf{(X^TX)^{-1}X^Ty}
-\end{align*}
-</span></p>
-</div>
-</section>
-<section id="large-model-vs-submodel" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="large-model-vs-submodel"><span class="header-section-number">2</span> Large Model vs Submodel</h2>
-<div id="thm-anova_F_test" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2 (ANOVA F-test)</strong></span> Let <span class="math inline">p=p_0+p_1, \mathbf{X = [X_0, X_1]} \in \mathbb{R}^{n \times p}</span> for <span class="math inline">\mathbf{X_0} \in \mathbb{R}^{n \times p_0}, \mathbf{X_1} \in \mathbb{R}^{n \times p_1}</span></p>
-<p>Consider the following two hypothesis of a full model vs a submodel,</p>
-<p><span class="math display">
-\begin{align*}
-\textbf{H}_0 \text{ (null)}&amp;:
-\mathbf{y = X_0 \beta_\mathcal{N} + \varepsilon},
-\quad
-&amp;&amp; \mathbf{\beta}_\mathcal{N} \in \mathbb{R}^{p_0 \times 1},
-\quad
-&amp;&amp;&amp;\mathbf{\varepsilon \sim \mathcal{N}(0,I_n)}
-\\
-\textbf{H}_1 \text{ (full)}&amp;:
-\mathbf{y = X \beta_\mathcal{F} + \varepsilon},
-\quad
-&amp;&amp; \mathbf{\beta}_\mathcal{F} \in \mathbb{R}^{p \times 1},
-\quad
-&amp;&amp;&amp;\mathbf{\varepsilon \sim \mathcal{N}(0,I_n)}
-\end{align*}
-</span></p>
-<p>Under the null hypothesis the following statistic is F distributed. <span class="math display">
-\dfrac{\| \mathbf{\hat{\varepsilon}_\mathcal{N} - \hat{\varepsilon}_\mathcal{F}} \| /p_1}
-{\| \mathbf{\hat{\varepsilon}_\mathcal{F}} \|/(n-p)}
-\sim
-F_{p_1, n-p}
-</span></p>
-</div>
-<!-- start proof -->
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>The following picture is helpful:</p>
-<div id="fig-anova_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-anova_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="geometry_lss_extended.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anova_plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Visualisation of the geometry of the null and full model.
-</figcaption>
-</figure>
-</div>
-<p>Let <span class="math inline">U_0, U</span> denote the column span of <span class="math inline">\mathbf{X_0, X}</span> respectively. Since <span class="math inline">U_0 \leq U</span> the orthogonal compliment of <span class="math inline">U_0</span> restricted to <span class="math inline">U</span> is in the direct sum <span class="math inline">U = U_0 \oplus U_0^{\perp|_U}</span>. Also <span class="math inline">V = U \oplus U^\perp</span>. Therefore <span class="math inline">V</span> is the direct sum of orthogonal subspaces <span class="math inline">U_0, U_1, U^\perp</span>, for <span class="math inline">U_1 = U_0^{\perp|_U}</span>.</p>
-<p>Since the components of <span class="math inline">\mathbf{\varepsilon}</span> are independant w.r.t any normal basis it olds that it holds that projections <span class="math inline">\mathbf{P}_{U_0} \varepsilon, \mathbf{P}_{U_1} \varepsilon, \mathbf{P}_{U^\perp} \varepsilon</span> are independant because each projection can be expressed in terms of disjoint elements of the orthnormal basis created by combining orthonormal basis of <span class="math inline">U_0, U_1, U^\perp</span>.</p>
-<p>We will now show that <span class="math inline">\mathbf{\hat{\varepsilon}_\mathcal{N} - \hat{\varepsilon}_\mathcal{F}} = \mathbf{P}_{U_1} \varepsilon</span> and <span class="math inline">\mathbf{\hat{\varepsilon}_\mathcal{F}} = \mathbf{P}_{U^\perp} \varepsilon</span>. This implies that they are independant normal and therefore the ratio of their norms divided by their dimension/degrees of freedom is eqivalent to an F distribution and thus completing the proof.</p>
-<p>We see,</p>
-<p><span class="math inline">\mathbf{y} = \mathbf{P}_U \mathbf{y} + \mathbf{P}_U^\perp \mathbf{y}</span> from directness,</p>
-<p><span class="math inline">\mathbf{y} = \mathbf{P}_U \mathbf{y} + \mathbf{\hat{\varepsilon}}_\mathcal{F}</span> from OLS definition and the fact that full fitted <span class="math inline">\mathbf{y}</span> is given by <span class="math inline">\mathbf{P}_U \mathbf{y}</span></p>
-<p>Hence <span class="math inline">\mathbf{\hat{\varepsilon}}_\mathcal{F} = \mathbf{P}_{U^\perp} \mathbf{y}</span>. Also,</p>
-<p><span class="math inline">\mathbf{y} = \mathbf{P}_{U_0} \mathbf{y} + \mathbf{P}_{U_1} \mathbf{y} + \mathbf{P}_{U^\perp} \mathbf{y}</span> from directness,</p>
-<p><span class="math inline">\mathbf{y} = \mathbf{P}_{U_0} \mathbf{y} + \mathbf{\hat{\varepsilon}}_\mathcal{N}</span> from OLS definition and the fact that null fitted <span class="math inline">\mathbf{y}</span> is given by <span class="math inline">\mathbf{P}_{U_0} \mathbf{y}</span></p>
-<p>Hence <span class="math inline">\mathbf{\hat{\varepsilon}}_\mathcal{N} = \mathbf{P}_{U_1} \mathbf{y} + \mathbf{P}_{U^\perp }\mathbf{y}</span>. Therefore <span class="math inline">\mathbf{\hat{\varepsilon}}_\mathcal{N} - \mathbf{\hat{\varepsilon}}_\mathcal{F} = \mathbf{P}_{U_1} \mathbf{y}</span>.</p>
-<p>Now under the null hypothesis <span class="math inline">\mathbf{y} = \mu_\mathcal{N} + \varepsilon</span> for some <span class="math inline">\mu_\mathcal{N} \in U_0</span>, therefore since <span class="math inline">U_1, U^\perp</span> are orthogonal to <span class="math inline">U_0</span> it holds that for any <span class="math inline">W \in \set{U_1, U^\perp} \ \mathbf{P}_W \mathbf{y} = \mathbf{P}_W \mathbf{\varepsilon}</span>. This gives us what we wanted. <!-- end proof --></p>
-</div>
-</section>
-<section id="r2-and-sample-correlation" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="r2-and-sample-correlation"><span class="header-section-number">3</span> R2 and Sample Correlation</h2>
-<div id="def-sample_correlation" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3</strong></span> The <strong>sample correlation</strong> between vectors <span class="math inline">\mathbf{x,y}</span> is defined as</p>
-<p><span class="math display">
-\begin{align*}
-r(\mathbf{x,y})
-&amp;=
-\cfrac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{ \sqrt{\sum_i (x_i - \bar{x})^2}  \sqrt{\sum_i (y_i - \bar{y})^2}}
-\\ &amp;=
-\cfrac{(\mathbf{x-P_1 x})^T (\mathbf{y-P_1 y})}{\| \mathbf{x-P_1 x} \| \| \mathbf{y-P_1 y} \|}
-\\ &amp;=
-\bigg\langle
-  \cfrac{\mathbf{P_{1^\perp} x}}{\|\mathbf{P_{1^\perp} x}\|},
-  \cfrac{\mathbf{P_{1^\perp} y}}{\|\mathbf{P_{1^\perp} y}\|}
-\bigg\rangle
-\end{align*}
-</span></p>
-<p>Where we are lax with notation and let <span class="math inline">\mathbf{1}</span> denote <span class="math inline">\text{span}\set{\mathbf{1}}</span> for <span class="math inline">\mathbf{1} = [1,\ ...\ ,1]^T</span>.</p>
-</div>
-<div id="def-R2" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4</strong></span> Given real and predicted <span class="math inline">\mathbf{y}</span>, <span class="math inline">\mathbf{\hat{y}}</span>, the <strong>coefficent of determination</strong> is defined as <span class="math inline">R2(\mathbf{y,\hat{y}})</span> <span class="math display">
-\begin{align*}
-&amp;
-R2(\mathbf{y,\hat{y}}) = 1 - \frac{SS_{res}}{SS_{tot}},
-&amp; \text{for }
-SS_{res} &amp;= \| \mathbf{y-\hat{y}} \|^2
-&amp;
-SS_{tot} &amp;= \| \mathbf{y-\bar{y}} \|^2
-\\
-&amp;&amp;&amp;=
-\|\varepsilon\|^2
-&amp;&amp;=
-\mathbf{\|P_{1^\perp} y\|^2}
-\end{align*}
-</span></p>
-</div>
-<div id="rem-R2_general" class="proof remark">
-<p><span class="proof-title"><em>Remark 1</em>. </span>Note that <span class="math inline">\mathbf{\hat{y}}</span> in <a href="#def-R2" class="quarto-xref">Definition&nbsp;4</a> is general. We will specify details to prove the following.</p>
-</div>
-<div id="lem-R2_as_squared_correlation" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 1</strong></span> If the predictions <span class="math inline">\mathbf{\hat{y}}</span> are standard ols as in <a href="#def-ols_lm" class="quarto-xref">Definition&nbsp;2</a>, then it holds that <span class="math display">
-r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
-</span></p>
-</div>
-<div class="proof" data-appearance="default">
-<p><span class="proof-title"><em>Proof</em>. </span>Take <span class="math inline">\mathbf{y = \hat{y}} + \hat{\varepsilon}</span>, project into <span class="math inline">\mathbf{1^\perp}</span> to get</p>
-<p><span class="math inline">\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}</span> since <span class="math inline">\hat{\varepsilon} \in U^\perp \leq 1^\perp</span>.</p>
-<p>Since <span class="math inline">\mathbf{\hat{y}} \in U</span> and <span class="math inline">\hat{\varepsilon} \in U^\perp</span> are perpendicular the same therefore holds for <span class="math inline">\mathbf{P_{1^\perp}\hat{y}} \in U \cap \mathbf{1^\perp}</span> and <span class="math inline">\hat{\varepsilon} \in U^\perp</span>.</p>
-<p>The following picture summarises things well.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../../tex_plots/R2_squared_correlation_proof/triangle.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption>projections</figcaption>
-</figure>
-</div>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Note that for any right angled triangle the following holds: <span class="math display">
-[\mathbf{b = c-a}] \perp \mathbf{a}
-\implies \langle \mathbf{c,a} \rangle = \| \mathbf{a} \|^2
-\implies \langle \mathbf{\frac{a}{\|a\|}, \frac{c}{\|c\|}} \rangle
-= \mathbf{\frac{\|a\|}{\|c\|}}
-</span></p>
-</div>
-</div>
-</div>
-<p>So we have <span class="math display">
-\begin{align*}
-r(\mathbf{y}, \mathbf{\hat{y}})
-&amp;=
-\bigg\langle
-  \cfrac{\mathbf{P_{1^\perp} y}}{\|\mathbf{P_{1^\perp} y}\|},
-  \cfrac{\mathbf{P_{1^\perp} \hat{y}}}{\|\mathbf{P_{1^\perp} \hat{y}}\|}
-\bigg\rangle
-=
-\bigg\langle
-  \cfrac{\mathbf{c}}{\|\mathbf{c}\|},
-  \cfrac{\mathbf{a}}{\|\mathbf{a}\|}
-\bigg\rangle
-=
-\mathbf{\frac{\|a\|}{\|c\|}}
-\\ &amp;=
-\mathbf{\frac{\|P_{1^\perp} \hat{y}\|}{\|P_{1^\perp} y\|} }
-\end{align*}
-</span></p>
-<p>and thus,</p>
-<p><span class="math display">
-r(\mathbf{y}, \mathbf{\hat{y}})^2
-=
-\mathbf{\frac{\|P_{1^\perp} \hat{y}\|^2}{\|P_{1^\perp} y\|^2} }
-=
-\mathbf{\frac{\|P_{1^\perp} y\|^2 - \|\varepsilon\|^2}{\|P_{1^\perp} y\|^2} }
-=
-1 - \frac{SS_{res}}{SS_{tot}}
-</span></p>
-<p><span class="math inline">\square</span></p>
+<div id="def-OperationalType" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (Operational Type)</strong></span> An operational type is a pair <span class="math inline">(\Omega, \alpha)</span> with</p>
+<ul>
+<li>set of operation symbols <span class="math inline">\Omega</span></li>
+<li>a map <span class="math inline">\alpha : \Omega \mapsto \mathbb{N}</span> that assigns each <span class="math inline">\omega \in \Omega</span> it’s arity <span class="math inline">\alpha(\omega)</span>.</li>
+</ul>
 </div>
 
 

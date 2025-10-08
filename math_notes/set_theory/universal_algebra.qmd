@@ -1,0 +1,41 @@
+---
+title: "Set Theory Notes"
+author: "Jake Baker"
+toc: true
+number-sections: true
+highlight-style: pygments
+format: 
+  html: 
+    html-math-method: katex
+diagram:
+  cache: true
+---
+
+Based on the Johnstone notes.
+
+## Universal Algebra
+
+We denote the nullary set $G^0$ as $\{ \emptyset \}$.
+
+[Discussion on singleton set.](https://math.stackexchange.com/questions/921712/what-is-a-set-raised-to-the-0-power-in-relation-to-the-definition-of-a-nullary).
+
+::: {#def-Structure}
+## Structure
+A structure is set equipped with finary operations.
+:::
+
+::: {#def-FinaryOperation}
+## Finary Operation
+A finary operation is a map from a set $G$ to any of 
+$$
+G^0, G^1=G, G^2 = G \times G, ...
+$$.
+:::
+
+::: {#def-OperationalType}
+## Operational Type
+An operational type is a pair $(\Omega, \alpha)$ with
+
+- set of operation symbols $\Omega$ 
+- a map $\alpha : \Omega \mapsto \mathbb{N}$ that assigns each $\omega \in \Omega$ it's arity $\alpha(\omega)$.
+:::
