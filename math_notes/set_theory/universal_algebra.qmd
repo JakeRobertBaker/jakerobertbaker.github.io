@@ -39,3 +39,14 @@ An operational type is a pair $(\Omega, \alpha)$ with
 - set of operation symbols $\Omega$ 
 - a map $\alpha : \Omega \mapsto \mathbb{N}$ that assigns each $\omega \in \Omega$ it's arity $\alpha(\omega)$.
 :::
+
+::: {#def-OperationalStructure}
+## Operational Structure
+An operational structure $(\Omega, \alpha)$ is 
+
+- a set $A$ with an operational type $(\Omega, \alpha)$ 
+
+-  a function $\omega_A : A^{\alpha(\omega)} \mapsto A$ for each $\omega \in \Omega$
+
+$\omega_A$ is *the interpretation of abstract symbol* $\omega$ *in the structure $A$*.
+:::
