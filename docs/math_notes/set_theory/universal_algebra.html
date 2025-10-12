@@ -43,9 +43,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-95f147d06fdb9f8ce149f95e323965f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-fdc1f2eade8165762b36678c6fb086b8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-b5be4cb90edcb199dde7027a8d065437.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-fdc1f2eade8165762b36678c6fb086b8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-638d75bcb583dc26728e20130d51fb28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-4a9cb9c012339df47322549d5ccfcc84.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-638d75bcb583dc26728e20130d51fb28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -445,28 +445,32 @@ window.Quarto = {
 <h2 data-number="1" class="anchored" data-anchor-id="universal-algebra"><span class="header-section-number">1</span> Universal Algebra</h2>
 <p>We denote the nullary set <span class="math inline">G^0</span> as <span class="math inline">\{ \emptyset \}</span>.</p>
 <p><a href="https://math.stackexchange.com/questions/921712/what-is-a-set-raised-to-the-0-power-in-relation-to-the-definition-of-a-nullary">Discussion on singleton set.</a>.</p>
-<div id="def-Structure" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Structure)</strong></span> A structure is set equipped with finary operations.</p>
-</div>
-<div id="def-FinaryOperation" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (Finary Operation)</strong></span> A finary operation is a map from a set <span class="math inline">G</span> to any of <span class="math display">
+<p>A structure is set equipped with finary operations.</p>
+<p>A finary operation is a map from a set <span class="math inline">G</span> to any of <span class="math display">
 G^0, G^1=G, G^2 = G \times G, ...
 </span>.</p>
-</div>
 <div id="def-OperationalType" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3 (Operational Type)</strong></span> An operational type is a pair <span class="math inline">(\Omega, \alpha)</span> with</p>
+<p><span class="theorem-title"><strong>Definition 1 (Operational Type)</strong></span> An operational type is a pair <span class="math inline">(\Omega, \alpha)</span> with</p>
 <ul>
 <li>set of operation symbols <span class="math inline">\Omega</span></li>
 <li>a map <span class="math inline">\alpha : \Omega \mapsto \mathbb{N}</span> that assigns each <span class="math inline">\omega \in \Omega</span> it’s arity <span class="math inline">\alpha(\omega)</span>.</li>
 </ul>
 </div>
 <div id="def-OperationalStructure" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4 (Operational Structure)</strong></span> An operational structure <span class="math inline">(\Omega, \alpha)</span> is</p>
+<p><span class="theorem-title"><strong>Definition 2 (Operational Structure)</strong></span> An operational structure <span class="math inline">(\Omega, \alpha)</span> is</p>
 <ul>
 <li><p>a set <span class="math inline">A</span> with an operational type <span class="math inline">(\Omega, \alpha)</span></p></li>
 <li><p>a function <span class="math inline">\omega_A : A^{\alpha(\omega)} \mapsto A</span> for each <span class="math inline">\omega \in \Omega</span></p></li>
 </ul>
 <p><span class="math inline">\omega_A</span> is <em>the interpretation of abstract symbol</em> <span class="math inline">\omega</span> <em>in the structure <span class="math inline">A</span></em>.</p>
+</div>
+<div id="def-Term" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3 (Term)</strong></span> Let <span class="math inline">\Omega</span> be an opertaional type and <span class="math inline">X</span> be a set.</p>
+<p>The set <span class="math inline">FX_{\Omega}</span> of <span class="math inline">\Omega</span> terms is defined inductively:</p>
+<ol type="1">
+<li>If <span class="math inline">x \in X</span> then <span class="math inline">x \in X</span></li>
+<li>If <span class="math inline">w</span></li>
+</ol>
 </div>
 
 

@@ -19,18 +19,12 @@ We denote the nullary set $G^0$ as $\{ \emptyset \}$.
 
 [Discussion on singleton set.](https://math.stackexchange.com/questions/921712/what-is-a-set-raised-to-the-0-power-in-relation-to-the-definition-of-a-nullary).
 
-::: {#def-Structure}
-## Structure
 A structure is set equipped with finary operations.
-:::
 
-::: {#def-FinaryOperation}
-## Finary Operation
 A finary operation is a map from a set $G$ to any of 
 $$
 G^0, G^1=G, G^2 = G \times G, ...
 $$.
-:::
 
 ::: {#def-OperationalType}
 ## Operational Type
@@ -50,3 +44,17 @@ An operational structure $(\Omega, \alpha)$ is
 
 $\omega_A$ is *the interpretation of abstract symbol* $\omega$ *in the structure $A$*.
 :::
+
+
+::: {#def-Term}
+## Term 
+Let $\Omega$ be an opertaional type and $X$ be a set.
+
+The set $FX_{\Omega}$ of $\Omega$ terms is defined inductively:
+
+1. If $x \in X$ then $x \in X$ 
+1. If $w$
+
+
+:::
+
