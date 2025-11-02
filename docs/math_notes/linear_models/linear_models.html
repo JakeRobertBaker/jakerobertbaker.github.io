@@ -43,9 +43,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-95f147d06fdb9f8ce149f95e323965f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-638d75bcb583dc26728e20130d51fb28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-4a9cb9c012339df47322549d5ccfcc84.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-638d75bcb583dc26728e20130d51fb28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f19e87229058b9adac5d6fc8c64158a7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-f19e87229058b9adac5d6fc8c64158a7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f19e87229058b9adac5d6fc8c64158a7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -444,8 +444,17 @@ window.Quarto = {
 
 <section id="ols-basics" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="ols-basics"><span class="header-section-number">1</span> OLS Basics</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="def-standard_normal" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 1</strong></span> A random vector <span class="math inline">\mathbf{z} \in \mathbb{R^n}</span> is standard normal <strong>iff</strong> components <span class="math inline">(\mathbf{z_i})_{i=1}^n</span> are independantly identically distributed <span class="math inline">\mathcal{N}(\mathbf{0,I_n})</span>.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -457,6 +466,12 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="def-ols_lm" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 2 (OLS)</strong></span> An ordinary least squares linear model (OLM) provides an estimate <span class="math inline">\hat{\beta}</span> of unknown coefficent <span class="math inline">\beta \in \mathbb{R^{p \times 1}}</span> to the problem,</p>
 <p><span class="math display">
@@ -466,10 +481,34 @@ window.Quarto = {
 <p>Items <span class="math inline">\mathbf{y} \in \mathbb{R}^{n \times 1}, \mathbf{X} \in \mathbb{R^{n \times p}}</span> are known.</p>
 <p>We <strong>assume</strong> that <span class="math inline">\dfrac{\varepsilon}{\sigma}</span> is standard normal (<a href="#def-standard_normal" class="quarto-xref">Definition&nbsp;1</a>) <span class="math inline">\Leftrightarrow \varepsilon \sim \mathcal{N}(\mathbf{0, \sigma^2 I_n})</span>, where we may not know <span class="math inline">\sigma</span>.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="thm-ols_solution" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1 (Solution of OLS)</strong></span> Assume that <span class="math inline">\mathbf{X}</span> has full rank.</p>
 <p>The solution of OLS is given by <span class="math inline">\hat{\beta} = \mathbf{(X^TX)^{-1}X^Ty}</span>.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>Let subspace <span class="math inline">U \leq \mathbb{R^n}</span> generated via the span of <span class="math inline">\mathbf{X}</span> columns. Then by property of orthogonal projection the <span class="math inline">\mathbf{\hat{y}=X \beta} \in U</span> that minimises <span class="math inline">\| \hat{\varepsilon} \| = \| \mathbf{y-\hat{y}} \|</span> is given by <span class="math inline">\mathbf{P}_U \mathbf{y}</span>.</p>
 <p>Therefore, <span class="math display">
@@ -488,9 +527,18 @@ window.Quarto = {
 \end{align*}
 </span></p>
 </div>
+</div>
+</div>
+</div>
 </section>
 <section id="large-model-vs-submodel" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="large-model-vs-submodel"><span class="header-section-number">2</span> Large Model vs Submodel</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="thm-anova_F_test" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 2 (ANOVA F-test)</strong></span> Let <span class="math inline">p=p_0+p_1, \mathbf{X = [X_0, X_1]} \in \mathbb{R}^{n \times p}</span> for <span class="math inline">\mathbf{X_0} \in \mathbb{R}^{n \times p_0}, \mathbf{X_1} \in \mathbb{R}^{n \times p_1}</span></p>
 <p>Consider the following two hypothesis of a full model vs a submodel,</p>
@@ -518,7 +566,22 @@ window.Quarto = {
 F_{p_1, n-p}
 </span></p>
 </div>
+</div>
+</div>
+</div>
 <!-- start proof -->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>The following picture is helpful:</p>
 <div id="fig-anova_plot" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -543,9 +606,18 @@ Figure&nbsp;1: Visualisation of the geometry of the null and full model.
 <p>Hence <span class="math inline">\mathbf{\hat{\varepsilon}}_\mathcal{N} = \mathbf{P}_{U_1} \mathbf{y} + \mathbf{P}_{U^\perp }\mathbf{y}</span>. Therefore <span class="math inline">\mathbf{\hat{\varepsilon}}_\mathcal{N} - \mathbf{\hat{\varepsilon}}_\mathcal{F} = \mathbf{P}_{U_1} \mathbf{y}</span>.</p>
 <p>Now under the null hypothesis <span class="math inline">\mathbf{y} = \mu_\mathcal{N} + \varepsilon</span> for some <span class="math inline">\mu_\mathcal{N} \in U_0</span>, therefore since <span class="math inline">U_1, U^\perp</span> are orthogonal to <span class="math inline">U_0</span> it holds that for any <span class="math inline">W \in \set{U_1, U^\perp} \ \mathbf{P}_W \mathbf{y} = \mathbf{P}_W \mathbf{\varepsilon}</span>. This gives us what we wanted. <!-- end proof --></p>
 </div>
+</div>
+</div>
+</div>
 </section>
 <section id="r2-and-sample-correlation" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="r2-and-sample-correlation"><span class="header-section-number">3</span> R2 and Sample Correlation</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="def-sample_correlation" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 3</strong></span> The <strong>sample correlation</strong> between vectors <span class="math inline">\mathbf{x,y}</span> is defined as</p>
 <p><span class="math display">
@@ -564,6 +636,15 @@ r(\mathbf{x,y})
 </span></p>
 <p>Where we are lax with notation and let <span class="math inline">\mathbf{1}</span> denote <span class="math inline">\text{span}\set{\mathbf{1}}</span> for <span class="math inline">\mathbf{1} = [1,\ ...\ ,1]^T</span>.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="def-R2" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 4</strong></span> Given real and predicted <span class="math inline">\mathbf{y}</span>, <span class="math inline">\mathbf{\hat{y}}</span>, the <strong>coefficent of determination</strong> is defined as <span class="math inline">R2(\mathbf{y,\hat{y}})</span> <span class="math display">
 \begin{align*}
@@ -581,14 +662,44 @@ SS_{tot} &amp;= \| \mathbf{y-\bar{y}} \|^2
 \end{align*}
 </span></p>
 </div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Remark
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <div id="rem-R2_general" class="proof remark">
 <p><span class="proof-title"><em>Remark 1</em>. </span>Note that <span class="math inline">\mathbf{\hat{y}}</span> in <a href="#def-R2" class="quarto-xref">Definition&nbsp;4</a> is general. We will specify details to prove the following.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="lem-R2_as_squared_correlation" class="theorem lemma">
 <p><span class="theorem-title"><strong>Lemma 1</strong></span> If the predictions <span class="math inline">\mathbf{\hat{y}}</span> are standard ols as in <a href="#def-ols_lm" class="quarto-xref">Definition&nbsp;2</a>, then it holds that <span class="math display">
 r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
 </span></p>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="proof" data-appearance="default">
 <p><span class="proof-title"><em>Proof</em>. </span>Take <span class="math inline">\mathbf{y = \hat{y}} + \hat{\varepsilon}</span>, project into <span class="math inline">\mathbf{1^\perp}</span> to get</p>
 <p><span class="math inline">\mathbf{P_{1^\perp}y} = \mathbf{P_{1^\perp}\hat{y}} + \hat{\varepsilon}</span> since <span class="math inline">\hat{\varepsilon} \in U^\perp \leq 1^\perp</span>.</p>
@@ -645,6 +756,9 @@ r(\mathbf{y}, \mathbf{\hat{y}})^2
 1 - \frac{SS_{res}}{SS_{tot}}
 </span></p>
 <p><span class="math inline">\square</span></p>
+</div>
+</div>
+</div>
 </div>
 
 

@@ -43,9 +43,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-95f147d06fdb9f8ce149f95e323965f4.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-638d75bcb583dc26728e20130d51fb28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-4a9cb9c012339df47322549d5ccfcc84.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-638d75bcb583dc26728e20130d51fb28.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f19e87229058b9adac5d6fc8c64158a7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-f19e87229058b9adac5d6fc8c64158a7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f19e87229058b9adac5d6fc8c64158a7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -444,14 +444,38 @@ window.Quarto = {
 
 <section id="beta-binomial" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Beta Binomial</h1>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="def-Beta-Binomial" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 1</strong></span> A random variable <span class="math inline">X</span> has a Beta-Binomial distribution, <span class="math inline">X \sim \mathrm{BetaBin} (n,\alpha ,\beta)</span> iff <span class="math display">
 \mathbb{P}(X=x) = f(x|n,\alpha ,\beta) = {n \choose x} \Gamma(x+\alpha) \Gamma(n-x + \beta)
 </span></p>
 <p>for <span class="math inline">x \in \{1,...,n\}</span>.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Remark
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
 <div id="rem-Beta-Binomial-Proportion" class="proof remark">
 <p><span class="proof-title"><em>Remark 1</em>. </span>Note that <span class="math inline">f(x|n,\alpha ,\beta) \propto \frac{1}{x! (n-x)!} \Gamma(x+\alpha) \Gamma(n-x + \beta)</span> when we consider <span class="math inline">x</span> to be the only variable.</p>
+</div>
+</div>
+</div>
 </div>
 <p>This distribution can be derived from a binomial likelihood with a beta distributed prior <span class="math inline">\theta=\mathbb{P}(\text{success})</span>.</p>
 </section>
@@ -462,12 +486,33 @@ window.Quarto = {
 \mathbb{P}(Y=y) = \frac{{x \choose y} {N-X \choose M-y}}{N \choose M}
 </span></p>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>As a result of the multiplication principle. The number of combinations that contain y red balls is <span class="math inline">{X \choose y} \times {N-X \choose M-y}</span>.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="conjugate-prior" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Conjugate Prior</h1>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="thm-hypergeometric-conjugate" class="theorem">
 <p><span class="theorem-title"><strong>Theorem 1</strong></span> Suppose there are <span class="math inline">N</span> ballots and we sample <span class="math inline">M \in \{1, ..., N \}</span>. Let the random variable <span class="math inline">X</span> be the total number of Labour ballots. Let <span class="math inline">Y</span> be the number of Labour ballots in the sample.</p>
 <p>If we place the following prior on <span class="math inline">X</span>, <span class="math display">
@@ -477,6 +522,21 @@ p(x) = f(x|N,\alpha ,\beta)
 p(x|y) = f(x-y|N-M, \alpha+y, \beta + M-y)
 </span></p>
 </div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Proof
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <div class="proof">
 <p><span class="proof-title"><em>Proof</em>. </span>Notice that if we consider <span class="math inline">x</span> the only variable, <span class="math display">
 \begin{align*}
@@ -508,6 +568,9 @@ p(x|y) \propto p(y|x)p(x)
 \\ &amp; = (*) \propto f(x-y|N-M, \alpha+y, \beta + M-y)
 \end{align*}
 </span> <span class="math inline">\square</span></p>
+</div>
+</div>
+</div>
 </div>
 <p>Reference other file <a href="../../math_notes/linear_models/linear_models.html">here</a>.</p>
 
