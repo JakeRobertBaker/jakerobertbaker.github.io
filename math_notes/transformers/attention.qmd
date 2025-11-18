@@ -87,7 +87,7 @@ This mechanism is what changed everything.
 Let Query, Key and Value Matricies be $\boldsymbol{Q}:(t,d_k)$, $\boldsymbol{K}:(s,d_k)$ and $\boldsymbol{V}:(s,d_v)$. We also let $t \in \mathbb{N}$ denote a sequence length not neccessarily equal to $s \in \mathbb{N}$.
 
 ::: {#def-Attention}
-$\text{Attention}: (t,d_k) \times (s,d_k) \times (s,d_v) \to (s,d_v)$ maps
+$\text{Attention}: (t,d_k) \times (s,d_k) \times (s,d_v) \to (t,d_v)$ maps
 
 $$
 \boldsymbol{Q,K,V} \mapsto
