@@ -26,7 +26,7 @@
     "href": "math_notes/transformers/attention.html#attention-definition",
     "title": "Attention Transformer Details",
     "section": "4.1 Attention Definition",
-    "text": "4.1 Attention Definition\nLet Query, Key and Value Matricies be \\boldsymbol{Q}:(t,d_k), \\boldsymbol{K}:(s,d_k) and \\boldsymbol{V}:(s,d_v). We also let t \\in \\mathbb{N} denote a sequence length not neccessarily equal to s \\in \\mathbb{N}.\n\n\n\n\n\n\n\nDefinition 1 \\text{Attention}: (t,d_k) \\times (s,d_k) \\times (s,d_v) \\to (s,d_v) maps\n\n\\boldsymbol{Q,K,V} \\mapsto\n\\sigma \\left( \\dfrac{\\boldsymbol{Q K^T}}{\\sqrt{d_k}} \\right) \\boldsymbol{V}\n: (t,d_v)\n for row wise softmax \\sigma",
+    "text": "4.1 Attention Definition\nLet Query, Key and Value Matricies be \\boldsymbol{Q}:(t,d_k), \\boldsymbol{K}:(s,d_k) and \\boldsymbol{V}:(s,d_v). We also let t \\in \\mathbb{N} denote a sequence length not neccessarily equal to s \\in \\mathbb{N}.\n\n\n\n\n\n\n\nDefinition 1 \\text{Attention}: (t,d_k) \\times (s,d_k) \\times (s,d_v) \\to (t,d_v) maps\n\n\\boldsymbol{Q,K,V} \\mapsto\n\\sigma \\left( \\dfrac{\\boldsymbol{Q K^T}}{\\sqrt{d_k}} \\right) \\boldsymbol{V}\n: (t,d_v)\n for row wise softmax \\sigma",
     "crumbs": [
       "Deep Learning",
       "Attention Is All You Need!"
@@ -66,25 +66,28 @@
     ]
   },
   {
-    "objectID": "math_notes/set_theory/example.html",
-    "href": "math_notes/set_theory/example.html",
-    "title": "Jake Notes",
+    "objectID": "math_notes/set_theory/universal_algebra.html",
+    "href": "math_notes/set_theory/universal_algebra.html",
+    "title": "Set Theory Notes",
     "section": "",
-    "text": "Proposition 1 If there exists a primitive root modulo \\(n\\), then there are exactly \\(\\varphi(\\varphi(n))\\) primitive roots modulo \\(n\\).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 1 (Existence of primitive roots) Primitive roots modulo \\(n\\) exists if and only if \\(n = 2, 4, p^k, 2p^k\\) for an odd prime \\(p\\) and a positive integer \\(k\\).\n\n\n\n\n\n\n\n\n\n\nNoteProof (Proof of Proposition 1)\n\n\n\n\n\n\nProof (Proof of Proposition 1). We note that the primitive roots modulo \\(n\\) is exactly the generators of the group of units modulo \\(n\\). By the hypothesis, the group of units modulo \\(n\\) is cyclic, thus having \\(\\varphi(\\varphi(n))\\) generators.\n\n\n\n\n\n\n\n\n\n\nTipRemark\n\n\n\n\n\n\nRemark. Group theory greatly simplifies the proof of the theorem.\n\n\n\n\n\n\n\n\n\n\n\nExercise 1 Prove that the quadratic residues modulo \\(p\\) form a subgroup of the group of units modulo \\(p\\) of index \\(2\\).\n\n\n\n\n\n\n\n\n\n\nNoteSolution (Solution to Exercise 1)\n\n\n\n\n\n\nSolution 1 (Solution to Exercise 1). Use the fact that the group of units modulo \\(p\\) is cyclic."
+    "text": "Based on the Johnstone notes.",
+    "crumbs": [
+      "Mathematics and Theory",
+      "Set Theory",
+      "Universal Algebra"
+    ]
   },
   {
-    "objectID": "math_notes/set_theory/example.html#jake",
-    "href": "math_notes/set_theory/example.html#jake",
-    "title": "Jake Notes",
-    "section": "Jake",
-    "text": "Jake\nYourself."
-  },
-  {
-    "objectID": "math_notes/set_theory/example.html#surname",
-    "href": "math_notes/set_theory/example.html#surname",
-    "title": "Jake Notes",
-    "section": "surname",
-    "text": "surname\nAll names have a surname."
+    "objectID": "math_notes/set_theory/universal_algebra.html#universal-algebra",
+    "href": "math_notes/set_theory/universal_algebra.html#universal-algebra",
+    "title": "Set Theory Notes",
+    "section": "1 Universal Algebra",
+    "text": "1 Universal Algebra\nWe denote the nullary set G^0 as \\{ \\emptyset \\}.\nDiscussion on singleton set..\nA structure is set equipped with finary operations.\nA finary operation is a map from a set G to any of \nG^0, G^1=G, G^2 = G \\times G, ...\n.\n\n\n\n\n\n\n\nDefinition 1 (Operational Type) An operational type is a pair (\\Omega, \\alpha) with\n\nset of operation symbols \\Omega\na map \\alpha : \\Omega \\mapsto \\mathbb{N} that assigns each \\omega \\in \\Omega it’s arity \\alpha(\\omega).\n\n\n\n\n\n\n\n\n\n\n\n\nDefinition 2 (Operational Structure) An operational structure (\\Omega, \\alpha) is\n\na set A with an operational type (\\Omega, \\alpha)\na function \\omega_A : A^{\\alpha(\\omega)} \\mapsto A for each \\omega \\in \\Omega\n\n\\omega_A is the interpretation of abstract symbol \\omega in the structure A.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 3 (Homomorphism) A map f:A\\mapsto B is a homomorphism of \\Omega structures A & B if\n\nf(\\omega_A (a_1,..., a_n)) = \\omega_B (f(a_1),...,f(a_n))\n\nwhere \\alpha(\\omega)=n and \\forall a_1,...,a_n \\in A\n\n\n\n\n\n\n\n\n\n\n\nDefinition 4 (The set of \\Omega-terms in X) Let \\Omega be an opertaional type and X be a set.\nThe set FX_{\\Omega} of \\Omega terms is defined inductively:\n\nIf x \\in X then x \\in F_{Ω}X\nIf w \\in \\Omega with \\alpha(w)=n and t_1,...,t_n \\in \\Omega then wt_1...t_n \\in F_{Ω}X.\n\n\n\n\n\nNote that this really the intersection of all operation structures that contain X.\n\n\n\n\n\n\n\nTheorem 1 (F_\\Omega(X) is a sigma structure)  \n\nThe set of \\Omega-terms in X, F_\\Omega(X) has a structure.\nGiven any \\Omega structure F_\\Omega(X) and any map f:X \\mapsto A there exists a unique homomorphism \\hat{f}:F_\\Omega(X) \\mapsto A\n\nIn other words F_\\Omega(X) is the free structure generated by X\n\n\n\n\n\n\n\n\n\n\nNoteProof (Proof of Theorem 1)\n\n\n\n\n\n\nProof (Proof of Theorem 1). Need to define the interpretation of \\omega on FX via \n\\omega_{FX}(t_1,...,t_n) = \\omega t_1 ... t_n",
+    "crumbs": [
+      "Mathematics and Theory",
+      "Set Theory",
+      "Universal Algebra"
+    ]
   },
   {
     "objectID": "math_notes/bayesian_inference/ballot_notes.html",
@@ -157,27 +160,24 @@
     ]
   },
   {
-    "objectID": "math_notes/set_theory/universal_algebra.html",
-    "href": "math_notes/set_theory/universal_algebra.html",
-    "title": "Set Theory Notes",
+    "objectID": "math_notes/set_theory/example.html",
+    "href": "math_notes/set_theory/example.html",
+    "title": "Jake Notes",
     "section": "",
-    "text": "Based on the Johnstone notes.",
-    "crumbs": [
-      "Mathematics and Theory",
-      "Set Theory",
-      "Universal Algebra"
-    ]
+    "text": "Proposition 1 If there exists a primitive root modulo \\(n\\), then there are exactly \\(\\varphi(\\varphi(n))\\) primitive roots modulo \\(n\\).\n\n\n\n\n\n\n\n\n\n\n\nTheorem 1 (Existence of primitive roots) Primitive roots modulo \\(n\\) exists if and only if \\(n = 2, 4, p^k, 2p^k\\) for an odd prime \\(p\\) and a positive integer \\(k\\).\n\n\n\n\n\n\n\n\n\n\nNoteProof (Proof of Proposition 1)\n\n\n\n\n\n\nProof (Proof of Proposition 1). We note that the primitive roots modulo \\(n\\) is exactly the generators of the group of units modulo \\(n\\). By the hypothesis, the group of units modulo \\(n\\) is cyclic, thus having \\(\\varphi(\\varphi(n))\\) generators.\n\n\n\n\n\n\n\n\n\n\nTipRemark\n\n\n\n\n\n\nRemark. Group theory greatly simplifies the proof of the theorem.\n\n\n\n\n\n\n\n\n\n\n\nExercise 1 Prove that the quadratic residues modulo \\(p\\) form a subgroup of the group of units modulo \\(p\\) of index \\(2\\).\n\n\n\n\n\n\n\n\n\n\nNoteSolution (Solution to Exercise 1)\n\n\n\n\n\n\nSolution 1 (Solution to Exercise 1). Use the fact that the group of units modulo \\(p\\) is cyclic."
   },
   {
-    "objectID": "math_notes/set_theory/universal_algebra.html#universal-algebra",
-    "href": "math_notes/set_theory/universal_algebra.html#universal-algebra",
-    "title": "Set Theory Notes",
-    "section": "1 Universal Algebra",
-    "text": "1 Universal Algebra\nWe denote the nullary set G^0 as \\{ \\emptyset \\}.\nDiscussion on singleton set..\nA structure is set equipped with finary operations.\nA finary operation is a map from a set G to any of \nG^0, G^1=G, G^2 = G \\times G, ...\n.\n\n\n\n\n\n\n\nDefinition 1 (Operational Type) An operational type is a pair (\\Omega, \\alpha) with\n\nset of operation symbols \\Omega\na map \\alpha : \\Omega \\mapsto \\mathbb{N} that assigns each \\omega \\in \\Omega it’s arity \\alpha(\\omega).\n\n\n\n\n\n\n\n\n\n\n\n\nDefinition 2 (Operational Structure) An operational structure (\\Omega, \\alpha) is\n\na set A with an operational type (\\Omega, \\alpha)\na function \\omega_A : A^{\\alpha(\\omega)} \\mapsto A for each \\omega \\in \\Omega\n\n\\omega_A is the interpretation of abstract symbol \\omega in the structure A.\n\n\n\n\n\n\n\n\n\n\n\nDefinition 3 (Homomorphism) A map f:A\\mapsto B is a homomorphism of \\Omega structures A & B if\n\nf(\\omega_A (a_1,..., a_n)) = \\omega_B (f(a_1),...,f(a_n))\n\nwhere \\alpha(\\omega)=n and \\forall a_1,...,a_n \\in A\n\n\n\n\n\n\n\n\n\n\n\nDefinition 4 (The set of \\Omega-terms in X) Let \\Omega be an opertaional type and X be a set.\nThe set FX_{\\Omega} of \\Omega terms is defined inductively:\n\nIf x \\in X then x \\in F_{Ω}X\nIf w \\in \\Omega with \\alpha(w)=n and t_1,...,t_n \\in \\Omega then wt_1...t_n \\in F_{Ω}X.\n\n\n\n\n\nNote that this really the intersection of all operation structures that contain X.\n\n\n\n\n\n\n\nTheorem 1 (F_{\\Omega}X is a sigma structure)  \n\nThe set of \\Omega-terms in X, F_\\Omega(X) has a structure.\nGiven any \\Omega structure F_{\\Omega}X and any map f:X \\mapsto A there exists a unique homomorphism \\hat{f}:F_\\Omega(X) \\mapsto A\n\nIn other words F_\\Omega(X) is the free structure generated by X\n\n\n\n\n\n\n\n\n\n\nNoteProof (Proof of Theorem 1)\n\n\n\n\n\n\nProof (Proof of Theorem 1). Need to define the interpretation of \\omega on FX via \n\\omega_{FX}(t_1,...,t_n) = \\omega t_1 ... t_n",
-    "crumbs": [
-      "Mathematics and Theory",
-      "Set Theory",
-      "Universal Algebra"
-    ]
+    "objectID": "math_notes/set_theory/example.html#jake",
+    "href": "math_notes/set_theory/example.html#jake",
+    "title": "Jake Notes",
+    "section": "Jake",
+    "text": "Jake\nYourself."
+  },
+  {
+    "objectID": "math_notes/set_theory/example.html#surname",
+    "href": "math_notes/set_theory/example.html#surname",
+    "title": "Jake Notes",
+    "section": "surname",
+    "text": "surname\nAll names have a surname."
   }
 ]
