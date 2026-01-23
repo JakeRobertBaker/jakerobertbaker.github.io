@@ -1,7 +1,7 @@
 project:
   type: website
   output-dir: docs
-  render: 
+  render:
     - "about.qmd"
     - "math_notes/*"
   preview:
@@ -24,45 +24,44 @@ website:
         href: https://www.linkedin.com/in/jake-robert-baker/
         aria-label: LinkedIn
 
-    
     contents:
       - text: "About"
         href: about.qmd
       - section: "Mathematics and Theory"
-        contents: 
-        - section: "Probability and Statistics"
-          contents:
-          - text: OLS and ANOVA
-            href: math_notes/linear_models/linear_models.qmd        
-          - text: Ballot Analysis
-            href: math_notes/bayesian_inference/ballot_notes.qmd
-        
-        - section: "Set Theory"
-          contents:
-          - text: "Universal Algebra"
-            href: math_notes/set_theory/universal_algebra.qmd
-      
-      - section: "Deep Learning"
-        contents: 
-        - text: "Attention Is All You Need!"
-          href: math_notes/transformers/attention.qmd
-        
+        contents:
+          - section: "Probability and Statistics"
+            contents:
+              - text: OLS and ANOVA
+                href: math_notes/linear_models/linear_models.qmd
+              - text: Ballot Analysis
+                href: math_notes/bayesian_inference/ballot_notes.qmd
 
+          - section: "Set Theory"
+            contents:
+              - text: "Universal Algebra"
+                href: math_notes/set_theory/universal_algebra.qmd
+
+      - section: "Deep Learning"
+        contents:
+          - text: "Attention Is All You Need!"
+            href: math_notes/transformers/attention.qmd
+
+toc: true
+number-sections: true
+
+diagram: cache:true
 
 format:
-  html: 
+  html:
+    html-math-method: katex
     filters:
       - callouty-theorem
     toc: true
     toc-location: left
 
-
-
-
 theme:
   light: flatly
   dark: darkly
-
 
 callouty-theorem:
   thm:

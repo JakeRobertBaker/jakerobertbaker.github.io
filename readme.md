@@ -1,3 +1,17 @@
-# Website for Math and Other Notes
+# Setup Notes
+Render via
+```bash
+quarto render
+# or for a specific file
+quarto render math_notes/set_theory/universal_algebra.qmd
+```
+Host via
+```bash
+live-server docs --port=9889 --host=127.0.0.1
 
-The idea is to use this [site](https://jakerobertbaker.github.io/) as the general place to neaten up and save general math/ds notes.
+# Latex Tikz
+For the TIKZ plots.
+`sudo apt install texlive`
+Then
+`sudo apt install texlive-full`
+```

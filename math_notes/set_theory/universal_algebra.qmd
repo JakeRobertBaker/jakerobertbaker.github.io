@@ -1,16 +1,3 @@
----
-title: "Set Theory Notes"
-author: "Jake Baker"
-toc: true
-number-sections: true
-highlight-style: pygments
-format: 
-  html: 
-    html-math-method: katex
-diagram:
-  cache: true
----
-
 Based on the Johnstone notes.
 
 ## Universal Algebra
