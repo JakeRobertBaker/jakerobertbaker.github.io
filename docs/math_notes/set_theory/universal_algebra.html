@@ -543,7 +543,7 @@ f(\omega_A (a_1,..., a_n)) = \omega_B (f(a_1),...,f(a_n))
 <div id="def-derived_operation" class="theorem definition">
 <p><span class="theorem-title"><strong>Definition 5 (Derived Operations)</strong></span> Let <span class="math inline">X_n= \lbrace x_1,...,x_n \rbrace</span>, <span class="math inline">t \in F_{\Omega}(X_n)</span>, <span class="math inline">A</span> be a <span class="math inline">\Omega</span> structure.</p>
 <p>The n-ary derived operation corresponding to <span class="math inline">t</span>, <span class="math inline">t_A : A^n \rightarrow A</span> is defined as</p>
-<p><span class="math inline">\forall \underline{a} \in A</span></p>
+<p><span class="math inline">\forall \underline{a} \in A^n</span></p>
 <p><span class="math display">
 t_A(\underline{a})
 = \begin{cases}
@@ -558,7 +558,76 @@ t_A(\underline{a})
 </div>
 <p>Note this really does just mean we keep applying the standard operations until we get to the X terms.</p>
 <p>Therefore a derived operation really is just the map it represents</p>
-<p><span class="math inline">t=mx_1m_x2_x3</span> has interpretation in <span class="math inline">F_{\Omega}(X)</span> of <span class="math inline">\underline{a} \mapsto ma_1ma_2ma_3</span></p>
+<p><span class="math inline">t=mx_1 m x_2 x_3</span> has interpretation <span class="math inline">t_A : \underline{a} \mapsto m a_1 m a_2 a_3</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-nary_equation" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 6 (n-ary Equation)</strong></span> An n-ary equation in operational type <span class="math inline">(\Omega, \alpha)</span> is an expression <span class="math inline">(s=t)</span> for <span class="math inline">s,t \in F_{\Omega}(X_n)</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-nary-satisfied" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 7 (Satisfied)</strong></span> An n-ary equation is satisfied in operational structure A iff <span class="math inline">t_A \equiv s_A</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-algebraic_theory" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 8 (Algebraic Theory)</strong></span> An Algebraic Theory <span class="math inline">T=(\Omega, E)</span> is an operational type <span class="math inline">(\Omega, \alpha)</span> and set <span class="math inline">E</span> of equations in <span class="math inline">\Omega</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-model" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 9 (Model)</strong></span> A model for an Algebraic Theory <span class="math inline">T=(\Omega, E)</span> or T-algebra is an Operational Structure <span class="math inline">\Omega</span> where all equations in <span class="math inline">E</span> are satisfied.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-derived_equations" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 10 (Derived Equations)</strong></span> Let <span class="math inline">E</span> be a set of equations. The set <span class="math inline">\tilde{E}</span> of derived equation satisfies:</p>
+<ol type="a">
+<li><p><span class="math inline">E \subset \tilde{E}</span></p></li>
+<li><p><span class="math inline">\tilde{E}</span> defines an equivalence relation <span class="math inline">s \sim_E t \iff (s=t) \in \tilde{E}</span> on the set of terms <span class="math inline">F_{\Omega}(X)</span></p></li>
+</ol>
+<ol type="i">
+<li><p>reflexive: <span class="math inline">(t=t) \in \tilde{E} \ \forall t \in F_{\Omega}(X)</span></p></li>
+<li><p>symetric</p></li>
+<li><p>transitive</p></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>

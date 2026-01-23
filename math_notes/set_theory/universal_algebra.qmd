@@ -84,7 +84,7 @@ Let $X_n= \lbrace x_1,...,x_n \rbrace$, $t \in F_{\Omega}(X_n)$, $A$ be a $\Omeg
 
 The n-ary derived operation corresponding to $t$, $t_A : A^n \rightarrow A$ is defined as
 
-$\forall \underline{a} \in A$
+$\forall \underline{a} \in A^n$
 
 $$
 t_A(\underline{a})
@@ -100,4 +100,43 @@ Note this really does just mean we keep applying the standard operations until w
 
 Therefore a derived operation really is just the map it represents
 
-$t=mx_1m_x2_x3$ has interpretation in $F_{\Omega}(X)$ of $\underline{a} \mapsto ma_1ma_2ma_3$
+$t=mx_1 m x_2 x_3$ has interpretation $t_A : \underline{a} \mapsto m a_1 m a_2 a_3$
+
+:::{#def-nary_equation}
+## n-ary Equation
+An n-ary equation in operational type $(\Omega, \alpha)$ is an expression $(s=t)$ for $s,t \in F_{\Omega}(X_n)$
+:::
+
+:::{#def-nary-satisfied}
+## Satisfied
+An n-ary equation is satisfied in operational structure A iff $t_A \equiv s_A$
+:::
+
+:::{#def-algebraic_theory}
+## Algebraic Theory
+An Algebraic Theory $T=(\Omega, E)$ is an operational type $(\Omega, \alpha)$ and set $E$ of equations in $\Omega$
+:::
+
+:::{#def-model}
+## Model
+A model for an Algebraic Theory $T=(\Omega, E)$ or T-algebra is an Operational Structure $\Omega$ where all equations in $E$ are satisfied.
+:::
+
+:::{#def-derived_equations}
+## Derived Equations
+Let $E$ be a set of equations. The set $\tilde{E}$ of derived equation satisfies:
+
+a. $E \subset \tilde{E}$
+
+a.  $\tilde{E}$ defines an equivalence relation $s \sim_E t \iff (s=t) \in \tilde{E}$ on the set of terms $F_{\Omega}(X)$
+
+  i) reflexive: $(t=t) \in \tilde{E} \ \forall t \in F_{\Omega}(X)$
+
+  i) symetric
+
+  i) transitive
+
+
+:::
+
+
