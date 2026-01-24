@@ -130,13 +130,31 @@ a. $E \subset \tilde{E}$
 
 a.  $\tilde{E}$ defines an equivalence relation $s \sim_E t \iff (s=t) \in \tilde{E}$ on the set of terms $F_{\Omega}(X)$
 
-  i) reflexive: $(t=t) \in \tilde{E} \ \forall t \in F_{\Omega}(X)$
+    i)
+reflexive: $(t=t) \in \tilde{E} \ \forall t \in F_{\Omega}(X)$
 
-  i) symetric
+    i) 
+symetric: $(s=t) \implies (t=s)$
 
-  i) transitive
+    i) 
+transitive: $(s=t),(t=u) \implies (s=u)$
 
+a. Let $s[u / x_i]$ denote replacing symbol $x_i$ with $u$.
+  
+    i) 
+$(s=t) \in \tilde{E} \implies (s[u / x_i] = t[u / x_i])$
+
+    i) 
+$(s=t), u \in F_{\Omega}(X_n) \implies u[s/x_i] = u[t/x_i]$
 
 :::
 
+This is just the smallest subset of all possible equations $(s=t)$ such that it is closed under a,b,c.
 
+Group Theory Example
+
+i)
+$t = m e x_1 = x_1 = s \in \tilde{E} \implies m e u = u \forall u \in F_{\Omega}(X)$
+
+i)
+$u = m x_1 x_2$, $t=s$ as before, $\implies m x_1 \textcolor{red}{mex_1} = m x_1 \textcolor{red}{x_1}$

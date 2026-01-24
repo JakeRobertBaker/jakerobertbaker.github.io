@@ -617,17 +617,28 @@ t_A(\underline{a})
 <p><span class="theorem-title"><strong>Definition 10 (Derived Equations)</strong></span> Let <span class="math inline">E</span> be a set of equations. The set <span class="math inline">\tilde{E}</span> of derived equation satisfies:</p>
 <ol type="a">
 <li><p><span class="math inline">E \subset \tilde{E}</span></p></li>
-<li><p><span class="math inline">\tilde{E}</span> defines an equivalence relation <span class="math inline">s \sim_E t \iff (s=t) \in \tilde{E}</span> on the set of terms <span class="math inline">F_{\Omega}(X)</span></p></li>
-</ol>
+<li><p><span class="math inline">\tilde{E}</span> defines an equivalence relation <span class="math inline">s \sim_E t \iff (s=t) \in \tilde{E}</span> on the set of terms <span class="math inline">F_{\Omega}(X)</span></p>
 <ol type="i">
 <li><p>reflexive: <span class="math inline">(t=t) \in \tilde{E} \ \forall t \in F_{\Omega}(X)</span></p></li>
-<li><p>symetric</p></li>
-<li><p>transitive</p></li>
+<li><p>symetric: <span class="math inline">(s=t) \implies (t=s)</span></p></li>
+<li><p>transitive: <span class="math inline">(s=t),(t=u) \implies (s=u)</span></p></li>
+</ol></li>
+<li><p>Let <span class="math inline">s[u / x_i]</span> denote replacing symbol <span class="math inline">x_i</span> with <span class="math inline">u</span>.</p>
+<ol type="i">
+<li><p><span class="math inline">(s=t) \in \tilde{E} \implies (s[u / x_i] = t[u / x_i])</span></p></li>
+<li><p><span class="math inline">(s=t), u \in F_{\Omega}(X_n) \implies u[s/x_i] = u[t/x_i]</span></p></li>
+</ol></li>
 </ol>
 </div>
 </div>
 </div>
 </div>
+<p>This is just the smallest subset of all possible equations <span class="math inline">(s=t)</span> such that it is closed under a,b,c.</p>
+<p>Group Theory Example</p>
+<ol type="i">
+<li><p><span class="math inline">t = m e x_1 = x_1 = s \in \tilde{E} \implies m e u = u \forall u \in F_{\Omega}(X)</span></p></li>
+<li><p><span class="math inline">u = m x_1 x_2</span>, <span class="math inline">t=s</span> as before, <span class="math inline">\implies m x_1 \textcolor{red}{mex_1} = m x_1 \textcolor{red}{x_1}</span></p></li>
+</ol>
 
 
 </section>
