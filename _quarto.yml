@@ -64,6 +64,16 @@ theme:
   dark: darkly
 
 callouty-theorem:
+  lem:
+    override-title: false # do not override the title of the callout (title won't show when `appearance` set to `simple` or `minimal`)
+    callout: # parameters of the wrapping callout. see Quarto documentation of callouts for more details
+      type: note
+      appearance: minimal
+  exm:
+    override-title: false # do not override the title of the callout (title won't show when `appearance` set to `simple` or `minimal`)
+    callout: # parameters of the wrapping callout. see Quarto documentation of callouts for more details
+      type: note
+      appearance: minimal
   thm:
     override-title: false # do not override the title of the callout (title won't show when `appearance` set to `simple` or `minimal`)
     callout: # parameters of the wrapping callout. see Quarto documentation of callouts for more details

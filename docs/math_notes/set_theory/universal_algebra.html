@@ -435,7 +435,8 @@ G^0, G^1=G, G^2 = G \times G, ...
 </div>
 <div class="callout-body-container">
 <div id="def-OperationalType" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1 (Operational Type)</strong></span> An operational type is a pair <span class="math inline">(\Omega, \alpha)</span> with</p>
+<p><span class="theorem-title"><strong>Definition 1 (Operational Type)</strong></span> <br></p>
+<p>An operational type is a pair <span class="math inline">(\Omega, \alpha)</span> with</p>
 <ul>
 <li>set of operation symbols <span class="math inline">\Omega</span></li>
 <li>a map <span class="math inline">\alpha : \Omega \mapsto \mathbb{N}</span> that assigns each <span class="math inline">\omega \in \Omega</span> it’s arity <span class="math inline">\alpha(\omega)</span>.</li>
@@ -451,7 +452,8 @@ G^0, G^1=G, G^2 = G \times G, ...
 </div>
 <div class="callout-body-container">
 <div id="def-OperationalStructure" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2 (Operational Structure)</strong></span> An operational structure <span class="math inline">(\Omega, \alpha)</span> is</p>
+<p><span class="theorem-title"><strong>Definition 2 (Operational Structure)</strong></span> <br></p>
+<p>An operational structure <span class="math inline">(\Omega, \alpha)</span> is</p>
 <ul>
 <li><p>a set <span class="math inline">A</span> with an operational type <span class="math inline">(\Omega, \alpha)</span></p></li>
 <li><p>a function <span class="math inline">\omega_A : A^{\alpha(\omega)} \mapsto A</span> for each <span class="math inline">\omega \in \Omega</span></p></li>
@@ -468,7 +470,8 @@ G^0, G^1=G, G^2 = G \times G, ...
 </div>
 <div class="callout-body-container">
 <div id="def-Homomorphism" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3 (Homomorphism)</strong></span> A map <span class="math inline">f:A\mapsto B</span> is a homomorphism of <span class="math inline">\Omega</span> structures <span class="math inline">A</span> &amp; <span class="math inline">B</span> if</p>
+<p><span class="theorem-title"><strong>Definition 3 (Homomorphism)</strong></span> <br></p>
+<p>A map <span class="math inline">f:A\mapsto B</span> is a homomorphism of <span class="math inline">\Omega</span> structures <span class="math inline">A</span> &amp; <span class="math inline">B</span> if</p>
 <p><span class="math display">
 f(\omega_A (a_1,..., a_n)) = \omega_B (f(a_1),...,f(a_n))
 </span></p>
@@ -484,7 +487,8 @@ f(\omega_A (a_1,..., a_n)) = \omega_B (f(a_1),...,f(a_n))
 </div>
 <div class="callout-body-container">
 <div id="def-Term" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 4 (The set of <span class="math inline">\Omega</span>-terms in <span class="math inline">X</span>)</strong></span> Let <span class="math inline">\Omega</span> be an opertaional type and <span class="math inline">X</span> be a set.</p>
+<p><span class="theorem-title"><strong>Definition 4 (The set of <span class="math inline">\Omega</span>-terms in <span class="math inline">X</span>)</strong></span> <br></p>
+<p>Let <span class="math inline">\Omega</span> be an opertaional type and <span class="math inline">X</span> be a set.</p>
 <p>The set <span class="math inline">F_{\Omega}(X)</span> of <span class="math inline">\Omega</span> terms is defined inductively:</p>
 <ol type="1">
 <li>If <span class="math inline">x \in X</span> then <span class="math inline">x \in F_{Ω}(X)</span></li>
@@ -502,7 +506,7 @@ f(\omega_A (a_1,..., a_n)) = \omega_B (f(a_1),...,f(a_n))
 </div>
 <div class="callout-body-container">
 <div id="thm-FX_is_sigma" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 1 (<span class="math inline">F_\Omega(X)</span> is a sigma structure)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Theorem 1 (<span class="math inline">F_\Omega(X)</span> is a sigma structure)</strong></span> <br></p>
 <ol type="1">
 <li>The set of <span class="math inline">\Omega</span>-terms in <span class="math inline">X</span>, <span class="math inline">F_{\Omega}(X)</span> has a structure.</li>
 <li>Given any <span class="math inline">\Omega</span> structure <span class="math inline">F_\Omega(X)</span> and any map <span class="math inline">f:X \mapsto A</span> there exists a unique homomorphism <span class="math inline">\hat{f}:F_\Omega(X) \mapsto A</span></li>
@@ -525,15 +529,26 @@ f(\omega_A (a_1,..., a_n)) = \omega_B (f(a_1),...,f(a_n))
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em> (Proof of <a href="#thm-FX_is_sigma" class="quarto-xref">Theorem&nbsp;1</a>). </span>Need to define the interpretation of <span class="math inline">\omega</span> on FX via <span class="math display">
+<p><span class="proof-title"><em>Proof</em> (Proof of <a href="#thm-FX_is_sigma" class="quarto-xref">Theorem&nbsp;1</a>). </span><br></p>
+<p>Need to define the interpretation of <span class="math inline">\omega</span> on FX via <span class="math display">
 \omega_{FX}(t_1,...,t_n) = \omega t_1 ... t_n
 </span></p>
 </div>
 </div>
 </div>
 </div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
 <div id="lem-XfromFinite" class="theorem lemma">
-<p><span class="theorem-title"><strong>Lemma 1 (X terms from finite)</strong></span> <span class="math inline">F_{\Omega}(X)=\bigcup \lbrace F_{\Omega}(X^\prime) \mid X^\prime \subset X \text{ is finite} \rbrace</span></p>
+<p><span class="theorem-title"><strong>Lemma 1 (X terms from finite)</strong></span> <br></p>
+<p><span class="math inline">F_{\Omega}(X)=\bigcup \lbrace F_{\Omega}(X^\prime) \mid X^\prime \subset X \text{ is finite} \rbrace</span></p>
+</div>
+</div>
+</div>
 </div>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -542,7 +557,8 @@ f(\omega_A (a_1,..., a_n)) = \omega_B (f(a_1),...,f(a_n))
 </div>
 <div class="callout-body-container">
 <div id="def-derived_operation" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 5 (Derived Operations)</strong></span> Let <span class="math inline">X_n= \lbrace x_1,...,x_n \rbrace</span>, <span class="math inline">t \in F_{\Omega}(X_n)</span>, <span class="math inline">A</span> be a <span class="math inline">\Omega</span> structure.</p>
+<p><span class="theorem-title"><strong>Definition 5 (Derived Operations)</strong></span> <br></p>
+<p>Let <span class="math inline">X_n= \lbrace x_1,...,x_n \rbrace</span>, <span class="math inline">t \in F_{\Omega}(X_n)</span>, <span class="math inline">A</span> be a <span class="math inline">\Omega</span> structure.</p>
 <p>The n-ary derived operation corresponding to <span class="math inline">t</span>, <span class="math inline">t_A : A^n \rightarrow A</span> is defined as</p>
 <p><span class="math inline">\forall \underline{a} \in A^n</span></p>
 <p><span class="math display">
@@ -559,12 +575,36 @@ t_A(\underline{a})
 </div>
 <p>Note this really does just mean we keep applying the standard operations until we get to the X terms.</p>
 <p>Therefore a derived operation really is just the map it represents</p>
-<div id="exm-simple_derived_operation" class="theorem example">
-<p><span class="theorem-title"><strong>Example 1 (Derived Operationss are literally themselves)</strong></span> <br> <span class="math inline">t=mx_1 m x_2 x_3</span> has interpretation <span class="math inline">t_A : \underline{a} \mapsto m a_1 m a_2 a_3</span></p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<p>When considering interpretation in <span class="math inline">F_{\Omega}(X_n)</span> <span class="math display">
-t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
+<div class="callout-body-container">
+<div id="exm-simple_derived_operation" class="theorem example">
+<p><span class="theorem-title"><strong>Example 1 (Derived Operationss are literally themselves)</strong></span> <br></p>
+<p><br> <span class="math inline">t=mx_1 m x_2 x_3</span> has interpretation <span class="math inline">t_A : \underline{a} \mapsto m a_1 m a_2 a_3</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="exm-trivial_derived_interpretation" class="theorem example">
+<p><span class="theorem-title"><strong>Example 2 (Derived Operations in X terms)</strong></span> <br></p>
+<p><br></p>
+<p>When considering interpretation in <span class="math inline">A = F_{\Omega}(X_n)</span></p>
+<p><span class="math display">
+t_A (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n] \ \forall \underline{u} \in F_{\Omega}(X_n)
 </span></p>
+</div>
+</div>
+</div>
+</div>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -572,7 +612,8 @@ t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 </div>
 <div class="callout-body-container">
 <div id="def-nary_equation" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 6 (n-ary Equation)</strong></span> An n-ary equation in operational type <span class="math inline">(\Omega, \alpha)</span> is an expression <span class="math inline">(s=t)</span> for <span class="math inline">s,t \in F_{\Omega}(X_n)</span></p>
+<p><span class="theorem-title"><strong>Definition 6 (n-ary Equation)</strong></span> <br></p>
+<p>An n-ary equation in operational type <span class="math inline">(\Omega, \alpha)</span> is an expression <span class="math inline">(s=t)</span> for <span class="math inline">s,t \in F_{\Omega}(X_n)</span></p>
 </div>
 </div>
 </div>
@@ -584,7 +625,8 @@ t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 </div>
 <div class="callout-body-container">
 <div id="def-nary-satisfied" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 7 (Satisfied)</strong></span> An n-ary equation is satisfied in operational structure A iff <span class="math inline">t_A \equiv s_A</span></p>
+<p><span class="theorem-title"><strong>Definition 7 (Satisfied)</strong></span> <br></p>
+<p>An n-ary equation is satisfied in operational structure A iff <span class="math inline">t_A \equiv s_A</span></p>
 </div>
 </div>
 </div>
@@ -596,7 +638,8 @@ t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 </div>
 <div class="callout-body-container">
 <div id="def-algebraic_theory" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 8 (Algebraic Theory)</strong></span> An Algebraic Theory <span class="math inline">T=(\Omega, E)</span> is an operational type <span class="math inline">(\Omega, \alpha)</span> and set <span class="math inline">E</span> of equations in <span class="math inline">\Omega</span></p>
+<p><span class="theorem-title"><strong>Definition 8 (Algebraic Theory)</strong></span> <br></p>
+<p>An Algebraic Theory <span class="math inline">T=(\Omega, E)</span> is an operational type <span class="math inline">(\Omega, \alpha)</span> and set <span class="math inline">E</span> of equations in <span class="math inline">\Omega</span></p>
 </div>
 </div>
 </div>
@@ -608,7 +651,8 @@ t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 </div>
 <div class="callout-body-container">
 <div id="def-model" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 9 (Model)</strong></span> A model for an Algebraic Theory <span class="math inline">T=(\Omega, E)</span> or T-algebra is an Operational Structure <span class="math inline">\Omega</span> where all equations in <span class="math inline">E</span> are satisfied.</p>
+<p><span class="theorem-title"><strong>Definition 9 (Model)</strong></span> <br></p>
+<p>A model for an Algebraic Theory <span class="math inline">T=(\Omega, E)</span> or T-algebra is an Operational Structure <span class="math inline">\Omega</span> where all equations in <span class="math inline">E</span> are satisfied.</p>
 </div>
 </div>
 </div>
@@ -620,7 +664,8 @@ t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 </div>
 <div class="callout-body-container">
 <div id="def-derived_equations" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 10 (Derived Equations)</strong></span> Let <span class="math inline">E</span> be a set of equations. The set <span class="math inline">\tilde{E}</span> of derived equation satisfies:</p>
+<p><span class="theorem-title"><strong>Definition 10 (Derived Equations)</strong></span> <br></p>
+<p>Let <span class="math inline">E</span> be a set of equations. The set <span class="math inline">\tilde{E}</span> of derived equation satisfies:</p>
 <ol type="a">
 <li><p><span class="math inline">E \subset \tilde{E}</span></p></li>
 <li><p><span class="math inline">\tilde{E}</span> defines an equivalence relation <span class="math inline">s \sim_E t \iff (s=t) \in \tilde{E}</span> on the set of terms <span class="math inline">F_{\Omega}(X)</span></p>
@@ -652,7 +697,8 @@ t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 </div>
 <div class="callout-body-container">
 <div id="def-XEquivalence" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 11 (Equivalence Classes of Equations on X)</strong></span> The equivalence classes of <span class="math inline">\sim_E</span> on <span class="math inline">F_{\Omega}(X)</span> is <span class="math inline">F_{(\Omega, E)}(X)</span></p>
+<p><span class="theorem-title"><strong>Definition 11 (Equivalence Classes of Equations on X)</strong></span> <br></p>
+<p>The equivalence classes of <span class="math inline">\sim_E</span> on <span class="math inline">F_{\Omega}(X)</span> is <span class="math inline">F_{(\Omega, E)}(X)</span></p>
 </div>
 </div>
 </div>
@@ -664,7 +710,7 @@ t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 </div>
 <div class="callout-body-container">
 <div id="thm-X_e_classes_model" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 2 (The set of equivalence classes satisfies the equations in E)</strong></span> &nbsp;</p>
+<p><span class="theorem-title"><strong>Theorem 2 (The set of equivalence classes satisfies the equations in E)</strong></span> <br></p>
 <ol type="i">
 <li><p><span class="math inline">F_{(\Omega, E)}(X)</span> inherits <span class="math inline">\Omega</span>-structure from <span class="math inline">F_{\Omega}(X)</span> and satisfies the equations in <span class="math inline">E</span>.</p></li>
 <li><p><span class="math inline">F_{(\Omega, E)}(X)</span> is the free model generated by X.</p>
@@ -688,7 +734,8 @@ t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="proof">
-<p><span class="proof-title"><em>Proof</em> (Proof of <a href="#thm-X_e_classes_model" class="quarto-xref">Theorem&nbsp;2</a>). </span><strong>Part I</strong></p>
+<p><span class="proof-title"><em>Proof</em> (Proof of <a href="#thm-X_e_classes_model" class="quarto-xref">Theorem&nbsp;2</a>). </span><br></p>
+<p><strong>Part I</strong></p>
 <p>In part(i) we need to show that this indeed an <span class="math inline">\Omega</span> structure. This requires showing that the interpretation of <span class="math inline">\Omega</span> operations in <span class="math inline">F_{\Omega}(X)</span> respects the equivanece relation:</p>
 <p>Consider operation <span class="math inline">\omega \in \Omega</span> with <span class="math inline">\alpha(\omega)=n</span> and symbols <span class="math inline">t_1,\dots, t_n</span> and <span class="math inline">s_1, \dots, s_n</span> where <span class="math inline">t_i \sim_{E} s_i \forall i \in \{1, \dots, n</span>.</p>
 <p>We need to show that the operations result is the same regardless of the representative picked for each equivalence class:</p>
