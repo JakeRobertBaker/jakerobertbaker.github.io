@@ -101,12 +101,18 @@ Note this really does just mean we keep applying the standard operations until w
 
 Therefore a derived operation really is just the map it represents
 
+:::{#exm-simple_derived_operation}
+## Derived Operationss are literally themselves
+<br>
 $t=mx_1 m x_2 x_3$ has interpretation $t_A : \underline{a} \mapsto m a_1 m a_2 a_3$
+:::
+
 
 When considering interpretation in $F_{\Omega}(X_n)$
 $$
 t_{F_{\Omega}(X_n)} (\underline{u}) = t[u_1/x_1, \dots, u_n/x_n]
 $$
+
 
 :::{#def-nary_equation}
 ## n-ary Equation
