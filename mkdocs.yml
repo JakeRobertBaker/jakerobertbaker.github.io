@@ -1,0 +1,95 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+site_name: Jake Notes
+site_url: https://jakerobertbaker.github.io/
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - content.tabs.link
+
+nav:
+  - Home: index.md
+  - Mathematics:
+    - Probability & Bayesian Inference: mathematics/probability/ballot_notes.md
+    - Linear Models & ANOVA: mathematics/linear_models/linear_models.md
+    - Universal Algebra: mathematics/set_theory/universal_algebra.md
+  - Deep Learning:
+    - Attention Mechanisms: deep_learning/attention.md
+    - CLIP & SigLIP Losses: deep_learning/clip_losses.md
+  - About: about.md
+
+markdown_extensions:
+  - abbr
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.blocks.details:
+      types:
+        - proof
+  - pymdownx.blocks.admonition:
+      types:
+        - note
+        - abstract
+        - info
+        - tip
+        - success
+        - question
+        - warning
+        - failure
+        - danger
+        - bug
+        - example
+        - quote
+        - definition
+        - proposition
+        - lemma
+        - theorem
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra_javascript:
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+
+extra_css:
+  - stylesheets/extra.css
+  - https://unpkg.com/katex@0/dist/katex.min.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/jakerobertbaker
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/jakerobertbaker

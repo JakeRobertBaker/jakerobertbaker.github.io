@@ -1,5 +1,0 @@
----
-title: "About"
----
-
-Let's just say this site is a work in progress! I really need to put all the various markdown notes and topics into one home.

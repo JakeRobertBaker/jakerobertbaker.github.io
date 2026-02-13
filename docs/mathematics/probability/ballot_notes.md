@@ -1,0 +1,105 @@
+# Ballot Sampling with Bayes
+
+## Beta Binomial
+
+/// definition | Beta-Binomial Distribution
+    attrs: {id: def-Beta-Binomial}
+
+A random variable $X$ has a Beta-Binomial distribution, $X \sim \mathrm{BetaBin} (n,\alpha ,\beta)$ iff
+
+$$
+\mathbb{P}(X=x) = f(x|n,\alpha ,\beta) = {n \choose x} \Gamma(x+\alpha) \Gamma(n-x + \beta)
+$$
+
+for $x \in \lbrace 1,...,n \rbrace$.
+
+///
+
+/// note | Remark
+    attrs: {id: rem-Beta-Binomial-Proportion}
+
+Note that $f(x|n,\alpha ,\beta) \propto \frac{1}{x! (n-x)!} \Gamma(x+\alpha) \Gamma(n-x + \beta)$ when we consider $x$ to be the only variable.
+///
+
+This distribution can be derived from a binomial likelihood with a beta distributed prior $\theta=\mathbb{P}(\text{success})$.
+
+## Hypergeometric Distribution
+
+/// lemma | Hypergeometric Distribution
+    attrs: {id: lem-hypergeometric}
+
+Suppose there are $N$ balls, $X$ of the balls are red. Suppose we sample $M$ balls without replacement. Let $Y$ denote the number of red balls in the sample. Then,
+
+$$
+\mathbb{P}(Y=y) = \frac{{x \choose y} {N-X \choose M-y}}{N \choose M}
+$$
+
+///
+
+/// proof | Proof
+
+As a result of the multiplication principle. The number of combinations that contain y red balls is ${X \choose y} \times {N-X \choose M-y}$.
+///
+
+## Conjugate Prior
+
+/// theorem | Hypergeometric Conjugate Prior
+    attrs: {id: thm-hypergeometric-conjugate}
+
+Suppose there are $N$ ballots and we sample $M \in \lbrace 1, ..., N \rbrace$. Let the random variable $X$ be the total number of Labour ballots. Let $Y$ be the number of Labour ballots in the sample.
+
+If we place the following prior on $X$,
+
+$$
+p(x) = f(x|N,\alpha ,\beta)
+$$
+
+then likelihood of $Y$ given $X$ is hypergeometric and the posterior distribution of $X$ is given by
+
+$$
+p(x|y) = f(x-y|N-M, \alpha+y, \beta + M-y)
+$$
+
+///
+
+/// proof | Proof
+
+Notice that if we consider $x$ the only variable,
+
+$$
+\begin{align*}
+f(\textcolor{green}{x-y} | N-M, \textcolor{blue}{\alpha+y}, \textcolor{red}{\beta + M-y})
+& \propto
+\frac
+{\Gamma(\textcolor{green}{x-y} + \textcolor{blue}{\alpha+y}) \Gamma(N-M \textcolor{green}{-x+y} + \textcolor{red}{\beta + M-y})}
+{(\textcolor{green}{x-y})! (N-M \textcolor{green}{-x+y})!}
+\\ & =
+\frac{\Gamma(x+\alpha) \Gamma(N-x+\beta)}{(x-y)! (N-M-x+y)!} = (*)
+\end{align*}
+$$
+
+The posterior calculation then gives a multiple of this when $x$ is the only variable,
+
+$$
+\begin{align*}
+p(x|y) \propto p(y|x)p(x)
+& =
+\frac{\textcolor{red}{{x \choose y}} \textcolor{blue}{N-x \choose M-y}}
+{N \choose M}
+{N \choose x}
+\Gamma(x+\alpha) \Gamma(N-x + \beta)
+\\
+& \propto
+\textcolor{red}{\frac{x!}{(x-y!)}} \textcolor{blue}{\frac{(N-x)!}{(N-x-M+y)!}}
+\frac{1}{x! (N-x)!}
+\Gamma(x+\alpha) \Gamma(N-x + \beta)
+\\ &=
+\frac{1}{(x-y)! (N-x-M+y)!}
+\Gamma(x+\alpha) \Gamma(N-x + \beta)
+\\ & = (*) \propto f(x-y|N-M, \alpha+y, \beta + M-y)
+\end{align*}
+$$
+
+///
+
+Reference other file [here](../linear_models/linear_models.md).
