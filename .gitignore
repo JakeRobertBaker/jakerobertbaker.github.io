@@ -1,12 +1,4 @@
-/.quarto/
-/_site
-# keep the tikz tex and pdf but remove constructor stuff.
-tex_plots/**/*.aux
-tex_plots/**/*.fdb_latexmk
-tex_plots/**/*.fls
-tex_plots/**/*.log
-tex_plots/**/*.gz
-tex_plots/**/*.fdb_latexmk
-
-/scss_files/examples
-**/*.quarto_ipynb
+site/
+.venv/
+__pycache__/
+*.pyc
