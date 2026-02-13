@@ -1,12 +1,14 @@
 # Attention Transformer Details
 
 ## Notation
+
 Let $(s,d)$ denote $\mathbb{R}^{s,d}$ and write $\boldsymbol{X} \in \mathbb{R}^{s \times d}$ as
 $\boldsymbol{X} : (s,d)$.
 
 Generally $s,t$ refere to sequence lengths and $d$ is the embedding dimension.
 
 ## Input Embeddings
+
 The raw text is a sequence of vocabulary terms. Tokenization is the process of splitting the sentence into a sequence of vocabulary terms. Vocab terms can be single words but often tokenizers split the sentences into smaller components than words. In illustrative examples we usually show tokens as words.
 
 /// example | Input Embeddings
@@ -49,8 +51,8 @@ $$
 $$
 ///
 
-
 ## Positional Encoding
+
 Fixed definition for each position
 $p \in \left\{1,...,s \right\}$
 and dimension index
@@ -67,9 +69,11 @@ PE_{p, 2i+1}   &=&   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\right)}} 
 $$
 
 ### Model Input
+
 Model recieves $X + PE : (s,d)$
 
 ## Self Attention
+
 This mechanism is what changed everything.
 
 ### Attention Definition
@@ -88,7 +92,6 @@ $$
 $$
 for row wise softmax $\sigma$
 ///
-
 
 ### Explanation
 
@@ -117,7 +120,6 @@ $$
 \boldsymbol{q_i, k_i, v_i} \in \mathbb{R}^{d_v}, i=1,...,s
 $$
 
-
 We see that
 $\boldsymbol{Z}_{i,j}\coloneqq \boldsymbol{QK^T}_{i,j} = \boldsymbol{q_i \cdotp k_j}$
 is like a similarity score between query $i$ and key $j$.
@@ -125,13 +127,18 @@ is like a similarity score between query $i$ and key $j$.
 #### Compatibility Function
 
 If we observe the softmax applied to $\boldsymbol{Z}$, we see that each element is a compatibility function, $\alpha$, between query $i$ and key $j$.
+
 $$
-\sigma \left( \boldsymbol{Z} \right)_{i,j} =
+\begin{align*}
+\sigma \left( \boldsymbol{Z} \right)_{i,j}
+&=
 \cfrac{
    \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{Z}_{i,j} \right)
    }
    {\sum_{r=1}^s \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{Z}_{i,r} \right)
-   } =
+   }
+\\
+&=
 \cfrac{
    \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{q_i \cdotp k_j} \right)
    }
@@ -140,6 +147,7 @@ $$
 \cfrac{\text{score}(i,j)}{\sum_{r=1}^s \text{score}(i,r)}
 \eqqcolon
 \alpha(\boldsymbol{q_i},\boldsymbol{K},j)
+\end{align*}
 $$
 
 Let
@@ -176,8 +184,8 @@ Therefore if we permute two rows of A, the output of Attention has the same two 
 ///
 
 ## Muti Head Attention
-Let $\boldsymbol{Q}:(t,d_q), \boldsymbol{K}:(s,d_k), \boldsymbol{V}:(s,d_v)$.
 
+Let $\boldsymbol{Q}:(t,d_q), \boldsymbol{K}:(s,d_k), \boldsymbol{V}:(s,d_v)$.
 
 /// definition | Multi Head Attention
     attrs: {id: def-MHA}
@@ -216,6 +224,7 @@ $$
 ///
 
 In practise we do the matrix multiplication all in one and then split.
+
 $$
 \begin{array}{llllll}
 \boldsymbol{W^Q} &= &[\boldsymbol{W_1^Q}, &...,  &\boldsymbol{W_h^Q} ] &:(d_q,d)
