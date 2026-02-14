@@ -174,6 +174,7 @@ row $i$ of $\boldsymbol{A}$ is the sum of values, each weighted by query $i$'s s
     attrs: {id: rem-attention-permutation}
 
 Notice that row $i$ of $\boldsymbol{A}$ is a function of $\boldsymbol{q_i, K,V}$,
+
 $$
 \text{row}_i \left( \boldsymbol{A} \right) =
 \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},r) \boldsymbol{v_r^T}
