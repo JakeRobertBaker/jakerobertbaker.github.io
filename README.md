@@ -1,4 +1,4 @@
-# CLAUDE.md
+# Some Encounters During Setup
 
 ## Extensions
 
@@ -36,6 +36,7 @@ Material for MkDocs defines 12 admonition types (note, abstract, info, tip, succ
 ## Development
 
 Preview with live reload:
+
 ```bash
 uv run mkdocs serve --livereload
 ```
@@ -48,6 +49,7 @@ Local clones of upstream repos are available for deeper exploration when needed:
 - `~/reference_repos/pymdown-extensions` — pymdownx extensions source (blocks, admonition, details plugins)
 
 Key files:
+
 - Admonition SCSS: `~/reference_repos/mkdocs-material/src/templates/assets/stylesheets/main/extensions/markdown/_admonition.scss`
 - Blocks admonition plugin: `~/reference_repos/pymdown-extensions/pymdownx/blocks/admonition.py`
 - Blocks details plugin: `~/reference_repos/pymdown-extensions/pymdownx/blocks/details.py`
