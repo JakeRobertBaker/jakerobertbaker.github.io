@@ -217,7 +217,8 @@ $$
 Under the block target, every row $i{+}k$ in this block has both the same softmax outputs (by $(\ast\ast)$) and the same target row ($Y'_{i+k,:}$ is identical for all $k$). Therefore every row contributes the same loss, and the total contribution from the $n$ rows is $n$ times the loss from a single row:
 
 $$
-n \cdot \left( -\sum_{c=0}^{n-1} \frac{1}{n} \log \hat{P}^{(T \to I)}_{i,\, i+c} \right)
+n \cdot \mathcal{L}_{\text{row}\, i}
+= n \cdot \left( -\sum_{c=0}^{n-1} \frac{1}{n} \log \hat{P}^{(T \to I)}_{i,\, i+c} \right)
 = -\sum_{c=0}^{n-1} \log \hat{P}^{(T \to I)}_{i,\, i+c}
 $$
 
