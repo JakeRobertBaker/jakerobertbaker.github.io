@@ -11,9 +11,21 @@ Let $t = e^{t'}$ be the learned temperature parameter.
 
 ## CLIP Loss
 
+For a vector $\mathbf{x} \in \mathbb{R}^K$, the softmax function is defined as:
+
+$$
+\text{Softmax}(\mathbf{x})_k = \frac{e^{x_k}}{\sum_{c=1}^{K} e^{x_c}}, \qquad k = 1, \ldots, K
+$$
+
 Defining the row-wise softmax probabilities:
 
-<!-- keep this section essentially as is, have one more equals step before the fraction defining it equals to rowise Softmax(P) where above this line you quickly define Softmax(x) -->
+$$
+\hat{\mathbf{P}}^{(I \to T)} = \text{row-Softmax}(t \cdot \mathbf{S}),
+\qquad
+\hat{\mathbf{P}}^{(T \to I)} = \text{row-Softmax}(t \cdot \mathbf{S}^\top)
+$$
+
+That is,
 
 $$
 \hat{P}^{(I \to T)}_{ij} = \frac{e^{t \cdot s_{ij}}}{\sum_{c=1}^{N} e^{t \cdot s_{ic}}}
@@ -27,7 +39,7 @@ $$
 \begin{align*}
 \mathcal{L}_{\text{CLIP}}(\mathbf{U}, \mathbf{V})
 &= \frac{1}{2}
-\left[ \mathbf{CE} \left( \hat{P}^{(I \to T)}, y \right) + \mathbf{CE} \left( \hat{P}^{(T \to I)}, y \right) \right]
+\left[ \mathbf{CE} \left( \hat{\mathbf{P}}^{(I \to T)}, \mathbf{Y} \right) + \mathbf{CE} \left( \hat{\mathbf{P}}^{(T \to I)}, \mathbf{Y} \right) \right]
 \\
 &= -\frac{1}{2N} \sum_{i=1}^{N} \sum_{j=1}^{N} y_{ij} \left[
 \log \hat{P}^{(I \to T)}_{ij} + \log \hat{P}^{(T \to I)}_{ij}
@@ -35,15 +47,17 @@ $$
 \end{align*}
 $$
 
-Where $\mathbf{CE}$ is the cross entropy function,
-
-<!-- Define CE for p hat and y vectors of dimension K = n categories, then define CE for P hat Y hat of dimension NxK where N is batch size, as 1/N sum CE vector(row i P hat, row i Y )-->
+Where $\mathbf{CE}$ is the cross entropy function. For probability vectors $\hat{\mathbf{p}}, \mathbf{y} \in \mathbb{R}^K$ over $K$ categories:
 
 $$
-\mathbf{CE(P,y)} = \frac{1}{N} \sum_{i=1}^{N} \sum_{j=1}^{N} \mathbf{y}_{i,j} \log \left( \frac{1}{\mathbf{P}_{i,j}} \right)
+\text{CE}(\hat{\mathbf{p}}, \mathbf{y}) = -\sum_{k=1}^{K} y_k \log \hat{p}_k
 $$
 
-for general distribution matrices $\mathbf{P}, \mathbf{y}$.
+For distribution matrices $\hat{\mathbf{P}} \in \mathbb{R}^{N \times K}$ and $\mathbf{Y} \in \mathbb{R}^{N \times K}$, where each row is a distribution over $K$ categories and $N$ is the batch size:
+
+$$
+\mathbf{CE}(\hat{\mathbf{P}}, \mathbf{Y}) = \frac{1}{N} \sum_{i=1}^{N} \text{CE}(\hat{\mathbf{P}}_{i,:},\; \mathbf{Y}_{i,:}) = -\frac{1}{N} \sum_{i=1}^{N} \sum_{k=1}^{K} y_{ik} \log \hat{P}_{ik}
+$$
 
 In standard CLIP with hard labels:
 
@@ -84,28 +98,30 @@ where $b$ is a learned bias term.
 
 In general, for soft labels $y_{ij} \in [0,1]$ representing the affinity between image $i$ and text $j$:
 
-<!-- This section correct but the deinition of BE is wrong. Define BE for matricies and vectores as an C=2 of the CE definition, you can then define it for Nx1 input since 1-p_i and 1-y_i equal y_1 and p_2 under the assumption of disributions. In this equation write Loss SigLIP as sum (i,j) in {1,...N}^2 BCE(p hat, y) for N=1 and C=1 in each sum instance. Then write it as the BE matrix version as in BCE where N the batch size dimension is seentially taking the role of (i,j) (could say that we are flattening the i,j dim) essentially it is BE matrix applied to N=(N^2)xC=2 matrix with a row for each possible pair i,j. This means we have consistent notation of BCE as just CE. -->
+Note that binary cross entropy (BCE) is simply the $C = 2$ case of CE. For a single prediction $\hat{p} \in [0,1]$ and label $y \in \{0,1\}$, the distribution vectors are $\hat{\mathbf{p}} = (\hat{p},\; 1 - \hat{p})$ and $\mathbf{y} = (y,\; 1 - y)$, giving:
+
+$$
+\text{BCE}(\hat{p}, y) = \text{CE}\!\left((\hat{p},\; 1 - \hat{p}),\; (y,\; 1 - y)\right) = -\left[ y \log \hat{p} + (1 - y) \log(1 - \hat{p}) \right]
+$$
+
+Each pair $(i, j)$ contributes one such binary classification. Applying this to every pair:
 
 $$
 \begin{align*}
 \mathcal{L}_{\text{SigLIP}}(\mathbf{U}, \mathbf{V})
-&= \mathbf{BCE}\left( \hat{P}^{\text{sig}}, y \right)
+&= \frac{1}{N^2} \sum_{(i,j) \in \{1,\ldots,N\}^2} \text{BCE}\!\left(\hat{P}^{\text{sig}}_{ij},\; y_{ij}\right)
 \\
-&= -\frac{1}{N} \sum_{i=1}^{N} \sum_{j=1}^{N} \left[
+&= -\frac{1}{N^2} \sum_{i=1}^{N} \sum_{j=1}^{N} \left[
 y_{ij} \log \hat{P}^{\text{sig}}_{ij} + (1 - y_{ij}) \log \left(1 - \hat{P}^{\text{sig}}_{ij}\right)
 \right]
 \end{align*}
 $$
 
-Where $\mathbf{BCE}$ is the binary cross entropy function,
+Equivalently, flattening the $(i,j)$ pairs into a single batch dimension of size $N^2$, this is just the matrix $\mathbf{CE}$ applied to an $N^2 \times 2$ matrix where each row contains $(\hat{P}^{\text{sig}}_{ij},\; 1 - \hat{P}^{\text{sig}}_{ij})$ with corresponding labels $(y_{ij},\; 1 - y_{ij})$:
 
 $$
-\mathbf{BCE(P, y)} = \frac{1}{N} \sum_{i=1}^{N} \sum_{j=1}^{N} \left[
-\mathbf{y}_{ij} \log \frac{1}{\mathbf{P}_{ij}} + (1 - \mathbf{y}_{ij}) \log \frac{1}{1 - \mathbf{P}_{ij}}
-\right]
+\mathcal{L}_{\text{SigLIP}}(\mathbf{U}, \mathbf{V}) = \mathbf{CE}\!\left(\hat{\mathbf{P}}_{\text{flat}},\; \mathbf{Y}_{\text{flat}}\right), \qquad \hat{\mathbf{P}}_{\text{flat}}, \mathbf{Y}_{\text{flat}} \in \mathbb{R}^{N^2 \times 2}
 $$
-
-for general probability matrix $\mathbf{P}$ and label matrix $\mathbf{y}$.
 
 In standard SigLIP with hard labels:
 
