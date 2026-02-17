@@ -1,3 +1,0 @@
-# Analysus
-
-Some analysis
