@@ -161,3 +161,83 @@ The bias $b$ is crucial for training stability — it prevents large initial gra
 | **Symmetry** | Two passes (I→T and T→I) | Single symmetric pass |
 | **Learnable params** | Temperature $t$ | Temperature $t$ + bias $b$ |
 | **Memory** | $O(N^2)$ for full softmax | $O(N^2)$ but chunked-friendly |
+
+---
+
+## CLIP Loss Multiclass Analysis
+
+When a batch contains $n$ images $i, i{+}1, \ldots, i{+}n{-}1$ whose corresponding texts are all identical, i.e. $\mathbf{v}_{i} = \mathbf{v}_{i+1} = \cdots = \mathbf{v}_{i+n-1}$, it is natural to replace the identity target $\mathbf{Y} = \mathbf{I}_N$ with a block-diagonal target $\mathbf{Y}'$ that assigns equal credit to every correct match. Concretely, $\mathbf{Y}'$ equals $\mathbf{I}_N$ except on the $n \times n$ block covering rows and columns $i, \ldots, i{+}n{-}1$, where:
+
+$$
+Y'_{i+k,\, i+c} = \frac{1}{n}, \qquad k, c \in \{0, \ldots, n-1\}
+$$
+
+We prove that this does not change the loss: $\mathcal{L}_{\text{CLIP}}(\mathbf{Y}) = \mathcal{L}_{\text{CLIP}}(\mathbf{Y}')$.
+
+Since $\mathbf{Y}$ and $\mathbf{Y}'$ differ only on rows $i, \ldots, i{+}n{-}1$, it suffices to show equality of the contributions from these rows in both the image-to-text and text-to-image terms.
+
+### Key identity
+
+Because the texts agree, the columns of the similarity matrix satisfy $s_{r,\, i+c} = s_{r,\, i+k}$ for all $r$ and all $c, k \in \{0, \ldots, n{-}1\}$. Since the softmax is applied row-wise to $t \cdot \mathbf{S}$, this gives:
+
+$$
+\hat{P}^{(I \to T)}_{r,\, i+c} = \hat{P}^{(I \to T)}_{r,\, i+k} \qquad \forall\; r, \quad \forall\; c, k \in \{0, \ldots, n{-}1\} \tag{$\ast$}
+$$
+
+### Part 1: Image-to-text loss
+
+Consider the contribution of row $i{+}k$ for a fixed $k \in \{0, \ldots, n{-}1\}$.
+
+**Under** $\mathbf{Y} = \mathbf{I}_N$**:**
+
+$$
+-\log \hat{P}^{(I \to T)}_{i+k,\, i+k}
+$$
+
+**Under** $\mathbf{Y}'$**:**
+
+$$
+-\sum_{c=0}^{n-1} \frac{1}{n} \log \hat{P}^{(I \to T)}_{i+k,\, i+c}
+= -\frac{1}{n} \sum_{c=0}^{n-1} \log \hat{P}^{(I \to T)}_{i+k,\, i+k}
+= -\log \hat{P}^{(I \to T)}_{i+k,\, i+k}
+$$
+
+where the second equality uses $(\ast)$. Since this holds for every $k$, the image-to-text contribution from these $n$ rows is unchanged.
+
+### Part 2: Text-to-image loss
+
+The text-to-image term uses $\hat{\mathbf{P}}^{(T \to I)} = \text{row-Softmax}(t \cdot \mathbf{S}^\top)$. Since $\mathbf{v}_{i+c} = \mathbf{v}_{i+k}$ for all $c, k$, the rows of $\mathbf{S}^\top$ at indices $i, \ldots, i{+}n{-}1$ are identical, so:
+
+$$
+\hat{P}^{(T \to I)}_{i+k,\, r} = \hat{P}^{(T \to I)}_{i+c,\, r} \qquad \forall\; r, \quad \forall\; c, k \in \{0, \ldots, n{-}1\} \tag{$\ast\ast$}
+$$
+
+In particular, every row $i{+}k$ in this block contributes the same loss. Consider a single such row.
+
+**Under** $\mathbf{Y} = \mathbf{I}_N$**:**
+
+The total contribution from the $n$ rows is:
+
+$$
+-\sum_{k=0}^{n-1} \log \hat{P}^{(T \to I)}_{i+k,\, i+k}
+$$
+
+**Under** $\mathbf{Y}'$**:**
+
+$$
+-\sum_{k=0}^{n-1} \sum_{c=0}^{n-1} \frac{1}{n} \log \hat{P}^{(T \to I)}_{i+k,\, i+c}
+$$
+
+By $(\ast)$, $\hat{P}^{(T \to I)}_{i+k,\, i+c} = \hat{P}^{(T \to I)}_{i+k,\, i+k}$ for all $c$, so the inner sum collapses:
+
+$$
+= -\sum_{k=0}^{n-1} \log \hat{P}^{(T \to I)}_{i+k,\, i+k} \qquad \checkmark
+$$
+
+### Conclusion
+
+$$
+\boxed{\mathcal{L}_{\text{CLIP}}(\mathbf{Y}) = \mathcal{L}_{\text{CLIP}}(\mathbf{Y}')}
+$$
+
+The duplicate texts create a symmetry in the softmax outputs via $(\ast)$. In the image-to-text loss, the block target simply averages $n$ identical log-probabilities. In the text-to-image loss, the identical rows of $\hat{\mathbf{P}}^{(T \to I)}$ mean that redistributing target weight across the $n$ columns is a no-op. Consequently, assigning soft targets that split credit equally among duplicate text entries does not change the CLIP loss.
