@@ -1,3 +1,4 @@
+<!-- snippets: latex_math -->
 # Loss Comparison: CLIP vs SigLIP
 
 Let $\mathbf{U}, \mathbf{V} \in \mathbb{R}^{N \times D}$ be the $\ell_2$-normalized image and text embeddings respectively.
@@ -11,6 +12,8 @@ Let $t = e^{t'}$ be the learned temperature parameter.
 ## CLIP Loss
 
 Defining the row-wise softmax probabilities:
+
+<!-- keep this section essentially as is, have one more equals step before the fraction defining it equals to rowise Softmax(P) where above this line you quickly define Softmax(x) -->
 
 $$
 \hat{P}^{(I \to T)}_{ij} = \frac{e^{t \cdot s_{ij}}}{\sum_{c=1}^{N} e^{t \cdot s_{ic}}}
@@ -33,6 +36,8 @@ $$
 $$
 
 Where $\mathbf{CE}$ is the cross entropy function,
+
+<!-- Define CE for p hat and y vectors of dimension K = n categories, then define CE for P hat Y hat of dimension NxK where N is batch size, as 1/N sum CE vector(row i P hat, row i Y )-->
 
 $$
 \mathbf{CE(P,y)} = \frac{1}{N} \sum_{i=1}^{N} \sum_{j=1}^{N} \mathbf{y}_{i,j} \log \left( \frac{1}{\mathbf{P}_{i,j}} \right)
@@ -78,6 +83,8 @@ $$
 where $b$ is a learned bias term.
 
 In general, for soft labels $y_{ij} \in [0,1]$ representing the affinity between image $i$ and text $j$:
+
+<!-- This section correct but the deinition of BE is wrong. Define BE for matricies and vectores as an C=2 of the CE definition, you can then define it for Nx1 input since 1-p_i and 1-y_i equal y_1 and p_2 under the assumption of disributions. In this equation write Loss SigLIP as sum (i,j) in {1,...N}^2 BCE(p hat, y) for N=1 and C=1 in each sum instance. Then write it as the BE matrix version as in BCE where N the batch size dimension is seentially taking the role of (i,j) (could say that we are flattening the i,j dim) essentially it is BE matrix applied to N=(N^2)xC=2 matrix with a row for each possible pair i,j. This means we have consistent notation of BCE as just CE. -->
 
 $$
 \begin{align*}
