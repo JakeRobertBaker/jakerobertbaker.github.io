@@ -212,27 +212,23 @@ $$
 \hat{P}^{(T \to I)}_{i+k,\, r} = \hat{P}^{(T \to I)}_{i+c,\, r} \qquad \forall\; r, \quad \forall\; c, k \in \{0, \ldots, n{-}1\} \tag{$\ast\ast$}
 $$
 
-In particular, every row $i{+}k$ in this block contributes the same loss. Consider a single such row.
+**Under** $\mathbf{Y}'$**:**
+
+Under the block target, every row $i{+}k$ in this block has both the same softmax outputs (by $(\ast\ast)$) and the same target row ($Y'_{i+k,:}$ is identical for all $k$). Therefore every row contributes the same loss, and the total contribution from the $n$ rows is $n$ times the loss from a single row:
+
+$$
+-n \sum_{c=0}^{n-1} \frac{1}{n} \log \hat{P}^{(T \to I)}_{i,\, i+c}
+= -\sum_{c=0}^{n-1} \log \hat{P}^{(T \to I)}_{i,\, i+c}
+$$
 
 **Under** $\mathbf{Y} = \mathbf{I}_N$**:**
 
-The total contribution from the $n$ rows is:
-
 $$
 -\sum_{k=0}^{n-1} \log \hat{P}^{(T \to I)}_{i+k,\, i+k}
+= -\sum_{k=0}^{n-1} \log \hat{P}^{(T \to I)}_{i,\, i+k}
 $$
 
-**Under** $\mathbf{Y}'$**:**
-
-$$
--\sum_{k=0}^{n-1} \sum_{c=0}^{n-1} \frac{1}{n} \log \hat{P}^{(T \to I)}_{i+k,\, i+c}
-$$
-
-By $(\ast)$, $\hat{P}^{(T \to I)}_{i+k,\, i+c} = \hat{P}^{(T \to I)}_{i+k,\, i+k}$ for all $c$, so the inner sum collapses:
-
-$$
-= -\sum_{k=0}^{n-1} \log \hat{P}^{(T \to I)}_{i+k,\, i+k} \qquad \checkmark
-$$
+where the second equality applies $(\ast\ast)$ to replace row $i{+}k$ with row $i$. This is the same expression. $\checkmark$
 
 ### Conclusion
 
@@ -240,4 +236,4 @@ $$
 \boxed{\mathcal{L}_{\text{CLIP}}(\mathbf{Y}) = \mathcal{L}_{\text{CLIP}}(\mathbf{Y}')}
 $$
 
-The duplicate texts create a symmetry in the softmax outputs via $(\ast)$. In the image-to-text loss, the block target simply averages $n$ identical log-probabilities. In the text-to-image loss, the identical rows of $\hat{\mathbf{P}}^{(T \to I)}$ mean that redistributing target weight across the $n$ columns is a no-op. Consequently, assigning soft targets that split credit equally among duplicate text entries does not change the CLIP loss.
+The duplicate texts create two symmetries. Column equality $(\ast)$ makes the image-to-text block target simply average $n$ identical log-probabilities. Row equality $(\ast\ast)$ lets the text-to-image contributions collapse: both the identity and block targets reduce to the same sum $-\sum_{c=0}^{n-1} \log \hat{P}^{(T \to I)}_{i,\, i+c}$. Consequently, assigning soft targets that split credit equally among duplicate text entries does not change the CLIP loss.
