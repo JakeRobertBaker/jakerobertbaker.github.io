@@ -217,8 +217,8 @@ $$
 Under the block target, every row $i{+}k$ in this block has both the same softmax outputs (by $(\ast\ast)$) and the same target row ($Y'_{i+k,:}$ is identical for all $k$). Therefore every row contributes the same loss, and the total contribution from the $n$ rows is $n$ times the loss from a single row:
 
 $$
-n \cdot \mathcal{L}_{\text{row}\, i}
-= n \cdot \left( -\sum_{c=0}^{n-1} \frac{1}{n} \log \hat{P}^{(T \to I)}_{i,\, i+c} \right)
+n \cdot \left[ \text{loss from row i} \right]
+= n \cdot \left[ -\sum_{c=0}^{n-1} \frac{1}{n} \log \hat{P}^{(T \to I)}_{i,\, i+c} \right]
 = -\sum_{c=0}^{n-1} \log \hat{P}^{(T \to I)}_{i,\, i+c}
 $$
 
@@ -238,3 +238,7 @@ $$
 $$
 
 The duplicate texts create two symmetries. Column equality $(\ast)$ makes the image-to-text block target simply average $n$ identical log-probabilities. Row equality $(\ast\ast)$ lets the text-to-image contributions collapse: both the identity and block targets reduce to the same sum $-\sum_{c=0}^{n-1} \log \hat{P}^{(T \to I)}_{i,\, i+c}$. Consequently, assigning soft targets that split credit equally among duplicate text entries does not change the CLIP loss.
+
+So... if we want a multi class loss function we will have to get back to the drawing board!
+
+Note this proof works for duplicate images too by symetry.
