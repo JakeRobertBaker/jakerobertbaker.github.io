@@ -184,6 +184,55 @@ $$
 \hat{P}^{(I \to T)}_{r,\, i+c} = \hat{P}^{(I \to T)}_{r,\, i+k} \qquad \forall\; r, \quad \forall\; c, k \in \{0, \ldots, n{-}1\} \tag{$\ast$}
 $$
 
+That is, for every row $r$, the entries at columns $i$ through $i{+}n{-}1$ are equal (same-coloured entries denote equal values):
+
+$$
+\hat{\mathbf{P}}^{(I \to T)} = \begin{array}{c c}
+  & \begin{array}{cccccccc}
+    \scriptstyle T_1 & \scriptstyle \cdots & \scriptstyle T_i & \scriptstyle T_{i{+}1} & \scriptstyle \cdots & \scriptstyle T_{i{+}n{-}1} & \scriptstyle \cdots & \scriptstyle T_N
+  \end{array} \\
+  \begin{array}{c}
+    \scriptstyle I_1 \\ \scriptstyle \vdots \\ \scriptstyle I_r \\ \scriptstyle \vdots \\ \scriptstyle I_N
+  \end{array} &
+  \left[\begin{array}{cccccccc}
+    \cdots & \cdots & \color{red}{\bullet} & \color{red}{\bullet} & \color{red}{\cdots} & \color{red}{\bullet} & \cdots & \cdots \\
+    & & \vdots & \vdots & & \vdots & & \\
+    \cdots & \cdots & \color{green}{\bullet} & \color{green}{\bullet} & \color{green}{\cdots} & \color{green}{\bullet} & \cdots & \cdots \\
+    & & \vdots & \vdots & & \vdots & & \\
+    \cdots & \cdots & \color{purple}{\bullet} & \color{purple}{\bullet} & \color{purple}{\cdots} & \color{purple}{\bullet} & \cdots & \cdots
+  \end{array}\right]
+\end{array}
+$$
+
+The text-to-image term uses $\hat{\mathbf{P}}^{(T \to I)} = \text{row-Softmax}(t \cdot \mathbf{S}^\top)$. Since $\mathbf{v}_{i+c} = \mathbf{v}_{i+k}$ for all $c, k$, the rows of $\mathbf{S}^\top$ at indices $i, \ldots, i{+}n{-}1$ are identical, so:
+
+$$
+\hat{P}^{(T \to I)}_{i+k,\, r} = \hat{P}^{(T \to I)}_{i+c,\, r} \qquad \forall\; r, \quad \forall\; c, k \in \{0, \ldots, n{-}1\} \tag{$\ast\ast$}
+$$
+
+That is, rows $i$ through $i{+}n{-}1$ of $\hat{\mathbf{P}}^{(T \to I)}$ are identical (same-coloured entries denote equal values; identical rows produce repeating rainbow patterns):
+
+$$
+\hat{\mathbf{P}}^{(T \to I)} = \begin{array}{c c}
+  & \begin{array}{ccccc}
+    \scriptstyle I_1 & \scriptstyle \cdots & \scriptstyle I_r & \scriptstyle \cdots & \scriptstyle I_N
+  \end{array} \\
+  \begin{array}{c}
+    \scriptstyle T_1 \\ \scriptstyle \vdots \\ \scriptstyle T_i \\ \scriptstyle T_{i{+}1} \\ \scriptstyle \vdots \\ \scriptstyle T_{i{+}n{-}1} \\ \scriptstyle \vdots \\ \scriptstyle T_N
+  \end{array} &
+  \left[\begin{array}{ccccc}
+    \cdots & \cdots & \cdots & \cdots & \cdots \\
+    & & \vdots & & \\
+    \color{red}{\bullet} & \color{orange}{\cdots} & \color{green}{\bullet} & \color{blue}{\cdots} & \color{purple}{\bullet} \\
+    \color{red}{\bullet} & \color{orange}{\cdots} & \color{green}{\bullet} & \color{blue}{\cdots} & \color{purple}{\bullet} \\
+    \color{red}{\vdots} & & \color{green}{\vdots} & & \color{purple}{\vdots} \\
+    \color{red}{\bullet} & \color{orange}{\cdots} & \color{green}{\bullet} & \color{blue}{\cdots} & \color{purple}{\bullet} \\
+    & & \vdots & & \\
+    \cdots & \cdots & \cdots & \cdots & \cdots
+  \end{array}\right]
+\end{array}
+$$
+
 ### Part 1: Image-to-text loss
 
 Consider the contribution of row $i{+}k$ for a fixed $k \in \{0, \ldots, n{-}1\}$.
@@ -205,12 +254,6 @@ $$
 where the second equality uses $(\ast)$. Since this holds for every $k$, the image-to-text contribution from these $n$ rows is unchanged.
 
 ### Part 2: Text-to-image loss
-
-The text-to-image term uses $\hat{\mathbf{P}}^{(T \to I)} = \text{row-Softmax}(t \cdot \mathbf{S}^\top)$. Since $\mathbf{v}_{i+c} = \mathbf{v}_{i+k}$ for all $c, k$, the rows of $\mathbf{S}^\top$ at indices $i, \ldots, i{+}n{-}1$ are identical, so:
-
-$$
-\hat{P}^{(T \to I)}_{i+k,\, r} = \hat{P}^{(T \to I)}_{i+c,\, r} \qquad \forall\; r, \quad \forall\; c, k \in \{0, \ldots, n{-}1\} \tag{$\ast\ast$}
-$$
 
 **Under** $\mathbf{Y}'$**:**
 
