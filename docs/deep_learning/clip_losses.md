@@ -178,7 +178,7 @@ Since $\mathbf{Y}$ and $\mathbf{Y}'$ differ only on rows $i, \ldots, i{+}n{-}1$,
 
 ### Key identity
 
-Because the texts agree, the columns of the similarity matrix satisfy $s_{r,\, i+c} = s_{r,\, i+k}$ for all $r$ and all $c, k \in \{0, \ldots, n{-}1\}$. Since the softmax is applied row-wise to $t \cdot \mathbf{S}$, this gives:
+Because the texts agree, $\mathbf{v}_{i+c} = \mathbf{v}_{i+k}$, we have $s_{r,\, i+c} = s_{r,\, i+k}$ for all $r$ and all $c, k \in \{0, \ldots, n{-}1\}$. Since the softmax is applied row-wise to $t \cdot \mathbf{S}$, this gives:
 
 $$
 \hat{P}^{(I \to T)}_{r,\, i+c} = \hat{P}^{(I \to T)}_{r,\, i+k} \qquad \forall\; r, \quad \forall\; c, k \in \{0, \ldots, n{-}1\} \tag{$\ast$}
@@ -204,13 +204,13 @@ $$
 \end{array}
 $$
 
-The text-to-image term uses $\hat{\mathbf{P}}^{(T \to I)} = \text{row-Softmax}(t \cdot \mathbf{S}^\top)$. Since $\mathbf{v}_{i+c} = \mathbf{v}_{i+k}$ for all $c, k$, the rows of $\mathbf{S}^\top$ at indices $i, \ldots, i{+}n{-}1$ are identical, so:
+Similarly, since the text-to-image term $\hat{\mathbf{P}}^{(T \to I)} = \text{row-Softmax}(t \cdot \mathbf{S}^\top)$.
 
 $$
 \hat{P}^{(T \to I)}_{i+k,\, r} = \hat{P}^{(T \to I)}_{i+c,\, r} \qquad \forall\; r, \quad \forall\; c, k \in \{0, \ldots, n{-}1\} \tag{$\ast\ast$}
 $$
 
-That is, rows $i$ through $i{+}n{-}1$ of $\hat{\mathbf{P}}^{(T \to I)}$ are identical (same-coloured entries denote equal values; identical rows produce repeating rainbow patterns):
+That is, rows $i$ through $i{+}n{-}1$ of $\hat{\mathbf{P}}^{(T \to I)}$ are identical:
 
 $$
 \hat{\mathbf{P}}^{(T \to I)} = \begin{array}{c c}
@@ -272,7 +272,7 @@ $$
 = -\sum_{k=0}^{n-1} \log \hat{P}^{(T \to I)}_{i,\, i+k}
 $$
 
-where the second equality applies $(\ast\ast)$ to replace row $i{+}k$ with row $i$. This is the same expression. $\checkmark$
+where the second equality applies $(\ast\ast)$ to replace row $i{+}k$ with row $i$. This is the same expression.
 
 ### Conclusion
 
