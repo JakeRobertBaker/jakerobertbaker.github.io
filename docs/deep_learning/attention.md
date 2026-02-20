@@ -2,10 +2,17 @@
 
 ## Notation
 
-Let $(s,d)$ denote $\mathbb{R}^{s,d}$ and write $\boldsymbol{X} \in \mathbb{R}^{s \times d}$ as
-$\boldsymbol{X} : (s,d)$.
+/// note | Notation
+    attrs: {id: not-attention}
 
-Generally $s,t$ refere to sequence lengths and $d$ is the embedding dimension.
+Let $(S, D)$ denote the shape $\mathbb{R}^{S \times D}$ and write $\mathbf{X} \in \mathbb{R}^{S \times D}$ as $\mathbf{X} : (S, D)$.
+
+- $S, T$ denote sequence lengths (source and target respectively)
+- $D$ denotes the model embedding dimension
+- $D_k, D_v, D_q$ denote key, value, and query dimensions
+- $h$ denotes the number of attention heads, with $D_h \coloneqq D/h$
+
+///
 
 ## Input Embeddings
 
@@ -14,7 +21,7 @@ The raw text is a sequence of vocabulary terms. Tokenization is the process of s
 /// example | Input Embeddings
     attrs: {id: exm-input_embeds}
 
-$s=5$, $d$ is usually 512 in the traditional paper.
+$S=5$, $D$ is usually 512 in the traditional paper.
 
 $$
 \begin{align*}
@@ -35,18 +42,18 @@ $$
 \end{bmatrix}
 &&\mapsto
 \begin{bmatrix}
-\boldsymbol{x_1^T} \\
-\boldsymbol{x_2^T} \\
-\boldsymbol{x_3^T} \\
-\boldsymbol{x_4^T} \\
-\boldsymbol{x_5^T}
+\mathbf{x_1^T} \\
+\mathbf{x_2^T} \\
+\mathbf{x_3^T} \\
+\mathbf{x_4^T} \\
+\mathbf{x_5^T}
 \end{bmatrix}
 \\ \\
 \text{Sentence}
 &\mapsto
 \text{Input IDs}
 &&\mapsto
-\text{Embedding}:(5,d)
+\text{Embedding}:(5,D)
 \end{align*}
 $$
 ///
@@ -54,23 +61,23 @@ $$
 ## Positional Encoding
 
 Fixed definition for each position
-$p \in \left\{1,...,s \right\}$
+$p \in \left\{1,...,S \right\}$
 and dimension index
-$2i \text{ or } 2i+1 \text{ for } i \in \left\{1,...,d \right\}$.
+$2i \text{ or } 2i+1 \text{ for } i \in \left\{1,...,D \right\}$.
 
 $$
-PE :(s,d)  =
+PE :(S,D)  =
 \begin{cases}
-PE_{p, 2i}     &=&   \sin \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\right)}} \right)
+PE_{p, 2i}     &=&   \sin \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{D}\right)}} \right)
 \\
 \\
-PE_{p, 2i+1}   &=&   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{d}\right)}} \right)
+PE_{p, 2i+1}   &=&   \cos \left( \dfrac{p}{10,000^{\left(\dfrac{2i}{D}\right)}} \right)
 \end{cases}
 $$
 
 ### Model Input
 
-Model recieves $X + PE : (s,d)$
+Model recieves $X + PE : (S,D)$
 
 ## Self Attention
 
@@ -78,17 +85,17 @@ This mechanism is what changed everything.
 
 ### Attention Definition
 
-Let Query, Key and Value Matricies be $\boldsymbol{Q}:(t,d_k)$, $\boldsymbol{K}:(s,d_k)$ and $\boldsymbol{V}:(s,d_v)$. We also let $t \in \mathbb{N}$ denote a sequence length not neccessarily equal to $s \in \mathbb{N}$.
+Let Query, Key and Value Matricies be $\mathbf{Q}:(T,D_k)$, $\mathbf{K}:(S,D_k)$ and $\mathbf{V}:(S,D_v)$. We also let $T \in \mathbb{N}$ denote a sequence length not neccessarily equal to $S \in \mathbb{N}$.
 
 /// definition | Attention
     attrs: {id: def-Attention}
 
-$\text{Attention}: (t,d_k) \times (s,d_k) \times (s,d_v) \to (t,d_v)$ maps
+$\text{Attention}: (T,D_k) \times (S,D_k) \times (S,D_v) \to (T,D_v)$ maps
 
 $$
-\boldsymbol{Q,K,V} \mapsto
-\sigma \left( \dfrac{\boldsymbol{Q K^T}}{\sqrt{d_k}} \right) \boldsymbol{V}
-: (t,d_v)
+\mathbf{Q,K,V} \mapsto
+\sigma \left( \dfrac{\mathbf{Q K^T}}{\sqrt{D_k}} \right) \mathbf{V}
+: (T,D_v)
 $$
 for row wise softmax $\sigma$
 ///
@@ -98,87 +105,87 @@ for row wise softmax $\sigma$
 Write the matricies as,
 
 $$
-\boldsymbol{Q}=
+\mathbf{Q}=
 \begin{bmatrix}
-   \boldsymbol{q_1^T}   \\
+   \mathbf{q_1^T}   \\
    \vdots   \\
-   \boldsymbol{q_s^T}
+   \mathbf{q_S^T}
 \end{bmatrix}
-\boldsymbol{K}=
+\mathbf{K}=
 \begin{bmatrix}
-   \boldsymbol{k_1^T}   \\
+   \mathbf{k_1^T}   \\
    \vdots   \\
-   \boldsymbol{k_s^T}
+   \mathbf{k_S^T}
 \end{bmatrix}
-\boldsymbol{V}=
+\mathbf{V}=
 \begin{bmatrix}
-   \boldsymbol{v_1^T}   \\
+   \mathbf{v_1^T}   \\
    \vdots   \\
-   \boldsymbol{v_s^T}
+   \mathbf{v_S^T}
 \end{bmatrix}
 \text{for }
-\boldsymbol{q_i, k_i, v_i} \in \mathbb{R}^{d_v}, i=1,...,s
+\mathbf{q_i, k_i, v_i} \in \mathbb{R}^{D_v}, i=1,...,S
 $$
 
 We see that
-$\boldsymbol{Z}_{i,j}\coloneqq \boldsymbol{QK^T}_{i,j} = \boldsymbol{q_i \cdotp k_j}$
+$\mathbf{Z}_{i,j}\coloneqq \mathbf{QK^T}_{i,j} = \mathbf{q_i \cdotp k_j}$
 is like a similarity score between query $i$ and key $j$.
 
 #### Compatibility Function
 
-If we observe the softmax applied to $\boldsymbol{Z}$, we see that each element is a compatibility function, $\alpha$, between query $i$ and key $j$.
+If we observe the softmax applied to $\mathbf{Z}$, we see that each element is a compatibility function, $\alpha$, between query $i$ and key $j$.
 
 $$
 \begin{align*}
-\sigma \left( \boldsymbol{Z} \right)_{i,j}
+\sigma \left( \mathbf{Z} \right)_{i,j}
 &=
 \cfrac{
-   \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{Z}_{i,j} \right)
+   \exp \left( \frac{1}{\sqrt{D_k}} \mathbf{Z}_{i,j} \right)
    }
-   {\sum_{r=1}^s \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{Z}_{i,r} \right)
+   {\sum_{r=1}^S \exp \left( \frac{1}{\sqrt{D_k}} \mathbf{Z}_{i,r} \right)
    }
 \\
 &=
 \cfrac{
-   \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{q_i \cdotp k_j} \right)
+   \exp \left( \frac{1}{\sqrt{D_k}} \mathbf{q_i \cdotp k_j} \right)
    }
-   {\sum_{r=1}^s \exp \left( \frac{1}{\sqrt{d_k}} \boldsymbol{q_i \cdotp k_r} \right)
+   {\sum_{r=1}^S \exp \left( \frac{1}{\sqrt{D_k}} \mathbf{q_i \cdotp k_r} \right)
    } =
-\cfrac{\text{score}(i,j)}{\sum_{r=1}^s \text{score}(i,r)}
+\cfrac{\text{score}(i,j)}{\sum_{r=1}^S \text{score}(i,r)}
 \eqqcolon
-\alpha(\boldsymbol{q_i},\boldsymbol{K},j)
+\alpha(\mathbf{q_i},\mathbf{K},j)
 \end{align*}
 $$
 
 Let
-$\boldsymbol{A} \coloneqq \text{Attention}(\boldsymbol{Q,K,V})$, then
+$\mathbf{A} \coloneqq \text{Attention}(\mathbf{Q,K,V})$, then
 
 $$
 \begin{align*}
-\boldsymbol{A}_{i,j}
-= \sum_{r=1}^s \sigma \left( \boldsymbol{Z} \right)_{i,r}  \boldsymbol{V}_{r,j}
-&= \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},r) [\boldsymbol{v_r}]_j
+\mathbf{A}_{i,j}
+= \sum_{r=1}^S \sigma \left( \mathbf{Z} \right)_{i,r}  \mathbf{V}_{r,j}
+&= \sum_{r=1}^S \alpha(\mathbf{q_i},\mathbf{K},r) [\mathbf{v_r}]_j
 \\
 \implies
-\text{row}_i \left( \boldsymbol{A} \right)
-&= \sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},r) \boldsymbol{v_r^T}
-\in \mathbb{R}^{1,d_v}
+\text{row}_i \left( \mathbf{A} \right)
+&= \sum_{r=1}^S \alpha(\mathbf{q_i},\mathbf{K},r) \mathbf{v_r^T}
+\in \mathbb{R}^{1,D_v}
 \end{align*}
 $$
 
-row $i$ of $\boldsymbol{A}$ is the sum of values, each weighted by query $i$'s similarity with that key.
+row $i$ of $\mathbf{A}$ is the sum of values, each weighted by query $i$'s similarity with that key.
 
 ### Remarks
 
 /// note | Attention is permutation invariant
     attrs: {id: rem-attention-permutation}
 
-Notice that row $i$ of $\boldsymbol{A}$ is a function of $\boldsymbol{q_i, K,V}$,
+Notice that row $i$ of $\mathbf{A}$ is a function of $\mathbf{q_i, K,V}$,
 
 $$
-\text{row}_i \left( \boldsymbol{A} \right) =
-\sum_{r=1}^s \alpha(\boldsymbol{q_i},\boldsymbol{K},r) \boldsymbol{v_r^T}
-\eqqcolon f(\boldsymbol{q_i, K,V})
+\text{row}_i \left( \mathbf{A} \right) =
+\sum_{r=1}^S \alpha(\mathbf{q_i},\mathbf{K},r) \mathbf{v_r^T}
+\eqqcolon f(\mathbf{q_i, K,V})
 $$
 
 Therefore if we permute two rows of A, the output of Attention has the same two rows permuted.
@@ -186,39 +193,39 @@ Therefore if we permute two rows of A, the output of Attention has the same two 
 
 ## Muti Head Attention
 
-Let $\boldsymbol{Q}:(t,d_q), \boldsymbol{K}:(s,d_k), \boldsymbol{V}:(s,d_v)$.
+Let $\mathbf{Q}:(T,D_q), \mathbf{K}:(S,D_k), \mathbf{V}:(S,D_v)$.
 
 /// definition | Multi Head Attention
     attrs: {id: def-MHA}
 
-Given sequence length $s,t \in \mathbb{N}$, dimension lengths $d_q, d_k, d_v, d \in \mathbb{N}$, $h\in \mathbb{N}$ that divides $d$ and parameters $\boldsymbol{W_i^Q, W_i^K, W_i^V}$, for $i=1,...,h$.
+Given sequence lengths $S, T \in \mathbb{N}$, dimension lengths $D_q, D_k, D_v, D \in \mathbb{N}$, $h\in \mathbb{N}$ that divides $D$ and parameters $\mathbf{W_i^Q, W_i^K, W_i^V}$, for $i=1,...,h$.
 
-$\text{MultiHeadAttention}: (t,d_q) \times (s,d_k) \times (s,d_v) \to (t,d)$ maps
+$\text{MultiHeadAttention}: (T,D_q) \times (S,D_k) \times (S,D_v) \to (T,D)$ maps
 
 $$
 \begin{split}
-\boldsymbol{Q,K,V}
+\mathbf{Q,K,V}
  \mapsto
-\left[ \boldsymbol{H_1},...,\boldsymbol{H_h} \right]
-: (t,d)
+\left[ \mathbf{H_1},...,\mathbf{H_h} \right]
+: (T,D)
 \\ \\
-\boldsymbol{H_i}
+\mathbf{H_i}
  \coloneqq
-\text{Attention} \left( \boldsymbol{Q'_i}, \boldsymbol{K'_i}, \boldsymbol{V'_i} \right)
-:(t,d_h)
+\text{Attention} \left( \mathbf{Q'_i}, \mathbf{K'_i}, \mathbf{V'_i} \right)
+:(T,D_h)
 \\ \\
 \begin{array}{ccccc}
-   \boldsymbol{Q'_i} &  = & \boldsymbol{Q} & \boldsymbol{W_i^Q} &:(t,d_h), \\
-   & & (t,d_q) & (d_q,d_h) &
+   \mathbf{Q'_i} &  = & \mathbf{Q} & \mathbf{W_i^Q} &:(T,D_h), \\
+   & & (T,D_q) & (D_q,D_h) &
    \\ \\
-   \boldsymbol{K'_i} &  = & \boldsymbol{K} & \boldsymbol{W_i^K} &:(s,d_h) \\
-   & & (s,d_k) & (d_k,d_h) &
+   \mathbf{K'_i} &  = & \mathbf{K} & \mathbf{W_i^K} &:(S,D_h) \\
+   & & (S,D_k) & (D_k,D_h) &
    \\ \\
-   \boldsymbol{V'_i} &  = & \boldsymbol{V} & \boldsymbol{W_i^V} &:(s,d_h) \\
-   & & (s,d_v) & (d_v,d_h) &
+   \mathbf{V'_i} &  = & \mathbf{V} & \mathbf{W_i^V} &:(S,D_h) \\
+   & & (S,D_v) & (D_v,D_h) &
    \\
 \end{array}
-\\ i=1,...,h, \quad d_h \coloneqq \frac{d}{h}
+\\ i=1,...,h, \quad D_h \coloneqq \frac{D}{h}
 \end{split}
 $$
 
@@ -228,29 +235,29 @@ In practise we do the matrix multiplication all in one and then split.
 
 $$
 \begin{array}{llllll}
-\boldsymbol{W^Q} &= &[\boldsymbol{W_1^Q}, &...,  &\boldsymbol{W_h^Q} ] &:(d_q,d)
+\mathbf{W^Q} &= &[\mathbf{W_1^Q}, &...,  &\mathbf{W_h^Q} ] &:(D_q,D)
 \\
-&&(d_q,d_h) &   &(d_q,d_h) &
+&&(D_q,D_h) &   &(D_q,D_h) &
 \\ \\
-\boldsymbol{QW^Q} &= &[\boldsymbol{QW_1^Q}, &...,  &\boldsymbol{QW_h^Q} ] &:(t,d)
+\mathbf{QW^Q} &= &[\mathbf{QW_1^Q}, &...,  &\mathbf{QW_h^Q} ] &:(T,D)
 \\
-&&(t,d_h) &   &(t,d_h) &
+&&(T,D_h) &   &(T,D_h) &
 \\ \\ \hline \\
-\boldsymbol{W^K} &= &[\boldsymbol{W_1^K}, &...,  &\boldsymbol{W_h^K} ] &:(d_k,d)
+\mathbf{W^K} &= &[\mathbf{W_1^K}, &...,  &\mathbf{W_h^K} ] &:(D_k,D)
 \\
-&&(d_k,d_h) &   &(d_k,d_h) &
+&&(D_k,D_h) &   &(D_k,D_h) &
 \\ \\
-\boldsymbol{KW^K} &= &[\boldsymbol{KW_1^K}, &...,  &\boldsymbol{KW_h^K} ] &:(s,d)
+\mathbf{KW^K} &= &[\mathbf{KW_1^K}, &...,  &\mathbf{KW_h^K} ] &:(S,D)
 \\
-&&(s,d_h) &   &(s,d_h) &
+&&(S,D_h) &   &(S,D_h) &
 \\ \\ \hline \\
-\boldsymbol{W^V} &= &[\boldsymbol{W_1^V}, &...,  &\boldsymbol{W_h^V} ] &:(d_v,d)
+\mathbf{W^V} &= &[\mathbf{W_1^V}, &...,  &\mathbf{W_h^V} ] &:(D_v,D)
 \\
-&&(d_v,d_h) &   &(d_v,d_h) &
+&&(D_v,D_h) &   &(D_v,D_h) &
 \\ \\
-\boldsymbol{VW^V} &= &[\boldsymbol{VW_1^V}, &...,  &\boldsymbol{VW_h^V} ] &:(s,d)
+\mathbf{VW^V} &= &[\mathbf{VW_1^V}, &...,  &\mathbf{VW_h^V} ] &:(S,D)
 \\
-&&(s,d_h) &   &(s,d_h) &
+&&(S,D_h) &   &(S,D_h) &
 \end{array}
 $$
 
@@ -258,4 +265,4 @@ The general idea with different heads is for different heads to learn different 
 
 ### Attention Visualisation
 
-The diagrams in the paper are show the similarity between words according to $\sigma \left( \frac{\boldsymbol{QK^T}}{\sqrt{d_k}} \right)$ of each head.
+The diagrams in the paper are show the similarity between words according to $\sigma \left( \frac{\mathbf{QK^T}}{\sqrt{D_k}} \right)$ of each head.
