@@ -64,9 +64,23 @@ My code does the latter pre-norm: normalise, apply sub-layer, add residual:   wh
 The layer itself does
 
 $$
-\mathbf{H_1}(\mathbf{x}) = \text{LayerNormRes}(\text{MHA}\left( \mathbf{x} \right))
+\mathbf{SL_1}(\mathbf{x}) = \text{LayerNormRes}(\text{MHA}\left( \mathbf{x} \right))
 \\
-\mathbf{H_2}(\mathbf{x}) = \text{LayerNormRes} \left( \text{FFN}(\mathbf{x}) \right)
+\mathbf{SL_2}(\mathbf{x}) = \text{LayerNormRes} \left( \text{FFN}(\mathbf{x}) \right)
 \\
-\mathbf{H(x)} = \mathbf{H_2(H_1(x))}
+\mathbf{H(x)} = \mathbf{SL_2(SL_1(x))}
+$$
+
+So for $n \in \left\{ 1,\dots,N=6 \right\}$
+
+$$
+M_1 = H(\mathbf{E}_{\text{src}})
+\\
+\dots
+\\
+M_i = H(M_{i-1})
+\\
+\dots
+\\
+M = M_N = H(H_{N-1})
 $$
