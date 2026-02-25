@@ -53,6 +53,20 @@ This is the input fed into the bottom of the encoder stack.
 
 ## Stage 2 — Encoder Stack (repeated $N = 6$ times)
 
-Each encoder layer applies two sub-layers with a residual connection and LayerNorm around each: $\text{LayerNorm}(\mathbf{x} + \text{Sublayer}(\mathbf{x}))$.
+Each encoder layer applies two sub-layers with a residual connection and LayerNorm around each:
 
-My code instead does pre-norm: normalise, apply sub-layer, add residual:  $\text{Sublayer}( \text{LayerNorm}(\mathbf{x}) ) + \text{LayerNorm} (\mathbf{x})$ which has been seen to train stably.
+$\text{LayerNormRes}$ is either:
+$\text{LayerNorm}(\mathbf{x} + \text{Sublayer}(\mathbf{x}))$,
+or $\text{Sublayer}( \text{LayerNorm}(\mathbf{x}) ) + \text{LayerNorm} (\mathbf{x})$
+
+My code does the latter pre-norm: normalise, apply sub-layer, add residual:   which has been seen to train stably.
+
+The layer itself does
+
+$$
+\mathbf{H_1}(\mathbf{x}) = \text{LayerNormRes}(\text{MHA}\left( \mathbf{x} \right))
+\\
+\mathbf{H_2}(\mathbf{x}) = \text{LayerNormRes} \left( \text{FFN}(\mathbf{x}) \right)
+\\
+\mathbf{H(x)} = \mathbf{H_2(H_1(x))}
+$$
