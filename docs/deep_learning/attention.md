@@ -1,3 +1,4 @@
+<!-- snippets: latex_math -->
 # Attention Transformer Details
 
 ## Notation
@@ -21,7 +22,7 @@ The raw text is a sequence of vocabulary terms. Tokenization is the process of s
 /// example | Input Embeddings
     attrs: {id: exm-input_embeds}
 
-$S=5$, $D$ is usually 512 in the traditional paper.
+$S=5$, $D=512$
 
 $$
 \begin{align*}
@@ -53,7 +54,7 @@ $$
 &\mapsto
 \text{Input IDs}
 &&\mapsto
-\text{Embedding}:(5,D)
+\text{Embedding}:(S{=}5,D)
 \end{align*}
 $$
 ///
@@ -91,9 +92,8 @@ Let Query, Key and Value Matricies be $\mathbf{Q}:(T,D_k)$, $\mathbf{K}:(S,D_k)$
     attrs: {id: def-Attention}
 
 $\text{Attention}: (T,D_k) \times (S,D_k) \times (S,D_v) \to (T,D_v)$ maps
-
 $$
-\mathbf{Q,K,V} \mapsto
+\text{Attention} \left( \mathbf{Q,K,V} \right) =
 \sigma \left( \dfrac{\mathbf{Q K^T}}{\sqrt{D_k}} \right) \mathbf{V}
 : (T,D_v)
 $$
@@ -109,7 +109,7 @@ $$
 \begin{bmatrix}
    \mathbf{q_1^T}   \\
    \vdots   \\
-   \mathbf{q_S^T}
+   \mathbf{q_T^T}
 \end{bmatrix}
 \mathbf{K}=
 \begin{bmatrix}
@@ -124,7 +124,9 @@ $$
    \mathbf{v_S^T}
 \end{bmatrix}
 \text{for }
-\mathbf{q_i, k_i, v_i} \in \mathbb{R}^{D_v}, i=1,...,S
+\mathbf{q_i} \in \mathbb{R}^{D_k},\; i=1,...,T
+\quad
+\mathbf{k_j, v_j} \in \mathbb{R}^{D_k} \times \mathbb{R}^{D_v},\; j=1,...,S
 $$
 
 We see that
@@ -188,10 +190,10 @@ $$
 \eqqcolon f(\mathbf{q_i, K,V})
 $$
 
-Therefore if we permute two rows of A, the output of Attention has the same two rows permuted.
+Therefore if we permute two rows of $\mathbf{Q}$, the output of Attention has the same two rows of $\mathbf{A}$ permuted.
 ///
 
-## Muti Head Attention
+## Multi Head Attention
 
 Let $\mathbf{Q}:(T,D_q), \mathbf{K}:(S,D_k), \mathbf{V}:(S,D_v)$.
 
@@ -200,12 +202,11 @@ Let $\mathbf{Q}:(T,D_q), \mathbf{K}:(S,D_k), \mathbf{V}:(S,D_v)$.
 
 Given sequence lengths $S, T \in \mathbb{N}$, dimension lengths $D_q, D_k, D_v, D \in \mathbb{N}$, $h\in \mathbb{N}$ that divides $D$ and parameters $\mathbf{W_i^Q, W_i^K, W_i^V}$, for $i=1,...,h$.
 
-$\text{MultiHeadAttention}: (T,D_q) \times (S,D_k) \times (S,D_v) \to (T,D)$ maps
+$\text{MultiHeadAttention}: (T,D_q) \times (S,D_k) \times (S,D_v) \to (T,D)$
 
 $$
 \begin{split}
-\mathbf{Q,K,V}
- \mapsto
+\text{MultiHeadAttention} \left(\mathbf{Q,K,V}  \right) =
 \left[ \mathbf{H_1},...,\mathbf{H_h} \right]
 : (T,D)
 \\ \\
@@ -266,3 +267,9 @@ The general idea with different heads is for different heads to learn different 
 ### Attention Visualisation
 
 The diagrams in the paper are show the similarity between words according to $\sigma \left( \frac{\mathbf{QK^T}}{\sqrt{D_k}} \right)$ of each head.
+
+TODO
+
+## End To End Flow
+
+See [Attention Is All You Need End-to-End Flow](attention_is_all_you_need.md) for the full walkthrough.

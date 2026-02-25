@@ -38,10 +38,11 @@ nav:
       - Bayesian Ballot Sampling: mathematics/probability/ballot_notes.md
       - Linear Models: mathematics/linear_models/linear_models.md
       - Set Theory:
-          Universal ALgebra: mathematics/set_theory/universal_algebra.md
+          - Universal Algebra: mathematics/set_theory/universal_algebra.md
 
   - Deep Learning:
       - Attention Mechanisms: deep_learning/attention.md
+      - Attention Is All You Need End-to-End Flow: deep_learning/attention_is_all_you_need.md
       - CLIP & SigLIP Losses: deep_learning/clip_losses.md
   - About: about.md
 
