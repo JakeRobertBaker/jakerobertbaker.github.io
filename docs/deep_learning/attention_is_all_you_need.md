@@ -57,7 +57,7 @@ Each encoder layer applies two sub-layers with a residual connection and LayerNo
 
 $$
 \text{LayerNormRes}_{\text{post}}(\mathbf{x}, \text{Sub}) = \text{LayerNorm}(\mathbf{x} + \text{Sub}(\mathbf{x}))
-\qquad
+\\
 \text{LayerNormRes}_{\text{pre}}(\mathbf{x}, \text{Sub}) = \text{Sub}(\text{LayerNorm}(\mathbf{x})) + \mathbf{x}
 $$
 
