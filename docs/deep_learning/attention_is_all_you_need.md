@@ -53,34 +53,71 @@ This is the input fed into the bottom of the encoder stack.
 
 ## Stage 2 — Encoder Stack (repeated $N = 6$ times)
 
-Each encoder layer applies two sub-layers with a residual connection and LayerNorm around each:
-
-$\text{LayerNormRes}$ is either:
-$\text{LayerNorm}(\mathbf{x} + \text{Sublayer}(\mathbf{x}))$,
-or $\text{Sublayer}( \text{LayerNorm}(\mathbf{x}) ) + \text{LayerNorm} (\mathbf{x})$
-
-My code does the latter pre-norm: normalise, apply sub-layer, add residual:   which has been seen to train stably.
-
-The layer itself does
+Each encoder layer applies two sub-layers with a residual connection and LayerNorm around each. $\text{LayerNormRes}$ is either:
 
 $$
-\mathbf{SL_1}(\mathbf{x}) = \text{LayerNormRes}(\text{MHA}\left( \mathbf{x} \right))
-\\
-\mathbf{SL_2}(\mathbf{x}) = \text{LayerNormRes} \left( \text{FFN}(\mathbf{x}) \right)
-\\
-\mathbf{H(x)} = \mathbf{SL_2(SL_1(x))}
+\text{LayerNormRes}_{\text{post}}(\mathbf{x}, \text{Sub}) = \text{LayerNorm}(\mathbf{x} + \text{Sub}(\mathbf{x}))
+\qquad
+\text{LayerNormRes}_{\text{pre}}(\mathbf{x}, \text{Sub}) = \text{Sub}(\text{LayerNorm}(\mathbf{x})) + \mathbf{x}
 $$
 
-So for $n \in \left\{ 1,\dots,N=6 \right\}$
+The original paper uses post-norm; pre-norm (used in my code) has been found to train more stably. The full encoder layer is then:
 
 $$
-M_1 = H(\mathbf{E}_{\text{src}})
+\mathbf{SL_1}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{MHA} \right) : (S{=}5,\, D{=}512)
+\\[6pt]
+\mathbf{SL_2}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{FFN} \right) : (S{=}5,\, D{=}512)
+\\[6pt]
+\mathbf{H}(\mathbf{x}) = \mathbf{SL_2}(\mathbf{SL_1}(\mathbf{x})) : (S{=}5,\, D{=}512)
+$$
+
+Applying this $N=6$ times:
+
+$$
+\mathbf{M}_1 = \mathbf{H}(\mathbf{E}_{\text{src}})
 \\
-\dots
+\vdots
 \\
-M_i = H(M_{i-1})
+\mathbf{M}_i = \mathbf{H}(\mathbf{M}_{i-1})
 \\
-\dots
+\vdots
 \\
-M = M_N = H(H_{N-1})
+\mathbf{M} = \mathbf{M}_N = \mathbf{H}(\mathbf{M}_{N-1}) : (S{=}5,\, D{=}512)
+$$
+
+$\mathbf{M}$ is a context-aware representation of every source token, informed by all other source tokens. It is passed **unchanged** into every one of the 6 decoder layers.
+
+### Sub-layer 1 — Encoder Self-Attention
+
+$$
+\text{MHA}\!\left(\mathbf{E}_{\text{src}},\; \mathbf{E}_{\text{src}},\; \mathbf{E}_{\text{src}}\right) : (S{=}5,\, D{=}512)
+$$
+
+/// note | Remark — what the self-attention is comparing
+    attrs: {id: rem-enc-self-attn}
+
+All three of $\mathbf{Q}, \mathbf{K}, \mathbf{V}$ are projections of the same matrix $\mathbf{E}_{\text{src}}$, so $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **source token $i$ attends to source token $j$**. For example, token $i = \text{LOVELY}$ may learn to attend strongly to token $j = \text{TODAY}$, capturing their syntactic relationship. Output row $i$ is:
+
+$$
+\text{row}_i(\mathbf{A}) = \sum_{r=1}^{S} \alpha(\mathbf{q}_i, \mathbf{K}, r)\; \mathbf{v}_r^T
+$$
+
+a blend of all $S=5$ source value vectors, weighted by relevance to source position $i$.
+
+A **padding mask** zeroes out attention to any padding tokens (not needed here since $S = 5$ with no padding, but applied in batched training).
+
+///
+
+### Sub-layer 2 — Feed-Forward Network
+
+$$
+\text{FFN}(\mathbf{x}) = \phi\!\left(\mathbf{x}\mathbf{W}_1 + \mathbf{b}_1\right)\mathbf{W}_2 + \mathbf{b}_2
+$$
+
+where $\phi$ is the activation function, $\mathbf{W}_1 : (D{=}512,\, D_{ff}{=}2048)$ and $\mathbf{W}_2 : (D_{ff}{=}2048,\, D{=}512)$. Applied identically and independently to each of the $S=5$ source token positions. The original paper uses $\phi = \text{ReLU}$; in practice GELU is commonly preferred:
+
+$$
+\text{ReLU}(\mathbf{x}) = \max(0,\, \mathbf{x})
+\qquad\qquad
+\text{GELU}(\mathbf{x}) \approx \mathbf{x} \cdot \sigma(1.702\,\mathbf{x})
 $$
