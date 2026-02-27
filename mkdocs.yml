@@ -3,6 +3,7 @@ site_name: Jake Notes
 site_url: https://jakerobertbaker.github.io/
 theme:
   name: material
+  custom_dir: overrides
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
