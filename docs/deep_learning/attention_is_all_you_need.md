@@ -226,7 +226,7 @@ All entries with $j > i$ in the $T \times T = 4 \times 4$ score matrix $\mathbf{
 
 Therefore the attention weights become zero, $\alpha\left( \mathbf{q}_i, \mathbf{K},r \right)=0$ for all $r>i$.
 
-Therefore, the effective weighted sum is restricted to positions up to and including $i$:
+Therefore, the weighted sum of values is restricted to positions up to and including $i$.
 
 $$
 \text{row}_i(\mathbf{A}) = \sum_{r=1}^{i} \alpha(\mathbf{q}_i, \mathbf{K}, r)\; \mathbf{v}_r^T
