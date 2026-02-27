@@ -43,7 +43,28 @@ $$
 \mathbf{X}_{\text{src}} : (S{=}5,\, D{=}512)
 $$
 
-Positional encodings $PE_{\text{src}} : (S{=}5,\, D{=}512)$ are added elementwise (not concatenated):
+### Positional Encoding
+
+Positional encodings $PE_{\text{src}} : (S{=}5,\, D{=}512)$ are added elementwise (not concatenated),
+for each position
+$s \in \left\{1,...,S \right\}$
+and dimension index
+$d \in \left\{ 1,\dots,D \right\}$ taking either $2i+1$ or $2i$
+
+$$
+PE_{\text{src}} :(S,D)  =
+\begin{cases}
+\begin{aligned}
+PE_{\text{src}} \left[ s, 2i \right]
+&=
+\sin \left( \dfrac{s}{10,000^{\left(\dfrac{2i}{D}\right)}} \right)
+\\\\
+PE_{\text{src}} \left[ s, 2i+1 \right]
+&=
+\cos \left( \dfrac{s}{10,000^{\left(\dfrac{2i}{D}\right)}} \right)
+\end{aligned}
+\end{cases}
+$$
 
 $$
 \mathbf{E}_{\text{src}} = \mathbf{X}_{\text{src}} + PE_{\text{src}} : (S{=}5,\, D{=}512)
