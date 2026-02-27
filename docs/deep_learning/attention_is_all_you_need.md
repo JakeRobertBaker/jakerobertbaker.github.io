@@ -125,9 +125,11 @@ $$
 
 a blend of all $S=5$ source value vectors, weighted by relevance to source position $i$.
 
-A **padding mask** zeroes out attention to any padding tokens (not needed here since $S = 5$ with no padding, but applied in batched training).
-
 ///
+
+### Padding Mask
+
+A **padding mask** zeroes out attention to any padding tokens (not needed here since $S = 5$ with no padding, but applied in batched training).
 
 ### Sub-layer 2 — Feed-Forward Network
 
