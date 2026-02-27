@@ -43,7 +43,8 @@ $$
 \mathbf{X}_{\text{src}} : (S{=}5,\, D{=}512)
 $$
 
-### Positional Encoding
+/// definition | Positional Encoding
+    attrs: {id: def-positional-encoding}
 
 Positional encodings $PE_{\text{src}} : (S{=}5,\, D{=}512)$ are added elementwise (not concatenated),
 for each position
@@ -65,6 +66,7 @@ PE_{\text{src}} \left[ s, 2i+1 \right]
 \end{aligned}
 \end{cases}
 $$
+///
 
 $$
 \mathbf{E}_{\text{src}} = \mathbf{X}_{\text{src}} + PE_{\text{src}} : (S{=}5,\, D{=}512)
@@ -91,6 +93,24 @@ $$
 \\[6pt]
 \mathbf{H}(\mathbf{x}) = \mathbf{SL_2}(\mathbf{SL_1}(\mathbf{x})) : (S{=}5,\, D{=}512)
 $$
+
+Where $\text{MHA}$ is defined in [Attention Mechanism](./attention.md#def-MHA){data-preview} and $\text{FFN}$ is defined below.
+
+/// definition | FFN
+    attrs: {id: def-ffn}
+
+$$
+\text{FFN}(\mathbf{x}) = \phi\!\left(\mathbf{x}\mathbf{W}_1 + \mathbf{b}_1\right)\mathbf{W}_2 + \mathbf{b}_2
+$$
+
+$\phi$ is the activation function, $\mathbf{W}_1 : (D{=}512,\, D_{ff}{=}2048)$ and $\mathbf{W}_2 : (D_{ff}{=}2048,\, D{=}512)$. The original paper uses $\phi = \text{ReLU}$; in practice GELU is commonly preferred:
+
+$$
+\text{ReLU}(\mathbf{x}) = \max(0,\, \mathbf{x})
+\qquad\qquad
+\text{GELU}(\mathbf{x}) \approx \mathbf{x} \cdot \sigma(1.702\,\mathbf{x})
+$$
+///
 
 There are $N=6$ independent $\mathbf{H}_i$ layers. The output of one layer is direct input for the next.
 
@@ -130,17 +150,3 @@ a blend of all $S=5$ source value vectors, weighted by relevance to source posit
 ### Padding Mask
 
 A **padding mask** zeroes out attention to any padding tokens (not needed here since $S = 5$ with no padding, but applied in batched training).
-
-### Sub-layer 2 — Feed-Forward Network
-
-$$
-\text{FFN}(\mathbf{x}) = \phi\!\left(\mathbf{x}\mathbf{W}_1 + \mathbf{b}_1\right)\mathbf{W}_2 + \mathbf{b}_2
-$$
-
-where $\phi$ is the activation function, $\mathbf{W}_1 : (D{=}512,\, D_{ff}{=}2048)$ and $\mathbf{W}_2 : (D_{ff}{=}2048,\, D{=}512)$. Applied identically and independently to each of the $S=5$ source token positions. The original paper uses $\phi = \text{ReLU}$; in practice GELU is commonly preferred:
-
-$$
-\text{ReLU}(\mathbf{x}) = \max(0,\, \mathbf{x})
-\qquad\qquad
-\text{GELU}(\mathbf{x}) \approx \mathbf{x} \cdot \sigma(1.702\,\mathbf{x})
-$$
