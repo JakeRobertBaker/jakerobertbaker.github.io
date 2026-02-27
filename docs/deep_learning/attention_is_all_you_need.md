@@ -92,30 +92,30 @@ $$
 \mathbf{H}(\mathbf{x}) = \mathbf{SL_2}(\mathbf{SL_1}(\mathbf{x})) : (S{=}5,\, D{=}512)
 $$
 
-Applying this $N=6$ times:
+There are $N=6$ independent $\mathbf{H}_i$ layers. The output of one layer is direct input for the next.
 
 $$
-\mathbf{M}_1 = \mathbf{H}(\mathbf{E}_{\text{src}})
+\mathbf{M}_1 = \mathbf{H}_1(\mathbf{E}_{\text{src}})
 \\
 \vdots
 \\
-\mathbf{M}_i = \mathbf{H}(\mathbf{M}_{i-1})
+\mathbf{M}_i = \mathbf{H}_i(\mathbf{M}_{i-1})
 \\
 \vdots
 \\
-\mathbf{M} = \mathbf{M}_N = \mathbf{H}(\mathbf{M}_{N-1}) : (S{=}5,\, D{=}512)
+\mathbf{M} = \mathbf{M}_N = \mathbf{H}_N(\mathbf{M}_{N-1}) : (S{=}5,\, D{=}512)
 $$
 
-$\mathbf{M}$ is a context-aware representation of every source token, informed by all other source tokens. It is passed **unchanged** into every one of the 6 decoder layers.
+Because of MHA $\mathbf{M}$ is like a context aware representative of every source token, informed by all other source tokens.
 
-### Sub-layer 1 — Encoder Self-Attention
+/// note | Remark — what the self-attention is comparing
+    attrs: {id: rem-enc-self-attn}
+
+Let's consider the first layer of the stack.
 
 $$
 \text{MHA}\!\left(\mathbf{E}_{\text{src}},\; \mathbf{E}_{\text{src}},\; \mathbf{E}_{\text{src}}\right) : (S{=}5,\, D{=}512)
 $$
-
-/// note | Remark — what the self-attention is comparing
-    attrs: {id: rem-enc-self-attn}
 
 All three of $\mathbf{Q}, \mathbf{K}, \mathbf{V}$ are projections of the same matrix $\mathbf{E}_{\text{src}}$, so $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **source token $i$ attends to source token $j$**. For example, token $i = \text{LOVELY}$ may learn to attend strongly to token $j = \text{TODAY}$, capturing their syntactic relationship. Output row $i$ is:
 
