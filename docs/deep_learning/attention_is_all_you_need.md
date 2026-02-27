@@ -69,7 +69,7 @@ $$
 ///
 
 $$
-\mathbf{E}_{\text{src}} = \mathbf{X}_{\text{src}} + PE_{\text{src}} : (S{=}5,\, D{=}512)
+\tilde{\mathbf{X}}_{\text{src}} = \mathbf{X}_{\text{src}} + PE_{\text{src}} : (S{=}5,\, D{=}512)
 $$
 
 This is the input fed into the bottom of the encoder stack.
@@ -84,14 +84,14 @@ $$
 \text{LayerNormRes}_{\text{pre}}(\mathbf{x}, \text{Sub}) = \text{Sub}(\text{LayerNorm}(\mathbf{x})) + \mathbf{x}
 $$
 
-The original paper uses post-norm; pre-norm (used in my code) has been found to train more stably. The full encoder layer is then:
+The original paper uses post-norm; pre-norm (used in my code) has been found to train more stably. A single encoder layer $\mathbf{E}$ is:
 
 $$
 \mathbf{SL_1}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{MHA} \right) : (S{=}5,\, D{=}512)
 \\[6pt]
 \mathbf{SL_2}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{FFN} \right) : (S{=}5,\, D{=}512)
 \\[6pt]
-\mathbf{H}(\mathbf{x}) = \mathbf{SL_2}(\mathbf{SL_1}(\mathbf{x})) : (S{=}5,\, D{=}512)
+\mathbf{E}(\mathbf{x}) = \mathbf{SL_2}(\mathbf{SL_1}(\mathbf{x})) : (S{=}5,\, D{=}512)
 $$
 
 Where $\text{MHA}$ is defined in [Attention Mechanism](./attention.md#def-MHA){data-preview} and $\text{FFN}$ is defined below.
@@ -112,21 +112,21 @@ $$
 $$
 ///
 
-There are $N=6$ independent $\mathbf{H}_i$ layers. The output of one layer is direct input for the next.
+There are $N=6$ encoder layers $\mathbf{E}_1, \ldots, \mathbf{E}_N$, each with independent parameters. The output of one layer is the input to the next.
 
 $$
-\mathbf{M}_1 = \mathbf{H}_1(\mathbf{E}_{\text{src}})
+\mathbf{M}_1 = \mathbf{E}_1(\tilde{\mathbf{X}}_{\text{src}})
 \\
 \vdots
 \\
-\mathbf{M}_i = \mathbf{H}_i(\mathbf{M}_{i-1})
+\mathbf{M}_i = \mathbf{E}_i(\mathbf{M}_{i-1})
 \\
 \vdots
 \\
-\mathbf{M} = \mathbf{M}_N = \mathbf{H}_N(\mathbf{M}_{N-1}) : (S{=}5,\, D{=}512)
+\mathbf{M} = \mathbf{M}_N = \mathbf{E}_N(\mathbf{M}_{N-1}) : (S{=}5,\, D{=}512)
 $$
 
-Because of MHA $\mathbf{M}$ is like a context aware representative of every source token, informed by all other source tokens.
+Because of MHA $\mathbf{M}$ is like a context-aware representation of every source token, informed by all other source tokens. It is passed **unchanged** into every one of the $N$ decoder layers.
 
 /// note | Remark — what the self-attention is comparing
     attrs: {id: rem-enc-self-attn}
@@ -134,10 +134,10 @@ Because of MHA $\mathbf{M}$ is like a context aware representative of every sour
 Let's consider the first layer of the stack.
 
 $$
-\text{MHA}\!\left(\mathbf{E}_{\text{src}},\; \mathbf{E}_{\text{src}},\; \mathbf{E}_{\text{src}}\right) : (S{=}5,\, D{=}512)
+\text{MHA}\!\left(\tilde{\mathbf{X}}_{\text{src}},\; \tilde{\mathbf{X}}_{\text{src}},\; \tilde{\mathbf{X}}_{\text{src}}\right) : (S{=}5,\, D{=}512)
 $$
 
-All three of $\mathbf{Q}, \mathbf{K}, \mathbf{V}$ are projections of the same matrix $\mathbf{E}_{\text{src}}$, so $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **source token $i$ attends to source token $j$**. For example, token $i = \text{LOVELY}$ may learn to attend strongly to token $j = \text{TODAY}$, capturing their syntactic relationship. Output row $i$ is:
+All three of $\mathbf{Q}, \mathbf{K}, \mathbf{V}$ are projections of the same matrix $\tilde{\mathbf{X}}_{\text{src}}$, so $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **source token $i$ attends to source token $j$**. For example, token $i = \text{LOVELY}$ may learn to attend strongly to token $j = \text{TODAY}$, capturing their syntactic relationship. Output row $i$ is:
 
 $$
 \text{row}_i(\mathbf{A}) = \sum_{r=1}^{S} \alpha(\mathbf{q}_i, \mathbf{K}, r)\; \mathbf{v}_r^T
@@ -190,29 +190,31 @@ The shift means: the decoder at position $i$ must predict target token $i+1$ usi
 These $T=4$ shifted-right tokens are embedded and position-encoded in the same way as the source:
 
 $$
-\mathbf{E}_{\text{tgt}} = \mathbf{X}_{\text{tgt}} + PE_{\text{tgt}} : (T{=}4,\, D{=}512)
+\tilde{\mathbf{X}}_{\text{tgt}} = \mathbf{X}_{\text{tgt}} + PE_{\text{tgt}} : (T{=}4,\, D{=}512)
 $$
 
 ---
 
 ## Stage 4 — Decoder Stack (repeated $N = 6$ times)
 
-Each decoder layer has **three** sub-layers, each wrapped with a residual connection and LayerNorm (as in [Stage 2](#stage-2-encoder-stack-repeated-n--6-times)).
+Each decoder layer has **three** sub-layers, each wrapped with a residual connection and LayerNorm (as in [Stage 2](#stage-2-encoder-stack-repeated-n--6-times)). A single decoder layer $\mathbf{D}$ is:
 
 $$
-\mathbf{DL_1}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{MaskedMHA} \right) : (T{=}4,\, D{=}512)
+\mathbf{DL_1}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{MaskedMHA} \right) : (T, D)
 \\[6pt]
-\mathbf{DL_2}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{CrossMHA} \right) : (T{=}4,\, D{=}512)
+\mathbf{DL_2}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{CrossMHA}(\,\cdot\,,\, \mathbf{M},\, \mathbf{M}) \right) : (T, D)
 \\[6pt]
-\mathbf{DL_3}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{FFN} \right) : (T{=}4,\, D{=}512)
+\mathbf{DL_3}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{FFN} \right) : (T, D)
 \\[6pt]
-\mathbf{D}(\mathbf{x}) = \mathbf{DL_3}(\mathbf{DL_2}(\mathbf{DL_1}(\mathbf{x}))) : (T{=}4,\, D{=}512)
+\mathbf{D}(\mathbf{x}) = \mathbf{DL_3}(\mathbf{DL_2}(\mathbf{DL_1}(\mathbf{x}))) : (T, D)
 $$
+
+We write the sub-layer intermediates within a single decoder layer as $\mathbf{g}^{(1)}, \mathbf{g}^{(2)}, \mathbf{g}^{(3)}$ (superscripts for sub-layers, reserving subscripts for the layer index in the stack).
 
 ### Sub-layer 1 — Masked Decoder Self-Attention
 
 $$
-\text{MHA}\!\left(\mathbf{E}_{\text{tgt}},\; \mathbf{E}_{\text{tgt}},\; \mathbf{E}_{\text{tgt}}\right) : (T{=}4,\, D{=}512)
+\text{MHA}\!\left(\tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}}\right) : (T{=}4,\, D{=}512)
 $$
 
 All three matrices come from the same decoder sequence, so $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **target token $i$ attends to target token $j$**. For example, when $i = \text{EST}$ (position 3), the model can attend to $\langle\text{BOS}\rangle$, LE, TEMPS — but **not** to its own position or any later position.
@@ -220,7 +222,11 @@ All three matrices come from the same decoder sequence, so $\mathbf{Z}_{i,j} = \
 /// definition | Causal (Look-Ahead) Mask
     attrs: {id: def-causal-mask}
 
-All entries with $j > i$ in the $T \times T = 4 \times 4$ score matrix $\mathbf{Z}$ are set to $-\infty$ before the softmax, so those attention weights become exactly $0$. The effective weighted sum is restricted to positions up to and including $i$:
+All entries with $j > i$ in the $T \times T = 4 \times 4$ score matrix $\mathbf{Z}$ are set to $-\infty$ before the softmax.
+
+Therefore the attention weights become zero, $\alpha\left( \mathbf{q}_i, \mathbf{K},r \right)=0$ for all $r>i$.
+
+Therefore, the effective weighted sum is restricted to positions up to and including $i$:
 
 $$
 \text{row}_i(\mathbf{A}) = \sum_{r=1}^{i} \alpha(\mathbf{q}_i, \mathbf{K}, r)\; \mathbf{v}_r^T
@@ -232,20 +238,20 @@ This preserves the autoregressive property: position $i$ can only depend on posi
 After the residual connection and LayerNorm:
 
 $$
-\mathbf{G}_1 = \text{LayerNormRes}(\mathbf{E}_{\text{tgt}},\; \text{MaskedMHA}) : (T{=}4,\, D{=}512)
+\mathbf{g}^{(1)} = \text{LayerNormRes}(\tilde{\mathbf{X}}_{\text{tgt}},\; \text{MaskedMHA}) : (T, D)
 $$
 
 ### Sub-layer 2 — Encoder–Decoder Cross-Attention
 
 $$
 \text{MHA}\!\left(
-\underbrace{\mathbf{G}_1}_{Q\,:\,(T{=}4,\;D{=}512)},\;\;
+\underbrace{\mathbf{g}^{(1)}}_{Q\,:\,(T{=}4,\;D{=}512)},\;\;
 \underbrace{\mathbf{M}}_{K\,:\,(S{=}5,\;D{=}512)},\;\;
 \underbrace{\mathbf{M}}_{V\,:\,(S{=}5,\;D{=}512)}
-\right) : (T{=}4,\, D{=}512)
+\right) : (T, D)
 $$
 
-Here the queries come from the decoder's current representation $\mathbf{G}_1$ and the keys/values come from the encoder's final output $\mathbf{M}$. The score matrix is $T \times S = 4 \times 5$ — each of the $T=4$ target positions attends over all $S=5$ source positions.
+Here the queries come from the decoder's current representation $\mathbf{g}^{(1)}$ and the keys/values come from the encoder's final output $\mathbf{M}$. The score matrix is $T \times S = 4 \times 5$ — each of the $T=4$ target positions attends over all $S=5$ source positions.
 
 /// note | Remark — what the cross-attention is comparing
     attrs: {id: rem-cross-attn}
@@ -262,7 +268,7 @@ No causal mask is applied here — the decoder is free to attend to **any** sour
 After the residual connection and LayerNorm:
 
 $$
-\mathbf{G}_2 = \text{LayerNormRes}(\mathbf{G}_1,\; \text{CrossMHA}) : (T{=}4,\, D{=}512)
+\mathbf{g}^{(2)} = \text{LayerNormRes}(\mathbf{g}^{(1)},\; \text{CrossMHA}) : (T, D)
 $$
 
 ### Sub-layer 3 — Feed-Forward Network
@@ -270,15 +276,23 @@ $$
 Same structure as the encoder [FFN](#def-ffn){data-preview}, applied independently to each of the $T=4$ target positions.
 
 $$
-\mathbf{G}_3 = \text{LayerNormRes}(\mathbf{G}_2,\; \text{FFN}) : (T{=}4,\, D{=}512)
+\mathbf{g}^{(3)} = \text{LayerNormRes}(\mathbf{g}^{(2)},\; \text{FFN}) : (T, D)
 $$
 
 ### Stacking Decoder Layers
 
-This three-sub-layer block is repeated $N=6$ times. The encoder output $\mathbf{M}$ is passed **unchanged** into every one of the 6 decoder layers.
+There are $N=6$ decoder layers $\mathbf{D}_1, \ldots, \mathbf{D}_N$, each with independent parameters. As with the encoder, the output of one layer is the input to the next. The encoder output $\mathbf{M}$ is passed **unchanged** into every decoder layer's cross-attention sub-layer.
 
 $$
-\mathbf{G} = \mathbf{D}_N(\cdots \mathbf{D}_2(\mathbf{D}_1(\mathbf{E}_{\text{tgt}}))) : (T{=}4,\, D{=}512)
+\mathbf{G}_1 = \mathbf{D}_1(\tilde{\mathbf{X}}_{\text{tgt}})
+\\
+\vdots
+\\
+\mathbf{G}_i = \mathbf{D}_i(\mathbf{G}_{i-1})
+\\
+\vdots
+\\
+\mathbf{G} = \mathbf{G}_N = \mathbf{D}_N(\mathbf{G}_{N-1}) : (T, D)
 $$
 
 ---
@@ -288,10 +302,10 @@ $$
 The decoder output $\mathbf{G}$ is projected into vocabulary space and passed through a softmax to produce a predicted probability distribution over the vocabulary at each position:
 
 $$
-\hat{\mathbf{P}} = \text{softmax}\!\left(\mathbf{G}\,\mathbf{W}_O\right) : (T{=}4,\, |\mathcal{V}|)
+\hat{\mathbf{P}} = \text{softmax}\!\left(\mathbf{G}\,\mathbf{W}_O\right) : (T,\, |\mathcal{V}|)
 $$
 
-where $\mathbf{W}_O : (D{=}512,\, |\mathcal{V}|)$ is a learned linear projection. Row $i$ of $\hat{\mathbf{P}}$ is the model's predicted probability distribution over all vocabulary tokens for target position $i$.
+where $\mathbf{W}_O : (D,\, |\mathcal{V}|)$ is a learned linear projection. Row $i$ of $\hat{\mathbf{P}}$ is the model's predicted probability distribution over all vocabulary tokens for target position $i$.
 
 /// note | Remark — weight tying
     attrs: {id: rem-weight-tying}
@@ -312,7 +326,7 @@ Due to the shifted-right decoder input, the predictions align as:
 
 ## Stage 6 — Loss (Training Only)
 
-Let $\mathbf{Y} : (T{=}4,\, |\mathcal{V}|)$ be the one-hot target matrix, where $Y_{ik} = 1$ if the true token at position $i$ is vocabulary item $k$, and $0$ otherwise. Let $y_i$ denote the index of the true token at position $i$.
+Let $\mathbf{Y} : (T,\, |\mathcal{V}|)$ be the one-hot target matrix, where $Y_{ik} = 1$ if the true token at position $i$ is vocabulary item $k$, and $0$ otherwise. Let $y_i$ denote the index of the true token at position $i$.
 
 The cross-entropy loss is:
 
@@ -337,15 +351,15 @@ Inference uses the same encoder and decoder but the decoder no longer receives t
 **Step 1 — Encode the source once.** The encoder applies all $N=6$ stacked layers in a single call:
 
 $$
-\mathbf{M} = \text{Encoder}\!\left(\mathbf{E}_{\text{src}},\; \text{src\_pad\_mask}\right) : (S{=}5,\, D{=}512)
+\mathbf{M} = \text{Encoder}\!\left(\tilde{\mathbf{X}}_{\text{src}},\; \text{src\_pad\_mask}\right) : (S, D)
 $$
 
 $\mathbf{M}$ is computed once and reused at every generation step.
 
-**Step 2 — Generate token by token.** Let $\mathbf{E}_{\text{tgt}}^{(t)} : (t,\, D{=}512)$ denote the embedded, position-encoded sequence of the $t$ tokens generated so far (starting from $\langle\text{BOS}\rangle$). The decoder applies all $N=6$ stacked layers:
+**Step 2 — Generate token by token.** Let $\tilde{\mathbf{X}}_{\text{tgt}}^{(t)} : (t, D)$ denote the embedded, position-encoded sequence of the $t$ tokens generated so far (starting from $\langle\text{BOS}\rangle$). The decoder applies all $N=6$ stacked layers:
 
 $$
-\mathbf{G}^{(t)} = \text{Decoder}\!\left(\mathbf{E}_{\text{tgt}}^{(t)},\; \mathbf{M},\; \text{src\_pad\_mask}\right) : (t,\, D{=}512)
+\mathbf{G}^{(t)} = \text{Decoder}\!\left(\tilde{\mathbf{X}}_{\text{tgt}}^{(t)},\; \mathbf{M},\; \text{src\_pad\_mask}\right) : (t, D)
 $$
 
 The next predicted token is taken from the **last row** of $\mathbf{G}^{(t)}$:
@@ -354,7 +368,7 @@ $$
 \hat{y}_{t+1} = \arg\max_k\; \text{softmax}\!\left(\mathbf{G}^{(t)}_{t,\,:}\; \mathbf{W}_O\right)_k
 $$
 
-| Step $t$ | $\mathbf{E}_{\text{tgt}}^{(t)}$ (decoder input) | $\hat{y}_{t+1}$ (predicted token) |
+| Step $t$ | $\tilde{\mathbf{X}}_{\text{tgt}}^{(t)}$ (decoder input) | $\hat{y}_{t+1}$ (predicted token) |
 |---|---|---|
 | 1 | $\langle\text{BOS}\rangle$ | LE |
 | 2 | $\langle\text{BOS}\rangle$, LE | TEMPS |
@@ -362,7 +376,7 @@ $$
 | 4 | $\langle\text{BOS}\rangle$, LE, TEMPS, EST | MAGNIFIQUE |
 | 5 | $\langle\text{BOS}\rangle$, LE, TEMPS, EST, MAGNIFIQUE | $\langle\text{EOS}\rangle$ |
 
-The causal mask is still applied inside the decoder at each step, consistent with causality since $\mathbf{E}_{\text{tgt}}^{(t)}$ only ever contains tokens $1, \ldots, t$.
+The causal mask is still applied inside the decoder at each step, consistent with causality since $\tilde{\mathbf{X}}_{\text{tgt}}^{(t)}$ only ever contains tokens $1, \ldots, t$.
 
 Generation terminates when $\langle\text{EOS}\rangle$ is produced or a maximum length is reached.
 
