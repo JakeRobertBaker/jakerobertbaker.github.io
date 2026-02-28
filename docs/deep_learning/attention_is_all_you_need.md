@@ -147,9 +147,17 @@ a blend of all $S=5$ source value vectors, weighted by relevance to source posit
 
 ///
 
-### Padding Mask
+/// definition | Padding Mask
+    attrs: {id: def-padding-mask}
 
-A **padding mask** zeroes out attention to any padding tokens (not needed here since $S = 5$ with no padding, but applied in batched training).
+A padding mask zeros out attention for any padding token. 
+
+$\sigma \left( \mathbf{QK^T} \right)_{i,j}$ is set to zero whenever query $i$ or key $j$'s token correspond to padding. Usually this is done via setting $\mathbf{QK^T}_{i,j}$ to negative infinity.
+
+Equivalently, $\alpha(\mathbf{q}_i, \mathbf{K}, j)=0$ when $i$ or $j$ represent padding.
+///
+
+Note, this is not needed here since $S = 5$ with no padding, but applied in batched training.
 
 ---
 
@@ -197,7 +205,7 @@ $$
 
 ## Stage 4 — Decoder Stack (repeated $N = 6$ times)
 
-Each decoder layer has **three** sub-layers, each wrapped with a residual connection and LayerNorm (as in [Stage 2](#stage-2-encoder-stack-repeated-n--6-times)). A single decoder layer $\mathbf{D}$ is:
+Each decoder layer has **three** sub-layers, each wrapped with a residual connection and LayerNorm (as in Stage 2). A single decoder layer $\mathbf{D}$ is:
 
 $$
 \mathbf{DL_1}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{MaskedMHA} \right) : (T, D)
