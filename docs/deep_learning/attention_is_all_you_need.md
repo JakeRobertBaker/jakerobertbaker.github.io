@@ -324,43 +324,44 @@ where $\mathbf{W}_O : (D,\, |\mathcal{V}|)$ is a learned linear projection. Row 
 The paper shares the same weight matrix between the two embedding layers (source and target) and the pre-softmax linear transformation $\mathbf{W}_O$. In the embedding layers the weights are multiplied by $\sqrt{D}$.
 ///
 
+Remember that due to the shifted-right decoder input, the predictions align as:
+
 $$
-\mathbf{Y}_{\text{tgt}} =
-\begin{bmatrix}
-\text{LE} \\
-\text{TEMPS} \\
-\text{EST} \\
-\text{MAGNIFIQUE}
-\end{bmatrix}
-\iff
 \mathbf{X}_{\text{tgt}} =
+\overbrace{
 \begin{bmatrix}
 \langle\text{BOS}\rangle \\
 \text{LE} \\
 \text{TEMPS} \\
 \text{EST}
 \end{bmatrix}
+}^{\text{Decoder Input Position}}
+\;\Rightarrow\;
+\overbrace{
+\begin{bmatrix}
+\text{LE} \\
+\text{TEMPS} \\
+\text{EST} \\
+\text{MAGNIFIQUE}
+\end{bmatrix}
+}^{\text{Model Predicts}}
+= \mathbf{Y}_{\text{tgt}}
 $$
-
-Due to the shifted-right decoder input, the predictions align as:
-
-| Decoder Input Position | Model Predicts |
-|---|---|
-| $\langle\text{BOS}\rangle$ | LE |
-| LE | TEMPS |
-| TEMPS | EST |
-| EST | MAGNIFIQUE |
 
 ---
 
 ## Stage 6 — Loss (Training Only)
 
-Let $\mathbf{Y} : (T,\, |\mathcal{V}|)$ be the one-hot target matrix, where $Y_{ik} = 1$ if the true token at position $i$ is vocabulary item $k$, and $0$ otherwise. Let $y_i$ denote the index of the true token at position $i$.
+Let $\mathbf{Y} : (T,\, |\mathcal{V}|)$ be the one-hot target matrix, where $\mathbf{Y}_{ik} = 1 \iff \mathbf{Y}_{\text{tgt},i}$ is token $k$ and is $0$ otherwise.
+
+This defines a hard labelled distribution matrix that we can use in cross entropy loss defined in [CLIP losses](./clip_losses.md).
 
 The cross-entropy loss is:
 
 $$
-\mathcal{L} = -\frac{1}{T} \sum_{i=1}^{T} \sum_{k=1}^{|\mathcal{V}|} Y_{ik} \log \hat{P}_{ik}
+\mathcal{L}(\mathbf{X}_{\text{src}}, \mathbf{X}_{\text{tgt}}, \mathbf{Y}_{\text{tgt}})
+= \mathbf{CE} \left( \mathbf{\hat{P}}, \mathbf{Y} \right)
+= -\frac{1}{T} \sum_{i=1}^{T} \sum_{k=1}^{|\mathcal{V}|} Y_{ik} \log \hat{P}_{ik}
 $$
 
 Since $\mathbf{Y}$ is one-hot, the inner sum collapses to a single non-zero term at the true token index $y_i$:
