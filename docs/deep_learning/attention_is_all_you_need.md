@@ -168,6 +168,7 @@ During training the full target sentence is known. The decoder is fed a **shifte
 $$
 \textbf{Target labels (what we predict):}
 \quad
+\mathbf{Y}_{\text{tgt}} =
 \begin{bmatrix}
 \text{LE} \\
 \text{TEMPS} \\
@@ -180,6 +181,7 @@ $$
 $$
 \textbf{Decoder input (shifted right):}
 \quad
+\mathbf{X}_{\text{tgt}} =
 \begin{bmatrix}
 \langle\text{BOS}\rangle \\
 \text{LE} \\
@@ -221,12 +223,6 @@ We write the sub-layer intermediates within a single decoder layer as $\mathbf{g
 
 ### Sub-layer 1 — Masked Decoder Self-Attention
 
-$$
-\text{MHA}\!\left(\tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}}\right) : (T{=}4,\, D{=}512)
-$$
-
-All three matrices come from the same decoder sequence, so $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **target token $i$ attends to target token $j$**. For example, when $i = \text{EST}$ (position 3), the model can attend to $\langle\text{BOS}\rangle$, LE, TEMPS — but **not** to its own position or any later position.
-
 /// definition | Causal (Look-Ahead) Mask
     attrs: {id: def-causal-mask}
 
@@ -242,6 +238,14 @@ $$
 
 This preserves the autoregressive property: position $i$ can only depend on positions $1, \ldots, i$.
 ///
+
+Causal masked multi head attention measures how much the decoder representation of token $i$ attends to token $j$ for $j<i$.
+
+For example, when $i = \text{EST}$ (position 3), the model can attend to $\langle\text{BOS}\rangle$, LE, TEMPS — but **not** to its own position or any later position.
+
+$$
+\text{MHA}\!\left(\tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}}\right) : (T{=}4,\, D{=}512)
+$$
 
 After the residual connection and LayerNorm:
 
