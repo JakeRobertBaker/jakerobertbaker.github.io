@@ -6,6 +6,10 @@
 uv run mkdocs serve --livereload
 ```
 
+## Deployment
+
+Deployment is automated via `.github/workflows/ci.yml`. Pushing to `main` triggers the workflow, which runs `mkdocs gh-deploy --force` to build the site and push it to the `gh-pages` branch. GitHub's built-in `pages-build-deployment` workflow then publishes that branch to the live site. No manual deploy step is needed.
+
 ## Admonition Blocks (pymdownx.blocks)
 
 This project uses `pymdownx.blocks.admonition` and `pymdownx.blocks.details` - the newer block syntax. These must NOT be mixed with the classic `admonition`/`pymdownx.details` extensions (they produce identical HTML and conflict).
@@ -116,6 +120,13 @@ $$
 ```
 
 Configured via `pymdownx.arithmatex` with `generic: true` and KaTeX JS/CSS in `extra_javascript`/`extra_css`.
+
+## Google Search / SEO
+
+- **Site verification**: `overrides/main.html` contains a Google Search Console verification `<meta>` tag.
+- **Crawler directives**: `docs/robots.txt` allows all crawlers and points them to the sitemap. MkDocs copies it to the build root.
+- **Sitemap**: MkDocs auto-generates `sitemap.xml` at build time.
+- **Meta description**: `site_description` in `mkdocs.yml` provides a fallback meta description for pages that don't set their own.
 
 ## Project Structure
 
