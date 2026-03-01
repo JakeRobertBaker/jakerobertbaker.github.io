@@ -1,56 +1,128 @@
-# Some Encounters During Setup
-
-## Extensions
-
-This project uses `pymdownx.blocks.admonition` and `pymdownx.blocks.details` (the blocks replacements), not the classic `admonition` / `pymdownx.details`. These must not be mixed with their classic counterparts — the output is identical HTML and they conflict.
-
-## Custom Admonition Types
-
-Custom types require **two** independent layers:
-
-1. **YAML config** (`mkdocs.yml` → `types` list) — registers the name so the parser accepts `/// typename`. Without this, the block syntax is rejected.
-2. **CSS** (`docs/stylesheets/extra.css`) — styles the resulting `.admonition.typename` class. Without this, the type renders with the default `note` fallback colours.
-
-Neither layer replaces the other.
-
-## Colour Reference
-
-Material's built-in admonition colours are defined in `~/reference_repos/mkdocs-material/src/templates/assets/stylesheets/main/extensions/markdown/_admonition.scss` (lines 31–44). The custom types in this project map to:
-
-| Custom Type  | Matches  | Hex       |
-|-------------|----------|-----------|
-| definition  | note     | `#448aff` |
-| proposition | tip      | `#00bfa5` |
-| lemma       | success  | `#00c853` |
-| theorem     | question | `#64dd17` |
-| proof       | quote    | `#9e9e9e` |
-
-## Cross-Referencing
-
-Blocks support `attrs: {id: anchor-name}` in YAML options to set an ID on the container div. Reference with `[text](#anchor-name)` on the same page or `[text](./other.md#anchor-name){data-preview}` across pages. Requires `attr_list` extension.
-
-## Material Type Registration
-
-Material for MkDocs defines 12 admonition types (note, abstract, info, tip, success, question, warning, failure, danger, bug, example, quote). The pymdownx.blocks.admonition defaults are different (note, attention, caution, danger, error, tip, hint, warning, important). All 12 Material types must be explicitly listed in the `types` config in `mkdocs.yml` or they won't be recognised by the blocks parser.
+# Jake Notes - MkDocs Material Site
 
 ## Development
-
-Preview with live reload:
 
 ```bash
 uv run mkdocs serve --livereload
 ```
 
-## Reference Repositories
+## Admonition Blocks (pymdownx.blocks)
 
-Local clones of upstream repos are available for deeper exploration when needed:
+This project uses `pymdownx.blocks.admonition` and `pymdownx.blocks.details` - the newer block syntax. These must NOT be mixed with the classic `admonition`/`pymdownx.details` extensions (they produce identical HTML and conflict).
 
-- `~/reference_repos/mkdocs-material` — Material for MkDocs source (theme, SCSS, templates)
-- `~/reference_repos/pymdown-extensions` — pymdownx extensions source (blocks, admonition, details plugins)
+### Basic syntax
 
-Key files:
+```markdown
+/// note | Title Here
+Content goes here.
+///
+```
 
-- Admonition SCSS: `~/reference_repos/mkdocs-material/src/templates/assets/stylesheets/main/extensions/markdown/_admonition.scss`
-- Blocks admonition plugin: `~/reference_repos/pymdown-extensions/pymdownx/blocks/admonition.py`
-- Blocks details plugin: `~/reference_repos/pymdown-extensions/pymdownx/blocks/details.py`
-- Blocks admonition docs: `~/reference_repos/pymdown-extensions/docs/src/markdown/extensions/blocks/plugins/admonition.md`
+### With YAML options (e.g. setting an ID)
+
+```markdown
+/// definition | Bayes' Theorem
+    attrs: {id: def-bayes}
+
+Content goes here.
+///
+```
+
+The 4-space-indented `attrs:` line is YAML metadata for the block. It must come immediately after the opening `///` line, before any blank line or content.
+
+### Collapsible block (details)
+
+```markdown
+/// proof | Proof of Theorem 1
+Collapsible content - click to expand.
+///
+```
+
+### All available types
+
+| Type | Category | Colour base |
+| ---- | -------- | ----------- |
+| `note` | built-in | `#448aff` |
+| `abstract` | built-in | `#00b0ff` |
+| `info` | built-in | `#00b8d4` |
+| `tip` | built-in | `#00bfa5` |
+| `success` | built-in | `#00c853` |
+| `question` | built-in | `#64dd17` |
+| `warning` | built-in | `#ff9100` |
+| `failure` | built-in | `#ff5252` |
+| `danger` | built-in | `#ff1744` |
+| `bug` | built-in | `#f50057` |
+| `example` | built-in | `#7c4dff` |
+| `quote` | built-in | `#9e9e9e` |
+| `definition` | custom | `#448aff` (note) |
+| `proposition` | custom | `#00bfa5` (tip) |
+| `lemma` | custom | `#00c853` (success) |
+| `theorem` | custom | `#64dd17` (question) |
+| `proof` | custom/details | `#9e9e9e` (quote) |
+
+## Cross-Referencing
+
+### Same page
+
+Give a block an `id` via `attrs:`, then link to it:
+
+```markdown
+/// definition | Sigma Algebra
+    attrs: {id: def-sigma-algebra}
+
+A sigma algebra is...
+///
+
+As defined in [Sigma Algebra](#def-sigma-algebra), ...
+```
+
+### Cross page (with hover preview)
+
+```markdown
+[Sigma Algebra](./set_theory/universal_algebra.md#def-sigma-algebra){data-preview}
+```
+
+The `{data-preview}` attribute (requires `attr_list` extension, enabled) shows a hover preview of the target block.
+
+### Reusable reference links
+
+Define once, use many times within the same file:
+
+```markdown
+[Sigma Algebra]: #def-sigma-algebra
+
+See [Sigma Algebra] for background. As noted in [Sigma Algebra], ...
+```
+
+## Custom Admonition Types
+
+Adding a custom type requires **two** independent layers:
+
+1. **YAML registration** (`mkdocs.yml` > `pymdownx.blocks.admonition` > `types`) - the parser must know about the type name or it rejects the `///` syntax
+2. **CSS** (`docs/stylesheets/extra.css`) - styles the `.admonition.typename` class; without this it falls back to default `note` colours
+
+Neither replaces the other - both are required.
+
+## Math (KaTeX)
+
+Inline: `$...$` or `\(...\)`
+
+Display:
+
+```markdown
+$$
+\int_0^1 f(x)\,dx
+$$
+```
+
+Configured via `pymdownx.arithmatex` with `generic: true` and KaTeX JS/CSS in `extra_javascript`/`extra_css`.
+
+## Project Structure
+
+```text
+docs/               # Content pages
+overrides/          # Theme template overrides
+docs/stylesheets/   # extra.css (custom admonition styles)
+docs/javascripts/   # katex.js
+mkdocs.yml          # Site config, nav, extensions
+```
