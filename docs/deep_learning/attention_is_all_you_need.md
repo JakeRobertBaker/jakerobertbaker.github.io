@@ -239,9 +239,11 @@ $$
 This preserves the autoregressive property: position $i$ can only depend on positions $1, \ldots, i$.
 ///
 
-Causal masked multi head attention measures how much the decoder representation of token $i$ attends to token $j$ for $j<i$.
+Causal masked multi head attention measures how much the decoder representation of token $i$ attends to token $j$ for any $j\leq i$.
 
-For example, when $i = \text{EST}$ (position 3), the model can attend to $\langle\text{BOS}\rangle$, LE, TEMPS — but **not** to its own position or any later position.
+For example, when $i = \text{EST}$ (position 3), the model can attend to $\langle\text{BOS}\rangle$, LE, TEMPS, EST
+
+quote from paper — "self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.".
 
 $$
 \text{MHA}\!\left(\tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}}\right) : (T{=}4,\, D{=}512)
