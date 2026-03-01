@@ -212,14 +212,26 @@ Each decoder layer has **three** sub-layers, each wrapped with a residual connec
 $$
 \mathbf{DL_1}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{MaskedMHA} \right) : (T, D)
 \\[6pt]
-\mathbf{DL_2}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{CrossMHA}(\,\cdot\,,\, \mathbf{M},\, \mathbf{M}) \right) : (T, D)
+\mathbf{DL_2}(\mathbf{x,M}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{CrossMHA}(\,\cdot\,,\, \mathbf{M},\, \mathbf{M}) \right) : (T, D)
 \\[6pt]
 \mathbf{DL_3}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{FFN} \right) : (T, D)
 \\[6pt]
-\mathbf{D}(\mathbf{x}) = \mathbf{DL_3}(\mathbf{DL_2}(\mathbf{DL_1}(\mathbf{x}))) : (T, D)
+\mathbf{D}(\mathbf{x,M}) = \mathbf{DL_3}(\mathbf{DL_2}(\mathbf{DL_1}(\mathbf{x}), \mathbf{M})) : (T, D)
 $$
 
-We write the sub-layer intermediates within a single decoder layer as $\mathbf{g}^{(1)}, \mathbf{g}^{(2)}, \mathbf{g}^{(3)}$ (superscripts for sub-layers, reserving subscripts for the layer index in the stack).
+There are $N=6$ decoder layers $\mathbf{D}_1, \ldots, \mathbf{D}_N$, each with independent parameters. As with the encoder, the output of one layer is the input to the next. The encoder output $\mathbf{M}$ is passed **unchanged** into every decoder layer's cross-attention sub-layer.
+
+$$
+\mathbf{G}_1 = \mathbf{D}_1(\tilde{\mathbf{X}}_{\text{tgt}})
+\\
+\vdots
+\\
+\mathbf{G}_i = \mathbf{D}_i(\mathbf{G}_{i-1})
+\\
+\vdots
+\\
+\mathbf{G} = \mathbf{G}_N = \mathbf{D}_N(\mathbf{G}_{N-1}) : (T, D)
+$$
 
 ### Sub-layer 1 — Masked Decoder Self-Attention
 
@@ -239,20 +251,18 @@ $$
 This preserves the autoregressive property: position $i$ can only depend on positions $1, \ldots, i$.
 ///
 
-Causal masked multi head attention measures how much the decoder representation of token $i$ attends to token $j$ for any $j\leq i$.
+Causal masked multi head attention measures how much the decoder representation of token $i$ attends to token $j$ for $j \leq i$.
 
-For example, when $i = \text{EST}$ (position 3), the model can attend to $\langle\text{BOS}\rangle$, LE, TEMPS, EST
+For example, when $i = \text{EST}$ (position 4), the model can attend to $\langle\text{BOS}\rangle$, LE, TEMPS, and EST itself — but **not** to any later position.
 
-quote from paper — "self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.".
+The paper says:
 
-$$
-\text{MHA}\!\left(\tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}},\; \tilde{\mathbf{X}}_{\text{tgt}}\right) : (T{=}4,\, D{=}512)
-$$
+> self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.
 
-After the residual connection and LayerNorm:
+In practise the Masked Decoder MHA sublayer recieves a reprentation of the decoding $\mathbf{x} = \mathbf{\tilde{X}}_{\text{tgt}}$ or $\mathbf{G}_i, i \in \left\{ 1, \dots, N - 1 \right\}$ after the residual connection and LayerNorm:
 
 $$
-\mathbf{g}^{(1)} = \text{LayerNormRes}(\tilde{\mathbf{X}}_{\text{tgt}},\; \text{MaskedMHA}) : (T, D)
+\mathbf{g}^{(1)} = \text{LayerNormRes}(\tilde{\mathbf{x}},\; \text{MaskedMHA}) : (T, D)
 $$
 
 ### Sub-layer 2 — Encoder–Decoder Cross-Attention
@@ -291,22 +301,6 @@ Same structure as the encoder [FFN](#def-ffn){data-preview}, applied independent
 
 $$
 \mathbf{g}^{(3)} = \text{LayerNormRes}(\mathbf{g}^{(2)},\; \text{FFN}) : (T, D)
-$$
-
-### Stacking Decoder Layers
-
-There are $N=6$ decoder layers $\mathbf{D}_1, \ldots, \mathbf{D}_N$, each with independent parameters. As with the encoder, the output of one layer is the input to the next. The encoder output $\mathbf{M}$ is passed **unchanged** into every decoder layer's cross-attention sub-layer.
-
-$$
-\mathbf{G}_1 = \mathbf{D}_1(\tilde{\mathbf{X}}_{\text{tgt}})
-\\
-\vdots
-\\
-\mathbf{G}_i = \mathbf{D}_i(\mathbf{G}_{i-1})
-\\
-\vdots
-\\
-\mathbf{G} = \mathbf{G}_N = \mathbf{D}_N(\mathbf{G}_{N-1}) : (T, D)
 $$
 
 ---
