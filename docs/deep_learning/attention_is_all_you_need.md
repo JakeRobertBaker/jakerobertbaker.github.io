@@ -262,7 +262,7 @@ The paper says:
 In practise the Masked Decoder MHA sublayer recieves a reprentation of the decoding $\mathbf{x} = \mathbf{\tilde{X}}_{\text{tgt}}$ or $\mathbf{G}_i, i \in \left\{ 1, \dots, N - 1 \right\}$ after the residual connection and LayerNorm:
 
 $$
-\mathbf{g}^{(1)} = \text{LayerNormRes}(\tilde{\mathbf{x}},\; \text{MaskedMHA}) : (T, D)
+\mathbf{g}^{(1)} = \text{LayerNormRes}(\mathbf{x},\; \text{MaskedMHA}) : (T, D)
 $$
 
 ### Sub-layer 2 — Encoder–Decoder Cross-Attention
