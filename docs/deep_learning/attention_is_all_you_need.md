@@ -364,10 +364,10 @@ $$
 = -\frac{1}{T} \sum_{i=1}^{T} \sum_{k=1}^{|\mathcal{V}|} Y_{ik} \log \hat{P}_{ik}
 $$
 
-Since $\mathbf{Y}$ is one-hot, the inner sum collapses to a single non-zero term at the true token index $y_i$:
+Since $\mathbf{Y}$ is one-hot, the inner sum collapses to a single non-zero term at the true token index $y_i = \text{the unique } k \in \mathcal{V} : \mathbf{Y}_{ik} = 1$
 
 $$
-\mathcal{L} = -\frac{1}{T} \sum_{i=1}^{T} \log \hat{P}_{i,\, y_i}
+\mathcal{L}(\mathbf{X}_{\text{src}}, \mathbf{X}_{\text{tgt}}, \mathbf{Y}_{\text{tgt}}) = -\frac{1}{T} \sum_{i=1}^{T} \log \hat{P}_{i,\, y_i}
 $$
 
 Gradients flow back through the decoder cross-attention, decoder self-attention, and encoder self-attention simultaneously, updating all projection matrices $\mathbf{W}^Q, \mathbf{W}^K, \mathbf{W}^V$ across all layers and heads.
