@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: Jake Notes
 site_url: https://jakerobertbaker.github.io/
+site_description: Personal notes on mathematics, deep learning, and related topics.
 theme:
   name: material
   custom_dir: overrides

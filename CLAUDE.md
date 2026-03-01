@@ -3,7 +3,7 @@
 ## Dev commands
 
 - Preview: `uv run mkdocs serve --livereload`
-- Deploy: `uv run mkdocs gh-deploy`
+- Deploy: automated — push to `main` triggers `.github/workflows/ci.yml`, which builds and pushes to `gh-pages`. GitHub's `pages-build-deployment` then publishes to the live site. Do not run `mkdocs gh-deploy` manually.
 
 ## Admonition syntax (pymdownx.blocks)
 
@@ -36,6 +36,16 @@ Content here.
 ## Custom admonition types
 
 Custom types need both YAML registration in `mkdocs.yml` (under `pymdownx.blocks.admonition` > `types`) AND CSS in `docs/stylesheets/extra.css`. Neither replaces the other.
+
+## SEO / site verification
+
+- `overrides/main.html` contains the Google Search Console verification `<meta>` tag.
+- `docs/robots.txt` provides crawler directives and a sitemap pointer.
+- `site_description` in `mkdocs.yml` sets the fallback meta description.
+
+## Maintenance rule
+
+When adding or changing project infrastructure/config (new extensions, overrides, SEO, deploy setup), update `README.md` and `CLAUDE.md` to reflect the change.
 
 ## Code style
 
