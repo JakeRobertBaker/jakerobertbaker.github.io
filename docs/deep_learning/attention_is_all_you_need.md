@@ -259,7 +259,7 @@ The paper says:
 
 > self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.
 
-In practise the Masked Decoder MHA sublayer recieves a reprentation of the decoding $\mathbf{x} = \mathbf{\tilde{X}}_{\text{tgt}}$ or $\mathbf{G}_i, i \in \left\{ 1, \dots, N - 1 \right\}$ after the residual connection and LayerNorm:
+In practise the Masked Decoder MHA sublayer recieves a representation of the decoding $\mathbf{x} = \mathbf{\tilde{X}}_{\text{tgt}}$ or $\mathbf{G}_i,$ for $i \in \left\{ 1, \dots, N - 1 \right\}$ after the residual connection and LayerNorm:
 
 $$
 \mathbf{g}^{(1)} = \text{LayerNormRes}(\mathbf{x},\; \text{MaskedMHA}) : (T, D)
@@ -277,16 +277,19 @@ $$
 
 Here the queries come from the decoder's current representation $\mathbf{g}^{(1)}$ and the keys/values come from the encoder's final output $\mathbf{M}$. The score matrix is $T \times S = 4 \times 5$ — each of the $T=4$ target positions attends over all $S=5$ source positions.
 
+No causal mask is applied here — the decoder is free to attend to **any** source position when generating any target position. A **padding mask** is applied to suppress attention to any padded source positions.
 /// note | Remark — what the cross-attention is comparing
     attrs: {id: rem-cross-attn}
 
-The similarity $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **target token $i$ attends to source token $j$**. For example, when generating MAGNIFIQUE (target position $i=4$), the decoder can look at all 5 source tokens — THE, WEATHER, IS, LOVELY, TODAY — and will likely attend most strongly to LOVELY (source position $j=4$).
+The similarity $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **target token $i$ attends to source token $j$**.
+
+For example when generating $\mathbf{Y}_{\text{tgt}}$ every query representing $\mathbf{X}_{\text{tgt}}$ is allowed attend to all keys representing source $\mathbf{X}_{\text{tgt}}$
 
 $$
 \text{row}_i(\mathbf{A}) = \sum_{r=1}^{S} \alpha(\mathbf{q}_i, \mathbf{K}, r)\; \mathbf{v}_r^T
 $$
 
-No causal mask is applied here — the decoder is free to attend to **any** source position when generating any target position. A **padding mask** is applied to suppress attention to any padded source positions.
+For example when trying to generate $i=4$ target MAGNIFIQUE the query $\mathbf{q}_4$ for (shifted right target) EST is allowed to attend to all English states.
 ///
 
 After the residual connection and LayerNorm:
@@ -320,6 +323,24 @@ where $\mathbf{W}_O : (D,\, |\mathcal{V}|)$ is a learned linear projection. Row 
 
 The paper shares the same weight matrix between the two embedding layers (source and target) and the pre-softmax linear transformation $\mathbf{W}_O$. In the embedding layers the weights are multiplied by $\sqrt{D}$.
 ///
+
+$$
+\mathbf{Y}_{\text{tgt}} =
+\begin{bmatrix}
+\text{LE} \\
+\text{TEMPS} \\
+\text{EST} \\
+\text{MAGNIFIQUE}
+\end{bmatrix}
+\iff
+\mathbf{X}_{\text{tgt}} =
+\begin{bmatrix}
+\langle\text{BOS}\rangle \\
+\text{LE} \\
+\text{TEMPS} \\
+\text{EST}
+\end{bmatrix}
+$$
 
 Due to the shifted-right decoder input, the predictions align as:
 
