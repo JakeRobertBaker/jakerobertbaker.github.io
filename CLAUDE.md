@@ -1,43 +1,43 @@
-## Admonitions (pymdownx.blocks)
+# Project: MkDocs Material site (jakerobertbaker.github.io)
 
-Syntax uses `/// type | title` blocks. Types are configured in `mkdocs.yml` under `pymdownx.blocks.admonition` and `pymdownx.blocks.details`.
+## Dev commands
 
-### Admonition types
+- Preview: `uv run mkdocs serve --livereload`
+- Deploy: `uv run mkdocs gh-deploy`
 
-`note`, `abstract`, `info`, `tip`, `success`, `question`, `warning`, `failure`, `danger`, `bug`, `example`, `quote`, `definition`, `proposition`, `lemma`, `theorem`
+## Admonition syntax (pymdownx.blocks)
 
-### Collapsible detail type
+This project uses `pymdownx.blocks.admonition` and `pymdownx.blocks.details`, NOT the classic `admonition`/`pymdownx.details`. Do not mix them.
 
-`proof` (configured under `pymdownx.blocks.details`)
+Block syntax: `/// type | title` closed by `///`.
 
-### Example
+### Available types
 
+Admonitions: `note`, `abstract`, `info`, `tip`, `success`, `question`, `warning`, `failure`, `danger`, `bug`, `example`, `quote`, `definition`, `proposition`, `lemma`, `theorem`
+
+Collapsible details: `proof`
+
+### Anchored block with ID
+
+```markdown
 /// definition | My Definition
     attrs: {id: def-my-thing}
 
-Content goes here.
+Content here.
 ///
-
-/// proof | Proof of Theorem 1
-Collapsible content.
-///
-
-## Referencing Admonitions
-
-### Same page
-
-The `attrs: {id: def-my-thing}` line in the example above gives that definition block the HTML id `def-my-thing`. Link to it with `[text](#def-my-thing)`.
-
-### Cross page
-
-`[My Definition](./other-page.md#def-my-thing){data-preview}` — links to that definition on another page with hover preview. Requires `attr_list` extension (enabled).
-
-### Reusable reference links
-
-Define a named reference once, then reuse the short label anywhere in the same file:
-
-```markdown
-[My Definition]: #def-my-thing
-
-See [My Definition] for background. As noted in [My Definition], ...
 ```
+
+### Referencing blocks
+
+- Same page: `[text](#def-my-thing)`
+- Cross page: `[text](./other-page.md#def-my-thing){data-preview}`
+- Reusable reference link: define `[My Def]: #def-my-thing` once, then use `[My Def]` anywhere in the file
+
+## Custom admonition types
+
+Custom types need both YAML registration in `mkdocs.yml` (under `pymdownx.blocks.admonition` > `types`) AND CSS in `docs/stylesheets/extra.css`. Neither replaces the other.
+
+## Code style
+
+- KaTeX for math (not MathJax) via `pymdownx.arithmatex` with `generic: true`
+- Content lives in `docs/`; theme overrides in `overrides/`
