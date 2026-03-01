@@ -395,10 +395,10 @@ $$
 The next predicted token is taken from the **last row** of $\mathbf{G}^{(t)}$:
 
 $$
-\hat{y}_{t+1} = \arg\max_k\; \text{softmax}\!\left(\mathbf{G}^{(t)}_{t,\,:}\; \mathbf{W}_O\right)_k
+\hat{y}_t = \arg\max_k\; \text{softmax}\!\left(\mathbf{G}^{(t)}_{t,\,:}\; \mathbf{W}_O\right)_k
 $$
 
-| Step $t$ | $\tilde{\mathbf{X}}_{\text{tgt}}^{(t)}$ (decoder input) | $\hat{y}_{t+1}$ (predicted token) |
+| Step $t$ | $\tilde{\mathbf{X}}_{\text{tgt}}^{(t)}$ (decoder input) | $\hat{y}_t$ (predicted token) |
 |---|---|---|
 | 1 | $\langle\text{BOS}\rangle$ | LE |
 | 2 | $\langle\text{BOS}\rangle$, LE | TEMPS |
