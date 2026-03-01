@@ -150,11 +150,11 @@ a blend of all $S=5$ source value vectors, weighted by relevance to source posit
 /// definition | Padding Mask
     attrs: {id: def-padding-mask}
 
-A padding mask zeros out attention for any padding token. 
+A padding mask zeros out attention for any padding token.
 
 $\sigma \left( \mathbf{QK^T} \right)_{i,j}$ is set to zero whenever query $i$ or key $j$'s token correspond to padding. Usually this is done via setting $\mathbf{QK^T}_{i,j}$ to negative infinity.
 
-Equivalently, $\alpha(\mathbf{q}_i, \mathbf{K}, j)=0$ when $i$ or $j$ represent padding.
+Equivalently, $\sigma \left(\mathbf{Z}  \right)_{i,j} = \sigma \left( \frac{\mathbf{QK^T}}{\sqrt{D_k}} \right)_{i,j} = \alpha(\mathbf{q}_i, \mathbf{K}, j)=0$ when $i$ or $j$ represent padding.
 ///
 
 Note, this is not needed here since $S = 5$ with no padding, but applied in batched training.

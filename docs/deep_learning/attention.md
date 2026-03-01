@@ -58,14 +58,12 @@ $$
    \vdots   \\
    \mathbf{v_S^T}
 \end{bmatrix}
-\text{for }
-\mathbf{q_i} \in \mathbb{R}^{D_k},\; i=1,...,T
-\quad
-\mathbf{k_j, v_j} \in \mathbb{R}^{D_k} \times \mathbb{R}^{D_v},\; j=1,...,S
 $$
 
+for $\mathbf{q_i, k_j} \in \mathbb{R}^{D_k}, \mathbf{v_j} \in \mathbb{R}^{D_v}, i=1,...,T, j=1,...,S$
+
 We see that
-$\mathbf{Z}_{i,j}\coloneqq \mathbf{QK^T}_{i,j} = \mathbf{q_i \cdotp k_j}$
+$\mathbf{Z}_{i,j}\coloneqq \frac{1}{\sqrt{D_{k}}} \mathbf{QK^T}_{i,j} = \frac{1}{\sqrt{D_k}} \mathbf{q_i \cdotp k_j}$
 is like a similarity score between query $i$ and key $j$.
 
 #### Compatibility Function
@@ -77,9 +75,9 @@ $$
 \sigma \left( \mathbf{Z} \right)_{i,j}
 &=
 \cfrac{
-   \exp \left( \frac{1}{\sqrt{D_k}} \mathbf{Z}_{i,j} \right)
+   \exp \left( \mathbf{Z}_{i,j} \right)
    }
-   {\sum_{r=1}^S \exp \left( \frac{1}{\sqrt{D_k}} \mathbf{Z}_{i,r} \right)
+   {\sum_{r=1}^S \exp \left( \mathbf{Z}_{i,r} \right)
    }
 \\
 &=
@@ -87,7 +85,9 @@ $$
    \exp \left( \frac{1}{\sqrt{D_k}} \mathbf{q_i \cdotp k_j} \right)
    }
    {\sum_{r=1}^S \exp \left( \frac{1}{\sqrt{D_k}} \mathbf{q_i \cdotp k_r} \right)
-   } =
+   }
+\\
+&=
 \cfrac{\text{score}(i,j)}{\sum_{r=1}^S \text{score}(i,r)}
 \eqqcolon
 \alpha(\mathbf{q_i},\mathbf{K},j)
