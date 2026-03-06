@@ -1,3 +1,9 @@
+/* Match admonition font size to body text (theme default is .64rem, body is .8rem) */
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: inherit;
+}
+
 /* Custom admonitions: definition, proposition, lemma, theorem, proof */
 
 :root {
