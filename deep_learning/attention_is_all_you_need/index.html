@@ -1,0 +1,1590 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes on mathematics, deep learning, and related topics.">
+      
+      
+      
+        <link rel="canonical" href="https://jakerobertbaker.github.io/deep_learning/attention_is_all_you_need/">
+      
+      
+        <link rel="prev" href="../attention/">
+      
+      
+        <link rel="next" href="../clip_losses/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+    
+    
+      
+        <title>Attention Is All You Need End-to-End Flow - Jake Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="google-site-verification" content="gEOmW-qgr_yKbiRv9hNzVzRaIHlBm7kxsZTmr8coNRI" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#transformer-end-to-end-flow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Jake Notes" class="md-header__button md-logo" aria-label="Jake Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jake Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Attention Is All You Need End-to-End Flow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mathematics/probability/ballot_notes/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../attention/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Jake Notes" class="md-nav__button md-logo" aria-label="Jake Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jake Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/probability/ballot_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Ballot Sampling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/linear_models/linear_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Set Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mathematics/set_theory/universal_algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Universal Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention Is All You Need End-to-End Flow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention Is All You Need End-to-End Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-source-embedding-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1 — Source Embedding + Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-encoder-stack-repeated-n-6-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 — Encoder Stack (repeated \(N = 6\) times)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-3-target-embedding-positional-encoding-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3 — Target Embedding + Positional Encoding (Training)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-4-decoder-stack-repeated-n-6-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 4 — Decoder Stack (repeated \(N = 6\) times)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 4 — Decoder Stack (repeated \(N = 6\) times)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sub-layer-1-masked-decoder-self-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-layer 1 — Masked Decoder Self-Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub-layer-2-encoderdecoder-cross-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-layer 2 — Encoder–Decoder Cross-Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub-layer-3-feed-forward-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-layer 3 — Feed-Forward Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-5-linear-projection-softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 5 — Linear Projection + Softmax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-6-loss-training-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 6 — Loss (Training Only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inference-autoregressive-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference — Autoregressive Decoding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masking-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masking Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clip_losses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP & SigLIP Losses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-source-embedding-positional-encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1 — Source Embedding + Positional Encoding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-encoder-stack-repeated-n-6-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 — Encoder Stack (repeated \(N = 6\) times)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-3-target-embedding-positional-encoding-training" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3 — Target Embedding + Positional Encoding (Training)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-4-decoder-stack-repeated-n-6-times" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 4 — Decoder Stack (repeated \(N = 6\) times)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Stage 4 — Decoder Stack (repeated \(N = 6\) times)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sub-layer-1-masked-decoder-self-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-layer 1 — Masked Decoder Self-Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub-layer-2-encoderdecoder-cross-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-layer 2 — Encoder–Decoder Cross-Attention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub-layer-3-feed-forward-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-layer 3 — Feed-Forward Network
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-5-linear-projection-softmax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 5 — Linear Projection + Softmax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-6-loss-training-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 6 — Loss (Training Only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inference-autoregressive-decoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inference — Autoregressive Decoding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#masking-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masking Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- snippets: latex_math -->
+<h1 id="transformer-end-to-end-flow">Transformer End-to-End Flow<a class="headerlink" href="#transformer-end-to-end-flow" title="Permanent link">&para;</a></h1>
+<p>Notation is setup in <a href="../attention/">Attention Mechanisms</a>.</p>
+<h2 id="running-example">Running Example<a class="headerlink" href="#running-example" title="Permanent link">&para;</a></h2>
+<p>We translate the English sentence into French:</p>
+<div class="arithmatex">\[
+\textbf{Source (English):} \quad \text{THE WEATHER IS LOVELY TODAY}
+\quad (S = 5)
+\]</div>
+<div class="arithmatex">\[
+\textbf{Target (French):} \quad \text{LE TEMPS EST MAGNIFIQUE}
+\quad (T = 4)
+\]</div>
+<p>The paper uses <span class="arithmatex">\(N = 6\)</span> encoder and decoder layers, <span class="arithmatex">\(h = 8\)</span> attention heads, <span class="arithmatex">\(D = 512\)</span>, <span class="arithmatex">\(D_h = D_k = D_v = 64\)</span>.</p>
+<h2 id="stage-1-source-embedding-positional-encoding">Stage 1 — Source Embedding + Positional Encoding<a class="headerlink" href="#stage-1-source-embedding-positional-encoding" title="Permanent link">&para;</a></h2>
+<p>The source sentence is tokenised and each token is looked up in the embedding table.</p>
+<div class="arithmatex">\[
+\begin{bmatrix}
+\text{THE} \\
+\text{WEATHER} \\
+\text{IS} \\
+\text{LOVELY} \\
+\text{TODAY}
+\end{bmatrix}
+\mapsto
+\begin{bmatrix}
+105 \\
+12 \\
+24 \\
+107 \\
+57
+\end{bmatrix}
+\mapsto
+\mathbf{X}_{\text{src}} : (S{=}5,\, D{=}512)
+\]</div>
+<div class="admonition definition" id="def-positional-encoding">
+<p class="admonition-title">Positional Encoding</p>
+<p>Positional encodings <span class="arithmatex">\(PE_{\text{src}} : (S{=}5,\, D{=}512)\)</span> are added elementwise (not concatenated),
+for each position
+<span class="arithmatex">\(s \in \left\{1,...,S \right\}\)</span>
+and dimension index
+<span class="arithmatex">\(d \in \left\{ 1,\dots,D \right\}\)</span> taking either <span class="arithmatex">\(2i+1\)</span> or <span class="arithmatex">\(2i\)</span></p>
+<div class="arithmatex">\[
+PE_{\text{src}} :(S,D)  =
+\begin{cases}
+\begin{aligned}
+PE_{\text{src}} \left[ s, 2i \right]
+&amp;=
+\sin \left( \dfrac{s}{10,000^{\left(\dfrac{2i}{D}\right)}} \right)
+\\\\
+PE_{\text{src}} \left[ s, 2i+1 \right]
+&amp;=
+\cos \left( \dfrac{s}{10,000^{\left(\dfrac{2i}{D}\right)}} \right)
+\end{aligned}
+\end{cases}
+\]</div>
+</div>
+<div class="arithmatex">\[
+\tilde{\mathbf{X}}_{\text{src}} = \mathbf{X}_{\text{src}} + PE_{\text{src}} : (S{=}5,\, D{=}512)
+\]</div>
+<p>This is the input fed into the bottom of the encoder stack.</p>
+<h2 id="stage-2-encoder-stack-repeated-n-6-times">Stage 2 — Encoder Stack (repeated <span class="arithmatex">\(N = 6\)</span> times)<a class="headerlink" href="#stage-2-encoder-stack-repeated-n-6-times" title="Permanent link">&para;</a></h2>
+<p>Each encoder layer applies two sub-layers with a residual connection and LayerNorm around each. <span class="arithmatex">\(\text{LayerNormRes}\)</span> is either:</p>
+<div class="arithmatex">\[
+\text{LayerNormRes}_{\text{post}}(\mathbf{x}, \text{Sub}) = \text{LayerNorm}(\mathbf{x} + \text{Sub}(\mathbf{x}))
+\\
+\text{LayerNormRes}_{\text{pre}}(\mathbf{x}, \text{Sub}) = \text{Sub}(\text{LayerNorm}(\mathbf{x})) + \mathbf{x}
+\]</div>
+<p>The original paper uses post-norm; pre-norm (used in my code) has been found to train more stably. A single encoder layer <span class="arithmatex">\(\mathbf{E}\)</span> is:</p>
+<div class="arithmatex">\[
+\mathbf{SL_1}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{MHA} \right) : (S{=}5,\, D{=}512)
+\\[6pt]
+\mathbf{SL_2}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{FFN} \right) : (S{=}5,\, D{=}512)
+\\[6pt]
+\mathbf{E}(\mathbf{x}) = \mathbf{SL_2}(\mathbf{SL_1}(\mathbf{x})) : (S{=}5,\, D{=}512)
+\]</div>
+<p>Where <span class="arithmatex">\(\text{MHA}\)</span> is defined in <a data-preview="data-preview" href="../attention/#def-MHA">Attention Mechanism</a> and <span class="arithmatex">\(\text{FFN}\)</span> is defined below.</p>
+<div class="admonition definition" id="def-ffn">
+<p class="admonition-title">FFN</p>
+<div class="arithmatex">\[
+\text{FFN}(\mathbf{x}) = \phi\!\left(\mathbf{x}\mathbf{W}_1 + \mathbf{b}_1\right)\mathbf{W}_2 + \mathbf{b}_2
+\]</div>
+<p><span class="arithmatex">\(\phi\)</span> is the activation function, <span class="arithmatex">\(\mathbf{W}_1 : (D{=}512,\, D_{ff}{=}2048)\)</span> and <span class="arithmatex">\(\mathbf{W}_2 : (D_{ff}{=}2048,\, D{=}512)\)</span>. The original paper uses <span class="arithmatex">\(\phi = \text{ReLU}\)</span>; in practice GELU is commonly preferred:</p>
+<div class="arithmatex">\[
+\text{ReLU}(\mathbf{x}) = \max(0,\, \mathbf{x})
+\qquad\qquad
+\text{GELU}(\mathbf{x}) \approx \mathbf{x} \cdot \sigma(1.702\,\mathbf{x})
+\]</div>
+</div>
+<p>There are <span class="arithmatex">\(N=6\)</span> encoder layers <span class="arithmatex">\(\mathbf{E}_1, \ldots, \mathbf{E}_N\)</span>, each with independent parameters. The output of one layer is the input to the next.</p>
+<div class="arithmatex">\[
+\mathbf{M}_1 = \mathbf{E}_1(\tilde{\mathbf{X}}_{\text{src}})
+\\
+\vdots
+\\
+\mathbf{M}_i = \mathbf{E}_i(\mathbf{M}_{i-1})
+\\
+\vdots
+\\
+\mathbf{M} = \mathbf{M}_N = \mathbf{E}_N(\mathbf{M}_{N-1}) : (S{=}5,\, D{=}512)
+\]</div>
+<p>Because of MHA <span class="arithmatex">\(\mathbf{M}\)</span> is like a context-aware representation of every source token, informed by all other source tokens. It is passed <strong>unchanged</strong> into every one of the <span class="arithmatex">\(N\)</span> decoder layers.</p>
+<div class="admonition note" id="rem-enc-self-attn">
+<p class="admonition-title">Remark — what the self-attention is comparing</p>
+<p>Let's consider the first layer of the stack.</p>
+<div class="arithmatex">\[
+\text{MHA}\!\left(\tilde{\mathbf{X}}_{\text{src}},\; \tilde{\mathbf{X}}_{\text{src}},\; \tilde{\mathbf{X}}_{\text{src}}\right) : (S{=}5,\, D{=}512)
+\]</div>
+<p>All three of <span class="arithmatex">\(\mathbf{Q}, \mathbf{K}, \mathbf{V}\)</span> are projections of the same matrix <span class="arithmatex">\(\tilde{\mathbf{X}}_{\text{src}}\)</span>, so <span class="arithmatex">\(\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j\)</span> measures how much <strong>source token <span class="arithmatex">\(i\)</span> attends to source token <span class="arithmatex">\(j\)</span></strong>. For example, token <span class="arithmatex">\(i = \text{LOVELY}\)</span> may learn to attend strongly to token <span class="arithmatex">\(j = \text{TODAY}\)</span>, capturing their syntactic relationship. Output row <span class="arithmatex">\(i\)</span> is:</p>
+<div class="arithmatex">\[
+\text{row}_i(\mathbf{A}) = \sum_{r=1}^{S} \alpha(\mathbf{q}_i, \mathbf{K}, r)\; \mathbf{v}_r^T
+\]</div>
+<p>a blend of all <span class="arithmatex">\(S=5\)</span> source value vectors, weighted by relevance to source position <span class="arithmatex">\(i\)</span>.</p>
+</div>
+<div class="admonition definition" id="def-padding-mask">
+<p class="admonition-title">Padding Mask</p>
+<p>A padding mask zeros out attention for any padding token.</p>
+<p><span class="arithmatex">\(\sigma \left( \mathbf{QK^T} \right)_{i,j}\)</span> is set to zero whenever query <span class="arithmatex">\(i\)</span> or key <span class="arithmatex">\(j\)</span>'s token correspond to padding. Usually this is done via setting <span class="arithmatex">\(\mathbf{QK^T}_{i,j}\)</span> to negative infinity.</p>
+<p>Equivalently, <span class="arithmatex">\(\sigma \left(\mathbf{Z}  \right)_{i,j} = \sigma \left( \frac{\mathbf{QK^T}}{\sqrt{D_k}} \right)_{i,j} = \alpha(\mathbf{q}_i, \mathbf{K}, j)=0\)</span> when <span class="arithmatex">\(i\)</span> or <span class="arithmatex">\(j\)</span> represent padding.</p>
+</div>
+<p>Note, this is not needed here since <span class="arithmatex">\(S = 5\)</span> with no padding, but applied in batched training.</p>
+<hr />
+<h2 id="stage-3-target-embedding-positional-encoding-training">Stage 3 — Target Embedding + Positional Encoding (Training)<a class="headerlink" href="#stage-3-target-embedding-positional-encoding-training" title="Permanent link">&para;</a></h2>
+<p>During training the full target sentence is known. The decoder is fed a <strong>shifted-right</strong> version of the target — prepending a special beginning-of-sequence token <span class="arithmatex">\(\langle\text{BOS}\rangle\)</span> and dropping the final token:</p>
+<div class="arithmatex">\[
+\textbf{Target labels (what we predict):}
+\quad
+\mathbf{Y}_{\text{tgt}} =
+\begin{bmatrix}
+\text{LE} \\
+\text{TEMPS} \\
+\text{EST} \\
+\text{MAGNIFIQUE}
+\end{bmatrix}
+\quad (T = 4)
+\]</div>
+<div class="arithmatex">\[
+\textbf{Decoder input (shifted right):}
+\quad
+\mathbf{X}_{\text{tgt}} =
+\begin{bmatrix}
+\langle\text{BOS}\rangle \\
+\text{LE} \\
+\text{TEMPS} \\
+\text{EST}
+\end{bmatrix}
+\quad (T = 4)
+\]</div>
+<div class="admonition note" id="rem-shift-right">
+<p class="admonition-title">Remark — why shift right</p>
+<p>The shift means: the decoder at position <span class="arithmatex">\(i\)</span> must predict target token <span class="arithmatex">\(i+1\)</span> using only the tokens at positions <span class="arithmatex">\(1, \ldots, i\)</span>. Seeing <span class="arithmatex">\(\langle\text{BOS}\rangle\)</span> it should predict LE; seeing <span class="arithmatex">\(\langle\text{BOS}\rangle\)</span>, LE it should predict TEMPS; and so on. This is <strong>teacher forcing</strong> — the ground-truth tokens are fed in as input rather than the model's own previous predictions.</p>
+</div>
+<p>These <span class="arithmatex">\(T=4\)</span> shifted-right tokens are embedded and position-encoded in the same way as the source:</p>
+<div class="arithmatex">\[
+\tilde{\mathbf{X}}_{\text{tgt}} = \mathbf{X}_{\text{tgt}} + PE_{\text{tgt}} : (T{=}4,\, D{=}512)
+\]</div>
+<hr />
+<h2 id="stage-4-decoder-stack-repeated-n-6-times">Stage 4 — Decoder Stack (repeated <span class="arithmatex">\(N = 6\)</span> times)<a class="headerlink" href="#stage-4-decoder-stack-repeated-n-6-times" title="Permanent link">&para;</a></h2>
+<p>Each decoder layer has <strong>three</strong> sub-layers, each wrapped with a residual connection and LayerNorm (as in Stage 2). A single decoder layer <span class="arithmatex">\(\mathbf{D}\)</span> is:</p>
+<div class="arithmatex">\[
+\mathbf{DL_1}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{MaskedMHA} \right) : (T, D)
+\\[6pt]
+\mathbf{DL_2}(\mathbf{x,M}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{CrossMHA}(\,\cdot\,,\, \mathbf{M},\, \mathbf{M}) \right) : (T, D)
+\\[6pt]
+\mathbf{DL_3}(\mathbf{x}) = \text{LayerNormRes}\!\left(\mathbf{x},\; \text{FFN} \right) : (T, D)
+\\[6pt]
+\mathbf{D}(\mathbf{x,M}) = \mathbf{DL_3}(\mathbf{DL_2}(\mathbf{DL_1}(\mathbf{x}), \mathbf{M})) : (T, D)
+\]</div>
+<p>There are <span class="arithmatex">\(N=6\)</span> decoder layers <span class="arithmatex">\(\mathbf{D}_1, \ldots, \mathbf{D}_N\)</span>, each with independent parameters. As with the encoder, the output of one layer is the input to the next. The encoder output <span class="arithmatex">\(\mathbf{M}\)</span> is passed <strong>unchanged</strong> into every decoder layer's cross-attention sub-layer.</p>
+<div class="arithmatex">\[
+\mathbf{G}_1 = \mathbf{D}_1(\tilde{\mathbf{X}}_{\text{tgt}})
+\\
+\vdots
+\\
+\mathbf{G}_i = \mathbf{D}_i(\mathbf{G}_{i-1})
+\\
+\vdots
+\\
+\mathbf{G} = \mathbf{G}_N = \mathbf{D}_N(\mathbf{G}_{N-1}) : (T, D)
+\]</div>
+<h3 id="sub-layer-1-masked-decoder-self-attention">Sub-layer 1 — Masked Decoder Self-Attention<a class="headerlink" href="#sub-layer-1-masked-decoder-self-attention" title="Permanent link">&para;</a></h3>
+<div class="admonition definition" id="def-causal-mask">
+<p class="admonition-title">Causal (Look-Ahead) Mask</p>
+<p>All entries with <span class="arithmatex">\(j &gt; i\)</span> in the <span class="arithmatex">\(T \times T = 4 \times 4\)</span> score matrix <span class="arithmatex">\(\mathbf{Z}\)</span> are set to <span class="arithmatex">\(-\infty\)</span> before the softmax.</p>
+<p>Therefore the attention weights become zero, <span class="arithmatex">\(\alpha\left( \mathbf{q}_i, \mathbf{K},r \right)=0\)</span> for all <span class="arithmatex">\(r&gt;i\)</span>.</p>
+<p>Therefore, the weighted sum of values is restricted to positions up to and including <span class="arithmatex">\(i\)</span>.</p>
+<div class="arithmatex">\[
+\text{row}_i(\mathbf{A}) = \sum_{r=1}^{i} \alpha(\mathbf{q}_i, \mathbf{K}, r)\; \mathbf{v}_r^T
+\]</div>
+<p>This preserves the autoregressive property: position <span class="arithmatex">\(i\)</span> can only depend on positions <span class="arithmatex">\(1, \ldots, i\)</span>.</p>
+</div>
+<p>Causal masked multi head attention measures how much the decoder representation of token <span class="arithmatex">\(i\)</span> attends to token <span class="arithmatex">\(j\)</span> for <span class="arithmatex">\(j \leq i\)</span>.</p>
+<p>For example, when <span class="arithmatex">\(i = \text{EST}\)</span> (position 4), the model can attend to <span class="arithmatex">\(\langle\text{BOS}\rangle\)</span>, LE, TEMPS, and EST itself — but <strong>not</strong> to any later position.</p>
+<p>The paper says:</p>
+<blockquote>
+<p>self-attention layers in the decoder allow each position in the decoder to attend to all positions in the decoder up to and including that position.</p>
+</blockquote>
+<p>In practise the Masked Decoder MHA sublayer recieves a representation of the decoding <span class="arithmatex">\(\mathbf{x} = \mathbf{\tilde{X}}_{\text{tgt}}\)</span> or <span class="arithmatex">\(\mathbf{G}_i,\)</span> for <span class="arithmatex">\(i \in \left\{ 1, \dots, N - 1 \right\}\)</span> after the residual connection and LayerNorm:</p>
+<div class="arithmatex">\[
+\mathbf{g}^{(1)} = \text{LayerNormRes}(\mathbf{x},\; \text{MaskedMHA}) : (T, D)
+\]</div>
+<h3 id="sub-layer-2-encoderdecoder-cross-attention">Sub-layer 2 — Encoder–Decoder Cross-Attention<a class="headerlink" href="#sub-layer-2-encoderdecoder-cross-attention" title="Permanent link">&para;</a></h3>
+<div class="arithmatex">\[
+\text{MHA}\!\left(
+\underbrace{\mathbf{g}^{(1)}}_{Q\,:\,(T{=}4,\;D{=}512)},\;\;
+\underbrace{\mathbf{M}}_{K\,:\,(S{=}5,\;D{=}512)},\;\;
+\underbrace{\mathbf{M}}_{V\,:\,(S{=}5,\;D{=}512)}
+\right) : (T, D)
+\]</div>
+<p>Here the queries come from the decoder's current representation <span class="arithmatex">\(\mathbf{g}^{(1)}\)</span> and the keys/values come from the encoder's final output <span class="arithmatex">\(\mathbf{M}\)</span>. The score matrix is <span class="arithmatex">\(T \times S = 4 \times 5\)</span> — each of the <span class="arithmatex">\(T=4\)</span> target positions attends over all <span class="arithmatex">\(S=5\)</span> source positions.</p>
+<p>No causal mask is applied here — the decoder is free to attend to <strong>any</strong> source position when generating any target position. A <strong>padding mask</strong> is applied to suppress attention to any padded source positions.</p>
+<div class="admonition note" id="rem-cross-attn">
+<p class="admonition-title">Remark — what the cross-attention is comparing</p>
+<p>The similarity <span class="arithmatex">\(\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j\)</span> measures how much <strong>target token <span class="arithmatex">\(i\)</span> attends to source token <span class="arithmatex">\(j\)</span></strong>.</p>
+<p>For example when generating <span class="arithmatex">\(\mathbf{Y}_{\text{tgt}}\)</span> every query representing <span class="arithmatex">\(\mathbf{X}_{\text{tgt}}\)</span> is allowed attend to all keys representing source <span class="arithmatex">\(\mathbf{X}_{\text{tgt}}\)</span></p>
+<div class="arithmatex">\[
+\text{row}_i(\mathbf{A}) = \sum_{r=1}^{S} \alpha(\mathbf{q}_i, \mathbf{K}, r)\; \mathbf{v}_r^T
+\]</div>
+<p>For example when trying to generate <span class="arithmatex">\(i=4\)</span> target MAGNIFIQUE the query <span class="arithmatex">\(\mathbf{q}_4\)</span> for (shifted right target) EST is allowed to attend to all English states.</p>
+</div>
+<p>After the residual connection and LayerNorm:</p>
+<div class="arithmatex">\[
+\mathbf{g}^{(2)} = \text{LayerNormRes}(\mathbf{g}^{(1)},\; \text{CrossMHA}) : (T, D)
+\]</div>
+<h3 id="sub-layer-3-feed-forward-network">Sub-layer 3 — Feed-Forward Network<a class="headerlink" href="#sub-layer-3-feed-forward-network" title="Permanent link">&para;</a></h3>
+<p>Same structure as the encoder <a data-preview="data-preview" href="#def-ffn">FFN</a>, applied independently to each of the <span class="arithmatex">\(T=4\)</span> target positions.</p>
+<div class="arithmatex">\[
+\mathbf{g}^{(3)} = \text{LayerNormRes}(\mathbf{g}^{(2)},\; \text{FFN}) : (T, D)
+\]</div>
+<hr />
+<h2 id="stage-5-linear-projection-softmax">Stage 5 — Linear Projection + Softmax<a class="headerlink" href="#stage-5-linear-projection-softmax" title="Permanent link">&para;</a></h2>
+<p>The decoder output <span class="arithmatex">\(\mathbf{G}\)</span> is projected into vocabulary space and passed through a softmax to produce a predicted probability distribution over the vocabulary at each position:</p>
+<div class="arithmatex">\[
+\hat{\mathbf{P}} = \text{softmax}\!\left(\mathbf{G}\,\mathbf{W}_O\right) : (T,\, |\mathcal{V}|)
+\]</div>
+<p>where <span class="arithmatex">\(\mathbf{W}_O : (D,\, |\mathcal{V}|)\)</span> is a learned linear projection. Row <span class="arithmatex">\(i\)</span> of <span class="arithmatex">\(\hat{\mathbf{P}}\)</span> is the model's predicted probability distribution over all vocabulary tokens for target position <span class="arithmatex">\(i\)</span>.</p>
+<div class="admonition note" id="rem-weight-tying">
+<p class="admonition-title">Remark — weight tying</p>
+<p>The paper shares the same weight matrix between the two embedding layers (source and target) and the pre-softmax linear transformation <span class="arithmatex">\(\mathbf{W}_O\)</span>. In the embedding layers the weights are multiplied by <span class="arithmatex">\(\sqrt{D}\)</span>.</p>
+</div>
+<p>Remember that due to the shifted-right decoder input, the predictions align as:</p>
+<div class="arithmatex">\[
+\mathbf{X}_{\text{tgt}} =
+\overbrace{
+\begin{bmatrix}
+\langle\text{BOS}\rangle \\
+\text{LE} \\
+\text{TEMPS} \\
+\text{EST}
+\end{bmatrix}
+}^{\text{Decoder Input Position}}
+\;\Rightarrow\;
+\overbrace{
+\begin{bmatrix}
+\text{LE} \\
+\text{TEMPS} \\
+\text{EST} \\
+\text{MAGNIFIQUE}
+\end{bmatrix}
+}^{\text{Model Predicts}}
+= \mathbf{Y}_{\text{tgt}}
+\]</div>
+<hr />
+<h2 id="stage-6-loss-training-only">Stage 6 — Loss (Training Only)<a class="headerlink" href="#stage-6-loss-training-only" title="Permanent link">&para;</a></h2>
+<p>Let <span class="arithmatex">\(\mathbf{Y} : (T,\, |\mathcal{V}|)\)</span> be the one-hot target matrix, where <span class="arithmatex">\(\mathbf{Y}_{ik} = 1 \iff \mathbf{Y}_{\text{tgt},i}\)</span> is token <span class="arithmatex">\(k\)</span> and is <span class="arithmatex">\(0\)</span> otherwise.</p>
+<p>This defines a hard labelled distribution matrix that we can use in cross entropy loss defined in <a href="../clip_losses/">CLIP losses</a>.</p>
+<p>The cross-entropy loss is:</p>
+<div class="arithmatex">\[
+\mathcal{L}(\mathbf{X}_{\text{src}}, \mathbf{X}_{\text{tgt}}, \mathbf{Y}_{\text{tgt}})
+= \mathbf{CE} \left( \mathbf{\hat{P}}, \mathbf{Y} \right)
+= -\frac{1}{T} \sum_{i=1}^{T} \sum_{k=1}^{|\mathcal{V}|} Y_{ik} \log \hat{P}_{ik}
+\]</div>
+<p>Since <span class="arithmatex">\(\mathbf{Y}\)</span> is one-hot, the inner sum collapses to a single non-zero term at the true token index <span class="arithmatex">\(y_i = \text{the unique } k \in \mathcal{V} : \mathbf{Y}_{ik} = 1\)</span></p>
+<div class="arithmatex">\[
+\mathcal{L}(\mathbf{X}_{\text{src}}, \mathbf{X}_{\text{tgt}}, \mathbf{Y}_{\text{tgt}}) = -\frac{1}{T} \sum_{i=1}^{T} \log \hat{P}_{i,\, y_i}
+\]</div>
+<p>Gradients flow back through the decoder cross-attention, decoder self-attention, and encoder self-attention simultaneously, updating all projection matrices <span class="arithmatex">\(\mathbf{W}^Q, \mathbf{W}^K, \mathbf{W}^V\)</span> across all layers and heads.</p>
+<hr />
+<h2 id="inference-autoregressive-decoding">Inference — Autoregressive Decoding<a class="headerlink" href="#inference-autoregressive-decoding" title="Permanent link">&para;</a></h2>
+<p>Inference uses the same encoder and decoder but the decoder no longer receives the full target sequence upfront. Instead it generates one token at a time, feeding each prediction back as input for the next step.</p>
+<p><strong>Step 1 — Encode the source once.</strong> The encoder applies all <span class="arithmatex">\(N=6\)</span> stacked layers in a single call:</p>
+<div class="arithmatex">\[
+\mathbf{M} = \text{Encoder}\!\left(\tilde{\mathbf{X}}_{\text{src}},\; \text{src\_pad\_mask}\right) : (S, D)
+\]</div>
+<p><span class="arithmatex">\(\mathbf{M}\)</span> is computed once and reused at every generation step.</p>
+<p><strong>Step 2 — Generate token by token.</strong> Let <span class="arithmatex">\(\tilde{\mathbf{X}}_{\text{tgt}}^{(t)} : (t, D)\)</span> denote the embedded, position-encoded sequence of the <span class="arithmatex">\(t\)</span> tokens generated so far (starting from <span class="arithmatex">\(\langle\text{BOS}\rangle\)</span>). The decoder applies all <span class="arithmatex">\(N=6\)</span> stacked layers:</p>
+<div class="arithmatex">\[
+\mathbf{G}^{(t)} = \text{Decoder}\!\left(\tilde{\mathbf{X}}_{\text{tgt}}^{(t)},\; \mathbf{M},\; \text{src\_pad\_mask}\right) : (t, D)
+\]</div>
+<p>The next predicted token is taken from the <strong>last row</strong> of <span class="arithmatex">\(\mathbf{G}^{(t)}\)</span>:</p>
+<div class="arithmatex">\[
+\hat{y}_t = \arg\max_k\; \text{softmax}\!\left(\mathbf{G}^{(t)}_{t,\,:}\; \mathbf{W}_O\right)_k
+\]</div>
+<table>
+<thead>
+<tr>
+<th>Step <span class="arithmatex">\(t\)</span></th>
+<th><span class="arithmatex">\(\tilde{\mathbf{X}}_{\text{tgt}}^{(t)}\)</span> (decoder input)</th>
+<th><span class="arithmatex">\(\hat{y}_t\)</span> (predicted token)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><span class="arithmatex">\(\langle\text{BOS}\rangle\)</span></td>
+<td>LE</td>
+</tr>
+<tr>
+<td>2</td>
+<td><span class="arithmatex">\(\langle\text{BOS}\rangle\)</span>, LE</td>
+<td>TEMPS</td>
+</tr>
+<tr>
+<td>3</td>
+<td><span class="arithmatex">\(\langle\text{BOS}\rangle\)</span>, LE, TEMPS</td>
+<td>EST</td>
+</tr>
+<tr>
+<td>4</td>
+<td><span class="arithmatex">\(\langle\text{BOS}\rangle\)</span>, LE, TEMPS, EST</td>
+<td>MAGNIFIQUE</td>
+</tr>
+<tr>
+<td>5</td>
+<td><span class="arithmatex">\(\langle\text{BOS}\rangle\)</span>, LE, TEMPS, EST, MAGNIFIQUE</td>
+<td><span class="arithmatex">\(\langle\text{EOS}\rangle\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The causal mask is still applied inside the decoder at each step, consistent with causality since <span class="arithmatex">\(\tilde{\mathbf{X}}_{\text{tgt}}^{(t)}\)</span> only ever contains tokens <span class="arithmatex">\(1, \ldots, t\)</span>.</p>
+<p>Generation terminates when <span class="arithmatex">\(\langle\text{EOS}\rangle\)</span> is produced or a maximum length is reached.</p>
+<div class="admonition note" id="rem-inference">
+<p class="admonition-title">Remark — training vs inference</p>
+<p>During training, all <span class="arithmatex">\(T=4\)</span> target tokens are processed <strong>in parallel</strong> by a single decoder call (with the causal mask enforcing causality). This is what makes training efficient. During inference, the decoder is called <strong>sequentially</strong> <span class="arithmatex">\(T{+}1\)</span> times — each step's output token becomes part of the next step's input — since the true targets are unknown. The causal mask and the shifted-right convention together ensure that training exactly mimics the conditional dependencies seen at inference time.</p>
+</div>
+<hr />
+<h2 id="masking-summary">Masking Summary<a class="headerlink" href="#masking-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Mask Type</th>
+<th>Where Applied</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Causal (look-ahead) mask</strong></td>
+<td>Decoder sub-layer 1 (masked self-attention)</td>
+<td>Sets <span class="arithmatex">\(\mathbf{Z}_{i,j} \to -\infty\)</span> for <span class="arithmatex">\(j &gt; i\)</span> in the <span class="arithmatex">\(T \times T\)</span> score matrix, preventing target token <span class="arithmatex">\(i\)</span> from attending to future target tokens <span class="arithmatex">\(j\)</span>. Preserves the autoregressive property.</td>
+</tr>
+<tr>
+<td><strong>Padding mask</strong></td>
+<td>Encoder self-attention; Decoder cross-attention</td>
+<td>Sets <span class="arithmatex">\(\mathbf{Z}_{i,j} \to -\infty\)</span> for any <span class="arithmatex">\(j\)</span> corresponding to a padding token. Prevents real tokens from drawing information from padding positions which carry no meaning.</td>
+</tr>
+</tbody>
+</table>
+<p>In both cases, setting scores to <span class="arithmatex">\(-\infty\)</span> before the softmax drives the corresponding <span class="arithmatex">\(\alpha\)</span> weights to zero, so those value vectors <span class="arithmatex">\(\mathbf{v}_j\)</span> contribute nothing to the output row.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/jakerobertbaker" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/in/jake-robert-baker" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.top", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
