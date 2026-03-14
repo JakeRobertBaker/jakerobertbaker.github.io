@@ -42,6 +42,7 @@ nav:
       - Set Theory:
           - Universal Algebra: mathematics/set_theory/universal_algebra.md
       - Analysis:
+          - Companion to Analysis: mathematics/analysis/companion_to_analysis_overview.md
           - Axler Measure Theory Exercises:
               - 2A: mathematics/analysis/axler_measure_theory_exercises/Axler_Measure_Theory_Exercises_2A.md
 

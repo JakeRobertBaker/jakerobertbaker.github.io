@@ -151,6 +151,87 @@ $$\hat{F} \subseteq \mathbb{R} \setminus \bigcap_{k=1}^{n} F_k.$$
 
 This implies $\hat{F} \cap \bigcap_{k=1}^{n} F_k = \emptyset$, i.e.
 
-$$\hat{F} \cap F_1 \cap \cdots \cap F_n = \emptyset.$$
+$$
+\hat{F} \cap F_1 \cap \cdots \cap F_n = \emptyset.
+$$
 
 Since $\hat{F}, F_1, \ldots, F_n$ are all elements of $\mathcal{A}$, we have exhibited a finite subcollection of $\mathcal{A}$ whose intersection is empty. $\blacksquare$
+
+---
+
+## Exercise 6
+
+> Prove that if $a, b \in \mathbb{R}$ and $a < b$, then
+> $$|(a,b)| = |[a,b)| = |(a,b]| = b - a.$$
+
+**Key idea:** Each interval differs from $[a,b]$ by at most one endpoint, and single points have outer measure zero, so Ex 1 does all the work.
+
+**Proof.**
+
+Since finite sets have outer measure zero (MIRA, 2.3), we have $|\{a\}| = |\{b\}| = 0$. Observe that
+
+$$(a, b] \cup \{a\} = [a, b], \qquad [a, b) \cup \{b\} = [a, b], \qquad (a,b) \cup \{a\} = [a, b).$$
+
+Applying Exercise 1 of 2A (if $|B| = 0$ then $|A \cup B| = |A|$) to each in turn, together with (MIRA, 2.14):
+
+$$|(a,b]| = |(a,b] \cup \{a\}| = |[a,b]| = b - a,$$
+$$|[a,b)| = |[a,b) \cup \{b\}| = |[a,b]| = b - a,$$
+$$|(a,b)| = |(a,b) \cup \{a\}| = |[a,b)| = b - a. \qquad \blacksquare$$
+
+---
+
+## Exercise 7
+
+> Suppose $a, b, c, d \in \mathbb{R}$ with $a < b$ and $c < d$. Prove that
+> $$|(a,b) \cup (c,d)| = (b-a) + (d-c) \quad \text{if and only if} \quad (a,b) \cap (c,d) = \emptyset.$$
+
+**Key idea:** The "only if" direction uses a direct computation after noting the union collapses to a single interval when the two intervals overlap. The "if" direction uses a covering argument: any cover of $(a,b)\cup(c,d)$ can be combined with an efficient cover of the gap $[b,c]$ to yield a cover of a larger interval whose length is known, giving a contradiction if the total is too small.
+
+**Proof.**
+
+Without loss of generality, assume $a \leq c$.
+
+**($\Rightarrow$) If $(a,b) \cap (c,d) \neq \emptyset$:**
+
+Since $a \leq c$, the intersection is non-empty if and only if $b > c$. In this case $(a,b) \cup (c,d) = (a,d)$, so
+
+$$|(a,b) \cup (c,d)| = d - a = (d-c) + (c-a) < (d-c) + (b-a),$$
+
+where the strict inequality holds because $c < b$. Hence $|(a,b) \cup (c,d)| \neq (b-a) + (d-c)$.
+
+**($\Leftarrow$) If $(a,b) \cap (c,d) = \emptyset$:**
+
+Since $a \leq c$, the disjointness of the intervals implies $b \leq c$. The upper bound follows immediately from countable subadditivity (MIRA, 2.8):
+
+$$|(a,b) \cup (c,d)| \leq |(a,b)| + |(c,d)| = (b-a) + (d-c).$$
+
+It remains to show $|(a,b) \cup (c,d)| \geq (b-a)+(d-c)$. Suppose for contradiction that
+
+$$|(a,b) \cup (c,d)| < (b-a) + (d-c).$$
+
+Then there exists $\eta > 0$ and a sequence of open intervals $\{I_k\}_{k \in \mathbb{Z}^+}$ covering $(a,b) \cup (c,d)$ such that
+
+$$\sum_{k=1}^{\infty} \ell(I_k) < (b-a) + (d-c) - \eta.$$
+
+By Exercise 6, $|[b,c]| = c - b$, so by the definition of outer measure there exists a sequence of open intervals $\{J_k\}_{k \in \mathbb{Z}^+}$ covering $[b,c]$ with
+
+$$\sum_{k=1}^{\infty} \ell(J_k) < (c-b) + \varepsilon$$
+
+for some $\varepsilon \in (0, \eta)$. Since $\{I_k\} \cup \{J_k\}$ covers
+
+$$(a,b) \cup [b,c] \cup (c,d) = (a,d),$$
+
+combining both series gives
+
+$$
+\begin{align*}
+\sum_{k=1}^{\infty} \ell(I_k) + \sum_{k=1}^{\infty} \ell(J_k)
+&< (b-a)+(d-c)-\eta + (c-b)+\varepsilon \\
+&= (d-a) + (\varepsilon - \eta) \\
+&< d-a.
+\end{align*}
+$$
+
+This contradicts $|(a,d)| = d - a$ (by Exercise 6). Therefore $|(a,b) \cup (c,d)| \geq (b-a)+(d-c)$, and combined with the upper bound above,
+
+$$|(a,b) \cup (c,d)| = (b-a) + (d-c). \qquad \blacksquare$$
