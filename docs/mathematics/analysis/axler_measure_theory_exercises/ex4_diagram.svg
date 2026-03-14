@@ -1,0 +1,47 @@
+<svg width="100%" viewBox="0 0 680 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+
+<!-- G_N left ray -->
+<line x1="40" y1="80" x2="248" y2="80" stroke="#1D9E75" stroke-width="4" stroke-linecap="round"/>
+<line x1="40" y1="80" x2="42" y2="80" stroke="#1D9E75" stroke-width="4" marker-start="url(#arrow)"/>
+
+<!-- G_N right ray -->
+<line x1="432" y1="80" x2="640" y2="80" stroke="#1D9E75" stroke-width="4" stroke-linecap="round"/>
+<line x1="640" y1="80" x2="638" y2="80" stroke="#1D9E75" stroke-width="4" marker-end="url(#arrow)"/>
+
+<!-- Thin number line through gap -->
+<line x1="248" y1="80" x2="432" y2="80" stroke="#888780" stroke-width="1" stroke-dasharray="4 3"/>
+
+<!-- Gap region highlight -->
+<rect x="248" y="62" width="184" height="36" rx="6" fill="#E24B4A" fill-opacity="0.12" stroke="#E24B4A" stroke-width="0.5" stroke-dasharray="4 2"/>
+
+<!-- Open endpoint brackets at gap boundaries -->
+<path d="M252 68 C244 68, 244 92, 252 92" fill="none" stroke="#1D9E75" stroke-width="1.5"/>
+<path d="M428 68 C436 68, 436 92, 428 92" fill="none" stroke="#1D9E75" stroke-width="1.5"/>
+
+<!-- Point x -->
+<circle cx="340" cy="80" r="4" fill="#2C2C2A"/>
+<text x="340" y="115" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="14" font-weight="500">x</text>
+
+<!-- Point y in F near x -->
+<circle cx="385" cy="80" r="3.5" fill="#E24B4A"/>
+<text x="385" y="115" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="12" fill="#E24B4A">y ∈ F</text>
+
+<!-- Distance labels -->
+<line x1="248" y1="140" x2="248" y2="150" stroke="#888780" stroke-width="0.5"/>
+<line x1="340" y1="140" x2="340" y2="150" stroke="#888780" stroke-width="0.5"/>
+<line x1="432" y1="140" x2="432" y2="150" stroke="#888780" stroke-width="0.5"/>
+<line x1="248" y1="148" x2="340" y2="148" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<line x1="340" y1="148" x2="432" y2="148" stroke="#888780" stroke-width="0.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="294" y="166" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#888780">1/N</text>
+<text x="386" y="166" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#888780">1/N</text>
+
+<!-- G_N labels -->
+<text x="120" y="60" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#0F6E56">G_N</text>
+<text x="560" y="60" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="500" fill="#0F6E56">G_N</text>
+
+<!-- Caption -->
+<text x="340" y="195" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#888780">x is a limit point of F, so ∃ y ∈ F with |x − y| &lt; 1/N — but y ∉ G_N. Contradiction.</text>
+</svg>
