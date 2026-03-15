@@ -52,7 +52,7 @@ When adding or changing project infrastructure/config (new extensions, overrides
 - KaTeX for math (not MathJax) via `pymdownx.arithmatex` with `generic: true`
 - Content lives in `docs/`; theme overrides in `overrides/`
 
-## Math Formatting
+## Math formatting
 
 Inline math: $f(x) = x^2$
 
