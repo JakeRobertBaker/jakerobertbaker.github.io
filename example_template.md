@@ -10,10 +10,6 @@ Inline math: $f(x) = x^2$
 
 Display math (`$$` must be on its own line — single-line `$$...$$` renders a stray `$` with `pymdownx.arithmatex`):
 
-$$
-\sum_{k=1}^{\infty} \frac{1}{k^2} = \frac{\pi^2}{6}
-$$
-
 The site has a fixed max width — avoid wide display equations. Break long chains of inequalities or equalities using `\\` line breaks or `align*` with `&` before each relation and `\\` at each line break:
 
 $$
@@ -24,8 +20,6 @@ $$
 &< d-a.
 \end{align*}
 $$
-
-Use `\varepsilon` (not `\epsilon`), `\mathbb{R}`, `\mathbb{Z}^+`, `\infty`, `\leq`, `\geq`, `\subseteq`, `\setminus`, `\bigcup`, `\bigcap`, `\tfrac{1}{n}` (inline fractions in text), `\blacksquare` (end of proof).
 
 ---
 
@@ -71,10 +65,11 @@ Content here.
 ///
 ```
 
-Then reference it:
+### Referencing blocks
 
 - Same page: `[text](#def-my-thing)`
-- Cross-page: `[text](./other-page.md#def-my-thing){data-preview}`
+- Cross page: `[text](./other-page.md#def-my-thing){data-preview}`
+- Reusable reference link: define `[My Def]: #def-my-thing` once, then use `[My Def]` anywhere in the file
 
 ---
 
