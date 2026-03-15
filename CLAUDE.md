@@ -51,3 +51,20 @@ When adding or changing project infrastructure/config (new extensions, overrides
 
 - KaTeX for math (not MathJax) via `pymdownx.arithmatex` with `generic: true`
 - Content lives in `docs/`; theme overrides in `overrides/`
+
+## Math Formatting
+
+Inline math: $f(x) = x^2$
+
+Display math (`$$` must be on its own line — single-line `$$...$$` renders a stray `$` with `pymdownx.arithmatex`):
+
+The site has a fixed max width — avoid wide display equations. Break long chains of inequalities or equalities using `\\` line breaks or `align*` with `&` before each relation and `\\` at each line break:
+
+$$
+\begin{align*}
+\sum_{k=1}^{\infty} \ell(I_k) + \sum_{k=1}^{\infty} \ell(J_k)
+&< (b-a)+(d-c)-\eta + (c-b)+\varepsilon \\
+&= (d-a) + (\varepsilon - \eta) \\
+&< d-a.
+\end{align*}
+$$
