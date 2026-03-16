@@ -7,7 +7,11 @@
 
 ## Exercise 1
 
-> Prove that if $A$ and $B$ are subsets of $\mathbb{R}$ and $|B| = 0$, then $|A \cup B| = |A|$.
+### Question
+
+Prove that if $A$ and $B$ are subsets of $\mathbb{R}$ and $|B| = 0$, then $|A \cup B| = |A|$.
+
+### Solution
 
 **Proof.**
 
@@ -51,8 +55,11 @@ Combining (i) and (ii), we have $|A \cup B| = |A|$. $\blacksquare$
 
 ## Exercise 2
 
-> Suppose $A \subseteq \mathbb{R}$ and $t \in \mathbb{R}$. Let $tA = \{ta : a \in A\}$. Prove that $|tA| = |t|\,|A|$.
-> [Assume that $0 \cdot \infty$ is defined to be $0$.]
+### Question
+
+Suppose $A \subseteq \mathbb{R}$ and $t \in \mathbb{R}$. Let $tA = \{ta : a \in A\}$. Prove that $|tA| = |t|\,|A|$. [Assume that $0 \cdot \infty$ is defined to be $0$.]
+
+### Solution
 
 **Proof.**
 
@@ -90,7 +97,11 @@ Combining both inequalities, $|tA| = |t|\,|A|$. $\blacksquare$
 
 ## Exercise 3
 
-> Prove that if $A, B \subseteq \mathbb{R}$ and $|A| < \infty$, then $|B \setminus A| \geq |B| - |A|$.
+### Question
+
+Prove that if $A, B \subseteq \mathbb{R}$ and $|A| < \infty$, then $|B \setminus A| \geq |B| - |A|$.
+
+### Solution
 
 **Proof.**
 
@@ -110,7 +121,11 @@ $$
 
 ## Exercise 4
 
-> Suppose $F$ is a subset of $\mathbb{R}$ with the property that every open cover of $F$ has a finite subcover. Prove that $F$ is closed and bounded.
+### Question
+
+Suppose $F$ is a subset of $\mathbb{R}$ with the property that every open cover of $F$ has a finite subcover. Prove that $F$ is closed and bounded.
+
+### Solution
 
 **Key idea:** If a set is not closed, it is missing a limit point $x$. Build an open cover of $F$ that nibbles toward $x$ but never reaches it, so any finite subcover leaves out a ball around $x$ — contradicting the existence of points of $F$ arbitrarily close to $x$.
 
@@ -154,7 +169,11 @@ The collection $\{(-k, k)\}_{k=1}^{\infty}$ is an open cover of $F$, since $F \s
 
 ## Exercise 5
 
-> Suppose $\mathcal{A}$ is a set of closed subsets of $\mathbb{R}$ such that $\bigcap_{F \in \mathcal{A}} F = \emptyset$. Prove that if $\mathcal{A}$ contains at least one bounded set, then there exist $n \in \mathbb{Z}^+$ and $F_1, \ldots, F_n \in \mathcal{A}$ such that $F_1 \cap \cdots \cap F_n = \emptyset$.
+### Question
+
+Suppose $\mathcal{A}$ is a set of closed subsets of $\mathbb{R}$ such that $\bigcap_{F \in \mathcal{A}} F = \emptyset$. Prove that if $\mathcal{A}$ contains at least one bounded set, then there exist $n \in \mathbb{Z}^+$ and $F_1, \ldots, F_n \in \mathcal{A}$ such that $F_1 \cap \cdots \cap F_n = \emptyset$.
+
+### Solution
 
 **Proof.**
 
@@ -196,11 +215,15 @@ Since $\hat{F}, F_1, \ldots, F_n$ are all elements of $\mathcal{A}$, we have exh
 
 ## Exercise 6
 
-> Prove that if $a, b \in \mathbb{R}$ and $a < b$, then
->
+### Question
+
+Prove that if $a, b \in \mathbb{R}$ and $a < b$, then
+
 $$
 |(a,b)| = |[a,b)| = |(a,b]| = b - a.
 $$
+
+### Solution
 
 **Key idea:** Each interval differs from $[a,b]$ by at most one endpoint, and single points have outer measure zero, so Ex 1 does all the work.
 
@@ -230,11 +253,15 @@ $$
 
 ## Exercise 7
 
-> Suppose $a, b, c, d \in \mathbb{R}$ with $a < b$ and $c < d$. Prove that
->
+### Question
+
+Suppose $a, b, c, d \in \mathbb{R}$ with $a < b$ and $c < d$. Prove that
+
 $$
 |(a,b) \cup (c,d)| = (b-a) + (d-c) \quad \text{if and only if} \quad (a,b) \cap (c,d) = \emptyset.
 $$
+
+### Solution
 
 **Key idea:** The "only if" direction uses a direct computation after noting the union collapses to a single interval when the two intervals overlap. The "if" direction uses a covering argument: any cover of $(a,b)\cup(c,d)$ can be combined with an efficient cover of the gap $[b,c]$ to yield a cover of a larger interval whose length is known, giving a contradiction if the total is too small.
 
