@@ -171,3 +171,11 @@ $$
 [\text{Def}] &= \tau(nm)
 \end{align*}
 $$
+
+**Positive**
+Easy since $\tau(n)=(n)_{\mathbb{F}}>0_{\mathbb{F}}$ by A2.
+
+**Injective**
+
+We have already shown that $n_{\mathbb{F}} \neq 0$ therfore $-n_{\mathbb{F}} \neq 0$ for any $n>0$. Therefore $\ker \tau = \left\{ 0 \right\}$.
+Since $\tau$ is linear this is sufficient.
