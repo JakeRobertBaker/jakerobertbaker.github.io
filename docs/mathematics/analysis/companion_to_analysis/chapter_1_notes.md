@@ -101,8 +101,9 @@ $$
 
 $$
 \begin{align*}
-\tau(n) + \tau(m) &= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} - \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{-m} \\
-&= -\overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{-m-n} \\
+\tau(n) + \tau(m) &= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} + \overbrace{(-1_{\mathbb{F}}) + \cdots + (-1_{\mathbb{F}})}^{-m} \\
+&= \overbrace{(-1_{\mathbb{F}}) + \cdots + (-1_{\mathbb{F}})}^{-m-n} \\
+&=  -( \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{-m-n} ) \\
 &= -(-m-n)_{\mathbb{F}}
 \\
 &= -(-(n+m))_{\mathbb{F}} = \tau(n+m)
