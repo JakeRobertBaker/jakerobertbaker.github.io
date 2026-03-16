@@ -121,16 +121,16 @@ $$
 \begin{cases}
 0_{\mathbb{F}}
 &
-&= \tau(0)
-&\text{if } n=-m \\
+& \overset{\text{Def }}{=} \tau(0)
+&\text{ if } n=-m \\
 (n--m)_{\mathbb{F}}
 &= (n+m)_{\mathbb{F}}
-&= \tau(n+m)
+& \overset{\text{Def }}{=} \tau(n+m)
 &\text{ if } n>-m
 \\
 -(-m-n)_{\mathbb{F}}
 &= -(-(n+m))_{\mathbb{F}}
-&= \tau(n+m)
+& \overset{\text{Def }}{=} \tau(n+m)
 &\text{ if } n < -m
 \end{cases}
 $$
