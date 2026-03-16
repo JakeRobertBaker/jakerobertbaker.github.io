@@ -134,3 +134,40 @@ $$
 &\text{ if } n < -m
 \end{cases}
 $$
+
+**Multiplicative**
+
+If one of $n,m$ is zero then it's easy to show $nm=0_{\mathbb{F}} = \tau(n) \tau(m)$.
+Assume $n,m \neq 0$, therefore there are cases.
+
+If $n,m>0$.
+
+$$
+\begin{align*}
+\tau(n) \tau(m) \overset{\text{Def}}{=}
+n_{\mathbb{F}} m_{\mathbb{F}} \overset{F2}{=} (nm)_{\mathbb{F}} \overset{\text{Def}}{=} \tau(nm)
+\end{align*}
+$$
+
+If $n>0, m<0$,
+
+$$
+\begin{align*}
+\tau(n) \tau(m)
+&\overset{\text{Def}}{=} n_{\mathbb{F}} \times -(-m)_{\mathbb{F}}\\
+[\text{algebra}] &= - (n_{\mathbb{F}} \times (-m)_{\mathbb{F}}) \\
+[\text{F2}] &= -(n \times -m)_{\mathbb{F}} = -(-nm)_{\mathbb{F}} \\
+[\text{Def}] &= \tau(nm)
+\end{align*}
+$$
+
+If $n,m <0$,
+
+$$
+\begin{align*}
+\tau(n) \tau(m)
+&\overset{\text{Def}}{=} -(-n)_{\mathbb{F}} \times -(-m)_{\mathbb{F}} = (-n)_{\mathbb{F}} (-m)_{\mathbb{F}} \\
+[\text{F2}] &= (-n \times -m)_{\mathbb{F}} = (nm)_{\mathbb{F}} \\
+[\text{Def}] &= \tau(nm)
+\end{align*}
+$$
