@@ -33,6 +33,36 @@ This means that any ordered field $\mathbb{F}$ has characteristic $∞$.
 
 We will then proceed to show that this characteristic of $∞$ means we contain a copy of the rationals.
 
+### Some obvious facts
+
+For any $n \in \mathbb{N}^+$ we have
+$$
+-n_{\mathbb{F}}
+= -(\overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}} }^{n})
+= \overbrace{-1_{\mathbb{F}} + \dots + -1_{\mathbb{F}}}^{n}
+$$
+
+Hence, for any $n,m \in \mathbb{N}^+$
+
+$$
+n_{\mathbb{F}} - m_{\mathbb{F}} =
+\overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}} }^{n} +
+\overbrace{-1_{\mathbb{F}}+ \dots + -1_{\mathbb{F}}}^{m} =
+\begin{cases}
+0_{\mathbb{F}}
+&&\text{if } n=m \\
+\overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}}}^{n-m}
+&= (n-m)_{\mathbb{F}}
+&\text{ if } n>m
+\\
+\overbrace{-1_{\mathbb{F}} + \dots + -1_{\mathbb{F}}}^{m-n}
+&= -(m-n)_{\mathbb{F}}
+&\text{ if } n < m
+\end{cases}
+$$
+
+Let's refer to this as Fact 1, F1.
+
 ### Exercise A3
 
 Let $\tau : \mathbb{Z} \to \mathbb{F}$ by,
