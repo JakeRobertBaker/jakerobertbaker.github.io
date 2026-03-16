@@ -179,3 +179,65 @@ Easy since $\tau(n)=(n)_{\mathbb{F}}>0_{\mathbb{F}}$ by A2.
 
 We have already shown that $n_{\mathbb{F}} \neq 0$ therfore $-n_{\mathbb{F}} \neq 0$ for any $n>0$. Therefore $\ker \tau = \left\{ 0 \right\}$.
 Since $\tau$ is linear this is sufficient.
+
+#### ii)
+
+Define $\phi: \mathbb{Q} \to \mathbb{F}$ by $\phi(n/m) = \tau(n) \tau(m)^{-1}$
+
+This function is well defined and has properties
+
+- $\phi (x+y) = \phi(x) + \phi(y)$
+- $\phi(xy) = \phi(x) \phi(y)$
+- $\phi(x) > 0_{\mathbb{F}}$ whenever $x>0$
+
+**Proof**
+
+**Well Defined**
+
+Let $x= \frac{n}{m} = \frac{\lambda n}{\lambda m}$ for some $\lambda \in \mathbb{N}$. Then,
+
+$$
+\phi(\frac{\lambda n}{\lambda m})
+= \tau(\lambda n) \tau(\lambda m)^{-1}
+\\
+= \tau(\lambda) \tau(n) (\tau(\lambda) \tau(m))^{-1}
+\\
+= \tau(\lambda) \tau(n) \tau(\lambda)^{-1} \tau(m)^{-1}
+\\
+= \tau(n) \tau(m)
+\\
+= \phi(x)
+$$
+
+**Additive**
+
+Let $x = \frac{n}{m}, y= \frac{p}{q}$ for $n,m,p,q \in \mathbb{Z}$
+
+$$
+\phi(x+y) = \phi(\frac{nq + pm}{mq})
+\\
+= \tau(nq + pm) \tau(mq)^{-1}
+\\
+= \left( \tau(n) \tau(q) + \tau(p) \tau(m) \right) \tau(m)^{-1} \tau(q)^{-1}
+\\
+= \tau(n) \tau(m)^{-1} + \tau(p) \tau(q)^{-1}
+\\
+= \phi(x) + \phi(y)
+$$
+
+We also see
+
+$$
+\phi(xy) = \phi(\frac{np}{mq}) \\
+= \tau(n) \tau(p) \tau(m)^{-1} \tau(q)^{-1} \\
+= \tau(n) \tau(m)^{-1} \tau(p) \tau(q)^{-1} \\
+= \phi(x) \phi(y)
+$$
+
+And we can assume $x>0$ means that $m,n>0$ since we can multiply both by $-1$ if not,
+
+$$
+\phi(x) = \tau(n) \tau(m)^{-1} >0_{\mathbb{F}}
+$$
+
+since A2 gives us $m>0 \implies \tau(m)>0$ which then implies it's inverse is positive (standard result).
