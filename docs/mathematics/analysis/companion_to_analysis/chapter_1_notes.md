@@ -41,7 +41,7 @@ If $n=0$ then $\tau(n) = 0_{\mathbb{F}}$
 
 If $n>0$ then $\tau(n) = n_{\mathbb{F}}$
 
-If $n < 0$ then $\tau(n) = \left( -n \right)_{\mathbb{F}}$
+If $n < 0$ then $\tau(n) = - \left( -n \right)_{\mathbb{F}}$
 
 #### i)
 
@@ -59,10 +59,54 @@ The case definition is already well defined.
 
 **Injective**
 
-Assume $\tau(n) = \tau(m)$. WLOG assume $n \geq m$. If $n=m$ then equality is trivial, therefore assume $n>m$.
+Assume $\tau(n) = \tau(m)$. WLOG assume $n \geq m$.
+
+Assume for contradiction that $n>m$.
 
 Then
 
 $$
-0_{\mathbb{F}} = \tau(n) - \tau(m) = n ones minus m ones equals n-m ones (n-m positive.)
+\begin{align*}
+0_{\mathbb{F}} &= \tau(n) - \tau(m) \\
+&= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} - \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{m} \\
+&= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n-m} \quad (n - m \text{ positive}) \\
+&= (n-m)_{\mathbb{F}} > 0_{\mathbb{F}}
+\end{align*}
 $$
+
+Contradiction. Therefore $n$ must equal $m$
+
+**Additive**
+
+If one or more $n,m$ equal 0 then additivity is trivial. Therefore assume either both positive OR one positive and one negative OR both negative.
+
+Both positive case is trivial:
+
+$$
+\tau(n) + \tau(m) = \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} + \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{m} = \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n+m} = \tau(n+m)
+$$
+
+Assume WLOG $n>0$ and $m<0$
+
+**Case $n > -m$** (so $n+m > 0$):
+
+$$
+\begin{align*}
+\tau(n) + \tau(m) &= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} - \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{-m} \\
+&= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n+m} = (n+m)_{\mathbb{F}} = \tau(n+m)
+\end{align*}
+$$
+
+**Case $n < -m$** (so $n+m < 0$):
+
+$$
+\begin{align*}
+\tau(n) + \tau(m) &= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} - \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{-m} \\
+&= -\overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{-m-n} \\
+&= -(-m-n)_{\mathbb{F}}
+\\
+&= -(-(n+m))_{\mathbb{F}} = \tau(n+m)
+\end{align*}
+$$
+
+where the last equality uses $n+m < 0$ and the definition of $\tau$.
