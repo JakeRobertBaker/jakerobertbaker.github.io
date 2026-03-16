@@ -82,21 +82,15 @@ The source can be any textbook or paper. Use a short abbreviation in parenthetic
 
 **Source:** Axler, *Measure, Integration & Real Analysis* (MIRA), Section 2A, pp. 23–24.
 
----
-
 ## Exercise 1
 
-> Statement of the exercise quoted verbatim.
+### Question
+Statement of the exercise quoted verbatim.
 
+### Solution
 **Key idea:** (optional — one sentence summarising the trick or main insight)
 
-/// definition | Relevant Definition
-    attrs: {id: def-foo}
-
-Statement of definition.
-///
-
-**Proof.**
+Optionally use definitions or admonitions if needed.
 
 Proof body. Reference results with a short abbreviation, e.g. (MIRA, 2.5) or (MIRA, Definition 2.2).
 
@@ -109,8 +103,7 @@ Since $\varepsilon > 0$ was arbitrary, we conclude $|A \cup B| \leq |A|$. $\blac
 ---
 
 ## Exercise 2
-
-> Next exercise...
+...
 ```
 
 ---
