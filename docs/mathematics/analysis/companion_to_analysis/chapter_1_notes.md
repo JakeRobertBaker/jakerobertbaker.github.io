@@ -35,6 +35,16 @@ We will then proceed to show that this characteristic of $∞$ means we contain 
 
 ### Some obvious facts
 
+#### F1
+
+$n_{\mathbb{F}} + m_{\mathbb{F}} = (n+m)_{\mathbb{F}}$ for any $n,m \in \mathbb{N}^+$
+
+#### F2
+
+$n_{\mathbb{F}} m_{\mathbb{F}} = (nm)_{\mathbb{F}}$ for any $n,m \in \mathbb{N}^+$ due to distributivity.
+
+#### F3
+
 For any $n \in \mathbb{N}^+$ we have
 $$
 -n_{\mathbb{F}}
@@ -61,8 +71,6 @@ n_{\mathbb{F}} - m_{\mathbb{F}} =
 \end{cases}
 $$
 
-Let's refer to this as Fact 1, F1.
-
 ### Exercise A3
 
 Let $\tau : \mathbb{Z} \to \mathbb{F}$ by,
@@ -82,29 +90,10 @@ $$
 \\
 \tau \left( nm \right) = \tau(n) \tau(m)
 \\
-\tau(n) > 0_{\mathbb{F}}, \text{ whenever} n>0.
+\tau(n) > 0_{\mathbb{F}}, \text{ whenever } n>0.
 $$
 
 The case definition is already well defined.
-
-**Injective**
-
-Assume $\tau(n) = \tau(m)$. WLOG assume $n \geq m$.
-
-Assume for contradiction that $n>m$.
-
-Then
-
-$$
-\begin{align*}
-0_{\mathbb{F}} &= \tau(n) - \tau(m) \\
-&= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} - \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{m} \\
-&= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n-m} \quad (n - m \text{ positive}) \\
-&= (n-m)_{\mathbb{F}} > 0_{\mathbb{F}}
-\end{align*}
-$$
-
-Contradiction. Therefore $n$ must equal $m$
 
 **Additive**
 
@@ -113,31 +102,35 @@ If one or more $n,m$ equal 0 then additivity is trivial. Therefore assume either
 Both positive case is trivial:
 
 $$
-\tau(n) + \tau(m) = \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} + \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{m} = \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n+m} = \tau(n+m)
+\tau(n) + \tau(m)
+= n_{\mathbb{F}} + m_{\mathbb{F}} \overset{F1}{=}
+(n+m)_{\mathbb{F}}
+= \tau(n+m)
 $$
 
-Assume WLOG $n>0$ and $m<0$
-
-**Case $n > -m$** (so $n+m > 0$):
+One positive and one negative case.Assume WLOG $n>0$ and $m<0$.
 
 $$
-\begin{align*}
-\tau(n) + \tau(m) &= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} - \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{-m} \\
-&= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n+m} = (n+m)_{\mathbb{F}} = \tau(n+m)
-\end{align*}
+\tau(n) + \tau(m) \overset{\text{Def}}{=} n_{\mathbb{F}} + -(-m)_{\mathbb{F}} = (*)
 $$
 
-**Case $n < -m$** (so $n+m < 0$):
+We can just apply F3 where $-m$ takes the role of $m$.
 
 $$
-\begin{align*}
-\tau(n) + \tau(m) &= \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{n} + \overbrace{(-1_{\mathbb{F}}) + \cdots + (-1_{\mathbb{F}})}^{-m} \\
-&= \overbrace{(-1_{\mathbb{F}}) + \cdots + (-1_{\mathbb{F}})}^{-m-n} \\
-&=  -( \overbrace{1_{\mathbb{F}} + \cdots + 1_{\mathbb{F}}}^{-m-n} ) \\
-&= -(-m-n)_{\mathbb{F}}
+(*) =
+\begin{cases}
+0_{\mathbb{F}}
+&
+&= \tau(0)
+&\text{if } n=-m \\
+(n--m)_{\mathbb{F}}
+&= (n+m)_{\mathbb{F}}
+&= \tau(n+m)
+&\text{ if } n>-m
 \\
-&= -(-(n+m))_{\mathbb{F}} = \tau(n+m)
-\end{align*}
+-(-m-n)_{\mathbb{F}}
+&= -(-(n+m))_{\mathbb{F}}
+&= \tau(n+m)
+&\text{ if } n < -m
+\end{cases}
 $$
-
-where the last equality uses $n+m < 0$ and the definition of $\tau$.
