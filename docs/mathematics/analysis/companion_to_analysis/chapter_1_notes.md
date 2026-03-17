@@ -360,7 +360,7 @@ Prove that if $x \in \mathbb{F}$ then there exists sequence $x_n \in \mathbb{K}$
 **Proof**
 By F9 there exists $a,b \in \phi(\mathbb{Z})$ such that $a \leq x<b$.
 
-Let $a_0, b_0 = a,b$. Then let $c_i =  \frac{1}{2} \left( a_{i-1} + b_{i-1} \right)$
+Let $a_0, b_0 = a,b$. Then let $c_i = \phi \left( \frac{1}{2} \right)  \left( a_{i-1} + b_{i-1} \right)$
 
 $$
 \begin{cases}
@@ -376,10 +376,10 @@ b_i = c_i
 \end{cases}
 $$
 
-Therefore, $b_i - a_i = \left( \frac{1}{2} \right)^n \left( b_0 - a_0 \right) \to 0_{\mathbb{F}}$.
+Therefore, $b_i - a_i = \phi\left( \frac{1}{2} \right)^n \left( b_0 - a_0 \right) \to 0_{\mathbb{F}}$.
 
 Note, this is due to exercise $a^n \to 0$ for $\lvert a \rvert < 1_{\mathbb{F}}$ generalising by generalising Axiom of Archimedes (TODO).
 
 We also have that $a_n, b_n$ are bounded and non strictly monotonic and therefore converge by FA. Therefore they converge to the same limit $l \in \mathbb{F}$.
 
-We have preservation of non strict inequality give $a_n \leq x < b_n \implies l \leq x \leq l$ and hence $x=l =>:: $
+We have preservation of non strict inequality give $a_n \leq x < b_n \implies l \leq x \leq l$ and hence $x=l$.
