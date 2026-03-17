@@ -247,3 +247,76 @@ $$
 $$
 
 since A2 gives us $m>0 \implies \tau(m)>0$ which then implies it's inverse is positive (standard result).
+
+### More obvious facts
+
+#### F4
+
+From definition,
+$\phi(1) = \tau(1) \tau(1)^{-1} = 1_{\mathbb{F}}$
+
+This can also be proved as a standard algebra result for homomorphisms.
+
+#### F5
+
+$\phi(-x) = -\phi(x)$, literally add them to get $\phi(0) \overset{\text{Def}}{=}0_{\mathbb{F}}$
+
+#### F6
+
+In A2 we proved $0 < x \in \mathbb{Q} \implies \phi(x) > 0$
+
+The converse is straightforward by contrapositive. Assume $x\leq0$.
+
+If $x=0$, then $\phi(0) \overset{\text{Def}}{=} 0$.
+
+If $x<0$ then $\phi(-x) = -\phi(x)>0$ by forward direction that we proved.
+
+Hence $\phi(x) \leq 0$.
+
+#### F7
+
+$$
+\begin{align*}
+\phi(x) > \phi(y) \iff \phi(x) - \phi(y) > 0_{\mathbb{F}} \iff \phi(x-y) > 0_{\mathbb{F}}
+\overset{\text{F6}}{\iff} x-y > 0
+\end{align*}
+$$
+
+### A4
+
+#### Axiom of Archimedes in general field
+
+Let $a_n = \phi \left( \frac{1}{n} \right)$. This sequence is bounded and decreasing (F7) and therefore converges by FA, call this limit $l$.
+
+Let
+
+$$
+\begin{align*}
+b_n &= \phi \left( \frac{1}{2} \right) \phi \left( \frac{1}{n} \right) = \phi \left( \frac{1}{2} \right) a_n \to
+\phi \left( \frac{1}{2} \right) l
+\\
+& \text{ by Algebra of Limits, Lemma 1.6 }
+\\
+&= \phi \left( \frac{1}{2n} \right) = a_{2n} \to l
+\\
+& \text{by subsequence.}
+\end{align*}
+$$
+
+Hence,
+
+$$
+\begin{align*}
+l = \phi \left( \frac{1}{2} \right) l
+&\iff
+\left( 1_{\mathbb{F}} - \phi \left( \frac{1}{2} \right) \right)l = 0
+\\
+&\iff
+\phi \left( \frac{1}{2} \right) l = 0
+\\
+&\iff
+l=0
+\end{align*}
+$$
+
+Basically the same as before!
