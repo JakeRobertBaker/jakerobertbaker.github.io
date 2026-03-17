@@ -2,6 +2,8 @@
 
 # Notes on Chapter 1
 
+## FA
+
 /// definition | The fundamental axiom of analysis
     attrs: {id: def-fundamental-axiom}
 
@@ -287,9 +289,7 @@ $$
 \end{align*}
 $$
 
-### A4
-
-#### Axiom of Archimedes in general field
+#### F8 Axiom of Archimedes in general field
 
 Let $a_n = \phi \left( \frac{1}{n} \right)$. This sequence is bounded and decreasing (F7) and therefore converges by FA, call this limit $l$.
 
@@ -325,3 +325,61 @@ l=0
 $$
 
 Basically the same as before!
+
+#### F9
+
+For any $x \in \mathbb{F}$ there exists $n_{\mathbb{F}} \in \phi(\mathbb{Z}) \colon x< n_{\mathbb{F}}$.
+
+**i $x \leq 0_{\mathbb{F}}$ is trivial**, $n=1$ does the job.
+
+**ii assume $x > 0_{\mathbb{F}}$.**
+
+By Archimedes there exists $n \in \mathbb{N}$ such that
+$$
+0_{\mathbb{F}} < \phi \left( \frac{1}{n} \right) < \frac{1}{x}
+\iff
+\phi ( n ) = n_{\mathbb{F}} > x > 0_{\mathbb{F}}
+$$
+
+#### F10
+
+For any $x \in \mathbb{F}$ there exists $n_{\mathbb{F}}$ such that $n-1 \leq x_{\mathbb{F}} \leq n_{\mathbb{F}}$
+
+Apply F8 to $x$ and $-x$ to get $a_{\mathbb{F}} < x < b_{\mathbb{F}}$ for some $a,b \in \mathbb{Z}$.
+
+Let $n=b$, if $x < (n-1)_{\mathbb{F}}$ let $n \colon = n-1$, repeat...
+
+This terminates eventually since $x<a_{\mathbb{F}}$ is not possible. Termination occurs when $x \geq \mathbb{n-1}$
+
+### Exercise A4
+
+Let $\mathbb{K} = \phi \left( \mathbb{Q} \right) \subseteq \mathbb{F}$.
+
+Prove that if $x \in \mathbb{F}$ then there exists sequence $x_n \in \mathbb{K}$ such that $x_1 \leq x_2 \leq \dots$ such that $x_n \to x$ as $n \to \infty$.
+
+**Proof**
+By F9 there exists $a,b \in \phi(\mathbb{Z})$ such that $a \leq x<b$.
+
+Let $a_0, b_0 = a,b$. Then let $c_i =  \frac{1}{2} \left( a_{i-1} + b_{i-1} \right)$
+
+$$
+\begin{cases}
+a_i &= c_i
+& \text{ and }
+b_i = b_{i-1}
+& \text{ if } c_i \leq x
+\\
+a_i &= a_{i-1}
+& \text{ and }
+b_i = c_i
+& \text{ if } x_i > x
+\end{cases}
+$$
+
+Therefore, $b_i - a_i = \left( \frac{1}{2} \right)^n \left( b_0 - a_0 \right) \to 0_{\mathbb{F}}$.
+
+Note, this is due to exercise $a^n \to 0$ for $\lvert a \rvert < 1_{\mathbb{F}}$ generalising by generalising Axiom of Archimedes (TODO).
+
+We also have that $a_n, b_n$ are bounded and non strictly monotonic and therefore converge by FA. Therefore they converge to the same limit $l \in \mathbb{F}$.
+
+We have preservation of non strict inequality give $a_n \leq x < b_n \implies l \leq x \leq l$ and hence $x=l =>:: $
