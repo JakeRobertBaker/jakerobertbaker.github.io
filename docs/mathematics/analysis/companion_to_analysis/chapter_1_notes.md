@@ -17,9 +17,15 @@ Then there exists $a \in \mathbb{R}$ such that $a_n \to a$ as $n \to ∞ $
 
 The result is trivial in $\mathbb{Q}$. The theorem is proving it in $\mathbb{R}$.
 
-If the theorem was true in $\mathbb{Q}$ but not in $\mathbb{R}$ we would therefore have some exotic real number that is smaller than all strictly positive rationals like $\frac{1}{n}$ but still larger than 0.
+This theorem proves that there is no $\gimel>0$ in $\mathbb{R}$ such that,
 
-Hence the need for this Theorem.
+$\frac{1}{n} > \gimel$ for all $n$ $\iff$ $\gimel$ is smaller than all strictly positive rationals.  
+
+Suppose there exists such a $0<\gimel< \frac{1}{n}$ for all $n$.
+
+Then by preservation of non strict inequality (Lemma 1.6 (vii)) $0<\gimel \leq l = 0$ which contradicts the axiom of Archimedes.
+
+If the theorem was true in $\mathbb{Q}$ but not in $\mathbb{R}$ we would have this exotic $\gimel$.
 
 ## Exercises
 
@@ -55,43 +61,44 @@ $$
 Hence, for any $n,m \in \mathbb{N}^+$
 
 $$
-n_{\mathbb{F}} - m_{\mathbb{F}} =
-\overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}} }^{n} +
-\overbrace{-1_{\mathbb{F}}+ \dots + -1_{\mathbb{F}}}^{m} =
-\begin{cases}
+\begin{align*}
+n_{\mathbb{F}} - m_{\mathbb{F}}
+&= \overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}} }^{n} +
+   \overbrace{-1_{\mathbb{F}}+ \dots + -1_{\mathbb{F}}}^{m} \\
+&= \begin{cases}
 0_{\mathbb{F}}
 &&\text{if } n=m \\
 \overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}}}^{n-m}
 &= (n-m)_{\mathbb{F}}
-&\text{ if } n>m
-\\
+&\text{ if } n>m \\
 \overbrace{-1_{\mathbb{F}} + \dots + -1_{\mathbb{F}}}^{m-n}
 &= -(m-n)_{\mathbb{F}}
 &\text{ if } n < m
 \end{cases}
+\end{align*}
 $$
 
 ### Exercise A3
 
 Let $\tau : \mathbb{Z} \to \mathbb{F}$ by,
 
-If $n=0$ then $\tau(n) = 0_{\mathbb{F}}$
-
-If $n>0$ then $\tau(n) = n_{\mathbb{F}}$
-
-If $n < 0$ then $\tau(n) = - \left( -n \right)_{\mathbb{F}}$
+$$
+\tau(n) = \begin{cases}
+0_{\mathbb{F}} & \text{if } n = 0 \\
+n_{\mathbb{F}} & \text{if } n > 0 \\
+-(-n)_{\mathbb{F}} & \text{if } n < 0
+\end{cases}
+$$
 
 #### i)
 
 Show that the map is well defined, injective and
 
-$$
-\tau \left( n+m \right) = \tau(n) + \tau(m)
-\\
-\tau \left( nm \right) = \tau(n) \tau(m)
-\\
-\tau(n) > 0_{\mathbb{F}}, \text{ whenever } n>0.
-$$
+- $\tau \left( n+m \right) = \tau(n) + \tau(m)$
+- $\tau \left( nm \right) = \tau(n) \tau(m)$
+- $\tau(n) > 0_{\mathbb{F}}, \text{ whenever } n>0.$
+
+for all $n,m \in \mathbb{Z}$.
 
 The case definition is already well defined.
 
@@ -197,16 +204,14 @@ This function is well defined and has properties
 Let $x= \frac{n}{m} = \frac{\lambda n}{\lambda m}$ for some $\lambda \in \mathbb{N}$. Then,
 
 $$
-\phi(\frac{\lambda n}{\lambda m})
-= \tau(\lambda n) \tau(\lambda m)^{-1}
-\\
-= \tau(\lambda) \tau(n) (\tau(\lambda) \tau(m))^{-1}
-\\
-= \tau(\lambda) \tau(n) \tau(\lambda)^{-1} \tau(m)^{-1}
-\\
-= \tau(n) \tau(m)
-\\
-= \phi(x)
+\begin{align*}
+\phi\!\left(\frac{\lambda n}{\lambda m}\right)
+&= \tau(\lambda n) \tau(\lambda m)^{-1} \\
+&= \tau(\lambda) \tau(n) \bigl(\tau(\lambda) \tau(m)\bigr)^{-1} \\
+&= \tau(\lambda) \tau(n) \tau(\lambda)^{-1} \tau(m)^{-1} \\
+&= \tau(n) \tau(m) \\
+&= \phi(x)
+\end{align*}
 $$
 
 **Additive**
@@ -214,24 +219,25 @@ $$
 Let $x = \frac{n}{m}, y= \frac{p}{q}$ for $n,m,p,q \in \mathbb{Z}$
 
 $$
-\phi(x+y) = \phi(\frac{nq + pm}{mq})
-\\
-= \tau(nq + pm) \tau(mq)^{-1}
-\\
-= \left( \tau(n) \tau(q) + \tau(p) \tau(m) \right) \tau(m)^{-1} \tau(q)^{-1}
-\\
-= \tau(n) \tau(m)^{-1} + \tau(p) \tau(q)^{-1}
-\\
-= \phi(x) + \phi(y)
+\begin{align*}
+\phi(x+y) &= \phi\!\left(\frac{nq + pm}{mq}\right) \\
+&= \tau(nq + pm) \tau(mq)^{-1} \\
+&= \tau(nq + pm) \tau(m)^{-1} \tau(q)^{-1} \\
+&= \bigl( \tau(n) \tau(q) + \tau(p) \tau(m) \bigr) \tau(m)^{-1} \tau(q)^{-1} \\
+&= \tau(n) \tau(m)^{-1} + \tau(p) \tau(q)^{-1} \\
+&= \phi(x) + \phi(y)
+\end{align*}
 $$
 
 We also see
 
 $$
-\phi(xy) = \phi(\frac{np}{mq}) \\
-= \tau(n) \tau(p) \tau(m)^{-1} \tau(q)^{-1} \\
-= \tau(n) \tau(m)^{-1} \tau(p) \tau(q)^{-1} \\
-= \phi(x) \phi(y)
+\begin{align*}
+\phi(xy) &= \phi\!\left(\frac{np}{mq}\right) \\
+&= \tau(n) \tau(p) \tau(m)^{-1} \tau(q)^{-1} \\
+&= \tau(n) \tau(m)^{-1} \tau(p) \tau(q)^{-1} \\
+&= \phi(x) \phi(y)
+\end{align*}
 $$
 
 And we can assume $x>0$ means that $m,n>0$ since we can multiply both by $-1$ if not,
