@@ -273,6 +273,11 @@ If $x<0$ then $\phi(-x) = -\phi(x)>0$ by forward direction that we proved.
 
 Hence $\phi(x) \leq 0$.
 
+Hence
+$$
+\phi(x) > 0_{\mathbb{F}} \iff x > 0
+$$
+
 #### F7
 
 $$
