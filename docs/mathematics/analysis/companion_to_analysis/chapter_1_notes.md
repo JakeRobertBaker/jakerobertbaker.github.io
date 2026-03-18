@@ -383,3 +383,16 @@ Note, this is due to exercise $a^n \to 0$ for $\lvert a \rvert < 1_{\mathbb{F}}$
 We also have that $a_n, b_n$ are bounded and non strictly monotonic and therefore converge by FA. Therefore they converge to the same limit $l \in \mathbb{F}$.
 
 We have preservation of non strict inequality give $a_n \leq x < b_n \implies l \leq x \leq l$ and hence $x=l$.
+
+Sequence $a_n$ is non strictly increasing and does the job.
+
+### Exercise A5
+
+i)
+
+We now have A4 holding in $\mathbb{R}$, therefore if $x \in \mathbb{R}$, then there exists $x_n \in \mathbb{Q}$ such that $x_n \leq x_{n+1} \forall n$ and $x_n \to x$.
+
+Show, via the FA, that $\phi(x_n) \to a$ for some $a \in \mathbb{F}$.
+
+We already have montonic by F7. Therefore just need bounded. Since $x_n$ converges it is bounded above and below.
+Therefore by F7 we have bounded $\phi(x_n)$. Hence by FA, we have convergence.
