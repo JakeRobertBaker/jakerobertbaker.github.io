@@ -186,8 +186,7 @@ Easy since $\tau(n)=(n)_{\mathbb{F}}>0_{\mathbb{F}}$ by A2.
 
 **Injective**
 
-We have already shown that $n_{\mathbb{F}} \neq 0$ therfore $-n_{\mathbb{F}} \neq 0$ for any $n>0$. Therefore $\ker \tau = \left\{ 0 \right\}$.
-Since $\tau$ is linear this is sufficient.
+Prove via contrapositive. Assume $n \neq m$, WLOG let $n \geq m$, therefore $n > m \overset{\text{F7}}{\implies} \tau(n) > \tau(m)$.
 
 #### ii)
 
@@ -280,7 +279,7 @@ $$
 \phi(x) > 0_{\mathbb{F}} \iff x > 0
 $$
 
-#### F7
+#### F7 Equivalence
 
 $$
 \begin{align*}
@@ -376,15 +375,11 @@ b_i = c_i
 \end{cases}
 $$
 
-Therefore, $b_i - a_i = \phi\left( \frac{1}{2} \right)^n \left( b_0 - a_0 \right) \to 0_{\mathbb{F}}$.
+Then $a_n \leq x \leq b_n$ and $a_n \leq a_{n+1}$ for all $n \in \mathbb{N}$. Hence by FA $a_n \to l$ for some $l \in \mathbb{F}$.
 
-Note, this is due to exercise $a^n \to 0$ for $\lvert a \rvert < 1_{\mathbb{F}}$ generalising by generalising Axiom of Archimedes (TODO).
+Also, $b_i - a_i = \phi\left( \frac{1}{2} \right)^n \left( b_0 - a_0 \right) \to 0_{\mathbb{F}}$.
 
-We also have that $a_n, b_n$ are bounded and non strictly monotonic and therefore converge by FA. Therefore they converge to the same limit $l \in \mathbb{F}$.
-
-We have preservation of non strict inequality give $a_n \leq x < b_n \implies l \leq x \leq l$ and hence $x=l$.
-
-Sequence $a_n$ is non strictly increasing and does the job.
+Then $0 \leq x - a_n \leq b_n - a_n$ implies $0\leq x -l \leq 0$
 
 ### Exercise A5
 
