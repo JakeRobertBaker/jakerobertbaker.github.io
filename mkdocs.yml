@@ -38,9 +38,12 @@ nav:
   - Home: index.md
   - Mathematics:
       - Bayesian Ballot Sampling: mathematics/probability/ballot_notes.md
+      - Absorption Probability: mathematics/probability/absorption_probability.md
       - Linear Models: mathematics/linear_models/linear_models.md
       - Set Theory:
           - Universal Algebra: mathematics/set_theory/universal_algebra.md
+      - Game Theory:
+          - Shapley Formula: mathematics/game_theory/shapley_formula.md
       - Analysis:
           - Companion to Analysis:
               - Overview: mathematics/analysis/companion_to_analysis/companion_to_analysis_overview.md
