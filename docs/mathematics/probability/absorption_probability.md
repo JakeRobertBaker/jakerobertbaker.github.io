@@ -1,3 +1,4 @@
+<!-- snippets: latex_math -->
 # Absorption Probability
 
 In a Markov chain, every state $i \in I$ is either **transient** or **recurrent**. All absorbing states are recurrent, but not all recurrent states are absorbing. In most absorption problems the recurrent states *are* the absorbing states.
@@ -36,18 +37,31 @@ $$
 /// definition | Fundamental Matrix
     attrs: {id: def-fundamental-matrix}
 
-Let $V_j = \sum_{n=0}^{\infty} \mathbf{1}_{\{X_n = j\}}$ be the total number of visits to state $j$. The **fundamental matrix** is
-
 $$
-N = (I - Q)^{-1}, \qquad N_{i,j} = \mathbb{E}_i(V_j),
+N = (I - Q)^{-1}
 $$
-
-where $N_{i,j}$ is the expected number of visits to transient state $j$ when starting from transient state $i$.
 
 ///
 
-To see this, note that
+/// definition | Visit Counter
+    attrs: {id: def-visit-counter}
 
+Let $V_j = \sum_{n=0}^{\infty} \mathbf{1}_{\{X_n = j\}}$ be the total number of visits to state $j$.
+
+///
+
+/// lemma | Fundamental Matrix is the expected number of visits
+    attrs: {id: lem-expected-visits}
+
+$$
+N_{i,j} = \mathbb{E}_i(V_j),
+$$
+
+i.e. $N_{i,j}$ is the expected number of visits to transient state $j$ when starting from transient state $i$.
+
+///
+
+/// proof | Proof
 $$
 \begin{align*}
 N_{i,j} &= \mathbb{E}_i\!\left(\sum_{n=0}^{\infty} \mathbf{1}_{\{X_n = j\}}\right) \\
@@ -56,6 +70,7 @@ N_{i,j} &= \mathbb{E}_i\!\left(\sum_{n=0}^{\infty} \mathbf{1}_{\{X_n = j\}}\righ
 &= \bigl((I - Q)^{-1}\bigr)_{i,j}.
 \end{align*}
 $$
+///
 
 ## Absorption Probability
 
