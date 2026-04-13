@@ -1,3 +1,4 @@
+<!-- snippets: latex_math -->
 # Shapley Formula
 
 ## Setup
