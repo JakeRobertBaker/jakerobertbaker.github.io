@@ -7,7 +7,7 @@
 
 ## Markdown and Code Style
 
-Make sure to have read @example_template.md.
+Make sure to have read @instructions/example_template.md.
 
 ### Code style
 
@@ -20,11 +20,11 @@ This project uses `pymdownx.blocks.admonition` and `pymdownx.blocks.details`, NO
 
 Block syntax: `/// type | title` closed by `///`.
 
-Follow the guidelines in @example_template.md whenever you use blocks or need to insert something like theorem, lemma, definition etc...
+Follow the guidelines in @instructions/example_template.md whenever you use blocks or need to insert something like theorem, lemma, definition etc...
 
 ### Referencing blocks
 
-Follow guidelines in @example_template.md.
+Follow guidelines in @instructions/example_template.md.
 
 ## Custom admonition types
 
