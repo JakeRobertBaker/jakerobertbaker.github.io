@@ -22,7 +22,7 @@ $$
 
 ///
 
-## Derivation
+## Shapely Formula
 
 Expanding the mean over all coalitions of size $k$ explicitly:
 
