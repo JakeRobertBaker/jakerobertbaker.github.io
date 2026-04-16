@@ -1,6 +1,6 @@
 # Example Template — MkDocs Material Site Markdown
 
-This file documents the markdown conventions used in this project. Use it as a reference when cleaning up handwritten exercise solutions.
+This file documents the markdown conventions used in this project. Use it as a reference when cleaning up or writing markdown.
 
 ---
 
@@ -55,21 +55,11 @@ Content of the proof.
 
 The `proof` type is collapsible (renders as a `<details>` element).
 
-### Adding an anchor ID
-
-```
-/// definition | My Definition
-    attrs: {id: def-my-thing}
-
-Content here.
-///
-```
-
 ### Referencing blocks
 
-- Same page: `[text](#def-my-thing)`
-- Cross page: `[text](./other-page.md#def-my-thing){data-preview}`
-- Reusable reference link: define `[My Def]: #def-my-thing` once, then use `[My Def]` anywhere in the file
+- Same page: `[text](#def-limit-point)`
+- Cross page: `[text](./other-page.md#def-limit-point){data-preview}`
+- Reusable reference link: define `[My Def]: #def-limit-point` once, then use `[My Def]` anywhere in the file
 
 ---
 
@@ -113,6 +103,5 @@ Since $\varepsilon > 0$ was arbitrary, we conclude $|A \cup B| \leq |A|$. $\blac
 - Bold labels: `**Proof.**`, `**Key idea:**`, `**(i)**`, `**(ii)**`
 - Italics for emphasis and first use of terms: `*limit point*`, `*closed*`
 - Parenthetical references to source material: `(MIRA, 2.5)`, `(Rudin, Thm 3.6)`, `(Vaswani et al., 2017, §3.2)` — use whatever abbreviation was established in the **Source** line
-- Horizontal rules `---` between exercises
 - End proofs with `$\blacksquare$` on its own line or at the end of the last display equation
 - Multi-part proofs: label parts `**(i)**` / `**(ii)**` or with descriptive bold headers e.g. `**$F$ is closed:**` / `**$F$ is bounded:**`
