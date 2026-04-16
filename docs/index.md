@@ -1,12 +1,12 @@
 # Jake Notes
 
-A collection of mathematical notes and machine learning articles.
+Personal notes on mathematics stuff and deep learning bits.
 
 ---
 
 <div class="grid cards" markdown>
 
--   :material-chart-bell-curve-cumulative: __Probability & Bayesian Inference__
+- :material-chart-bell-curve-cumulative: __Probability & Bayesian Inference__
 
     ---
 
@@ -14,7 +14,7 @@ A collection of mathematical notes and machine learning articles.
 
     [:octicons-arrow-right-24: Read more](mathematics/probability/ballot_notes.md)
 
--   :material-vector-line: __Linear Models & ANOVA__
+- :material-vector-line: __Linear Models & ANOVA__
 
     ---
 
@@ -22,7 +22,7 @@ A collection of mathematical notes and machine learning articles.
 
     [:octicons-arrow-right-24: Read more](mathematics/linear_models/linear_models.md)
 
--   :material-math-compass: __Universal Algebra__
+- :material-math-compass: __Universal Algebra__
 
     ---
 
@@ -30,7 +30,7 @@ A collection of mathematical notes and machine learning articles.
 
     [:octicons-arrow-right-24: Read more](mathematics/set_theory/universal_algebra.md)
 
--   :material-head-cog: __Attention Mechanisms__
+- :material-head-cog: __Attention Mechanisms__
 
     ---
 
@@ -38,7 +38,7 @@ A collection of mathematical notes and machine learning articles.
 
     [:octicons-arrow-right-24: Read more](deep_learning/attention.md)
 
--   :material-image-multiple: __CLIP & SigLIP Losses__
+- :material-image-multiple: __CLIP & SigLIP Losses__
 
     ---
 
