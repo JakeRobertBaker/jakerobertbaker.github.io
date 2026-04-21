@@ -381,13 +381,215 @@ Also, $b_i - a_i = \phi\left( \frac{1}{2} \right)^n \left( b_0 - a_0 \right) \to
 
 Then $0 \leq x - a_n \leq b_n - a_n$ implies $0\leq x -l \leq 0$
 
+#### F11
+
+Let $a_n \in \mathbb{Q}$ and $a \in \mathbb{Q}$. If $a_n \to a$, then $\phi(a_n) \to \phi(a)$ in $\mathbb{F}$.
+
+**Proof**
+Let $\eta > 0_{\mathbb{F}}$. By F9 there exists $m \in \mathbb{N}$ such that $\eta^{-1} < m_{\mathbb{F}}$, hence
+
+$$
+\phi\left(\frac{1}{m}\right) < \eta.
+$$
+
+Since $a_n \to a$ in $\mathbb{Q}$, there exists $N$ such that for all $n \geq N$,
+
+$$
+\left|a_n-a\right| < \frac{1}{m}.
+$$
+
+By F7 this implies
+
+$$
+\left|\phi(a_n)-\phi(a)\right|
+= \left|\phi(a_n-a)\right|
+< \phi\left(\frac{1}{m}\right)
+< \eta.
+$$
+
+Hence $\phi(a_n) \to \phi(a)$. $\blacksquare$
+
+#### F12
+
+Let $q_n \in \phi(\mathbb{Q})$ and $q \in \phi(\mathbb{Q})$. If $q_n \to q$ in $\mathbb{F}$, then $\phi^{-1}(q_n) \to \phi^{-1}(q)$ in $\mathbb{Q}$.
+
+**Proof**
+Let $\varepsilon > 0$ in $\mathbb{Q}$. Then $\phi(\varepsilon) > 0_{\mathbb{F}}$ by F6. Since $q_n \to q$, there exists $N$ such that for all $n \geq N$,
+
+$$
+\left|q_n-q\right| < \phi(\varepsilon).
+$$
+
+Because
+
+$$
+q_n-q = \phi\bigl(\phi^{-1}(q_n)-\phi^{-1}(q)\bigr),
+$$
+
+F7 gives
+
+$$
+\left|\phi^{-1}(q_n)-\phi^{-1}(q)\right| < \varepsilon.
+$$
+
+Hence $\phi^{-1}(q_n) \to \phi^{-1}(q)$. $\blacksquare$
+
+#### F13
+
+Let $x_n,y_n \in \mathbb{Q}$ with $x_n \to x$ and $y_n \to y$ in $\mathbb{R}$. If $x \neq y$, then
+
+$$
+\lim_{n \to \infty} \phi(x_n) \neq \lim_{n \to \infty} \phi(y_n).
+$$
+
+**Proof**
+Suppose
+
+$$
+\lim_{n \to \infty} \phi(x_n) = \lim_{n \to \infty} \phi(y_n).
+$$
+
+Then
+
+$$
+\phi(x_n-y_n) = \phi(x_n)-\phi(y_n) \to 0_{\mathbb{F}}.
+$$
+
+By F12, $x_n-y_n \to 0$ in $\mathbb{Q}$. Therefore
+
+$$
+x-y = \lim_{n \to \infty} (x_n-y_n) = 0,
+$$
+
+which contradicts $x \neq y$. Hence the two limits are distinct. $\blacksquare$
+
 ### Exercise A5
 
-i)
+#### (i)
 
-We now have A4 holding in $\mathbb{R}$, therefore if $x \in \mathbb{R}$, then there exists $x_n \in \mathbb{Q}$ such that $x_n \leq x_{n+1} \forall n$ and $x_n \to x$.
+Let $x \in \mathbb{R}$. By A4 with $\mathbb{F}=\mathbb{R}$, there exists a sequence $x_n \in \mathbb{Q}$ such that
 
-Show, via the FA, that $\phi(x_n) \to a$ for some $a \in \mathbb{F}$.
+$$
+x_1 \leq x_2 \leq \dots
+\quad\text{and}\quad
+x_n \to x.
+$$
 
-We already have montonic by F7. Therefore just need bounded. Since $x_n$ converges it is bounded above and below.
-Therefore by F7 we have bounded $\phi(x_n)$. Hence by FA, we have convergence.
+Choose a rational upper bound $r \in \mathbb{Q}$ for the sequence $(x_n)$. Then by F7,
+
+$$
+\phi(x_1) \leq \phi(x_2) \leq \dots \leq \phi(r).
+$$
+
+Thus $(\phi(x_n))$ is increasing and bounded above in $\mathbb{F}$. By FA there exists $a \in \mathbb{F}$ such that
+
+$$
+\phi(x_n) \to a.
+$$
+
+#### (ii)
+
+Let $x_n' \in \mathbb{Q}$ with $x_n' \to x$. We claim that $\phi(x_n') \to a$ as well.
+
+Since $x_n-x_n' \to 0$ in $\mathbb{Q}$, F11 gives
+
+$$
+\phi(x_n)-\phi(x_n')
+= \phi(x_n-x_n')
+\to 0_{\mathbb{F}}.
+$$
+
+Because $\phi(x_n) \to a$, the algebra of limits in $\mathbb{F}$ implies
+
+$$
+\phi(x_n') \to a.
+$$
+
+#### (iii)
+
+Define $\Theta : \mathbb{R} \to \mathbb{F}$ by
+
+$$
+\Theta(x) = \lim_{n \to \infty} \phi(q_n),
+$$
+
+where $(q_n)$ is any rational sequence converging to $x$.
+
+Part (i) shows that such a limit exists, and part (ii) shows that it is independent of the chosen rational sequence. Hence $\Theta$ is well defined.
+
+If $x \in \mathbb{Q}$, taking the constant sequence $q_n=x$ shows that $\Theta(x)=\phi(x)$, so $\Theta$ extends $\phi$.
+
+If $x \neq y$, choose rational sequences $x_n \to x$ and $y_n \to y$. Then F13 gives
+
+$$
+\Theta(x)
+= \lim_{n \to \infty} \phi(x_n)
+\neq
+\lim_{n \to \infty} \phi(y_n)
+= \Theta(y),
+$$
+
+so $\Theta$ is injective.
+
+#### (iv) Surjectivity
+
+Let $q \in \mathbb{F}$. By A4 there exists an increasing sequence $q_n \in \phi(\mathbb{Q})$ such that $q_n \to q$.
+
+Then $(\phi^{-1}(q_n))$ is increasing in $\mathbb{Q}$ by F7. Also, by F9 there exists $N \in \mathbb{N}$ with $q < N_{\mathbb{F}}$, so $q_n < N_{\mathbb{F}}$ for all $n$, and hence
+
+$$
+\phi^{-1}(q_n) < N.
+$$
+
+Therefore $(\phi^{-1}(q_n))$ is increasing and bounded above in $\mathbb{Q}$, so by FA in $\mathbb{R}$ there exists $\ell \in \mathbb{R}$ such that
+
+$$
+\phi^{-1}(q_n) \to \ell.
+$$
+
+Now $\Theta(\ell)$ is the $\phi$-limit of any rational sequence converging to $\ell$, so using the particular sequence $\phi^{-1}(q_n)$,
+
+$$
+\Theta(\ell)
+= \lim_{n \to \infty} \phi\bigl(\phi^{-1}(q_n)\bigr)
+= \lim_{n \to \infty} q_n
+= q.
+$$
+
+Hence $\Theta$ is surjective.
+
+#### (v)
+
+Let $x,y \in \mathbb{R}$, and choose rational sequences $x_n \to x$ and $y_n \to y$.
+
+Then $x_n+y_n \to x+y$, so by definition of $\Theta$,
+
+$$
+\Theta(x+y)
+= \lim_{n \to \infty} \phi(x_n+y_n)
+= \lim_{n \to \infty} \bigl(\phi(x_n)+\phi(y_n)\bigr)
+= \Theta(x)+\Theta(y).
+$$
+
+Also $x_n y_n \to xy$, so similarly
+
+$$
+\Theta(xy)
+= \lim_{n \to \infty} \phi(x_n y_n)
+= \lim_{n \to \infty} \bigl(\phi(x_n)\phi(y_n)\bigr)
+= \Theta(x)\Theta(y).
+$$
+
+Finally, if $x>0$, choose $m \in \mathbb{N}$ such that $\frac{1}{m} < x$. Since $x_n \to x$, we have $x_n > \frac{1}{m}$ for all sufficiently large $n$. Hence by F7,
+
+$$
+\phi(x_n) > \phi\left(\frac{1}{m}\right) > 0_{\mathbb{F}}
+$$
+
+eventually, and therefore
+
+$$
+\Theta(x) = \lim_{n \to \infty} \phi(x_n) \geq \phi\left(\frac{1}{m}\right) > 0_{\mathbb{F}}.
+$$
+
+So $\Theta$ preserves positivity, and therefore order as well. Hence $\Theta : \mathbb{R} \to \mathbb{F}$ is an isomorphism of ordered fields extending $\phi$. $\blacksquare$
