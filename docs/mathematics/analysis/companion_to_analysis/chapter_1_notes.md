@@ -279,7 +279,7 @@ $$
 \phi(x) > 0_{\mathbb{F}} \iff x > 0
 $$
 
-#### F7 Equivalence
+#### F7 Inequalities are equivalent accross $\phi$
 
 $$
 \begin{align*}
@@ -381,35 +381,30 @@ Also, $b_i - a_i = \phi\left( \frac{1}{2} \right)^n \left( b_0 - a_0 \right) \to
 
 Then $0 \leq x - a_n \leq b_n - a_n$ implies $0\leq x -l \leq 0$
 
-#### F11
+#### F11 Convergence in $\mathbb{Q}$ implies convergence in $\phi(\mathbb{Q})$
 
 Let $a_n \in \mathbb{Q}$ and $a \in \mathbb{Q}$. If $a_n \to a$, then $\phi(a_n) \to \phi(a)$ in $\mathbb{F}$.
 
 **Proof**
-Let $\eta > 0_{\mathbb{F}}$. By F9 there exists $m \in \mathbb{N}$ such that $\eta^{-1} < m_{\mathbb{F}}$, hence
+Let $\eta > 0_{\mathbb{F}}$. By F8 Axiom of Archimedes there exists $m \in \mathbb{N}$ such that $\phi \left( \frac{1}{m} \right) < \eta$. It is therefore sufficient to show
 
 $$
-\phi\left(\frac{1}{m}\right) < \eta.
+\lvert \phi \left( a_n - a \right) \rvert =
+\lvert \phi(a_n) - \phi(a) \rvert < \phi \left( \frac{1}{m} \right)
+< \eta
 $$
 
-Since $a_n \to a$ in $\mathbb{Q}$, there exists $N$ such that for all $n \geq N$,
+By F7 this is equivalent to
 
 $$
-\left|a_n-a\right| < \frac{1}{m}.
+\lvert a_n - a \rvert < \frac{1}{m}
 $$
 
-By F7 this implies
-
-$$
-\left|\phi(a_n)-\phi(a)\right|
-= \left|\phi(a_n-a)\right|
-< \phi\left(\frac{1}{m}\right)
-< \eta.
-$$
+Which hold for sufficiently large $N$ since $a_n \to a$ in $\mathbb{Q}$.
 
 Hence $\phi(a_n) \to \phi(a)$. $\blacksquare$
 
-#### F12
+#### F12 Convergence  in $\phi(\mathbb{Q})$ implies convergence in $\mathbb{Q}$
 
 Let $q_n \in \phi(\mathbb{Q})$ and $q \in \phi(\mathbb{Q})$. If $q_n \to q$ in $\mathbb{F}$, then $\phi^{-1}(q_n) \to \phi^{-1}(q)$ in $\mathbb{Q}$.
 
@@ -434,7 +429,7 @@ $$
 
 Hence $\phi^{-1}(q_n) \to \phi^{-1}(q)$. $\blacksquare$
 
-#### F13
+#### F13 Different limits in Q implies different limits in $\phi(\mathbb{Q})$
 
 Let $x_n,y_n \in \mathbb{Q}$ with $x_n \to x$ and $y_n \to y$ in $\mathbb{R}$. If $x \neq y$, then
 
