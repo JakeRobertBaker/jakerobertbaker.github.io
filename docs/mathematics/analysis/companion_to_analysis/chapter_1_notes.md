@@ -480,9 +480,11 @@ $$
 
 where $(q_n)$ is any rational sequence converging to $x$.
 
-Part (i) shows that such a limit exists, and part (ii) shows that it is independent of the chosen rational sequence. Hence $\Theta$ is well defined.
+Part A4 gives us such a $q_n$ exists. A5 (i) gives us convergnce. A5 (ii) gives us that this limit is the same regardless of rational sequence chose.
 
 If $x \in \mathbb{Q}$, taking the constant sequence $q_n=x$ shows that $\Theta(x)=\phi(x)$, so $\Theta$ extends $\phi$.
+
+#### (iv) Injectivity
 
 If $x \neq y$, choose rational sequences $x_n \to x$ and $y_n \to y$. Then F13 gives
 
@@ -500,17 +502,9 @@ so $\Theta$ is injective.
 
 Let $q \in \mathbb{F}$. By A4 there exists an increasing sequence $q_n \in \phi(\mathbb{Q})$ such that $q_n \to q$.
 
-Then $(\phi^{-1}(q_n))$ is increasing in $\mathbb{Q}$ by F7. Also, by F9 there exists $N \in \mathbb{N}$ with $q < N_{\mathbb{F}}$, so $q_n < N_{\mathbb{F}}$ for all $n$, and hence
+Convergence of $q_n$ implies it's bounded. F7 gives us that $\phi(q_n)^{-1}$ is therefore bounded and increasing in $\mathbb{Q}$.
 
-$$
-\phi^{-1}(q_n) < N.
-$$
-
-Therefore $(\phi^{-1}(q_n))$ is increasing and bounded above in $\mathbb{Q}$, so by FA in $\mathbb{R}$ there exists $\ell \in \mathbb{R}$ such that
-
-$$
-\phi^{-1}(q_n) \to \ell.
-$$
+So by FA in $\mathbb{R}$ there exists $\ell \in \mathbb{R}$ such that $\phi^{-1}(q_n) \to \ell.$
 
 Now $\Theta(\ell)$ is the $\phi$-limit of any rational sequence converging to $\ell$, so using the particular sequence $\phi^{-1}(q_n)$,
 
