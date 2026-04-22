@@ -438,23 +438,13 @@ $$
 $$
 
 **Proof**
-Suppose
+Suppose $\lim_{n \to \infty} \phi(x_n) = \lim_{n \to \infty} \phi(y_n).$
 
-$$
-\lim_{n \to \infty} \phi(x_n) = \lim_{n \to \infty} \phi(y_n).
-$$
+Then $\phi(x_n-y_n) = \phi(x_n)-\phi(y_n) \to 0_{\mathbb{F}}.$
 
-Then
+By F12, $x_n-y_n \to 0$ in $\mathbb{Q}$. Therefore,
 
-$$
-\phi(x_n-y_n) = \phi(x_n)-\phi(y_n) \to 0_{\mathbb{F}}.
-$$
-
-By F12, $x_n-y_n \to 0$ in $\mathbb{Q}$. Therefore
-
-$$
-x-y = \lim_{n \to \infty} (x_n-y_n) = 0,
-$$
+$x-y = \lim_{n \to \infty} (x_n-y_n) = 0$,
 
 which contradicts $x \neq y$. Hence the two limits are distinct. $\blacksquare$
 
@@ -470,35 +460,15 @@ x_1 \leq x_2 \leq \dots
 x_n \to x.
 $$
 
-Choose a rational upper bound $r \in \mathbb{Q}$ for the sequence $(x_n)$. Then by F7,
-
-$$
-\phi(x_1) \leq \phi(x_2) \leq \dots \leq \phi(r).
-$$
-
-Thus $(\phi(x_n))$ is increasing and bounded above in $\mathbb{F}$. By FA there exists $a \in \mathbb{F}$ such that
-
-$$
-\phi(x_n) \to a.
-$$
+Convergence of $x_n$ implies that it is bounded. Therefore by F7 $\phi(x_n)$ is also bounded increasing and therefore converges by FA to some limit $a \in \mathbb{F}$.
 
 #### (ii)
 
 Let $x_n' \in \mathbb{Q}$ with $x_n' \to x$. We claim that $\phi(x_n') \to a$ as well.
 
-Since $x_n-x_n' \to 0$ in $\mathbb{Q}$, F11 gives
+Since $x_n-x_n' \to 0$ in $\mathbb{Q}$, F11 gives $\phi(x_n -x_n') \to 0_{\mathbb{F}}$
 
-$$
-\phi(x_n)-\phi(x_n')
-= \phi(x_n-x_n')
-\to 0_{\mathbb{F}}.
-$$
-
-Because $\phi(x_n) \to a$, the algebra of limits in $\mathbb{F}$ implies
-
-$$
-\phi(x_n') \to a.
-$$
+So, $\phi(x_n) \to a$ and $\phi(x_n) - \phi(x_n') \to 0_{\mathbb{F}}$ implies (by AOL) that $\phi(x_n') \to a$.
 
 #### (iii)
 
