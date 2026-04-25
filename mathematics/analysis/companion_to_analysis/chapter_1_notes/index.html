@@ -1,0 +1,2501 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Personal notes on mathematics, deep learning, and related topics.">
+      
+      
+      
+        <link rel="canonical" href="https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/chapter_1_notes/">
+      
+      
+        <link rel="prev" href="../companion_to_analysis_overview/">
+      
+      
+        <link rel="next" href="../chapter_3_notes/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Chapter 1 - Jake Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <meta name="google-site-verification" content="gEOmW-qgr_yKbiRv9hNzVzRaIHlBm7kxsZTmr8coNRI" />
+  
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#notes-on-chapter-1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Jake Notes" class="md-header__button md-logo" aria-label="Jake Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jake Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1M8 13h8v-2H8zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 5-5 5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5M7 15a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../probability/ballot_notes/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Mathematics
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../deep_learning/attention/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Deep Learning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Jake Notes" class="md-nav__button md-logo" aria-label="Jake Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Jake Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mathematics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Mathematics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability/ballot_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bayesian Ballot Sampling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../probability/absorption_probability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Absorption Probability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linear_models/linear_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linear Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Set Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Set Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../set_theory/universal_algebra/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Universal Algebra
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game Theory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Game Theory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../game_theory/shapley_formula/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Shapley Formula
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_1" id="__nav_2_6_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Companion to Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Companion to Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../companion_to_analysis_overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theorem-121-the-axiom-of-archimedes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theorem 1.2.1 The Axiom of Archimedes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#some-obvious-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Some obvious facts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Some obvious facts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-a3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise A3
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise A3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        i)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ii)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-obvious-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        More obvious facts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="More obvious facts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F6
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f7-inequalities-are-equivalent-accross-phi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F7 Inequalities are equivalent accross \(\phi\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f8-axiom-of-archimedes-in-general-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F8 Axiom of Archimedes in general field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F9
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F10
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-a4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise A4
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise A4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f11-convergence-in-mathbbq-implies-convergence-in-phimathbbq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F11 Convergence in \(\mathbb{Q}\) implies convergence in \(\phi(\mathbb{Q})\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f12-convergence-in-phimathbbq-implies-convergence-in-mathbbq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F12 Convergence in \(\phi(\mathbb{Q})\) implies convergence in \(\mathbb{Q}\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f13-different-limits-in-q-implies-different-limits-in-phimathbbq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F13 Different limits in Q implies different limits in \(\phi(\mathbb{Q})\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-a5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise A5
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise A5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (i)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (ii)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (iii)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-injectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (iv) Injectivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-surjectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (iv) Surjectivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (v)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter_3_notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_6_2" id="__nav_2_6_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Axler Measure Theory Exercises
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Axler Measure Theory Exercises
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../axler_measure_theory_exercises/Axler_Measure_Theory_Exercises_2A/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2A
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Learning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Learning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deep_learning/attention/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention Mechanisms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deep_learning/attention_is_all_you_need/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attention Is All You Need End-to-End Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../deep_learning/clip_losses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLIP & SigLIP Losses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#theorem-121-the-axiom-of-archimedes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theorem 1.2.1 The Axiom of Archimedes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#some-obvious-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Some obvious facts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Some obvious facts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-a3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise A3
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise A3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        i)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ii)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#more-obvious-facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        More obvious facts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="More obvious facts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F6
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f7-inequalities-are-equivalent-accross-phi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F7 Inequalities are equivalent accross \(\phi\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f8-axiom-of-archimedes-in-general-field" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F8 Axiom of Archimedes in general field
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F9
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F10
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-a4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise A4
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise A4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#f11-convergence-in-mathbbq-implies-convergence-in-phimathbbq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F11 Convergence in \(\mathbb{Q}\) implies convergence in \(\phi(\mathbb{Q})\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f12-convergence-in-phimathbbq-implies-convergence-in-mathbbq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F12 Convergence in \(\phi(\mathbb{Q})\) implies convergence in \(\mathbb{Q}\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#f13-different-limits-in-q-implies-different-limits-in-phimathbbq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        F13 Different limits in Q implies different limits in \(\phi(\mathbb{Q})\)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exercise-a5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise A5
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise A5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#i_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (i)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ii_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (ii)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (iii)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-injectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (iv) Injectivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iv-surjectivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (iv) Surjectivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        (v)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<!-- snippets: latex_math -->
+
+<h1 id="notes-on-chapter-1">Notes on Chapter 1<a class="headerlink" href="#notes-on-chapter-1" title="Permanent link">&para;</a></h1>
+<h2 id="fa">FA<a class="headerlink" href="#fa" title="Permanent link">&para;</a></h2>
+<div class="admonition definition" id="def-fundamental-axiom">
+<p class="admonition-title">The fundamental axiom of analysis</p>
+<p>If <span class="arithmatex">\(a_{n} \in \mathbb{R}\)</span> for all <span class="arithmatex">\(n \in \mathbb{N}\)</span>, <span class="arithmatex">\(A \in \mathbb{R}\)</span></p>
+<ul>
+<li><span class="arithmatex">\(a_{1}\leq a_{2}\leq a_{3} \leq \dots\)</span></li>
+<li><span class="arithmatex">\(a_n &lt; A\)</span> for all <span class="arithmatex">\(n \in \mathbb{N}\)</span></li>
+</ul>
+<p>Then there exists <span class="arithmatex">\(a \in \mathbb{R}\)</span> such that <span class="arithmatex">\(a_n \to a\)</span> as $n \to ∞ $</p>
+</div>
+<h2 id="theorem-121-the-axiom-of-archimedes">Theorem 1.2.1 The Axiom of Archimedes<a class="headerlink" href="#theorem-121-the-axiom-of-archimedes" title="Permanent link">&para;</a></h2>
+<p>The result is trivial in <span class="arithmatex">\(\mathbb{Q}\)</span>. The theorem is proving it in <span class="arithmatex">\(\mathbb{R}\)</span>.</p>
+<p>This theorem proves that there is no <span class="arithmatex">\(\gimel&gt;0\)</span> in <span class="arithmatex">\(\mathbb{R}\)</span> such that,</p>
+<p><span class="arithmatex">\(\frac{1}{n} &gt; \gimel\)</span> for all <span class="arithmatex">\(n\)</span> <span class="arithmatex">\(\iff\)</span> <span class="arithmatex">\(\gimel\)</span> is smaller than all strictly positive rationals.  </p>
+<p>Suppose there exists such a <span class="arithmatex">\(0&lt;\gimel&lt; \frac{1}{n}\)</span> for all <span class="arithmatex">\(n\)</span>.</p>
+<p>Then by preservation of non strict inequality (Lemma 1.6 (vii)) <span class="arithmatex">\(0&lt;\gimel \leq l = 0\)</span> which contradicts the axiom of Archimedes.</p>
+<p>If the theorem was true in <span class="arithmatex">\(\mathbb{Q}\)</span> but not in <span class="arithmatex">\(\mathbb{R}\)</span> we would have this exotic <span class="arithmatex">\(\gimel\)</span>.</p>
+<h2 id="exercises">Exercises<a class="headerlink" href="#exercises" title="Permanent link">&para;</a></h2>
+<p>In A0 we proved <span class="arithmatex">\(0_{\mathbb{F}} &lt; 1_{\mathbb{F}}\)</span>.</p>
+<p>Let <span class="arithmatex">\(n_{\mathbb{F}} = 1_{\mathbb{F}} + \dots + 1_{\mathbb{F}}\)</span> n times.</p>
+<p>In A1 we show by induction that <span class="arithmatex">\(n_{\mathbb{F}} &gt; 0_{\mathbb{F}}\)</span> and therefore they are not equal.</p>
+<p>This means that any ordered field <span class="arithmatex">\(\mathbb{F}\)</span> has characteristic <span class="arithmatex">\(∞\)</span>.</p>
+<p>We will then proceed to show that this characteristic of <span class="arithmatex">\(∞\)</span> means we contain a copy of the rationals.</p>
+<h3 id="some-obvious-facts">Some obvious facts<a class="headerlink" href="#some-obvious-facts" title="Permanent link">&para;</a></h3>
+<h4 id="f1">F1<a class="headerlink" href="#f1" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(n_{\mathbb{F}} + m_{\mathbb{F}} = (n+m)_{\mathbb{F}}\)</span> for any <span class="arithmatex">\(n,m \in \mathbb{N}^+\)</span></p>
+<h4 id="f2">F2<a class="headerlink" href="#f2" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(n_{\mathbb{F}} m_{\mathbb{F}} = (nm)_{\mathbb{F}}\)</span> for any <span class="arithmatex">\(n,m \in \mathbb{N}^+\)</span> due to distributivity.</p>
+<h4 id="f3">F3<a class="headerlink" href="#f3" title="Permanent link">&para;</a></h4>
+<p>For any <span class="arithmatex">\(n \in \mathbb{N}^+\)</span> we have
+$$
+-n_{\mathbb{F}}
+= -(\overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}} }^{n})
+= \overbrace{-1_{\mathbb{F}} + \dots + -1_{\mathbb{F}}}^{n}
+$$</p>
+<p>Hence, for any <span class="arithmatex">\(n,m \in \mathbb{N}^+\)</span></p>
+<div class="arithmatex">\[
+\begin{align*}
+n_{\mathbb{F}} - m_{\mathbb{F}}
+&amp;= \overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}} }^{n} +
+   \overbrace{-1_{\mathbb{F}}+ \dots + -1_{\mathbb{F}}}^{m} \\
+&amp;= \begin{cases}
+0_{\mathbb{F}}
+&amp;&amp;\text{if } n=m \\
+\overbrace{1_{\mathbb{F}} + \dots + 1_{\mathbb{F}}}^{n-m}
+&amp;= (n-m)_{\mathbb{F}}
+&amp;\text{ if } n&gt;m \\
+\overbrace{-1_{\mathbb{F}} + \dots + -1_{\mathbb{F}}}^{m-n}
+&amp;= -(m-n)_{\mathbb{F}}
+&amp;\text{ if } n &lt; m
+\end{cases}
+\end{align*}
+\]</div>
+<h3 id="exercise-a3">Exercise A3<a class="headerlink" href="#exercise-a3" title="Permanent link">&para;</a></h3>
+<p>Let <span class="arithmatex">\(\tau : \mathbb{Z} \to \mathbb{F}\)</span> by,</p>
+<div class="arithmatex">\[
+\tau(n) = \begin{cases}
+0_{\mathbb{F}} &amp; \text{if } n = 0 \\
+n_{\mathbb{F}} &amp; \text{if } n &gt; 0 \\
+-(-n)_{\mathbb{F}} &amp; \text{if } n &lt; 0
+\end{cases}
+\]</div>
+<h4 id="i">i)<a class="headerlink" href="#i" title="Permanent link">&para;</a></h4>
+<p>Show that the map is well defined, injective and</p>
+<ul>
+<li><span class="arithmatex">\(\tau \left( n+m \right) = \tau(n) + \tau(m)\)</span></li>
+<li><span class="arithmatex">\(\tau \left( nm \right) = \tau(n) \tau(m)\)</span></li>
+<li><span class="arithmatex">\(\tau(n) &gt; 0_{\mathbb{F}}, \text{ whenever } n&gt;0.\)</span></li>
+</ul>
+<p>for all <span class="arithmatex">\(n,m \in \mathbb{Z}\)</span>.</p>
+<p>The case definition is already well defined.</p>
+<p><strong>Additive</strong></p>
+<p>If one or more <span class="arithmatex">\(n,m\)</span> equal 0 then additivity is trivial. Therefore assume either both positive OR one positive and one negative OR both negative.</p>
+<p>Both positive case is trivial:</p>
+<div class="arithmatex">\[
+\tau(n) + \tau(m)
+= n_{\mathbb{F}} + m_{\mathbb{F}} \overset{F1}{=}
+(n+m)_{\mathbb{F}}
+= \tau(n+m)
+\]</div>
+<p>One positive and one negative case.Assume WLOG <span class="arithmatex">\(n&gt;0\)</span> and <span class="arithmatex">\(m&lt;0\)</span>.</p>
+<div class="arithmatex">\[
+\tau(n) + \tau(m) \overset{\text{Def}}{=} n_{\mathbb{F}} + -(-m)_{\mathbb{F}} = (*)
+\]</div>
+<p>We can just apply F3 where <span class="arithmatex">\(-m\)</span> takes the role of <span class="arithmatex">\(m\)</span>.</p>
+<div class="arithmatex">\[
+(*) =
+\begin{cases}
+0_{\mathbb{F}}
+&amp;
+&amp; \overset{\text{Def }}{=} \tau(0)
+&amp;\text{ if } n=-m \\
+(n--m)_{\mathbb{F}}
+&amp;= (n+m)_{\mathbb{F}}
+&amp; \overset{\text{Def }}{=} \tau(n+m)
+&amp;\text{ if } n&gt;-m
+\\
+-(-m-n)_{\mathbb{F}}
+&amp;= -(-(n+m))_{\mathbb{F}}
+&amp; \overset{\text{Def }}{=} \tau(n+m)
+&amp;\text{ if } n &lt; -m
+\end{cases}
+\]</div>
+<p><strong>Multiplicative</strong></p>
+<p>If one of <span class="arithmatex">\(n,m\)</span> is zero then it's easy to show <span class="arithmatex">\(nm=0_{\mathbb{F}} = \tau(n) \tau(m)\)</span>.
+Assume <span class="arithmatex">\(n,m \neq 0\)</span>, therefore there are cases.</p>
+<p>If <span class="arithmatex">\(n,m&gt;0\)</span>.</p>
+<div class="arithmatex">\[
+\begin{align*}
+\tau(n) \tau(m) \overset{\text{Def}}{=}
+n_{\mathbb{F}} m_{\mathbb{F}} \overset{F2}{=} (nm)_{\mathbb{F}} \overset{\text{Def}}{=} \tau(nm)
+\end{align*}
+\]</div>
+<p>If <span class="arithmatex">\(n&gt;0, m&lt;0\)</span>,</p>
+<div class="arithmatex">\[
+\begin{align*}
+\tau(n) \tau(m)
+&amp;\overset{\text{Def}}{=} n_{\mathbb{F}} \times -(-m)_{\mathbb{F}}\\
+[\text{algebra}] &amp;= - (n_{\mathbb{F}} \times (-m)_{\mathbb{F}}) \\
+[\text{F2}] &amp;= -(n \times -m)_{\mathbb{F}} = -(-nm)_{\mathbb{F}} \\
+[\text{Def}] &amp;= \tau(nm)
+\end{align*}
+\]</div>
+<p>If <span class="arithmatex">\(n,m &lt;0\)</span>,</p>
+<div class="arithmatex">\[
+\begin{align*}
+\tau(n) \tau(m)
+&amp;\overset{\text{Def}}{=} -(-n)_{\mathbb{F}} \times -(-m)_{\mathbb{F}} = (-n)_{\mathbb{F}} (-m)_{\mathbb{F}} \\
+[\text{F2}] &amp;= (-n \times -m)_{\mathbb{F}} = (nm)_{\mathbb{F}} \\
+[\text{Def}] &amp;= \tau(nm)
+\end{align*}
+\]</div>
+<p><strong>Positive</strong>
+Easy since <span class="arithmatex">\(\tau(n)=(n)_{\mathbb{F}}&gt;0_{\mathbb{F}}\)</span> by A2.</p>
+<p><strong>Injective</strong></p>
+<p>Prove via contrapositive. Assume <span class="arithmatex">\(n \neq m\)</span>, WLOG let <span class="arithmatex">\(n \geq m\)</span>, therefore <span class="arithmatex">\(n &gt; m \overset{\text{F7}}{\implies} \tau(n) &gt; \tau(m)\)</span>.</p>
+<h4 id="ii">ii)<a class="headerlink" href="#ii" title="Permanent link">&para;</a></h4>
+<p>Define <span class="arithmatex">\(\phi: \mathbb{Q} \to \mathbb{F}\)</span> by <span class="arithmatex">\(\phi(n/m) = \tau(n) \tau(m)^{-1}\)</span></p>
+<p>This function is well defined and has properties</p>
+<ul>
+<li><span class="arithmatex">\(\phi (x+y) = \phi(x) + \phi(y)\)</span></li>
+<li><span class="arithmatex">\(\phi(xy) = \phi(x) \phi(y)\)</span></li>
+<li><span class="arithmatex">\(\phi(x) &gt; 0_{\mathbb{F}}\)</span> whenever <span class="arithmatex">\(x&gt;0\)</span></li>
+</ul>
+<p><strong>Proof</strong></p>
+<p><strong>Well Defined</strong></p>
+<p>Let <span class="arithmatex">\(x= \frac{n}{m} = \frac{\lambda n}{\lambda m}\)</span> for some <span class="arithmatex">\(\lambda \in \mathbb{N}\)</span>. Then,</p>
+<div class="arithmatex">\[
+\begin{align*}
+\phi\!\left(\frac{\lambda n}{\lambda m}\right)
+&amp;= \tau(\lambda n) \tau(\lambda m)^{-1} \\
+&amp;= \tau(\lambda) \tau(n) \bigl(\tau(\lambda) \tau(m)\bigr)^{-1} \\
+&amp;= \tau(\lambda) \tau(n) \tau(\lambda)^{-1} \tau(m)^{-1} \\
+&amp;= \tau(n) \tau(m) \\
+&amp;= \phi(x)
+\end{align*}
+\]</div>
+<p><strong>Additive</strong></p>
+<p>Let <span class="arithmatex">\(x = \frac{n}{m}, y= \frac{p}{q}\)</span> for <span class="arithmatex">\(n,m,p,q \in \mathbb{Z}\)</span></p>
+<div class="arithmatex">\[
+\begin{align*}
+\phi(x+y) &amp;= \phi\!\left(\frac{nq + pm}{mq}\right) \\
+&amp;= \tau(nq + pm) \tau(mq)^{-1} \\
+&amp;= \tau(nq + pm) \tau(m)^{-1} \tau(q)^{-1} \\
+&amp;= \bigl( \tau(n) \tau(q) + \tau(p) \tau(m) \bigr) \tau(m)^{-1} \tau(q)^{-1} \\
+&amp;= \tau(n) \tau(m)^{-1} + \tau(p) \tau(q)^{-1} \\
+&amp;= \phi(x) + \phi(y)
+\end{align*}
+\]</div>
+<p>We also see</p>
+<div class="arithmatex">\[
+\begin{align*}
+\phi(xy) &amp;= \phi\!\left(\frac{np}{mq}\right) \\
+&amp;= \tau(n) \tau(p) \tau(m)^{-1} \tau(q)^{-1} \\
+&amp;= \tau(n) \tau(m)^{-1} \tau(p) \tau(q)^{-1} \\
+&amp;= \phi(x) \phi(y)
+\end{align*}
+\]</div>
+<p>And we can assume <span class="arithmatex">\(x&gt;0\)</span> means that <span class="arithmatex">\(m,n&gt;0\)</span> since we can multiply both by <span class="arithmatex">\(-1\)</span> if not,</p>
+<div class="arithmatex">\[
+\phi(x) = \tau(n) \tau(m)^{-1} &gt;0_{\mathbb{F}}
+\]</div>
+<p>since A2 gives us <span class="arithmatex">\(m&gt;0 \implies \tau(m)&gt;0\)</span> which then implies it's inverse is positive (standard result).</p>
+<h3 id="more-obvious-facts">More obvious facts<a class="headerlink" href="#more-obvious-facts" title="Permanent link">&para;</a></h3>
+<h4 id="f4">F4<a class="headerlink" href="#f4" title="Permanent link">&para;</a></h4>
+<p>From definition,
+<span class="arithmatex">\(\phi(1) = \tau(1) \tau(1)^{-1} = 1_{\mathbb{F}}\)</span></p>
+<p>This can also be proved as a standard algebra result for homomorphisms.</p>
+<h4 id="f5">F5<a class="headerlink" href="#f5" title="Permanent link">&para;</a></h4>
+<p><span class="arithmatex">\(\phi(-x) = -\phi(x)\)</span>, literally add them to get <span class="arithmatex">\(\phi(0) \overset{\text{Def}}{=}0_{\mathbb{F}}\)</span></p>
+<h4 id="f6">F6<a class="headerlink" href="#f6" title="Permanent link">&para;</a></h4>
+<p>In A2 we proved <span class="arithmatex">\(0 &lt; x \in \mathbb{Q} \implies \phi(x) &gt; 0\)</span></p>
+<p>The converse is straightforward by contrapositive. Assume <span class="arithmatex">\(x\leq0\)</span>.</p>
+<p>If <span class="arithmatex">\(x=0\)</span>, then <span class="arithmatex">\(\phi(0) \overset{\text{Def}}{=} 0\)</span>.</p>
+<p>If <span class="arithmatex">\(x&lt;0\)</span> then <span class="arithmatex">\(\phi(-x) = -\phi(x)&gt;0\)</span> by forward direction that we proved.</p>
+<p>Hence <span class="arithmatex">\(\phi(x) \leq 0\)</span>.</p>
+<p>Hence
+$$
+\phi(x) &gt; 0_{\mathbb{F}} \iff x &gt; 0
+$$</p>
+<h4 id="f7-inequalities-are-equivalent-accross-phi">F7 Inequalities are equivalent accross <span class="arithmatex">\(\phi\)</span><a class="headerlink" href="#f7-inequalities-are-equivalent-accross-phi" title="Permanent link">&para;</a></h4>
+<div class="arithmatex">\[
+\begin{align*}
+\phi(x) &gt; \phi(y) \iff \phi(x) - \phi(y) &gt; 0_{\mathbb{F}} \iff \phi(x-y) &gt; 0_{\mathbb{F}}
+\overset{\text{F6}}{\iff} x-y &gt; 0
+\end{align*}
+\]</div>
+<h4 id="f8-axiom-of-archimedes-in-general-field">F8 Axiom of Archimedes in general field<a class="headerlink" href="#f8-axiom-of-archimedes-in-general-field" title="Permanent link">&para;</a></h4>
+<p>Let <span class="arithmatex">\(a_n = \phi \left( \frac{1}{n} \right)\)</span>. This sequence is bounded and decreasing (F7) and therefore converges by FA, call this limit <span class="arithmatex">\(l\)</span>.</p>
+<p>Let</p>
+<div class="arithmatex">\[
+\begin{align*}
+b_n &amp;= \phi \left( \frac{1}{2} \right) \phi \left( \frac{1}{n} \right) = \phi \left( \frac{1}{2} \right) a_n \to
+\phi \left( \frac{1}{2} \right) l
+\\
+&amp; \text{ by Algebra of Limits, Lemma 1.6 }
+\\
+&amp;= \phi \left( \frac{1}{2n} \right) = a_{2n} \to l
+\\
+&amp; \text{by subsequence.}
+\end{align*}
+\]</div>
+<p>Hence,</p>
+<div class="arithmatex">\[
+\begin{align*}
+l = \phi \left( \frac{1}{2} \right) l
+&amp;\iff
+\left( 1_{\mathbb{F}} - \phi \left( \frac{1}{2} \right) \right)l = 0
+\\
+&amp;\iff
+\phi \left( \frac{1}{2} \right) l = 0
+\\
+&amp;\iff
+l=0
+\end{align*}
+\]</div>
+<p>Basically the same as before!</p>
+<h4 id="f9">F9<a class="headerlink" href="#f9" title="Permanent link">&para;</a></h4>
+<p>For any <span class="arithmatex">\(x \in \mathbb{F}\)</span> there exists <span class="arithmatex">\(n_{\mathbb{F}} \in \phi(\mathbb{Z}) \colon x&lt; n_{\mathbb{F}}\)</span>.</p>
+<p><strong>i <span class="arithmatex">\(x \leq 0_{\mathbb{F}}\)</span> is trivial</strong>, <span class="arithmatex">\(n=1\)</span> does the job.</p>
+<p><strong>ii assume <span class="arithmatex">\(x &gt; 0_{\mathbb{F}}\)</span>.</strong></p>
+<p>By Archimedes there exists <span class="arithmatex">\(n \in \mathbb{N}\)</span> such that
+$$
+0_{\mathbb{F}} &lt; \phi \left( \frac{1}{n} \right) &lt; \frac{1}{x}
+\iff
+\phi ( n ) = n_{\mathbb{F}} &gt; x &gt; 0_{\mathbb{F}}
+$$</p>
+<h4 id="f10">F10<a class="headerlink" href="#f10" title="Permanent link">&para;</a></h4>
+<p>For any <span class="arithmatex">\(x \in \mathbb{F}\)</span> there exists <span class="arithmatex">\(n_{\mathbb{F}}\)</span> such that <span class="arithmatex">\(n-1 \leq x_{\mathbb{F}} \leq n_{\mathbb{F}}\)</span></p>
+<p>Apply F8 to <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(-x\)</span> to get <span class="arithmatex">\(a_{\mathbb{F}} &lt; x &lt; b_{\mathbb{F}}\)</span> for some <span class="arithmatex">\(a,b \in \mathbb{Z}\)</span>.</p>
+<p>Let <span class="arithmatex">\(n=b\)</span>, if <span class="arithmatex">\(x &lt; (n-1)_{\mathbb{F}}\)</span> let <span class="arithmatex">\(n \colon = n-1\)</span>, repeat...</p>
+<p>This terminates eventually since <span class="arithmatex">\(x&lt;a_{\mathbb{F}}\)</span> is not possible. Termination occurs when <span class="arithmatex">\(x \geq \mathbb{n-1}\)</span></p>
+<h3 id="exercise-a4">Exercise A4<a class="headerlink" href="#exercise-a4" title="Permanent link">&para;</a></h3>
+<p>Let <span class="arithmatex">\(\mathbb{K} = \phi \left( \mathbb{Q} \right) \subseteq \mathbb{F}\)</span>.</p>
+<p>Prove that if <span class="arithmatex">\(x \in \mathbb{F}\)</span> then there exists sequence <span class="arithmatex">\(x_n \in \mathbb{K}\)</span> such that <span class="arithmatex">\(x_1 \leq x_2 \leq \dots\)</span> such that <span class="arithmatex">\(x_n \to x\)</span> as <span class="arithmatex">\(n \to \infty\)</span>.</p>
+<p><strong>Proof</strong>
+By F9 there exists <span class="arithmatex">\(a,b \in \phi(\mathbb{Z})\)</span> such that <span class="arithmatex">\(a \leq x&lt;b\)</span>.</p>
+<p>Let <span class="arithmatex">\(a_0, b_0 = a,b\)</span>. Then let <span class="arithmatex">\(c_i = \phi \left( \frac{1}{2} \right)  \left( a_{i-1} + b_{i-1} \right)\)</span></p>
+<div class="arithmatex">\[
+\begin{cases}
+a_i &amp;= c_i
+&amp; \text{ and }
+b_i = b_{i-1}
+&amp; \text{ if } c_i \leq x
+\\
+a_i &amp;= a_{i-1}
+&amp; \text{ and }
+b_i = c_i
+&amp; \text{ if } x_i &gt; x
+\end{cases}
+\]</div>
+<p>Then <span class="arithmatex">\(a_n \leq x \leq b_n\)</span> and <span class="arithmatex">\(a_n \leq a_{n+1}\)</span> for all <span class="arithmatex">\(n \in \mathbb{N}\)</span>. Hence by FA <span class="arithmatex">\(a_n \to l\)</span> for some <span class="arithmatex">\(l \in \mathbb{F}\)</span>.</p>
+<p>Also, <span class="arithmatex">\(b_i - a_i = \phi\left( \frac{1}{2} \right)^n \left( b_0 - a_0 \right) \to 0_{\mathbb{F}}\)</span>.</p>
+<p>Then <span class="arithmatex">\(0 \leq x - a_n \leq b_n - a_n\)</span> implies <span class="arithmatex">\(0\leq x -l \leq 0\)</span></p>
+<h4 id="f11-convergence-in-mathbbq-implies-convergence-in-phimathbbq">F11 Convergence in <span class="arithmatex">\(\mathbb{Q}\)</span> implies convergence in <span class="arithmatex">\(\phi(\mathbb{Q})\)</span><a class="headerlink" href="#f11-convergence-in-mathbbq-implies-convergence-in-phimathbbq" title="Permanent link">&para;</a></h4>
+<p>Let <span class="arithmatex">\(a_n \in \mathbb{Q}\)</span> and <span class="arithmatex">\(a \in \mathbb{Q}\)</span>. If <span class="arithmatex">\(a_n \to a\)</span>, then <span class="arithmatex">\(\phi(a_n) \to \phi(a)\)</span> in <span class="arithmatex">\(\mathbb{F}\)</span>.</p>
+<p><strong>Proof</strong>
+Let <span class="arithmatex">\(\eta &gt; 0_{\mathbb{F}}\)</span>. By F8 Axiom of Archimedes there exists <span class="arithmatex">\(m \in \mathbb{N}\)</span> such that <span class="arithmatex">\(\phi \left( \frac{1}{m} \right) &lt; \eta\)</span>. It is therefore sufficient to show</p>
+<div class="arithmatex">\[
+\lvert \phi \left( a_n - a \right) \rvert =
+\lvert \phi(a_n) - \phi(a) \rvert &lt; \phi \left( \frac{1}{m} \right)
+&lt; \eta
+\]</div>
+<p>By F7 this is equivalent to</p>
+<div class="arithmatex">\[
+\lvert a_n - a \rvert &lt; \frac{1}{m}
+\]</div>
+<p>Which hold for sufficiently large <span class="arithmatex">\(N\)</span> since <span class="arithmatex">\(a_n \to a\)</span> in <span class="arithmatex">\(\mathbb{Q}\)</span>.</p>
+<p>Hence <span class="arithmatex">\(\phi(a_n) \to \phi(a)\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<h4 id="f12-convergence-in-phimathbbq-implies-convergence-in-mathbbq">F12 Convergence  in <span class="arithmatex">\(\phi(\mathbb{Q})\)</span> implies convergence in <span class="arithmatex">\(\mathbb{Q}\)</span><a class="headerlink" href="#f12-convergence-in-phimathbbq-implies-convergence-in-mathbbq" title="Permanent link">&para;</a></h4>
+<p>Let <span class="arithmatex">\(q_n \in \phi(\mathbb{Q})\)</span> and <span class="arithmatex">\(q \in \phi(\mathbb{Q})\)</span>. If <span class="arithmatex">\(q_n \to q\)</span> in <span class="arithmatex">\(\mathbb{F}\)</span>, then <span class="arithmatex">\(\phi^{-1}(q_n) \to \phi^{-1}(q)\)</span> in <span class="arithmatex">\(\mathbb{Q}\)</span>.</p>
+<p><strong>Proof</strong>
+Let <span class="arithmatex">\(\varepsilon &gt; 0\)</span> in <span class="arithmatex">\(\mathbb{Q}\)</span>. Then <span class="arithmatex">\(\phi(\varepsilon) &gt; 0_{\mathbb{F}}\)</span> by F6. Since <span class="arithmatex">\(q_n \to q\)</span>, there exists <span class="arithmatex">\(N\)</span> such that for all <span class="arithmatex">\(n \geq N\)</span>,</p>
+<div class="arithmatex">\[
+\left|q_n-q\right| &lt; \phi(\varepsilon).
+\]</div>
+<p>Because</p>
+<div class="arithmatex">\[
+q_n-q = \phi\bigl(\phi^{-1}(q_n)-\phi^{-1}(q)\bigr),
+\]</div>
+<p>F7 gives</p>
+<div class="arithmatex">\[
+\left|\phi^{-1}(q_n)-\phi^{-1}(q)\right| &lt; \varepsilon.
+\]</div>
+<p>Hence <span class="arithmatex">\(\phi^{-1}(q_n) \to \phi^{-1}(q)\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+<h4 id="f13-different-limits-in-q-implies-different-limits-in-phimathbbq">F13 Different limits in Q implies different limits in <span class="arithmatex">\(\phi(\mathbb{Q})\)</span><a class="headerlink" href="#f13-different-limits-in-q-implies-different-limits-in-phimathbbq" title="Permanent link">&para;</a></h4>
+<p>Let <span class="arithmatex">\(x_n,y_n \in \mathbb{Q}\)</span> with <span class="arithmatex">\(x_n \to x\)</span> and <span class="arithmatex">\(y_n \to y\)</span> in <span class="arithmatex">\(\mathbb{R}\)</span>. If <span class="arithmatex">\(x \neq y\)</span>, then</p>
+<div class="arithmatex">\[
+\lim_{n \to \infty} \phi(x_n) \neq \lim_{n \to \infty} \phi(y_n).
+\]</div>
+<p><strong>Proof</strong>
+Suppose <span class="arithmatex">\(\lim_{n \to \infty} \phi(x_n) = \lim_{n \to \infty} \phi(y_n).\)</span></p>
+<p>Then <span class="arithmatex">\(\phi(x_n-y_n) = \phi(x_n)-\phi(y_n) \to 0_{\mathbb{F}}.\)</span></p>
+<p>By F12, <span class="arithmatex">\(x_n-y_n \to 0\)</span> in <span class="arithmatex">\(\mathbb{Q}\)</span>. Therefore,</p>
+<p><span class="arithmatex">\(x-y = \lim_{n \to \infty} (x_n-y_n) = 0\)</span>,</p>
+<p>which contradicts <span class="arithmatex">\(x \neq y\)</span>. Hence the two limits are distinct. <span class="arithmatex">\(\blacksquare\)</span></p>
+<h3 id="exercise-a5">Exercise A5<a class="headerlink" href="#exercise-a5" title="Permanent link">&para;</a></h3>
+<h4 id="i_1">(i)<a class="headerlink" href="#i_1" title="Permanent link">&para;</a></h4>
+<p>Let <span class="arithmatex">\(x \in \mathbb{R}\)</span>. By A4 with <span class="arithmatex">\(\mathbb{F}=\mathbb{R}\)</span>, there exists a sequence <span class="arithmatex">\(x_n \in \mathbb{Q}\)</span> such that</p>
+<div class="arithmatex">\[
+x_1 \leq x_2 \leq \dots
+\quad\text{and}\quad
+x_n \to x.
+\]</div>
+<p>Convergence of <span class="arithmatex">\(x_n\)</span> implies that it is bounded. Therefore by F7 <span class="arithmatex">\(\phi(x_n)\)</span> is also bounded increasing and therefore converges by FA to some limit <span class="arithmatex">\(a \in \mathbb{F}\)</span>.</p>
+<h4 id="ii_1">(ii)<a class="headerlink" href="#ii_1" title="Permanent link">&para;</a></h4>
+<p>Let <span class="arithmatex">\(x_n' \in \mathbb{Q}\)</span> with <span class="arithmatex">\(x_n' \to x\)</span>. We claim that <span class="arithmatex">\(\phi(x_n') \to a\)</span> as well.</p>
+<p>Since <span class="arithmatex">\(x_n-x_n' \to 0\)</span> in <span class="arithmatex">\(\mathbb{Q}\)</span>, F11 gives <span class="arithmatex">\(\phi(x_n -x_n') \to 0_{\mathbb{F}}\)</span></p>
+<p>So, <span class="arithmatex">\(\phi(x_n) \to a\)</span> and <span class="arithmatex">\(\phi(x_n) - \phi(x_n') \to 0_{\mathbb{F}}\)</span> implies (by AOL) that <span class="arithmatex">\(\phi(x_n') \to a\)</span>.</p>
+<h4 id="iii">(iii)<a class="headerlink" href="#iii" title="Permanent link">&para;</a></h4>
+<p>Define <span class="arithmatex">\(\Theta : \mathbb{R} \to \mathbb{F}\)</span> by</p>
+<div class="arithmatex">\[
+\Theta(x) = \lim_{n \to \infty} \phi(q_n),
+\]</div>
+<p>where <span class="arithmatex">\((q_n)\)</span> is any rational sequence converging to <span class="arithmatex">\(x\)</span>.</p>
+<p>Part A4 gives us such a <span class="arithmatex">\(q_n\)</span> exists. A5 (i) gives us convergnce. A5 (ii) gives us that this limit is the same regardless of rational sequence chose.</p>
+<p>If <span class="arithmatex">\(x \in \mathbb{Q}\)</span>, taking the constant sequence <span class="arithmatex">\(q_n=x\)</span> shows that <span class="arithmatex">\(\Theta(x)=\phi(x)\)</span>, so <span class="arithmatex">\(\Theta\)</span> extends <span class="arithmatex">\(\phi\)</span>.</p>
+<h4 id="iv-injectivity">(iv) Injectivity<a class="headerlink" href="#iv-injectivity" title="Permanent link">&para;</a></h4>
+<p>If <span class="arithmatex">\(x \neq y\)</span>, choose rational sequences <span class="arithmatex">\(x_n \to x\)</span> and <span class="arithmatex">\(y_n \to y\)</span>. Then F13 gives</p>
+<div class="arithmatex">\[
+\Theta(x)
+= \lim_{n \to \infty} \phi(x_n)
+\neq
+\lim_{n \to \infty} \phi(y_n)
+= \Theta(y),
+\]</div>
+<p>so <span class="arithmatex">\(\Theta\)</span> is injective.</p>
+<h4 id="iv-surjectivity">(iv) Surjectivity<a class="headerlink" href="#iv-surjectivity" title="Permanent link">&para;</a></h4>
+<p>Let <span class="arithmatex">\(q \in \mathbb{F}\)</span>. By A4 there exists an increasing sequence <span class="arithmatex">\(q_n \in \phi(\mathbb{Q})\)</span> such that <span class="arithmatex">\(q_n \to q\)</span>.</p>
+<p>Convergence of <span class="arithmatex">\(q_n\)</span> implies it's bounded. F7 gives us that <span class="arithmatex">\(\phi(q_n)^{-1}\)</span> is therefore bounded and increasing in <span class="arithmatex">\(\mathbb{Q}\)</span>.</p>
+<p>So by FA in <span class="arithmatex">\(\mathbb{R}\)</span> there exists <span class="arithmatex">\(\ell \in \mathbb{R}\)</span> such that <span class="arithmatex">\(\phi^{-1}(q_n) \to \ell.\)</span></p>
+<p>Now <span class="arithmatex">\(\Theta(\ell)\)</span> is the <span class="arithmatex">\(\phi\)</span>-limit of any rational sequence converging to <span class="arithmatex">\(\ell\)</span>, so using the particular sequence <span class="arithmatex">\(\phi^{-1}(q_n)\)</span>,</p>
+<div class="arithmatex">\[
+\Theta(\ell)
+= \lim_{n \to \infty} \phi\bigl(\phi^{-1}(q_n)\bigr)
+= \lim_{n \to \infty} q_n
+= q.
+\]</div>
+<p>Hence <span class="arithmatex">\(\Theta\)</span> is surjective.</p>
+<h4 id="v">(v)<a class="headerlink" href="#v" title="Permanent link">&para;</a></h4>
+<p>Let <span class="arithmatex">\(x,y \in \mathbb{R}\)</span>, and choose rational sequences <span class="arithmatex">\(x_n \to x\)</span> and <span class="arithmatex">\(y_n \to y\)</span>.</p>
+<p>Then <span class="arithmatex">\(x_n+y_n \to x+y\)</span>, so by definition of <span class="arithmatex">\(\Theta\)</span>,</p>
+<div class="arithmatex">\[
+\Theta(x+y)
+= \lim_{n \to \infty} \phi(x_n+y_n)
+= \lim_{n \to \infty} \bigl(\phi(x_n)+\phi(y_n)\bigr)
+= \Theta(x)+\Theta(y).
+\]</div>
+<p>Also <span class="arithmatex">\(x_n y_n \to xy\)</span>, so similarly</p>
+<div class="arithmatex">\[
+\Theta(xy)
+= \lim_{n \to \infty} \phi(x_n y_n)
+= \lim_{n \to \infty} \bigl(\phi(x_n)\phi(y_n)\bigr)
+= \Theta(x)\Theta(y).
+\]</div>
+<p>Finally, if <span class="arithmatex">\(x&gt;0\)</span>, choose <span class="arithmatex">\(m \in \mathbb{N}\)</span> such that <span class="arithmatex">\(\frac{1}{m} &lt; x\)</span>. Since <span class="arithmatex">\(x_n \to x\)</span>, we have <span class="arithmatex">\(x_n &gt; \frac{1}{m}\)</span> for all sufficiently large <span class="arithmatex">\(n\)</span>. Hence by F7,</p>
+<div class="arithmatex">\[
+\phi(x_n) &gt; \phi\left(\frac{1}{m}\right) &gt; 0_{\mathbb{F}}
+\]</div>
+<p>eventually, and therefore</p>
+<div class="arithmatex">\[
+\Theta(x) = \lim_{n \to \infty} \phi(x_n) \geq \phi\left(\frac{1}{m}\right) &gt; 0_{\mathbb{F}}.
+\]</div>
+<p>So <span class="arithmatex">\(\Theta\)</span> preserves positivity, and therefore order as well. Hence <span class="arithmatex">\(\Theta : \mathbb{R} \to \mathbb{F}\)</span> is an isomorphism of ordered fields extending <span class="arithmatex">\(\phi\)</span>. <span class="arithmatex">\(\blacksquare\)</span></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/jakerobertbaker" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/in/jake-robert-baker" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.top", "content.tabs.link"], "search": "../../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
