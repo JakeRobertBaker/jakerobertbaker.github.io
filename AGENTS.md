@@ -36,4 +36,4 @@ When adding or changing project infrastructure/config (new extensions, overrides
 
 ## Transcribe/Cleanup
 
-When transcribing written notes or messy notes to clean katex markdown stick to mine/the authors wording unless explicitly stated otherwise.
+When transcribing written messy notes to clean katex markdown keep to the authors wording unless explicitly stated otherwise.
