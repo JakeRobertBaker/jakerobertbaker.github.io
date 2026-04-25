@@ -33,3 +33,7 @@ Custom types need both YAML registration in `mkdocs.yml` (under `pymdownx.blocks
 ## Maintenance rule
 
 When adding or changing project infrastructure/config (new extensions, overrides, SEO, deploy setup), update `README.md` and `CLAUDE.md` to reflect the change.
+
+## Transcribe/Cleanup
+
+When transcribing written notes or messy notes to clean katex markdown stick to mine/the authors wording unless explicitly stated otherwise.
