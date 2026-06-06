@@ -91,6 +91,7 @@ $\iff$
 There exists $\mathbf{\mu} \in \mathbb{R}^n, \mathbf{A} \in \mathbb{R}^{n \times l}$
 such that $\mathbf{x = Az + \mu}$ where $\mathbf{A^\top A = \Sigma}$.
 
+Where $\mathbf{z}$ is a [standard normal vector](../linear_models/linear_models.md#def-standard_normal){data-preview}.
 ///
 
 ### SPD
@@ -98,3 +99,9 @@ such that $\mathbf{x = Az + \mu}$ where $\mathbf{A^\top A = \Sigma}$.
 Note: $\mathbf{A^\top A = \Sigma}$ is equivalent to $\mathbf{\Sigma}$ being Semi Positive Definite.
 
 ### PDF
+
+/// lemma | Multivariate PDF
+    attrs: {id: lem-MV-normal-pdf}
+
+TODO
+///
