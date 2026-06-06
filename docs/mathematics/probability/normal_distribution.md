@@ -91,7 +91,7 @@ $\iff$
 There exists $\mathbf{\mu} \in \mathbb{R}^n, \mathbf{A} \in \mathbb{R}^{n \times l}$
 such that $\mathbf{x = Az + \mu}$ where $\mathbf{A^\top A = \Sigma}$.
 
-Where $\mathbf{z}$ is a [standard normal vector](../linear_models/linear_models.md#def-standard_normal){data-preview}.
+Where $\mathbf{z} \in \mathbb{R}^l, l\leq n$ is a [standard normal vector](../linear_models/linear_models.md#def-standard_normal){data-preview}.
 ///
 
 ### SPD
@@ -104,8 +104,10 @@ Note: $\mathbf{A^\top A = \Sigma}$ is equivalent to $\mathbf{\Sigma}$ being Semi
     attrs: {id: lem-MV-normal-pdf}
 
 Let $\mathbf{x} \sim \mathcal{N} \mathbf{ \left( \mu, \Sigma \right) }$
-([Definition](#def-mv-normal)) with $\mathbf{\Sigma}$ positive definite (so
-$\mathbf{A} \in \mathbb{R}^{n \times n}$ is invertible).
+([Definition](#def-mv-normal)) with $\mathbf{\Sigma}$ (strictly) positive
+definite. Then $\operatorname{rank}\mathbf{A} = \operatorname{rank}\mathbf{\Sigma} = n$,
+and since $l \leq n$ this forces $l = n$, so $\mathbf{A} \in \mathbb{R}^{n \times n}$
+is invertible.
 
 Then $\mathbf{x}$ has probability density function
 
