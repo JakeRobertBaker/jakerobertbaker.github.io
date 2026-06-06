@@ -75,3 +75,26 @@ d^\top H d
 \end{align*}
 $$
 ///
+
+## Normal Distibution
+
+### Definitions
+
+/// definition | Multivariate Normal
+    attrs: {id: def-mv-normal}
+
+$\mathbf{x} \in \mathbb{R}^n$ is Multivariate Normal
+
+$\iff \mathbf{x} \sim \mathcal{N} \mathbf{ \left( \mu, \Sigma \right) }$
+
+$\iff$
+There exists $\mathbf{\mu} \in \mathbb{R}^n, \mathbf{A} \in \mathbb{R}^{n \times l}$
+such that $\mathbf{x = Az + \mu}$ where $\mathbf{A^\top A = \Sigma}$.
+
+///
+
+### SPD
+
+Note: $\mathbf{A^\top A = \Sigma}$ is equivalent to $\mathbf{\Sigma}$ being Semi Positive Definite.
+
+### PDF
