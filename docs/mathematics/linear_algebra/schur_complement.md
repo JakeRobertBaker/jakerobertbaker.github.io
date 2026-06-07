@@ -288,3 +288,48 @@ D^{-1}C & I_q
 $$
 
 Notice that block matricies have inverse defined by
+TODO
+
+Therefore
+
+$$
+\begin{align*}
+M^{-1} &=
+\begin{bmatrix}
+I_p & 0 \\
+-D^{-1}C & I_q
+\end{bmatrix}
+\begin{bmatrix}
+A-BD^{-1}C & 0 \\
+0 & D
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+I_p & -BD^{-1}
+\\
+0 & I_q
+\end{bmatrix}
+\\ &=
+\begin{bmatrix}
+I_p & 0 \\
+-D^{-1}C & I_q
+\end{bmatrix}
+\begin{bmatrix}
+(A-BD^{-1}C)^{-1} & 0 \\
+0 & D^{-1}
+\end{bmatrix}
+\begin{bmatrix}
+I_p & -BD^{-1}
+\\
+0 & I_q
+\end{bmatrix}
+\\ &=
+\begin{bmatrix}
+I_p & 0 \\
+-D^{-1}C & I_q
+\end{bmatrix}
+\begin{bmatrix}
+(A-BD^{-1}C)^{-1} & (A-BD^{-1}C)^{-1} (-BD^{-1}) \\
+0 & D^{-1}
+\end{bmatrix}
+\end{align*}
+$$
