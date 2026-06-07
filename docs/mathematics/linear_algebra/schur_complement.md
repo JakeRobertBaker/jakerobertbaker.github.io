@@ -238,5 +238,53 @@ C & D
 I_p & 0 \\
 -D^{-1}C & I_q
 \end{bmatrix}
+\\
+&= \begin{bmatrix}
+I_p & -BD^{-1}
+\\
+0 & I_q
+\end{bmatrix}
+M
+\begin{bmatrix}
+I_p & 0 \\
+-D^{-1}C & I_q
+\end{bmatrix}
 \end{align*}
 $$
+
+Therefore
+
+$$
+\begin{align*}
+M &=
+\begin{bmatrix}
+I_p & -BD^{-1}
+\\
+0 & I_q
+\end{bmatrix}^{-1}
+\begin{bmatrix}
+A-BD^{-1}C & 0 \\
+0 & D
+\end{bmatrix}
+\begin{bmatrix}
+I_p & 0 \\
+-D^{-1}C & I_q
+\end{bmatrix}^{-1}
+\\ &=
+\begin{bmatrix}
+I_p & BD^{-1}
+\\
+0 & I_q
+\end{bmatrix}
+\begin{bmatrix}
+A-BD^{-1}C & 0 \\
+0 & D
+\end{bmatrix}
+\begin{bmatrix}
+I_p & 0 \\
+D^{-1}C & I_q
+\end{bmatrix}
+\end{align*}
+$$
+
+Notice that block matricies have inverse defined by
