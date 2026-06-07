@@ -331,5 +331,12 @@ I_p & 0 \\
 (A-BD^{-1}C)^{-1} & (A-BD^{-1}C)^{-1} (-BD^{-1}) \\
 0 & D^{-1}
 \end{bmatrix}
+\\ &=
+\begin{bmatrix}
+(A-BD^{-1}C)^{-1} & (A-BD^{-1}C)^{-1} (-BD^{-1}) \\
+-DC^{-1} (A-BD^{-1}C)^{-1}
+&
+D^{-1}C (A-BD^{-1}C)^{-1} BD^{-1} + D^{-1}
+\end{bmatrix}
 \end{align*}
 $$
