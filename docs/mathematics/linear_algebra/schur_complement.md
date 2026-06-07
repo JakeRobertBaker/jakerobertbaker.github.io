@@ -1,8 +1,9 @@
 <!-- snippets: latex_math -->
 Using the matrix multiplication row and column [identities](./matrix_multiplication.md).
 
+Let:
+
 $$
-\text{Let }
 A \in \mathbb{R}^{p \times p},\quad
 B \in \mathbb{R}^{p \times q},\quad
 C \in \mathbb{R}^{q \times p},\quad
@@ -10,6 +11,14 @@ D \in \mathbb{R}^{q \times q},
 \quad
 X_1 \in \mathbb{R}^{p \times l},\quad
 X_2 \in \mathbb{R}^{q \times l}
+$$
+
+$$
+M =
+\begin{bmatrix}
+A & B \\
+C & D
+\end{bmatrix}
 $$
 
 $$
@@ -141,4 +150,93 @@ I_p & 0 \\
 A-BD^{-1}C & B \\
 0 & D
 \end{bmatrix}
+$$
+
+Similiarly we now want to remove the B component from
+
+$$
+\begin{bmatrix}
+A-BD^{-1}C & B \\
+0 & D
+\end{bmatrix}
+$$
+
+via linear combinations of row blocks.
+
+Let $A^\star = A - BD^{-1}C$.
+
+Then
+
+$$
+\begin{bmatrix}
+I_p & -BD^{-1}
+\end{bmatrix}
+\begin{bmatrix}
+A^\star & B \\
+0 & D
+\end{bmatrix} =
+I_p
+\begin{bmatrix}
+A^\star & B
+\end{bmatrix} -
+B D^{-1}
+\begin{bmatrix}
+0 & D
+\end{bmatrix} =
+\begin{bmatrix}
+A^\star & 0
+\end{bmatrix}
+$$
+
+Hence
+
+$$
+\begin{align*}
+& \begin{bmatrix}
+I_p & -BD^{-1} \\
+0 & I_q
+\end{bmatrix}
+\begin{bmatrix}
+A-BD^{-1}C & B \\
+0 & D
+\end{bmatrix}
+&=
+\begin{bmatrix}
+A-BD^{-1}C & 0 \\
+0 & D
+\end{bmatrix}
+\end{align*}
+$$
+
+Therefore
+
+$$
+\begin{align*}
+\begin{bmatrix}
+A-BD^{-1}C & 0 \\
+0 & D
+\end{bmatrix} &=
+\begin{bmatrix}
+I_p & -BD^{-1} \\
+0 & I_q
+\end{bmatrix}
+\begin{bmatrix}
+A-BD^{-1}C & B \\
+0 & D
+\end{bmatrix}
+\\
+&= \begin{bmatrix}
+I_p & -BD^{-1}
+\\
+0 & I_q
+\end{bmatrix}
+\begin{bmatrix}
+A & B \\
+C & D
+\end{bmatrix}
+\begin{bmatrix}
+I_p & 0 \\
+-D^{-1}C & I_q
+\end{bmatrix}
+\end{align*}
 $$
