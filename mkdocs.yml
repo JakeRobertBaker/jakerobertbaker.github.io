@@ -37,12 +37,14 @@ theme:
 nav:
   - Home: index.md
   - Mathematics:
+      - Linear Algebra:
+          - Matrix Multiplication: mathematics/linear_algebra/matrix_multiplication.md
       - Probability:
           - Bayesian Ballot Sampling: mathematics/probability/ballot_notes.md
           - Absorption Probability: mathematics/probability/absorption_probability.md
           - Normal Distribution: mathematics/probability/normal_distribution.md
       - Set Theory:
-          - Universal Algebra: mathematics/set_theory/universal_algebra.md
+          - Universjl Algebra: mathematics/set_theory/universal_algebra.md
       - Game Theory:
           - Shapley Formula: mathematics/game_theory/shapley_formula.md
       - Statistics:

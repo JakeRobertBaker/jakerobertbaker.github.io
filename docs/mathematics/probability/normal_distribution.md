@@ -100,16 +100,16 @@ Note: $\mathbf{A^\top A = \Sigma}$ is equivalent to $\mathbf{\Sigma}$ being Semi
 
 ### PDF
 
+Assume $\Sigma$ is strictly positive definite. Then $\operatorname{rank}\mathbf{A} = \operatorname{rank}\mathbf{\Sigma} = n$,
+and since $l \leq n$ this forces $l = n$, so $\mathbf{A} \in \mathbb{R}^{n \times n}$
+is invertible.
+
 /// lemma | Multivariate PDF
     attrs: {id: lem-MV-normal-pdf}
 
 Let $\mathbf{x} \sim \mathcal{N} \mathbf{ \left( \mu, \Sigma \right) }$
 ([Definition](#def-mv-normal)) with $\mathbf{\Sigma}$ (strictly) positive
-definite. Then $\operatorname{rank}\mathbf{A} = \operatorname{rank}\mathbf{\Sigma} = n$,
-and since $l \leq n$ this forces $l = n$, so $\mathbf{A} \in \mathbb{R}^{n \times n}$
-is invertible.
-
-Then $\mathbf{x}$ has probability density function
+definite. Then $\mathbf{x}$ has probability density function
 
 $$
 f_{\mathbf{x}}(\mathbf{x})
