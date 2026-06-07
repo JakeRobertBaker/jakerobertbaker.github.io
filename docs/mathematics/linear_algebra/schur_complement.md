@@ -136,5 +136,9 @@ C & D
 \begin{bmatrix}
 I_p & 0 \\
 -D^{-1}C & I_q
+\end{bmatrix} =
+\begin{bmatrix}
+A-BD^{-1}C & B \\
+0 & D
 \end{bmatrix}
 $$
