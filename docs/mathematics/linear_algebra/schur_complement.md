@@ -66,8 +66,8 @@ A & B \\
 C & D
 \end{bmatrix}
 \begin{bmatrix}
-X_1 \\
-X_2
+I_p \\
+-D^{-1}C
 \end{bmatrix} &=
 \begin{bmatrix}
 A \\
@@ -96,4 +96,45 @@ A - BD^{-1}C \\
 0
 \end{bmatrix}
 \end{align*}
+$$
+
+Also,
+
+$$
+\begin{bmatrix}
+A & B \\
+C & D
+\end{bmatrix}
+\begin{bmatrix}
+0 \\
+I_q
+\end{bmatrix} =
+\begin{bmatrix}
+A \\
+C
+\end{bmatrix}
+0
++
+\begin{bmatrix}
+B \\
+D
+\end{bmatrix}
+I_q =
+\begin{bmatrix}
+B \\
+D
+\end{bmatrix}
+$$
+
+Hence
+
+$$
+\begin{bmatrix}
+A & B \\
+C & D
+\end{bmatrix}
+\begin{bmatrix}
+I_p & 0 \\
+-D^{-1}C & I_q
+\end{bmatrix}
 $$
