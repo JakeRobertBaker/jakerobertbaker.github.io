@@ -39,6 +39,7 @@ nav:
   - Mathematics:
       - Linear Algebra:
           - Matrix Multiplication: mathematics/linear_algebra/matrix_multiplication.md
+          - Schur Complement: mathematics/linear_algebra/schur_complement.md
       - Probability:
           - Bayesian Ballot Sampling: mathematics/probability/ballot_notes.md
           - Absorption Probability: mathematics/probability/absorption_probability.md
