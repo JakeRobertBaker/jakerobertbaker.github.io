@@ -1,7 +1,9 @@
 <!-- snippets: latex_math -->
 Using the matrix multiplication row and column [identities](./matrix_multiplication.md).
 
-Let:
+##  Schur Complement of D
+
+Let
 
 $$
 A \in \mathbb{R}^{p \times p},\quad
@@ -340,3 +342,24 @@ D^{-1}C (A-BD^{-1}C)^{-1} BD^{-1} + D^{-1}
 \end{bmatrix}
 \end{align*}
 $$
+
+/// definition | Schur Compliment of D
+    attrs: {id: def-shur-compliment-d}
+
+$$
+S_D = M / D = A - BD^{-1}C
+$$
+///
+
+/// lemma | M inverse via Schur Compliment of D
+    attrs: {id: lem-M-inverse-schur-d}
+
+$$
+M^{-1} =
+\begin{bmatrix}
+S_D^{-1} & -S_D^{-1}BD^{-1} \\
+-DC^{-1}S_D^{-1} & D^{-1} C S_D B D^{-1} + D^{-1}
+\end{bmatrix}
+$$
+
+///
