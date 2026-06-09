@@ -213,3 +213,455 @@ f_{\mathbf{x}}(\mathbf{x})
 \qquad \blacksquare
 $$
 ///
+
+/// lemma | Conditional Gaussian
+    attrs: {id: lem-conditional-gausian}
+
+Let
+
+$$
+\mathbf{x} =
+\begin{bmatrix}
+\mathbf{x}_1\\
+\mathbf{x}_2
+\end{bmatrix}
+\sim
+\mathcal{N}
+\left(
+\begin{bmatrix}
+\mathbf{\mu}_1\\
+\mathbf{\mu}_2
+\end{bmatrix},
+\begin{bmatrix}
+\mathbf{\Sigma}_{11} & \mathbf{\Sigma}_{12}\\
+\mathbf{\Sigma}_{21} & \mathbf{\Sigma}_{22}
+\end{bmatrix}
+\right),
+$$
+
+where $\mathbf{\Sigma}$ is strictly positive definite. Define
+
+$$
+\mathbf{S}
+:=
+\mathbf{\Sigma}_{11} -
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}.
+$$
+
+Then
+
+$$
+\mathbf{x}_1 \mid \mathbf{x}_2
+\sim
+\mathcal{N}
+\left(
+\mathbf{\mu}_1
++
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}
+\left(\mathbf{x}_2-\mathbf{\mu}_2\right),
+\mathbf{S}
+\right).
+$$
+
+///
+
+/// proof | Proof of conditional-gaussian-proof
+
+We have
+
+$$
+p(\mathbf{x}_1\mid\mathbf{x}_2)
+=
+\frac{p(\mathbf{x}_1,\mathbf{x}_2)}{p(\mathbf{x}_2)}
+\propto
+\exp\left(-\frac{1}{2}\Delta\right),
+$$
+
+where the only dropped terms are constants in both $\mathbf{x}_1$ and
+$\mathbf{x}_2$, and
+
+$$
+\begin{align*}
+\Delta &=
+\textcolor{blue}{
+\begin{bmatrix}
+\mathbf{x}_1 \\
+\mathbf{x}_2
+\end{bmatrix}^{\!\top}
+\mathbf{\Sigma}^{-1}
+\begin{bmatrix}
+\mathbf{x}_1\\
+\mathbf{x}_2
+\end{bmatrix}} -
+\textcolor{red}{2
+\begin{bmatrix}
+\mathbf{x}_1\\
+\mathbf{x}_2
+\end{bmatrix}^{\!\top}
+\mathbf{\Sigma}^{-1}
+\begin{bmatrix}
+\mathbf{\mu}_1\\
+\mathbf{\mu}_2
+\end{bmatrix}} -
+\textcolor{yellow}{\mathbf{x}_2^\top \mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2}
++
+\textcolor{yellow}{2\mathbf{x}_2^\top \mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2}.
+\end{align*}
+$$
+
+Let
+
+$$
+\mathbf{S}
+:=
+\mathbf{\Sigma}_{11} -
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21},
+\qquad
+\text{notice } \mathbf{S}=\mathbf{S}^\top.
+$$
+
+Then
+
+$$
+\mathbf{\Sigma}^{-1} =
+\begin{bmatrix}
+\mathbf{S}^{-1} & -
+\mathbf{S}^{-1}\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}
+\\ -
+\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1} &
+\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1} +
+\mathbf{\Sigma}_{22}^{-1}
+\end{bmatrix}.
+$$
+
+Substituting this into $\Delta$ gives
+
+$$
+\begin{align*}
+\Delta &=
+\textcolor{blue}{\mathbf{x}_1^\top \mathbf{S}^{-1}\mathbf{x}_1} -
+\textcolor{blue}{\mathbf{x}_1^\top \mathbf{S}^{-1}\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2} -
+\textcolor{blue}{\mathbf{x}_2^\top \mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{x}_1}
+\\
+&\quad +
+\textcolor{blue}{\mathbf{x}_2^\top
+\left(
+\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}
+\right)
+\mathbf{x}_2}
++
+\textcolor{blue}{\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2}
+\\
+&\quad
+-
+\textcolor{red}{2\mathbf{x}_1^\top\mathbf{S}^{-1}\mathbf{\mu}_1}
++
+\textcolor{red}{2\mathbf{x}_1^\top\mathbf{S}^{-1}\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2}
++
+\textcolor{red}{2\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{\mu}_1}
+\\
+&\quad
+-
+\textcolor{red}{2\mathbf{x}_2^\top
+\left(
+\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}
+\right)
+\mathbf{\mu}_2}
+-
+\textcolor{red}{2\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2}
+\\
+&\quad
+-
+\textcolor{yellow}{\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2}
++
+\textcolor{yellow}{2\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2}
+\\
+&=
+\mathbf{x}_1^\top \mathbf{S}^{-1}\mathbf{x}_1
+-
+\textcolor{pink}{\mathbf{x}_1^\top \mathbf{S}^{-1}\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2}
+-
+\textcolor{pink}{\mathbf{x}_2^\top \mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{x}_1}
+\\ &\quad +
+\mathbf{x}_2^\top
+\left(
+\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}
+\right)
+\mathbf{x}_2
+\\
+&\quad
+-
+\textcolor{teal}{2\mathbf{x}_1^\top\mathbf{S}^{-1}\mathbf{\mu}_1}
++
+\textcolor{teal}{2\mathbf{x}_1^\top\mathbf{S}^{-1}\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2}
++
+2\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{\mu}_1
+\\
+&\quad
+-
+2\mathbf{x}_2^\top
+\left(
+\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}
+\right)
+\mathbf{\mu}_2.
+\end{align*}
+$$
+
+Since the relevant terms are scalars,
+
+$$
+\begin{align*}
+\Delta
+&=
+\mathbf{x}_1^\top\mathbf{S}^{-1}\mathbf{x}_1
+-
+\textcolor{pink}{2\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{x}_1}
+-
+\textcolor{teal}{2\mathbf{\mu}_1^\top\mathbf{S}^{-1}\mathbf{x}_1}
++
+\textcolor{teal}{2\mathbf{\mu}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{x}_1}
+\\
+&\quad
++
+\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\left(
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2
++2\mathbf{\mu}_1
+-2\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2
+\right)
+\\
+&=
+\mathbf{x}_1^\top\mathbf{S}^{-1}\mathbf{x}_1
++
+\left(
+-2\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}
+-2\mathbf{\mu}_1^\top
++2\mathbf{\mu}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}
+\right)
+\mathbf{S}^{-1}\mathbf{x}_1
+\\
+&\quad
++
+\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\left(
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2
++2\mathbf{\mu}_1
+-2\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2
+\right)
+\\
+&=
+\mathbf{x}_1^\top\mathbf{S}^{-1}\mathbf{x}_1
++2
+\left(
+(\mathbf{\mu}_2^\top-\mathbf{x}_2^\top)\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}
+-
+\mathbf{\mu}_1^\top
+\right)
+\mathbf{S}^{-1}\mathbf{x}_1
+\\
+&\quad
++
+\underbrace{
+\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\left(
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2
++2\mathbf{\mu}_1
+-2\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2
+\right)
+}_{=:\,\textcolor{blue}{\gamma}}.
+\end{align*}
+$$
+
+Now take
+
+$$
+\mathbf{H}=\mathbf{S}^{-1},
+\qquad
+\mathbf{c}=\mathbf{S}^{-1}
+\left(
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{\mu}_2-\mathbf{x}_2)
+-
+\mathbf{\mu}_1
+\right),
+$$
+
+so
+
+$$
+\mathbf{d}=\mathbf{H}^{-1}\mathbf{c}
+=\mathbf{S}\mathbf{c}
+=
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{\mu}_2-\mathbf{x}_2)
+-
+\mathbf{\mu}_1.
+$$
+
+Also,
+
+$$
+\begin{align*}
+\mathbf{d}^\top\mathbf{H}\mathbf{d}
+&=
+\mathbf{d}^\top\mathbf{c}
+=
+\mathbf{c}^\top\mathbf{H}^{-\top}\mathbf{c}
+=
+\mathbf{c}^\top\mathbf{S}\mathbf{c}
+\\
+&=
+\left(
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{\mu}_2-\mathbf{x}_2)
+-
+\mathbf{\mu}_1
+\right)^\top
+\mathbf{S}^{-1}
+\left(
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{\mu}_2-\mathbf{x}_2)
+-
+\mathbf{\mu}_1
+\right)
+\\
+&=
+\left(
+(\mathbf{x}_2-\mathbf{\mu}_2)^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}
++
+\mathbf{\mu}_1^\top
+\right)
+\mathbf{S}^{-1}
+\left(
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{x}_2-\mathbf{\mu}_2)
++
+\mathbf{\mu}_1
+\right)
+\\
+&=
+(\mathbf{x}_2-\mathbf{\mu}_2)^\top
+\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}
+(\mathbf{x}_2-\mathbf{\mu}_2)
+\\
+&\quad
++2(\mathbf{x}_2-\mathbf{\mu}_2)^\top
+\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{\mu}_1
++
+\mathbf{\mu}_1^\top\mathbf{S}^{-1}\mathbf{\mu}_1
+\\
+&=
+\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2
+-2\mathbf{\mu}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2
+\\
+&\quad
++2\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}\mathbf{\mu}_1
++
+\operatorname{constant}
+\\
+&=
+\mathbf{x}_2^\top\mathbf{\Sigma}_{22}^{-1}\mathbf{\Sigma}_{21}\mathbf{S}^{-1}
+\left(
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{x}_2
+-2\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}\mathbf{\mu}_2
++2\mathbf{\mu}_1
+\right)
++
+\operatorname{constant}
+\\
+&=
+\textcolor{blue}{\gamma}
++
+\operatorname{constant}.
+\end{align*}
+$$
+
+Hence, using [Complete The Matrix Square](#lem-matrix-complete-square),
+
+$$
+\begin{align*}
+\Delta
+&=
+\mathbf{x}_1^\top\mathbf{H}\mathbf{x}_1
++2\mathbf{c}^\top\mathbf{x}_1
++
+\textcolor{blue}{\gamma}
+\\
+&=
+(\mathbf{x}_1+\mathbf{d})^\top\mathbf{H}(\mathbf{x}_1+\mathbf{d})
+-
+\mathbf{d}^\top\mathbf{H}\mathbf{d}
++
+\textcolor{blue}{\gamma}
+\\
+&=
+(\mathbf{x}_1+\mathbf{d})^\top\mathbf{H}(\mathbf{x}_1+\mathbf{d})
++
+\operatorname{constant}.
+\end{align*}
+$$
+
+But
+
+$$
+\mathbf{x}_1+\mathbf{d}
+=
+\mathbf{x}_1
+-
+\left(
+\mathbf{\mu}_1
++
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{x}_2-\mathbf{\mu}_2)
+\right),
+$$
+
+and $\mathbf{H}=\mathbf{S}^{-1}$. Therefore
+
+$$
+\begin{align*}
+p(\mathbf{x}_1\mid\mathbf{x}_2)
+&\propto
+\exp\left(
+-\frac{1}{2}
+\left(
+\mathbf{x}_1
+-
+\mathbf{\mu}_1
+-
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{x}_2-\mathbf{\mu}_2)
+\right)^\top
+\mathbf{S}^{-1}
+\right.\\
+&\hspace{4.5cm}\left.
+\left(
+\mathbf{x}_1
+-
+\mathbf{\mu}_1
+-
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{x}_2-\mathbf{\mu}_2)
+\right)
+\right).
+\end{align*}
+$$
+
+This is proportional to a Gaussian with mean
+$\mathbf{\mu}_1+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{x}_2-\mathbf{\mu}_2)$
+and covariance $\mathbf{S}$. Since
+$p(\mathbf{x}_1\mid\mathbf{x}_2)=p(\mathbf{x}_1,\mathbf{x}_2)/p(\mathbf{x}_2)$
+already has volume $1$, this proportional Gaussian is the conditional density.
+Thus
+
+$$
+\mathbf{x}_1\mid\mathbf{x}_2
+\sim
+\mathcal{N}
+\left(
+\mathbf{\mu}_1
++
+\mathbf{\Sigma}_{12}\mathbf{\Sigma}_{22}^{-1}(\mathbf{x}_2-\mathbf{\mu}_2),
+\mathbf{S}
+\right).
+\qquad \blacksquare
+$$
+///
