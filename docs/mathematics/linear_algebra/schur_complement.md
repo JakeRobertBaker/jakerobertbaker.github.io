@@ -66,9 +66,9 @@ C & D
 \end{bmatrix}
 $$
 
-We aim to remove $C$ from the lower entry of the matrix via column gausian elimination steps.
+We aim to remove $C$ from the lower entry of the matrix via column Gaussian elimination steps.
 
-We just need to take the first col block minus second block col times $D^{-1}C$
+We just need to take the first col block minus second col block times $D^{-1}C$
 
 $$
 \begin{align*}
@@ -154,7 +154,7 @@ A-BD^{-1}C & B \\
 \end{bmatrix}
 $$
 
-Similiarly we now want to remove the B component from
+Similarly we now want to remove the $B$ component from
 
 $$
 \begin{bmatrix}
@@ -193,8 +193,7 @@ $$
 Hence
 
 $$
-\begin{align*}
-& \begin{bmatrix}
+\begin{bmatrix}
 I_p & -BD^{-1} \\
 0 & I_q
 \end{bmatrix}
@@ -202,12 +201,11 @@ I_p & -BD^{-1} \\
 A-BD^{-1}C & B \\
 0 & D
 \end{bmatrix}
-&=
+=
 \begin{bmatrix}
 A-BD^{-1}C & 0 \\
 0 & D
 \end{bmatrix}
-\end{align*}
 $$
 
 Therefore
@@ -289,7 +287,7 @@ D^{-1}C & I_q
 \end{align*}
 $$
 
-Notice that block matricies have inverse defined by
+Notice that block matrices have inverse defined by
 TODO
 
 Therefore
@@ -343,7 +341,7 @@ D^{-1}C (A-BD^{-1}C)^{-1} BD^{-1} + D^{-1}
 \end{align*}
 $$
 
-/// definition | Schur Compliment of D
+/// definition | Schur Complement of D
     attrs: {id: def-shur-compliment-d}
 
 $$
@@ -351,14 +349,14 @@ S_D = M / D = A - BD^{-1}C
 $$
 ///
 
-/// lemma | M inverse via Schur Compliment of D
+/// lemma | M inverse via Schur Complement of D
     attrs: {id: lem-M-inverse-schur-d}
 
 $$
 M^{-1} =
 \begin{bmatrix}
 S_D^{-1} & -S_D^{-1}BD^{-1} \\
--D^{-1} C S_D^{-1} & D^{-1} C S_D B D^{-1} + D^{-1}
+-D^{-1} C S_D^{-1} & D^{-1} C S_D^{-1} B D^{-1} + D^{-1}
 \end{bmatrix}
 $$
 
