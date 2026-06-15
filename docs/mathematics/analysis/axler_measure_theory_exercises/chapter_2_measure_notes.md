@@ -9,11 +9,12 @@
 Let $A \subseteq \mathbb{R}$. The *outer measure* of $A$ is
 
 $$
-\begin{align*}
-|A| := \inf \Bigg\{ \sum_{k \in \mathbb{N}} \ell(I_k) :
-&\ I_k \text{ is an open interval for all } k \in \mathbb{N} \\
-&\ \text{and } A \subseteq \bigcup_{k \in \mathbb{N}} I_k \Bigg\}.
-\end{align*}
+|A| := \inf \left\{ \sum_{k \in \mathbb{N}} \ell(I_k) \ \middle|\
+\begin{array}{l}
+\bullet\ I_k \text{ is an open interval for all } k \in \mathbb{N}, \\
+\bullet\ A \subseteq \bigcup_{k \in \mathbb{N}} I_k
+\end{array}
+\right\}.
 $$
 ///
 
