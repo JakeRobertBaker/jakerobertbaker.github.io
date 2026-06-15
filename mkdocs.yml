@@ -55,8 +55,9 @@ nav:
               - Overview: mathematics/analysis/companion_to_analysis/companion_to_analysis_overview.md
               - Chapter 1: mathematics/analysis/companion_to_analysis/chapter_1_notes.md
               - Chapter 3: mathematics/analysis/companion_to_analysis/chapter_3_notes.md
-          - Axler Measure Theory Exercises:
+          - Axler Measure Theory:
               - 2A: mathematics/analysis/axler_measure_theory_exercises/Axler_Measure_Theory_Exercises_2A.md
+              - Chapter 2 - Measure Notes: mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes.md
 
   - Deep Learning:
       - Attention Mechanisms: deep_learning/attention.md
