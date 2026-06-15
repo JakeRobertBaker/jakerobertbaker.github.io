@@ -140,5 +140,5 @@ is a $\sigma$-algebra on $\mathbb{R}$.
 
 Already have: countable implies outer measure zero, which implies Lebesgue measurable.
 
-So if a set is not Lebesgue measurable, then it is not countable. We showed in Axler 2.81 that there exists a Lebesgue measurable set $A \subseteq [0,1]$ such that $|A| = 0$ and $\Delta(A)$ is not a Lebesgue measurable set. Hence $\Delta(A)$ is not countable.
+So if a set is not Lebesgue measurable, then it is not countable. We showed in Axler 2.81 that there exists a Lebesgue measurable set $A \subseteq [0,1]$ such that $|A| = 0$ and $\Lambda(A)$ is not a Lebesgue measurable set. Hence $\Lambda(A)$ is not countable.
 ///
