@@ -48,11 +48,15 @@ $$
 e.g. $n=6$, $k=3$
 
 $$
-(2,2,2) \Longleftrightarrow 00|00|00
+(\textcolor{red}{2},\textcolor{green}{2},\textcolor{blue}{2})
+\Longleftrightarrow
+\textcolor{red}{00}|\textcolor{green}{00}|\textcolor{blue}{00}
 $$
 
 $$
-(0,4,2) \Longleftrightarrow |0000|00
+(\textcolor{red}{0},\textcolor{green}{4},\textcolor{blue}{2})
+\Longleftrightarrow
+|\textcolor{green}{0000}|\textcolor{blue}{00}
 $$
 
 Hence there are
