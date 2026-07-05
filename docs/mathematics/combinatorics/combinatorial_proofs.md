@@ -23,20 +23,36 @@ $$
 
 /// proof | Proof
 
-Have $n+k-1$ symbols, with $n$ zeros $0$ and $k-1$ sticks $|$.
-
-Given an arrangement of these symbols, let $x_m$ be the number of $0$'s in the $m$th gap, where the gaps are before the first stick, between successive sticks, and after the last stick.
-
-For example, when $n=6$ and $k=3$,
+Have $n+k-1$ symbols, with $n$ integers $0$ and $k-1$ sticks $|$.
 
 $$
-(2,2,2) \longleftrightarrow 00|00|00,
+\begin{array}{c c c}
+\left\langle
+\begin{array}{c}
+\text{start of sequence} \\
+\text{or }(m-1)\text{th} \\
+\text{stick}
+\end{array}
+\right\rangle
+&
+\underbrace{0\cdots0}_{x_m\ 0\text{'s}}
+&
+\begin{array}{c}
+| \\
+\uparrow \\
+m\text{th stick}
+\end{array}
+\end{array}
 $$
 
-and
+e.g. $n=6$, $k=3$
 
 $$
-(0,4,2) \longleftrightarrow |0000|00.
+(2,2,2) \Longleftrightarrow 00|00|00
+$$
+
+$$
+(0,4,2) \Longleftrightarrow |0000|00
 $$
 
 Hence there are
