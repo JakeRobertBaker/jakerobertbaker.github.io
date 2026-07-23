@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+
+.md-grid {
+  max-width: 1440px;
+}
+
+/* Match admonition font size to body text (theme default is .64rem, body is .8rem) */
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: inherit;
+}
+
+/* Custom admonitions: definition, proposition, lemma, theorem, proof */
+
+/* Definition - uses note color (#448aff) */
+.md-typeset .admonition.definition,
+.md-typeset details.definition {
+  border-color: rgb(68, 138, 255);
+}
+.md-typeset .definition > .admonition-title,
+.md-typeset .definition > summary {
+  background-color: rgba(68, 138, 255, 0.1);
+  padding-left: 3.5rem;
+}
+.md-typeset .definition > .admonition-title::before,
+.md-typeset .definition > summary::before {
+  background-color: transparent;
+  -webkit-mask-image: none;
+          mask-image: none;
+  content: "Def";
+  font-family: 'Italianno', cursive;
+  color: rgb(68, 138, 255);
+  width: auto;
+  height: auto;
+  font-size: 1.4rem;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Proposition - uses tip color (#00bfa5) */
+.md-typeset .admonition.proposition,
+.md-typeset details.proposition {
+  border-color: rgb(0, 191, 165);
+}
+.md-typeset .proposition > .admonition-title,
+.md-typeset .proposition > summary {
+  background-color: rgba(0, 191, 165, 0.1);
+  padding-left: 3.5rem;
+}
+.md-typeset .proposition > .admonition-title::before,
+.md-typeset .proposition > summary::before {
+  background-color: transparent;
+  -webkit-mask-image: none;
+          mask-image: none;
+  content: "Prp";
+  font-family: 'Italianno', cursive;
+  color: rgb(0, 191, 165);
+  width: auto;
+  height: auto;
+  font-size: 1.4rem;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Lemma - uses success color (#00c853) */
+.md-typeset .admonition.lemma,
+.md-typeset details.lemma {
+  border-color: rgb(0, 200, 83);
+}
+.md-typeset .lemma > .admonition-title,
+.md-typeset .lemma > summary {
+  background-color: rgba(0, 200, 83, 0.1);
+  padding-left: 3.5rem;
+}
+.md-typeset .lemma > .admonition-title::before,
+.md-typeset .lemma > summary::before {
+  background-color: transparent;
+  -webkit-mask-image: none;
+          mask-image: none;
+  content: "Lem";
+  font-family: 'Italianno', cursive;
+  color: rgb(0, 200, 83);
+  width: auto;
+  height: auto;
+  font-size: 1.4rem;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Theorem - uses question color (#64dd17) */
+.md-typeset .admonition.theorem,
+.md-typeset details.theorem {
+  border-color: rgb(100, 221, 23);
+}
+.md-typeset .theorem > .admonition-title,
+.md-typeset .theorem > summary {
+  background-color: rgba(100, 221, 23, 0.1);
+  padding-left: 3.5rem;
+}
+.md-typeset .theorem > .admonition-title::before,
+.md-typeset .theorem > summary::before {
+  background-color: transparent;
+  -webkit-mask-image: none;
+          mask-image: none;
+  content: "Thm";
+  font-family: 'Italianno', cursive;
+  color: rgb(100, 221, 23);
+  width: auto;
+  height: auto;
+  font-size: 1.4rem;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Proof - uses quote color (#9e9e9e) */
+.md-typeset details.proof {
+  border-color: rgb(158, 158, 158);
+}
+.md-typeset .proof > summary {
+  background-color: rgba(158, 158, 158, 0.1);
+  padding-left: 3.5rem;
+}
+.md-typeset .proof > summary::before {
+  background-color: transparent;
+  -webkit-mask-image: none;
+          mask-image: none;
+  content: "Prf";
+  font-family: 'Italianno', cursive;
+  color: rgb(158, 158, 158);
+  width: auto;
+  height: auto;
+  font-size: 1.4rem;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+}
