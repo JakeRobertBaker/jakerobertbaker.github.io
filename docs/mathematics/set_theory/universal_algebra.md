@@ -166,8 +166,11 @@ A model for an Algebraic Theory $T=(\Omega, E)$ or T-algebra is an Operational S
 /// example | Group Theory Model
     attrs: {id: exm-group-model}
 
-A group $G$ is a $\left( \omega, E \right)$ model where $\Omega = \{ m,i,e\}$ and
-$E=\{(m x_1 m x_2 x_3 = m m x_1 x_2 x_3), (mex_1=x_1), (m i x_1 x_1 = e)\}$
+A group $G$ is a $\left( \Omega, E \right)$ model where $\Omega = \{ m,i,e\}$ and
+
+$$
+E=\{(m x_1 m x_2 x_3 = m m x_1 x_2 x_3), (mex_1=x_1), (m i x_1 x_1 = e)\}
+$$
 ///
 
 /// definition | Derived Equations
@@ -226,7 +229,7 @@ We need to show that this indeed an $\Omega$ structure. This requires showing th
 
 Let $FX=F_{\Omega}(X)$ and $EX=F_{(\Omega, E)}(X)$.
 
-In other words we need to show that the interpretation $\omega_{EX}(\underline{u})=[\omega_{FX}(\underline{u})]$ is well defined.
+In other words we need to show that the interpretation $\omega_{EX}([\underline{u}])=[\omega_{FX}(\underline{u})]$ is well defined, $\underline{u} = \left( u_1, u_2, \dots, u_n \right), u_i \in FX$.
 
 Consider operation $\omega \in \Omega$ with $\alpha(\omega)=n$ and symbols $t_1,\dots, t_n$ and $s_1, \dots, s_n$ where $t_i \sim_{E} s_i$.
 
@@ -237,17 +240,17 @@ $$
 \text{[definition] }
 \omega([t_1], \dots, [t_n])
 &=
-&\omega [t_1] \dots [t_n]
+& [\omega t_1 \dots t_n]
 \\
 \text{[substitution rule 3b]}
-& \sim_E
-&\omega [s_1] \dots [t_n]
+& =
+& [\omega s_1 \dots t_n]
 \\
 &\vdots
 \\
 \text{[substitution rule 3b]}
-&\sim_E
-&\omega [s_1] \dots [s_n]
+& =
+& [\omega s_1 \dots s_n]
 \\
 \text{[definition]}
 &=
