@@ -65,13 +65,27 @@ $$
 So
 $$
 \begin{align}
-\frac{1}{\left( q+\frac{3}{2} \right)}<y<\frac{1}{\left( q+\frac{1}{2} \right)y}
+\frac{1}{ q+\frac{3}{2} }<y<\frac{1}{ q+\frac{1}{2} }
 &\iff
 \mathbb{P}\left( A | Y=y \right) =
 \left( \frac{q+1}{2} \right)y
 \\
-\frac{1}{\left( q+\frac{1}{2} \right)y}<y<\frac{1}{\left( q-\frac{1}{2} \right)y}
+\frac{1}{ q+\frac{1}{2} }<y<\frac{1}{ q-\frac{1}{2} }
 &\iff
 \mathbb{P}\left( A | Y=y \right) = 1-y\frac{q}{2}
 \end{align}
+$$
+
+Therefore,
+
+$$
+\mathbb{P} \left( A \right) =
+\int_{2/3}^{1} \frac{y}{2} \, dy +
+\sum_{n=1}^{\infty}
+\left[
+\int_{\frac{1}{q+1/2}}^{\frac{1}{q-1/2}}
+1-ny
+\, dy +
+\int_{\frac{1}{q+3/2}}^{\frac{1}{q+1/2}} \frac{2n+1}{2}y \, dy
+\right]
 $$
