@@ -1,0 +1,55 @@
+<!-- snippets: latex_math -->
+# Uniform Fraction
+
+Let $X,Y \sim$ $U\left( 0,1 \right)$,
+
+$$
+A = \left\{ \text{The closest interget to } \frac{X}{Y} \text{is even.} \right\}
+$$
+
+What is $\mathbb{P}\left( A \right)$?
+
+Let's condition on $\left\{ Y=y \right\}$.
+
+$\frac{X}{Y}$ closest to $k$ is $\iff$ $X \in \left[(k-\frac{1}{2})y, (k+\frac{1}{2})y  \right] \coloneqq I_k$
+
+Let $q$ be the largest even integer such that the $q$th $y$ interval is in $\left[ 0,1 \right]$.
+
+$$
+\left( q-\frac{1}{2} \right)y<1
+$$
+
+and
+
+$$
+\left( q+2-\frac{1}{2} \right)y > 1
+\iff
+ \left( q+\frac{3}{2} \right)y > 1
+$$
+
+If $q=0$ then $1<y<\frac{2}{3}$. The $y=\frac{2}{3}$ case is when $I_2$ moves into $\left[ 0,1 \right]$.
+
+$$
+\begin{array}{cccc}
+I_0 &  &I_1
+\\
+| & )(& &)
+\\
+0 &\frac{1}{3}=\frac{y}{2} & & 1
+\end{array}
+$$
+
+In this case there is $\frac{y}{2}$ area in $\left[ 0,1 \right]$.
+
+If even $q >0$ then
+$\frac{1}{\left( q+\frac{3}{2} \right)}<y<\frac{1}{\left( q-\frac{1}{2} \right)}$.
+
+This interval is fully in $\left[ 0,1 \right] \iff \left( q+\frac{1}{2} \right)y<1$.
+
+In this case there is $\frac{y}{2}  + \frac{q}{2}y$ even area in $\left[ 0,1 \right]$.
+
+So
+$$\frac{1}{\left( q+\frac{3}{2} \right)}<y<\frac{1}{\left( 1+\frac{1}{2} \right)y}
+\iff
+\left( \frac{q+1}{2} \right)y
+$$
