@@ -11,6 +11,8 @@ What is $\mathbb{P}\left( A \right)$?
 
 Let's condition on $\left\{ Y=y \right\}$.
 
+Let $A_k = \left\{ \frac{X}{Y} \text{ closest to } k \right\}$, $k \in \mathbb{N}_0$.
+
 $\frac{X}{Y}$ closest to $k$ is $\iff$ $X \in \left[(k-\frac{1}{2})y, (k+\frac{1}{2})y  \right] \coloneqq I_k$
 
 Let $q$ be the largest even integer such that the $q$th $y$ interval is in $\left[ 0,1 \right]$.
@@ -39,7 +41,7 @@ I_0 &  &I_1
 \end{array}
 $$
 
-In this case there is $\frac{y}{2}$ area in $\left[ 0,1 \right]$.
+In this case $\mathbb{P}\left( A | Y=y\right) = \frac{y}{2}$
 
 If even $q >0$ then
 $\frac{1}{\left( q+\frac{3}{2} \right)}<y<\frac{1}{\left( q-\frac{1}{2} \right)}$.
@@ -48,8 +50,28 @@ This interval is fully in $\left[ 0,1 \right] \iff \left( q+\frac{1}{2} \right)y
 
 In this case there is $\frac{y}{2}  + \frac{q}{2}y$ even area in $\left[ 0,1 \right]$.
 
+If the interval is not fully in $\left[ 0,1 \right] \iff \left( q+\frac{1}{2} \right)y>1$.
+
+In this case the even area is
+
+$$
+\frac{y}{2} + \left( \frac{q}{2} - 1 \right)y + 1-\left( q-\frac{1}{2} \right)y
+\\
+= 1 + y\left( 1/2+q/2-1-q+1/2 \right)
+\\
+= 1 - y \frac{q}{2}
+$$
+
 So
-$$\frac{1}{\left( q+\frac{3}{2} \right)}<y<\frac{1}{\left( 1+\frac{1}{2} \right)y}
-\iff
+$$
+\begin{align}
+\frac{1}{\left( q+\frac{3}{2} \right)}<y<\frac{1}{\left( q+\frac{1}{2} \right)y}
+&\iff
+\mathbb{P}\left( A | Y=y \right) =
 \left( \frac{q+1}{2} \right)y
+\\
+\frac{1}{\left( q+\frac{1}{2} \right)y}<y<\frac{1}{\left( q-\frac{1}{2} \right)y}
+&\iff
+\mathbb{P}\left( A | Y=y \right) = 1-y\frac{q}{2}
+\end{align}
 $$
