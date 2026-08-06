@@ -88,4 +88,17 @@ $$
 \, dy +
 \int_{\frac{1}{q+3/2}}^{\frac{1}{q+1/2}} \frac{2n+1}{2}y \, dy
 \right]
++
+=
+-
+df
+$$
+
+Let t\hat{}$x$
+
+$$
+l=3
++
+=
+s
 $$
