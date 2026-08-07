@@ -101,20 +101,64 @@ y - n \frac{y^2}{2}
 \frac{2n+1}{4}y^2
 \right]_{\frac{1}{2n+3/2}}^{\frac{1}{2n+1/2}}
 \\ &=
-\frac{5}{36} + \sum_{n=1}^{\infty}
-\frac{1}{2n-1/2} - \frac{1}{2n+1/2} -
-\frac{n}{2} \left(
-\frac{4n}{(2n-1/2)^2(2n+1/2)^2}
-\right) \\ &+
-\frac{2n+1}{4} \left(
-\frac{6n + 9/4 - 2n - 1/4}{(2n+1/2)^2 (2n+3/2)^2}
-\right)
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{1}{2n-1/2} - \frac{1}{2n+1/2}  
+-\frac{n}{2}\left( \frac{1}{(2n-1/2)^2} - \frac{1}{(2n+1/2)^2} \right)
+\\ & +
+\frac{2n+1}{4} \left( \frac{1}{(2n+1/2)^2} - \frac{1}{(2n+3/2)^2} \right)
+\end{aligned}
+\right]
 \\ &=
-\frac{5}{36} + \sum_{n=1}^{\infty}
-\frac{1}{2n-1/2} - \frac{1}{2n+1/2} -
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{1}{2n-1/2} - \frac{1}{2n+1/2}  
+-\frac{n}{2}\left( \frac{4n}{(2n-1/2)^2 (2n+1/2)^2} \right)
+\\ & +
+\frac{2n+1}{4} \left( \frac{6n + 9/4 - 2n - 1/4}{(2n+1/2)^2 (2n+3/2)^2} \right)
+\end{aligned}
+\right]
+\\ &=
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{1}{2n-1/2} - \frac{1}{2n+1/2}  
+- \frac{2n^2}{(2n-1/2)^2 (2n+1/2)^2} 
+\\ & +
+\frac{(2n+1)^2}{2}  \frac{1}{(2n+1/2)^2 (2n+3/2)^2} 
+\end{aligned}
+\right]
+\\ &=
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{1}{(2n-1/2)^2 (2n+1/2)^2}
+- \frac{2n^2}{(2n-1/2)^2 (2n+1/2)^2} 
+\\ & +
+\frac{(2n+1)^2}{2}  \frac{1}{(2n+1/2)^2 (2n+3/2)^2} 
+\end{aligned}
+\right]
+\end{align*}
+$$
+
+## Tests
+
+$$
+\sum_{n=1}^{\infty} 
+\left[  
+\begin{aligned}
+& \frac{1}{2n-1/2} - \frac{1}{2n+1/2} -
 2n^2 \left(
 \frac{1}{(2n-1/2)^2(2n+1/2)^2}
-\right) \\ &+
+\right)
+\\ & +
 \frac{(2n + 1)^2}{2(2n+1/2)^2 (2n+3/2)^2}
-\end{align*}
+\end{aligned}
+\right]
 $$
