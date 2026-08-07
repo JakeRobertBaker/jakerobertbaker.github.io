@@ -63,42 +63,58 @@ $$
 $$
 
 So
+
 $$
-\begin{align}
+\begin{align*}
 \frac{1}{ q+\frac{3}{2} }<y<\frac{1}{ q+\frac{1}{2} }
 &\iff
 \mathbb{P}\left( A | Y=y \right) =
 \left( \frac{q+1}{2} \right)y
-\\
+\\ \\
 \frac{1}{ q+\frac{1}{2} }<y<\frac{1}{ q-\frac{1}{2} }
 &\iff
 \mathbb{P}\left( A | Y=y \right) = 1-y\frac{q}{2}
-\end{align}
+\end{align*}
 $$
 
 Therefore,
 
 $$
-\mathbb{P} \left( A \right) =
+\begin{align*}
+\mathbb{P} \left( A \right) &=
 \int_{2/3}^{1} \frac{y}{2} \, dy +
 \sum_{n=1}^{\infty}
 \left[
-\int_{\frac{1}{q+1/2}}^{\frac{1}{q-1/2}}
+\int_{\frac{1}{2n+1/2}}^{\frac{1}{2n-1/2}}
 1-ny
 \, dy +
-\int_{\frac{1}{q+3/2}}^{\frac{1}{q+1/2}} \frac{2n+1}{2}y \, dy
+\int_{\frac{1}{2n+3/2}}^{\frac{1}{2n+1/2}} \frac{2n+1}{2}y \, dy
 \right]
-+
-=
--
-df
-$$
-
-Let t\hat{}$x$
-
-$$
-l=3
-+
-=
-s
+\\
+&=
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[
+y - n \frac{y^2}{2}
+\right]_{\frac{1}{2n+1/2}}^{\frac{1}{2n-1/2}} +
+\left[
+\frac{2n+1}{4}y^2
+\right]_{\frac{1}{2n+3/2}}^{\frac{1}{2n+1/2}}
+\\ &=
+\frac{5}{36} + \sum_{n=1}^{\infty}
+\frac{1}{2n-1/2} - \frac{1}{2n+1/2} -
+\frac{n}{2} \left(
+\frac{4n}{(2n-1/2)^2(2n+1/2)^2}
+\right) \\ &+
+\frac{2n+1}{4} \left(
+\frac{6n + 9/4 - 2n - 1/4}{(2n+1/2)^2 (2n+3/2)^2}
+\right)
+\\ &=
+\frac{5}{36} + \sum_{n=1}^{\infty}
+\frac{1}{2n-1/2} - \frac{1}{2n+1/2} -
+2n^2 \left(
+\frac{1}{(2n-1/2)^2(2n+1/2)^2}
+\right) \\ &+
+\frac{(2n + 1)^2}{2(2n+1/2)^2 (2n+3/2)^2}
+\end{align*}
 $$
