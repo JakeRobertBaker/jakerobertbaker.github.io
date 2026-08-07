@@ -144,21 +144,28 @@ y - n \frac{y^2}{2}
 \frac{(2n+1)^2}{2}  \frac{1}{(2n+1/2)^2 (2n+3/2)^2} 
 \end{aligned}
 \right]
+\\ &=
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{16}{(4n-1)^2 (4n+1)^2}
+- \frac{32n^2}{(4n-1)^2 (4n+1)^2} 
+\\ & +
+(2n+1)^2  \frac{8}{(4n+1)^2 (4n+3)^2} 
+\end{aligned}
+\right]
+\\ &=
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{16}{(4n-1)^2 (4n+1)^2}
+- \frac{32n^2}{(4n-1)^2 (4n+1)^2} 
+\\ & +
+(2n+1)^2  \frac{8}{(4n+1)^2 (4n+3)^2} 
+\end{aligned}
+\right]
 \end{align*}
 $$
 
-## Tests
-
-$$
-\sum_{n=1}^{\infty} 
-\left[  
-\begin{aligned}
-& \frac{1}{2n-1/2} - \frac{1}{2n+1/2} -
-2n^2 \left(
-\frac{1}{(2n-1/2)^2(2n+1/2)^2}
-\right)
-\\ & +
-\frac{(2n + 1)^2}{2(2n+1/2)^2 (2n+3/2)^2}
-\end{aligned}
-\right]
-$$
