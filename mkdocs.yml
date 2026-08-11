@@ -57,6 +57,7 @@ nav:
               - Overview: mathematics/analysis/companion_to_analysis/companion_to_analysis_overview.md
               - Chapter 1: mathematics/analysis/companion_to_analysis/chapter_1_notes.md
               - Chapter 3: mathematics/analysis/companion_to_analysis/chapter_3_notes.md
+              - Dependency Summary: mathematics/analysis/companion_to_analysis/theorem_dependencies.md
           - Axler Measure Theory:
               - 2A: mathematics/analysis/axler_measure_theory_exercises/exercises_2A.md
               - 2D: mathematics/analysis/axler_measure_theory_exercises/exercises_2D.md
@@ -75,7 +76,11 @@ markdown_extensions:
   - toc:
       permalink: true
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.blocks.details:
       types:
         - proof
