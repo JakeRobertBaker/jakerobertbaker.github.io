@@ -160,8 +160,8 @@ y - n \frac{y^2}{2}
 \sum_{n=1}^{\infty}
 \left[ 
 \begin{aligned}
-& \frac{16}{(4n-1)^2 (4n+1)^2}
-- \frac{32n^2}{(4n-1)^2 (4n+1)^2} 
+& 
+\frac{-9}{2} \frac{1}{4n-1} + \frac{7}{2} \frac{1}{(4n-1)^2} + \frac{9}{2} \frac{1}{4n+1} + \frac{7}{2} \frac{1}{(4n+1)^2}
 \\ & +
 (2n+1)^2  \frac{8}{(4n+1)^2 (4n+3)^2} 
 \end{aligned}
@@ -169,3 +169,88 @@ y - n \frac{y^2}{2}
 \end{align*}
 $$
 
+## Alt Way
+
+$$
+\begin{align*}
+\mathbb{P} \left( A \right) &=
+\int_{2/3}^{1} \frac{y}{2} \, dy +
+\sum_{n=1}^{\infty}
+\left[
+\int_{\frac{1}{2n+1/2}}^{\frac{1}{2n-1/2}}
+1-ny
+\, dy +
+\int_{\frac{1}{2n+3/2}}^{\frac{1}{2n+1/2}} \frac{2n+1}{2}y \, dy
+\right]
+\\
+&=
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[
+y - n \frac{y^2}{2}
+\right]_{\frac{1}{2n+1/2}}^{\frac{1}{2n-1/2}} +
+\left[
+\frac{2n+1}{4}y^2
+\right]_{\frac{1}{2n+3/2}}^{\frac{1}{2n+1/2}}
+\\ &=
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{1}{2n-1/2} - \frac{1}{2n+1/2}  
+-\frac{n}{2}\left( \frac{1}{(2n-1/2)^2} - \frac{1}{(2n+1/2)^2} \right)
+\\ & +
+\frac{2n+1}{4} \left( \frac{1}{(2n+1/2)^2} - \frac{1}{(2n+3/2)^2} \right)
+\end{aligned}
+\right]
+\\ &= 
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{2}{4n-1} - \frac{2}{4n+1}  
+- \frac{2n}{(4n-1)^2} + \frac{2n}{(4n+1)^2}
+\\ & +
+\frac{2n+1}{(4n+1)^2} - \frac{2n+1}{(4n+3)^2}
+\end{aligned}
+\right]
+\\ &= 
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& \frac{2}{4n-1} - \frac{2}{4n+1}  
+\\ & 
+- 1/2 \frac{1}{(4n-1)^2} -1/2 \frac{1}{4n-1} 
++ -1/2 \frac{1}{(4n+1)^2} +1/2 \frac{1}{4n+1}
+\\ & +
+1/2 \frac{1}{(4n+1)^2} + 1/2 \frac{1}{4n+1}
++ 1/2 \frac{1}{(4n+3)^2} - 1/2 \frac{1}{4n+3}
+\end{aligned}
+\right]
+\\ &= 
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& 3/2 \frac{1}{4n-1} -1/2 \frac{1}{(4n-1)^2}
+- \frac{1}{4n+1}
++ 1/2 \frac{1}{(4n+3)^2}
+- 1/2 \frac{1}{4n+3}
+\end{aligned}
+\right]
+\\ &= 
+\frac{5}{36} +
+\sum_{n=1}^{\infty}
+\left[ 
+\begin{aligned}
+& 1/2 \frac{1}{4n-1} - 1/2 \frac{1}{4n+3}
+-1/2 \frac{1}{(4n-1)^2}
++ 1/2 \frac{1}{(4n+3)^2}
+\\ & +
+\frac{1}{4n-1} 
+- \frac{1}{4n+1}
+\end{aligned}
+\right]
+\end{align*}
+$$
