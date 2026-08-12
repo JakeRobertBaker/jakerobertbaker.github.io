@@ -4,6 +4,13 @@
   max-width: 1440px;
 }
 
+.theorem-dependency-graph {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
 /* Match admonition font size to body text (theme default is .64rem, body is .8rem) */
 .md-typeset .admonition,
 .md-typeset details {

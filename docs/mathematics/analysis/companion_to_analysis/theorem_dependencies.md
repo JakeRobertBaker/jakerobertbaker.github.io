@@ -1,4 +1,6 @@
-## Chapters 1-3 
+# Chapters 1-3
+
+## Mermaid
 
 ### Minimal
 
@@ -55,3 +57,17 @@ SUP -->|"Theorem 3.15<br/>direct proof: Exercise 3.16"| FA
 SUP -->|Theorem 3.12| IVT
 SUP -->|"Lemma 3.14<br/>Theorem 1.42"| MVI
 ```
+
+## TikZ
+
+Both variants use one ELK Layered layout of the complete graph. The minimal
+graph is therefore the full graph with its additional arrows omitted: node,
+route, label, and canvas geometry are identical.
+
+### Minimal
+
+![Minimal theorem dependency graph](../../../assets/images/theorem-dependencies/companion-to-analysis-minimal.svg){ .theorem-dependency-graph loading=lazy }
+
+### Full
+
+![Full theorem dependency graph](../../../assets/images/theorem-dependencies/companion-to-analysis-full.svg){ .theorem-dependency-graph loading=lazy }
