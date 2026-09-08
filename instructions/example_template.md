@@ -100,7 +100,7 @@ Since $\varepsilon > 0$ was arbitrary, we conclude $|A \cup B| \leq |A|$. $\blac
 
 ## Formatting conventions
 
-- Bold labels: `**Proof.**`, `**Key idea:**`, `**(i)**`, `**(ii)**`
+- Bold labels: `**Key idea:**`, `**(i)**`, `**(ii)**`
 - Italics for emphasis and first use of terms: `*limit point*`, `*closed*`
 - Parenthetical references to source material: `(MIRA, 2.5)`, `(Rudin, Thm 3.6)`, `(Vaswani et al., 2017, §3.2)` — use whatever abbreviation was established in the **Source** line
 - End proofs with `$\blacksquare$` on its own line or at the end of the last display equation
