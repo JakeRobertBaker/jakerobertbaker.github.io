@@ -32,7 +32,9 @@ Custom types need both YAML registration in `mkdocs.yml` (under `pymdownx.blocks
 
 ## Maintenance rule
 
-When adding or changing project infrastructure/config (new extensions, overrides, SEO, deploy setup), update `README.md` and `CLAUDE.md` to reflect the change.
+When adding or changing project infrastructure/config (new extensions, overrides, SEO, deploy setup), update `README.md` and `AGENTS.md` to reflect the change.
+
+Avoid knowledge/information duplication across `README.md`, `AGENTS.md`, `instructions/*.md`. It is better to have these files reference each other instead of repeating info. 
 
 ## Transcribe/Cleanup
 
