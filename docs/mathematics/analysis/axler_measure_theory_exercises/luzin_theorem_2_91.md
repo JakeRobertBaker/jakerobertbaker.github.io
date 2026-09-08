@@ -140,29 +140,29 @@ $$
 \frac{\varepsilon}{2}.
 $$
 
-### Apply Egorov to each finite $(n,n+1)$, $n\in\mathbb{Z}$
+### Apply Egorov to each finite $(m,m+1)$, $n\in\mathbb{Z}$
 
-For each $n\in\mathbb{Z}$ the sequence $g_k|_{(n,n+1)}$ converges pointwise to $g$.
+For each $n\in\mathbb{Z}$ the sequence $g_k|_{(m,m+1)}$ converges pointwise to $g$.
 
-Egorov gives Borel $E_n\subseteq(n,n+1)$ s.t. $g_k$ converges uniformly to $g$ on $E_n$ &
+Egorov gives Borel $E_m\subseteq(m,m+1)$ s.t. $g_k$ converges uniformly to $g$ on $E_m$ &
 
 $$
-|(n,n+1)\setminus E_n|
+|(m,m+1)\setminus E_m|
 <
-\frac{\varepsilon}{2^{|n|+3}}
+\frac{\varepsilon}{2^{|m|+3}}
 \qquad
-\forall n\in\mathbb{Z}.
+\forall m\in\mathbb{Z}.
 $$
 
-Then $g_k$ converges uniformly on $C\cap E_n$ to $g$. Since $g_k|_C$ is continuous the uniform limit in $C\cap E_n$, $g|_{C\cap E_n}$, is continuous by 2.84.
+Then $g_k$ converges uniformly on $C\cap E_m$ to $g$. Since $g_k|_C$ is continuous the uniform limit in $C\cap E_m$, $g|_{C\cap E_m}$, is continuous by 2.84.
 
 Let
 
 $$
-D=\bigcup_{n\in\mathbb{Z}} C\cap E_n.
+D=\bigcup_{m\in\mathbb{Z}} C\cap E_m.
 $$
 
-Then $g|_D$ is continuous because $C\cap E_n$ are subsets of disjoint open intervals & subsets of disjoint open intervals keep continuity.
+Then $g|_D$ is continuous because $C\cap E_m$ are subsets of disjoint open intervals & subsets of disjoint open intervals keep continuity.
 
 Now just need to show $\mathbb{R}\setminus D$ arbitrarily small & then take arbitrarily small closed approximate $F$.
 
@@ -178,19 +178,19 @@ $$
 (\mathbb{R}\setminus C)
 \cup
 \left(
-\bigcap_{n\in\mathbb{Z}}\mathbb{R}\setminus E_n
+\bigcap_{m\in\mathbb{Z}}\mathbb{R}\setminus E_m
 \right)
 \qquad [\text{distributivity}].
 \end{align*}
 $$
 
 $$
-\bigcap_{n\in\mathbb{Z}}\mathbb{R}\setminus E_n
+\bigcap_{m\in\mathbb{Z}}\mathbb{R}\setminus E_m
 \subseteq
 \mathbb{Z}
 \cup
 \left(
-\bigcup_{n\in\mathbb{Z}}(n,n+1)\setminus E_n
+\bigcup_{m\in\mathbb{Z}}(m,m+1)\setminus E_m
 \right).
 $$
 
@@ -204,7 +204,7 @@ $$
 \mathbb{Z}
 \cup
 \left(
-\bigcup_{n\in\mathbb{Z}}(n,n+1)\setminus E_n
+\bigcup_{m\in\mathbb{Z}}(m,m+1)\setminus E_m
 \right).
 $$
 
