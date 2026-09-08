@@ -1,5 +1,9 @@
 <!-- snippets: latex_math -->
-# Luzin Theorem [2.91]
+# Luzin's Theorem
+
+Numbered 2.91 in Axler.
+
+Rewrote in my own words and scanned the notes to markdown. A personal exercise. 
 
 /// theorem | Luzin Theorem [2.91]
 
