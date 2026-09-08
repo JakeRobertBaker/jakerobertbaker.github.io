@@ -59,10 +59,10 @@ nav:
               - Chapter 3: mathematics/analysis/companion_to_analysis/chapter_3_notes.md
               - Dependency Summary: mathematics/analysis/companion_to_analysis/theorem_dependencies.md
           - Axler Measure Theory:
-              - 2A: mathematics/analysis/axler_measure_theory_exercises/exercises_2A.md
-              - 2D: mathematics/analysis/axler_measure_theory_exercises/exercises_2D.md
+              - Chapter 2 Exercises A: mathematics/analysis/axler_measure_theory_exercises/exercises_2A.md
+              - Chapter 2 Exercises D: mathematics/analysis/axler_measure_theory_exercises/exercises_2D.md
               - Chapter 2 - Measure Notes: mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes.md
-              - Luzin Theorem: mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91.md
+              - Chapter 2 - Luzin Theorem: mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91.md
 
   - Deep Learning:
       - Attention Mechanisms: deep_learning/attention.md
