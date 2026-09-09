@@ -126,6 +126,7 @@ Configured via `pymdownx.arithmatex` with `generic: true` and KaTeX JS/CSS in `e
 - **Site verification**: `overrides/main.html` contains a Google Search Console verification `<meta>` tag.
 - **Crawler directives**: `docs/robots.txt` allows all crawlers and points them to the sitemap. MkDocs copies it to the build root.
 - **Sitemap**: MkDocs auto-generates `sitemap.xml` at build time.
+- **Agent discovery**: `docs/llms.txt` provides a curated, topic-grouped guide to all published notes for LLM-based agents. Keep it in sync when content pages are added or removed.
 - **Meta description**: `site_description` in `mkdocs.yml` provides a fallback meta description for pages that don't set their own.
 
 ## Project Structure
@@ -135,5 +136,6 @@ docs/               # Content pages
 overrides/          # Theme template overrides
 docs/stylesheets/   # extra.css (custom admonition styles)
 docs/javascripts/   # katex.js
+docs/llms.txt        # Curated site map for LLM-based agents
 mkdocs.yml          # Site config, nav, extensions
 ```
