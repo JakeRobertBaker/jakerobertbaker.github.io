@@ -34,6 +34,8 @@ Custom types need both YAML registration in `mkdocs.yml` (under `pymdownx.blocks
 
 When adding or changing project infrastructure/config (new extensions, overrides, SEO, deploy setup), update `README.md` and `AGENTS.md` to reflect the change.
 
+`docs/llms.txt` is the curated agent-facing map of published content. Keep it in sync when content pages are added or removed; `sitemap.xml` remains the exhaustive generated URL inventory.
+
 Avoid knowledge/information duplication across `README.md`, `AGENTS.md`, `instructions/*.md`. It is better to have these files reference each other instead of repeating info. 
 
 ## Transcribe/Cleanup
