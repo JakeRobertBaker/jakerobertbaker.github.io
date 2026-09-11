@@ -1,0 +1,51 @@
+# Jake Notes
+
+> Personal study notes on mathematics and deep learning, with derivations, definitions, proofs, worked exercises, and theorem dependency maps.
+
+The notes are a reference and study aid rather than a polished textbook. Mathematical notation is written in LaTeX and rendered with KaTeX. The sitemap is the authoritative inventory if pages are added after this curated guide was updated.
+
+## Linear Algebra
+
+- [Matrix Multiplication](https://jakerobertbaker.github.io/mathematics/linear_algebra/matrix_multiplication/): Block-matrix multiplication identities expressed as linear sums of block columns and rows, with dimensions shown explicitly.
+- [Schur Complement](https://jakerobertbaker.github.io/mathematics/linear_algebra/schur_complement/): Derivation of Schur complements, block elimination, factorisations, and block-matrix inverse identities.
+
+## Probability
+
+- [Bayesian Ballot Sampling](https://jakerobertbaker.github.io/mathematics/probability/ballot_notes/): Beta-binomial and hypergeometric distributions, including a conjugate-prior derivation for sampling ballots without replacement.
+- [Absorption Probability](https://jakerobertbaker.github.io/mathematics/probability/absorption_probability/): Absorbing Markov chains in canonical form, the fundamental matrix as expected visit counts, and absorption probabilities via the matrix product NR.
+- [Normal Distribution](https://jakerobertbaker.github.io/mathematics/probability/normal_distribution/): Matrix completion of the square and detailed multivariate-normal definitions, density calculations, and related matrix identities.
+- [Uniform Fraction Problem](https://jakerobertbaker.github.io/mathematics/problems/uniform_fraction/): A worked probability problem about when the nearest integer to the ratio of two independent uniform random variables is even.
+
+## Algebra And Combinatorics
+
+- [Universal Algebra](https://jakerobertbaker.github.io/mathematics/set_theory/universal_algebra/): Notes based on Johnstone covering operational types and structures, terms, free structures, homomorphisms, equations, and algebraic theories.
+- [Combinatorial Proofs and Definitions](https://jakerobertbaker.github.io/mathematics/combinatorics/combinatorial_proofs/): Permutations, combinations, multinomial coefficients, stars and bars, and supporting counting arguments.
+- [Shapley Formula](https://jakerobertbaker.github.io/mathematics/game_theory/shapley_formula/): Derivation of the standard Shapley-value formula from average marginal contributions over coalition sizes.
+
+## Statistics
+
+- [Linear Models](https://jakerobertbaker.github.io/mathematics/linear_models/linear_models/): Ordinary least squares, projection geometry, nested-model ANOVA and F tests, and the relationship between R-squared and sample correlation.
+
+## Real Analysis
+
+- [Companion to Analysis Overview](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/companion_to_analysis_overview/): Revision summary of definitions and theorems from chapters 1-6 of Korner's A Companion to Analysis.
+- [Companion to Analysis Chapter 1](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/chapter_1_notes/): Detailed notes and exercises on the fundamental axiom, ordered fields, the Archimedean property, and embeddings of the rationals.
+- [Companion to Analysis Chapter 3](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/chapter_3_notes/): Exercise notes concerning construction of a supremum by nested intervals.
+- [Companion to Analysis Dependency Summary](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/theorem_dependencies/): Minimal and full visual graphs of theorem dependencies.
+- [Axler Measure Theory Exercises 2A](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/exercises_2A/): Questions and worked proofs on outer measure on the real line from section 2A of Axler's Measure, Integration & Real Analysis.
+- [Axler Measure Theory Exercises 2D](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/exercises_2D/): Worked measure-theory exercises involving Borel sets, decimal expansions, and Lebesgue measure.
+- [Axler Chapter 2 Measure Notes](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes/): Definitions and results on outer measure, sigma-algebras, measurable spaces, Borel sets, and Lebesgue measure.
+- [Luzin's Theorem](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91/): A proof of Axler's Theorem 2.91 using simple-function approximation, Egorov's theorem, and uniform limits.
+
+## Deep Learning
+
+- [Attention Mechanisms](https://jakerobertbaker.github.io/deep_learning/attention/): Shape-aware derivation of scaled dot-product self-attention, compatibility scores, positional encoding, and multi-head attention.
+- [Attention Is All You Need End-to-End Flow](https://jakerobertbaker.github.io/deep_learning/attention_is_all_you_need/): Walkthrough of the original transformer's encoder, decoder, masking, training loss, and autoregressive inference using an English-to-French example.
+- [CLIP and SigLIP Losses](https://jakerobertbaker.github.io/deep_learning/clip_losses/): Comparison and derivation of softmax-based CLIP and sigmoid-based SigLIP contrastive losses, including the learned temperature and bias.
+
+## Optional
+
+- [Home](https://jakerobertbaker.github.io/): Human-oriented entry point to the notes.
+- [About](https://jakerobertbaker.github.io/about/): Scope and intended use of the site.
+- [Sitemap](https://jakerobertbaker.github.io/sitemap.xml): Machine-readable inventory of all published pages.
+- [Crawler Policy](https://jakerobertbaker.github.io/robots.txt): Allows all user agents to crawl the entire site.
