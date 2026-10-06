@@ -135,7 +135,9 @@ $\implies   \hat{S}_{k-1} + a_{\sigma(k)} < l + a_{\sigma(k)} \implies \hat{S}_{
 
 So $0 \leq S_{k} -l < a_{\sigma(k)}$
 
-Because $k$ is the last integer $<m$ where $a_{\sigma(k)}, a_{\sigma(k+1)}$ have different signs, it holds that $a_{\sigma(j)} > 0$ for all $j \in \left\{ k+1, \dots, m \right\}$
+Because $k$ is the last integer $<m$ where $a_{\sigma(k)}, a_{\sigma(k+1)}$ have different signs, it holds that $a_{\sigma(j)} > 0$ for all $j \in \left\{ k+1, \dots, m \right\}$.
+
+So $0 \leq \hat{S}_{j} - l \leq \hat{S}_{k} - l < a_{\sigma(k)}$ for all $j \in \left\{ k+1, \dots, m \right\}$
 
 
 ##### Case 2
