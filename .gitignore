@@ -1,4 +1,10 @@
-site/
-.venv/
-__pycache__/
-*.pyc
+node_modules/
+dist/
+.astro/
+test-results/
+playwright-report/
+
+# Keep local MkDocs caches out of Git after switching an existing checkout.
+# Root-anchored: a generic site/ pattern would hide tests/site/.
+/site/
+/.venv/
