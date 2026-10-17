@@ -31,6 +31,8 @@ The notes are a reference and study aid rather than a polished textbook. Mathema
 - [Companion to Analysis Overview](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/companion_to_analysis_overview/): Revision summary of definitions and theorems from chapters 1-6 of Korner's A Companion to Analysis.
 - [Companion to Analysis Chapter 1](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/chapter_1_notes/): Detailed notes and exercises on the fundamental axiom, ordered fields, the Archimedean property, and embeddings of the rationals.
 - [Companion to Analysis Chapter 3](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/chapter_3_notes/): Exercise notes concerning construction of a supremum by nested intervals.
+- [Companion to Analysis Chapter 5](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/chapter_5_notes/): Notes and exercises on convergence of series, including rearrangements and permutations.
+- [Axler Measure Theory Exercises 1A](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/exercises_1A/): Worked exercises on the real line from section 1A of Axler's Measure, Integration & Real Analysis.
 - [Companion to Analysis Dependency Summary](https://jakerobertbaker.github.io/mathematics/analysis/companion_to_analysis/theorem_dependencies/): Minimal and full visual graphs of theorem dependencies.
 - [Axler Measure Theory Exercises 2A](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/exercises_2A/): Questions and worked proofs on outer measure on the real line from section 2A of Axler's Measure, Integration & Real Analysis.
 - [Axler Measure Theory Exercises 2D](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/exercises_2D/): Worked measure-theory exercises involving Borel sets, decimal expansions, and Lebesgue measure.
@@ -48,4 +50,5 @@ The notes are a reference and study aid rather than a polished textbook. Mathema
 - [Home](https://jakerobertbaker.github.io/): Human-oriented entry point to the notes.
 - [About](https://jakerobertbaker.github.io/about/): Scope and intended use of the site.
 - [Sitemap](https://jakerobertbaker.github.io/sitemap.xml): Machine-readable inventory of all published pages.
+- [Theorem registry](https://jakerobertbaker.github.io/theorems.json): Versioned, generated metadata for identified mathematical blocks and explicitly declared proof dependencies; no interactive graph is implemented.
 - [Crawler Policy](https://jakerobertbaker.github.io/robots.txt): Allows all user agents to crawl the entire site.
