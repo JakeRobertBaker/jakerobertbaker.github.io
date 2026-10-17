@@ -8,7 +8,7 @@
 
 ## Development and validation
 
-- `npm ci`, then `npm run dev`: native live preview on `0.0.0.0:2718` (LAN host: `192.168.178.20`). The user explicitly authorized stopping Quartz and repurposing this port. Check listeners/worktrees before starting or stopping servers.
+- Normal development is in `/home/jake/jakerobertbaker.github.io` on `main`; archived migration/Quartz worktrees do not own the active preview. `npm ci`, then `npm run dev`: native live preview on `0.0.0.0:2718` (LAN host: `192.168.178.20`). The user authorized repurposing this port. Check listeners/worktrees before starting or stopping servers.
 - Astro 7 native background controls: `npm run dev -- status`, `npm run dev -- logs --follow`, `npm run dev -- stop`.
 - Run `npm run check`, `npm run test:math`, `npm run build`, `npm run test:preview`, and `npm run test:site` after relevant changes. Browser dependencies/setup and the build-only Pagefind search distinction are documented in `README.md`.
 - Full-site regressions live in `tests/site/`; do not restore the old generic `site/` ignore pattern, which would hide those tests. Their managed preview uses native `--ignore-lock` to stay foreground-owned by Playwright instead of Astro's agent-detected daemon.
