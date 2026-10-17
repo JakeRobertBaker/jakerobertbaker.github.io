@@ -11,7 +11,9 @@ npm ci
 npm run dev
 ```
 
-The normal development checkout is `/home/jake/jakerobertbaker.github.io` on `main`; the migration worktree is retained for reference, not as the active preview source. The native Astro dev server binds `0.0.0.0:2718`, with automatic Markdown, CSS, and component refresh. Open **http://192.168.178.20:2718/** from this LAN or `http://127.0.0.1:2718/` on the host. The user authorized stopping Quartz and reusing 2718; no firewall rules were changed. Check listeners before starting another server on that port.
+Run these commands from the intended checkout on any development machine. Open **http://127.0.0.1:2718/** on that machine; Markdown, CSS and components refresh automatically. Port `2718` is a project default, not a requirement of a particular host. Check existing listeners before starting a server; override it with `npm run dev -- --port 4321` when needed.
+
+The current dev/preview configuration binds to `0.0.0.0` (all network interfaces). For local-only access or an SSH tunnel, use `npm run dev -- --host 127.0.0.1` (or `npm run preview -- --host 127.0.0.1`). Do not expose a development server to an untrusted network. See [preview access](instructions/site-preview.md#preview-access) for optional SSH/LAN workflows and private local notes.
 
 Astro 7 may run its development server in the background when invoked non-interactively. Use its native controls:
 
@@ -25,7 +27,7 @@ After changing Markdown pipeline/plugin code, restart with `npm run dev -- --for
 
 ### Production-build preview and search
 
-Starlight's native Pagefind search is generated during the build. The dev server displays its standard search notice; it does not live-reindex search. To review the full built site on the same LAN port:
+Starlight's native Pagefind search is generated during the build. The dev server displays its standard search notice; it does not live-reindex search. To review the full built site on the same local port:
 
 ```bash
 npm run dev -- stop
@@ -37,7 +39,7 @@ Stop that preview before restarting `npm run dev` (`npx astro preview stop` for 
 
 ## Writing and architecture
 
-Read [the writing conventions](instructions/example_template.md) for mathematical blocks, proof dependencies and cross-references. Notes stay `.md`; use `.mdx` only when a page needs imported interactive components. React is not installed or required.
+Read [the writing conventions](instructions/example_template.md) for the new-page checklist, sidebar/discovery updates, legacy anchor aliases, mathematical blocks, proof dependencies and cross-references. Notes stay `.md`; use `.mdx` only when a page needs imported interactive components. React is not installed or required.
 
 ```text
 src/content/docs/        Markdown/optional MDX notes, with title frontmatter
@@ -59,6 +61,8 @@ Semantic blocks provide per-file metadata through Astro's render pipeline. `/the
 
 Normal links work without previews. A small vanilla module enhances theorem links on hover/keyboard focus and opens ancestor proofs when following a deep link. Existing headings and block IDs are preserved; do not derive referenced theorem IDs from titles or numbering.
 
+Use documented Starlight sidebar/frontmatter/hooks and small scoped styles/component overrides, not a vendored theme or browser DOM rewrites to reconstruct the UI. Prefer native configuration over custom infrastructure.
+
 ## Validation
 
 ```bash
@@ -71,7 +75,9 @@ npm run test:site
 npm audit
 ```
 
-The site suite in `tests/site/` checks all 25 original URLs, all 250 original content anchors, unchanged body LaTeX hashes, images and local links, proof states/nesting, theorem previews, mobile overflow, navigation, built-site search, the registry and mathematics without JavaScript. `tests/fixtures/legacy-site.json` is an immutable migration baseline captured from MkDocs; never update it just to make a regression pass.
+The site suite in `tests/site/` checks all 25 original URLs, all 250 original content anchors, unchanged body LaTeX hashes, images and local links, proof states/nesting, theorem previews, mobile overflow, navigation, built-site search, the registry and mathematics without JavaScript. Registry checks require every original block identity but allow new blocks and explicitly declared dependencies. `tests/fixtures/legacy-site.json` is an immutable migration baseline captured from MkDocs; never update it just to make a regression pass.
+
+The root `site/` directory may remain from a local MkDocs build; it is ignored by Git and excluded from TypeScript checking, like `dist/`. These root-only exclusions must not hide the tracked `tests/site/` suite.
 
 See [browser preview instructions](instructions/site-preview.md) for Pi's official Playwright MCP, trust/reload, SSH/LAN access, screenshots and visual review. No browser-control network port or GUI is required. MCP artifacts belong in `/tmp`, never in published content.
 
@@ -94,6 +100,6 @@ Do not run `mkdocs gh-deploy`, manually copy builds to `gh-pages`, or edit gener
 
 The user approved the staged production cutover after reviewing the LAN preview. Git tags `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17` preserve the previous source and generated output. The migration is merged with a merge commit: if a rollback is needed, review/revert that merge (`git revert -m 1 <cutover-merge-commit>`) through a source PR. This restores the prior MkDocs source/workflow for automatic republication; do not force-push generated history. See the migration record and GitHub run history before deciding to roll back.
 
-Canonical URLs, verification metadata, crawler policy and social links are retained. Starlight generates `sitemap-index.xml`/`sitemap-0.xml`; see the migration record for compatibility handling of the old `sitemap.xml`. `public/llms.txt` is the curated published-content guide and must track added/removed notes.
+Canonical URLs, verification metadata, crawler policy and social links are retained. Starlight generates `sitemap-index.xml`/`sitemap-0.xml`; see the migration record for compatibility handling of the old `sitemap.xml`. The writing conventions cover maintenance of the curated `public/llms.txt` guide.
 
 See [the migration record](instructions/framework-migration-proposal.md) for the decision, preservation targets and acceptance status.
