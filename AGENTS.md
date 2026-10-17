@@ -11,6 +11,7 @@
 - `npm ci`, then `npm run dev`: native live preview on `0.0.0.0:2718` (LAN host: `192.168.178.20`). The user explicitly authorized stopping Quartz and repurposing this port. Check listeners/worktrees before starting or stopping servers.
 - Astro 7 native background controls: `npm run dev -- status`, `npm run dev -- logs --follow`, `npm run dev -- stop`.
 - Run `npm run check`, `npm run test:math`, `npm run build`, `npm run test:preview`, and `npm run test:site` after relevant changes. Browser dependencies/setup and the build-only Pagefind search distinction are documented in `README.md`.
+- Full-site regressions live in `tests/site/`; do not restore the old generic `site/` ignore pattern, which would hide those tests.
 - Use the `site-visual-review` skill and `instructions/site-preview.md` for official Playwright MCP review, screenshots and LAN/reload checks. Respect Pi's project trust. Do not reuse authenticated profiles or publish screenshots.
 
 ## Architectural constraints

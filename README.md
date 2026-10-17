@@ -71,7 +71,7 @@ npm run test:site
 npm audit
 ```
 
-The site suite checks all 25 original URLs, all 250 original content anchors, unchanged body LaTeX hashes, images and local links, proof states/nesting, theorem previews, mobile overflow, navigation, built-site search, the registry and mathematics without JavaScript. `tests/fixtures/legacy-site.json` is an immutable migration baseline captured from MkDocs; never update it just to make a regression pass.
+The site suite in `tests/site/` checks all 25 original URLs, all 250 original content anchors, unchanged body LaTeX hashes, images and local links, proof states/nesting, theorem previews, mobile overflow, navigation, built-site search, the registry and mathematics without JavaScript. `tests/fixtures/legacy-site.json` is an immutable migration baseline captured from MkDocs; never update it just to make a regression pass.
 
 See [browser preview instructions](instructions/site-preview.md) for Pi's official Playwright MCP, trust/reload, SSH/LAN access, screenshots and visual review. No browser-control network port or GUI is required. MCP artifacts belong in `/tmp`, never in published content.
 
