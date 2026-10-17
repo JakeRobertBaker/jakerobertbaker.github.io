@@ -19,7 +19,7 @@ For preview work, also read `instructions/local-preview.md` if present. It is op
 
 ## Working rules
 
-- Work in the current session's intended checkout. Make changes on source branches/PRs; require green CI before merging to `main`.
+- Work in the current session's intended checkout. Routine content and small documentation changes may go directly on `main`; preview and run relevant checks before pushing. Use a branch/PR with green CI for infrastructure, rendering, dependencies, broad refactors or experiments. See the [workflow guidance](README.md#workflow).
 - Check listeners and worktrees before starting/stopping a preview; do not assume a machine, access method or port is available. Use Astro's native controls documented in `README.md`.
 - Preserve the author's mathematics and published URLs/IDs. Never refresh `tests/fixtures/legacy-site.json` merely to pass a regression. Keep `tests/site/` tracked and checked; legacy build exclusions must target only the root `site/` directory.
 - Follow the architecture and validation guidance in `README.md`. For browser work, respect project trust, use fresh unauthenticated contexts and keep artifacts outside published content.

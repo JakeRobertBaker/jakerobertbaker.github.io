@@ -1,6 +1,6 @@
 # Jake Notes — Astro + Starlight
 
-Markdown mathematics notes, build-time KaTeX, and a small semantic theorem layer. Astro + Starlight replaces the former Material for MkDocs site, including its automatic GitHub Pages build/publication workflow. Live site: **https://jakerobertbaker.github.io/**.
+Personal mathematics and deep-learning notes built with Astro + Starlight, build-time KaTeX, and a small semantic theorem layer. Live site: **https://jakerobertbaker.github.io/**.
 
 ## Development
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Run these commands from the intended checkout on any development machine. Open **http://127.0.0.1:2718/** on that machine; Markdown, CSS and components refresh automatically. Port `2718` is a project default, not a requirement of a particular host. Check existing listeners before starting a server; override it with `npm run dev -- --port 4321` when needed.
+Open **http://127.0.0.1:2718/** on the development machine; Markdown, CSS and components refresh automatically. Check existing listeners before starting a server. Override the default port with `npm run dev -- --port 4321` when needed.
 
 The current dev/preview configuration binds to `0.0.0.0` (all network interfaces). For local-only access or an SSH tunnel, use `npm run dev -- --host 127.0.0.1` (or `npm run preview -- --host 127.0.0.1`). Do not expose a development server to an untrusted network. See [preview access](instructions/site-preview.md#preview-access) for optional SSH/LAN workflows and private local notes.
 
@@ -23,7 +23,7 @@ npm run dev -- logs --follow
 npm run dev -- stop
 ```
 
-After changing Markdown pipeline/plugin code, restart with `npm run dev -- --force` to invalidate Astro's rendered content metadata cache. Normal Markdown, CSS and Astro component edits update automatically. `npm run build` deliberately uses Astro's native `--force` flag so production artifacts never reuse stale imported-plugin metadata.
+After changing Markdown pipeline/plugin code, restart with `npm run dev -- --force` to invalidate rendered content metadata. `npm run build` also forces a fresh render to avoid stale imported-plugin metadata.
 
 ### Production-build preview and search
 
@@ -37,9 +37,14 @@ npm run preview
 
 Stop that preview before restarting `npm run dev` (`npx astro preview stop` for an agent-started background preview, Ctrl-C for foreground). For simultaneous local testing, use `npx astro preview --ignore-lock --host 127.0.0.1 --port 4322`; browser tests use this loopback port. `--ignore-lock` selects a one-off foreground server even when Astro detects Pi, so Playwright can own and clean up its process. This is a static artifact preview, not the live-edit server.
 
+## Workflow
+
+- Routine notes, assets, editorial navigation and small documentation updates may be committed directly to `main`. Preview content and run relevant [checks](#validation) before pushing; check the hosted CI result afterwards.
+- Use a branch/PR with green CI before merging for infrastructure, rendering, dependencies, broad refactors, URL changes or experiments. Keep unfinished work off `main`.
+
 ## Writing and architecture
 
-Read [the writing conventions](instructions/example_template.md) for the new-page checklist, sidebar/discovery updates, legacy anchor aliases, mathematical blocks, proof dependencies and cross-references. Notes stay `.md`; use `.mdx` only when a page needs imported interactive components. React is not installed or required.
+Read [the writing conventions](instructions/example_template.md) for the new-page checklist, navigation/discovery updates, legacy anchors and mathematical blocks/references. Ordinary notes stay `.md`; use `.mdx` only for pages needing imported interactive components. React is not installed or required.
 
 ```text
 src/content/docs/        Markdown/optional MDX notes, with title frontmatter
@@ -55,13 +60,10 @@ public/                 Static assets, robots.txt, llms.txt, favicon, .nojekyll
 astro.config.mjs        Static site, Starlight and the Unified Markdown pipeline
 ```
 
-Astro 7 defaults to Sätteri; this project explicitly selects its supported **Unified** processor for `remark-math`, `remark-directive`, and `rehype-katex`. KaTeX HTML/MathML, CSS and fonts are built/bundled locally. Mathematical content and native proof disclosure remain usable without JavaScript. Display math and mathematical-block bodies contain horizontal overflow, including long inline formulas, rather than widening mobile pages. Avoid adding client-side math rendering to ordinary notes.
-
-Semantic blocks provide per-file metadata through Astro's render pipeline. `/theorems.json` aggregates those records without a global mutable registry, HTML scraping, a second Markdown parser, or a separate file-watching daemon. Explicit relationships are validated. **No interactive graph is implemented**; a future renderer can consume the versioned registry. Original proofs have not been assigned speculative dependency metadata.
-
-Normal links work without previews. A small vanilla module enhances theorem links on hover/keyboard focus and opens ancestor proofs when following a deep link. Existing headings and block IDs are preserved; do not derive referenced theorem IDs from titles or numbering.
-
-Use documented Starlight sidebar/frontmatter/hooks and small scoped styles/component overrides, not a vendored theme or browser DOM rewrites to reconstruct the UI. Prefer native configuration over custom infrastructure.
+- Static Astro output with Starlight's native docs UI. Prefer documented sidebar/frontmatter/hooks and small scoped styles/component overrides, not a vendored theme or browser DOM rewrites.
+- Explicit **Unified** Markdown processing (`remark-math`, `remark-directive`, `rehype-katex`), rather than Astro 7's default Sätteri processor. KaTeX HTML/MathML, CSS and fonts are built locally; do not add client-side math rendering. Mathematics and native proof disclosure work without JavaScript.
+- Semantic blocks supply per-file render metadata from the same Markdown AST. `/theorems.json` aggregates it and validates explicit relationships: no process-global mutable extraction cache, HTML scraping, second source parser or separate watcher. No interactive graph or inferred proof dependencies.
+- Small vanilla scripts enhance theorem links with hover/focus previews and deep-link proof disclosure; ordinary links remain usable without them.
 
 ## Validation
 
@@ -75,13 +77,13 @@ npm run test:site
 npm audit
 ```
 
-The site suite in `tests/site/` checks all 25 original URLs, all 250 original content anchors, unchanged body LaTeX hashes, images and local links, proof states/nesting, theorem previews, mobile overflow, navigation, built-site search, the registry and mathematics without JavaScript. Registry checks require every original block identity but allow new blocks and explicitly declared dependencies. `tests/fixtures/legacy-site.json` is an immutable migration baseline captured from MkDocs; never update it just to make a regression pass.
+`tests/site/` checks legacy URLs, anchors and body-LaTeX hashes, links/assets, proof behaviour, theorem previews, mobile layout, navigation, built search, the registry and mathematics without JavaScript. Registry checks preserve original block identities while allowing additions and declared dependencies. `tests/fixtures/legacy-site.json` is the immutable MkDocs baseline; never refresh it merely to pass a regression.
 
 The root `site/` directory may remain from a local MkDocs build; it is ignored by Git and excluded from TypeScript checking, like `dist/`. These root-only exclusions must not hide the tracked `tests/site/` suite.
 
-See [browser preview instructions](instructions/site-preview.md) for Pi's official Playwright MCP, trust/reload, SSH/LAN access, screenshots and visual review. No browser-control network port or GUI is required. MCP artifacts belong in `/tmp`, never in published content.
+See [browser preview instructions](instructions/site-preview.md) for Playwright MCP, browser setup, screenshots, remote access and visual review.
 
-The lockfile pins a tested dependency set. `package.json` temporarily overrides transitive KaTeX to the directly pinned patched version and `postcss-selector-parser` to 7.1.6, resolving advisories in upstream math/Expressive Code dependency ranges. Keep these overrides until upstream ranges include patched releases; test builds and `npm audit` when changing them. The current audit is clean. A single legacy KaTeX strictness warning (`newLineInDisplayMode`) is tolerated without altering source mathematics; actual parse failures fail the build.
+The lockfile pins tested dependencies. `package.json` overrides transitive KaTeX and `postcss-selector-parser` to patched versions; retain these until upstream ranges include the fixes, and rerun validation and `npm audit` when changing dependencies. Only the legacy KaTeX strictness issue `newLineInDisplayMode` is tolerated; actual parse failures fail the build.
 
 ## Deployment
 
@@ -92,14 +94,12 @@ Pushing or merging to `main` triggers `.github/workflows/ci.yml`:
 3. A separate `main`-only job downloads that exact artifact, adds previously published `_astro/` and `pagefind/` assets **without overwriting any tested files**, and publishes it to the existing `gh-pages` branch using the commit-pinned `peaceiris/actions-gh-pages` action. Only this job has `contents: write`; it does not run project build scripts.
 4. GitHub's branch-based `pages-build-deployment` publishes `gh-pages` to the live site. Pages remains configured for `gh-pages` at `/`; no settings change or personal access token is required.
 
-Obsolete generated pages and files outside those asset directories are removed; `gh-pages` commit history is retained. Browser/search assets are retained so cached HTML, JavaScript and search metadata do not request missing fingerprints after deployment. The publisher reads the current and preceding `gh-pages` commits (the latter seeds initial compatibility); retained assets accumulate across releases. No old HTML pages are copied back. Review asset storage if the site grows substantially, and never prune current/cache-referenced assets casually. Publishing runs are serialized. Feature pushes/PRs use read-only validation and cannot publish. `workflow_dispatch` can rerun the normal pipeline; publishing is still restricted to `main`.
+Failed validation prevents publication, leaving the previous live site in place; fix or revert a failing `main` commit rather than bypassing checks. Publishing runs are serialized. Feature pushes/PRs validate read-only and cannot publish; manual workflow runs remain `main`-only for publication.
 
-Do not run `mkdocs gh-deploy`, manually copy builds to `gh-pages`, or edit generated files there. Make content/config changes on a branch, pass CI and merge to `main`.
+Obsolete pages are removed and `gh-pages` history retained. The publisher carries forward assets from its current and preceding commits so cached clients keep working; no old HTML is copied back. Assets accumulate across releases: review storage as needed, but do not casually prune cache-referenced fingerprints.
+
+Do not run `mkdocs gh-deploy`, manually copy builds to `gh-pages`, edit its generated files or force-push its history.
 
 ### Cutover and rollback
 
-The user approved the staged production cutover after reviewing the LAN preview. Git tags `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17` preserve the previous source and generated output. The migration is merged with a merge commit: if a rollback is needed, review/revert that merge (`git revert -m 1 <cutover-merge-commit>`) through a source PR. This restores the prior MkDocs source/workflow for automatic republication; do not force-push generated history. See the migration record and GitHub run history before deciding to roll back.
-
-Canonical URLs, verification metadata, crawler policy and social links are retained. Starlight generates `sitemap-index.xml`/`sitemap-0.xml`; see the migration record for compatibility handling of the old `sitemap.xml`. The writing conventions cover maintenance of the curated `public/llms.txt` guide.
-
-See [the migration record](instructions/framework-migration-proposal.md) for the decision, preservation targets and acceptance status.
+Tags `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17` preserve the previous source and output. To undo the cutover, review/revert the migration merge through a source PR (`git revert -m 1 <cutover-merge-commit>`), restoring the prior MkDocs source/workflow for automatic republication. Consult the [migration record](instructions/framework-migration-proposal.md) and GitHub run history first; the record also covers preservation targets, legacy sitemap compatibility and acceptance checks.
