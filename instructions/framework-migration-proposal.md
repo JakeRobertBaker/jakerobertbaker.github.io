@@ -2,9 +2,9 @@
 
 ## Decision and isolation
 
-The user approved **Astro + Starlight and directive-based authoring**, manually reviewed the LAN preview, and subsequently approved pushing and deploying the replacement. Migration was implemented in `/home/jake/jakerobertbaker-astro`, branch `migration/astro-starlight`, from the production baseline plus the independent browser tooling commit (`0345595`). The cutover refactors the existing automatic publishing workflow as well as the website.
+The user approved **Astro + Starlight and directive-based authoring**, manually reviewed the LAN preview, and subsequently approved pushing and deploying the replacement. Migration was implemented in an isolated worktree on branch `migration/astro-starlight`, from the production baseline plus the independent browser tooling commit (`0345595`). The cutover refactors the existing automatic publishing workflow as well as the website.
 
-The user also authorized stopping the Quartz preview and assigning **2718** to the current preview. Quartz's worktree remains unchanged. Port 8000 was not reachable from the user's machine; the migration uses the already reachable 2718 rather than modifying firewall rules.
+During migration, the user authorized stopping the Quartz preview and reusing its reachable preview port without changing firewall rules. The Quartz worktree was left unchanged. These were migration-session arrangements, not requirements for future development machines.
 
 **Production cutover completed.** [PR #3](https://github.com/JakeRobertBaker/jakerobertbaker.github.io/pull/3) merged as `ada4d8739dc3b23e74943390f56769cadbe694e2` after both hosted validation runs passed. The [Astro publication workflow](https://github.com/JakeRobertBaker/jakerobertbaker.github.io/actions/runs/39027086242) and [GitHub Pages deployment](https://github.com/JakeRobertBaker/jakerobertbaker.github.io/actions/runs/39027208613) succeeded. GitHub Pages settings remain unchanged. Backup tags preserve the prior source and generated output; see `README.md` for normal deployment and source-based rollback.
 
@@ -47,7 +47,7 @@ Automated/browser validation covers:
 
 ## Operational notes and cutover
 
-- Production is **https://jakerobertbaker.github.io/**; normal development/preview now runs from the primary checkout on `main`, not the archived migration worktree. Live dev preview: **http://192.168.178.20:2718/**. Starlight's native dev search notice is expected: Pagefind search is build-time only. For full search review, stop dev and run `npm run build && npm run preview` on that same port, or use the loopback production-build test preview on 4322.
+- Production is **https://jakerobertbaker.github.io/**. Development no longer requires the isolated migration worktree or the machine/access method used for cutover. See `README.md` and `instructions/site-preview.md` for current portable preview commands. Starlight's native dev search notice is expected: real Pagefind search requires a production-build preview.
 - Build commands force a clean content render, avoiding stale imported Markdown-plugin metadata. After plugin changes, restart dev with `--force`; ordinary Markdown, CSS and component edits reload natively.
 - The pre-rendered theorem dependency SVGs remain ordinary content assets. **No interactive theorem graph, graph renderer or graph library is implemented.** Future graph work can consume the semantic registry.
 - Dependency metadata is supported and tested, but existing proofs remain unannotated until the author explicitly declares relationships.

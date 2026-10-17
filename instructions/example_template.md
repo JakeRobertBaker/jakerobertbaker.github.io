@@ -14,11 +14,28 @@ title: Descriptive page title
 Notes go here.
 ```
 
-Starlight renders the page title; do not add a second H1. Preserve editorial sidebar labels/order in `src/data/navigation.json`. Use `.mdx` with imported Astro components only when interaction requires it; ordinary mathematical blocks need no imports or JSX.
+Starlight renders the page title; do not add a second H1. Use `.mdx` with imported Astro components only when interaction requires it; ordinary mathematical blocks need no imports or JSX.
 
 Filenames determine canonical URLs, preserving case and underscores. Use ordinary Markdown links: `[a result](../other-note.md#thm-result)`, `[same page](#def-limit)`, or reference-style links. One shared transform resolves source-relative note/asset paths and proof metadata. Absolute site paths and external URLs are supported. Do not rename published pages/IDs without compatibility handling.
 
-Existing source H1 anchors are retained as small HTML spans in migrated pages. The heading-ID policy intentionally retains the previous ASCII/Python-Markdown convention, using source LaTeX before KaTeX rendering and `_1`, `_2`, … for repeated headings. For new long-lived cross-references, prefer explicit IDs on semantic blocks, not generated heading anchors.
+### Adding a page
+
+1. Create a `.md` file under `src/content/docs/` with `title` frontmatter, as above. **No HTML anchor span is required for a new page.**
+2. Add a `slug` entry to the appropriate group in `src/data/navigation.json` if the page should appear in the sidebar. Use its path relative to `src/content/docs/`, without `.md` or a leading slash; for example, `mathematics/problems/new_problem`. A `label` is optional and overrides the page title. Preserve existing editorial labels and ordering.
+3. Add the published URL and a short description to `public/llms.txt`; remove/update entries when removing/moving notes. The generated sitemap is the exhaustive URL inventory, not a file to edit.
+4. Run the relevant [validation commands](../README.md#validation); review rendered mathematics and navigation when content changes.
+
+### Sidebar policy
+
+`src/data/navigation.json` is passed directly to Starlight's native `sidebar` option in `astro.config.mjs`. It controls presentation, **not page creation**: a note without an entry still gets a URL and, unless explicitly excluded, appears in the built search index and sitemap. The current sidebar is intentionally manual to preserve curated groups, short labels and non-alphabetical reading order. No separate page or theorem registry needs manual updating.
+
+Manual entries are a supported Starlight pattern, not an Astro requirement. If a section grows enough that per-page entries become a nuisance, Starlight supports an `autogenerate` directory group alongside manual groups, with page-level `sidebar.label` and `sidebar.order` frontmatter. Prefer that native option over a custom generator; changing the policy should preserve existing navigation deliberately. See the [Starlight sidebar guide](https://starlight.astro.build/guides/sidebar/).
+
+### Legacy anchors
+
+Spans such as `<span id="uniform-fraction"></span>` are **migration compatibility aliases**, not normal authoring boilerplate. MkDocs generated an anchor for the original `# Uniform Fraction` heading. Its text is now the frontmatter title, which Starlight renders with `id="_top"`; the span keeps the old `/mathematics/problems/uniform_fraction/#uniform-fraction` link working without a duplicate H1. Keep existing aliases, but do not copy them into new pages.
+
+Ordinary `##`/`###` headings receive IDs automatically. The heading-ID policy intentionally retains the previous ASCII/Python-Markdown convention, using source LaTeX before KaTeX rendering and `_1`, `_2`, … for repeated headings. For new long-lived cross-references, prefer explicit IDs on semantic blocks, not generated heading anchors.
 
 ## Mathematics
 
