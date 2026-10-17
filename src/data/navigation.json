@@ -1,0 +1,174 @@
+[
+  {
+    "label": "Home",
+    "slug": "index"
+  },
+  {
+    "label": "Mathematics",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Linear Algebra",
+        "collapsed": true,
+        "items": [
+          {
+            "label": "Matrix Multiplication",
+            "slug": "mathematics/linear_algebra/matrix_multiplication"
+          },
+          {
+            "label": "Schur Complement",
+            "slug": "mathematics/linear_algebra/schur_complement"
+          }
+        ]
+      },
+      {
+        "label": "Probability",
+        "collapsed": true,
+        "items": [
+          {
+            "label": "Bayesian Ballot Sampling",
+            "slug": "mathematics/probability/ballot_notes"
+          },
+          {
+            "label": "Absorption Probability",
+            "slug": "mathematics/probability/absorption_probability"
+          },
+          {
+            "label": "Normal Distribution",
+            "slug": "mathematics/probability/normal_distribution"
+          }
+        ]
+      },
+      {
+        "label": "Set Theory",
+        "collapsed": true,
+        "items": [
+          {
+            "label": "Universal Algebra",
+            "slug": "mathematics/set_theory/universal_algebra"
+          }
+        ]
+      },
+      {
+        "label": "Combinatorics",
+        "collapsed": true,
+        "items": [
+          {
+            "label": "Combinatorial Proofs and Definitions",
+            "slug": "mathematics/combinatorics/combinatorial_proofs"
+          }
+        ]
+      },
+      {
+        "label": "Game Theory",
+        "collapsed": true,
+        "items": [
+          {
+            "label": "Shapley Formula",
+            "slug": "mathematics/game_theory/shapley_formula"
+          }
+        ]
+      },
+      {
+        "label": "Statistics",
+        "collapsed": true,
+        "items": [
+          {
+            "label": "Linear Models",
+            "slug": "mathematics/linear_models/linear_models"
+          }
+        ]
+      },
+      {
+        "label": "Analysis",
+        "collapsed": true,
+        "items": [
+          {
+            "label": "Companion to Analysis",
+            "collapsed": true,
+            "items": [
+              {
+                "label": "Overview",
+                "slug": "mathematics/analysis/companion_to_analysis/companion_to_analysis_overview"
+              },
+              {
+                "label": "Chapter 1",
+                "slug": "mathematics/analysis/companion_to_analysis/chapter_1_notes"
+              },
+              {
+                "label": "Chapter 3",
+                "slug": "mathematics/analysis/companion_to_analysis/chapter_3_notes"
+              },
+              {
+                "label": "Dependency Summary",
+                "slug": "mathematics/analysis/companion_to_analysis/theorem_dependencies"
+              },
+              {
+                "label": "Chapter 5",
+                "slug": "mathematics/analysis/companion_to_analysis/chapter_5_notes"
+              }
+            ]
+          },
+          {
+            "label": "Axler Measure Theory",
+            "collapsed": true,
+            "items": [
+              {
+                "label": "Chapter 1 Exercises A",
+                "slug": "mathematics/analysis/axler_measure_theory_exercises/exercises_1A"
+              },
+              {
+                "label": "Chapter 2 Exercises A",
+                "slug": "mathematics/analysis/axler_measure_theory_exercises/exercises_2A"
+              },
+              {
+                "label": "Chapter 2 Exercises D",
+                "slug": "mathematics/analysis/axler_measure_theory_exercises/exercises_2D"
+              },
+              {
+                "label": "Chapter 2 - Measure Notes",
+                "slug": "mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes"
+              },
+              {
+                "label": "Chapter 2 - Luzin Theorem",
+                "slug": "mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Problems",
+        "collapsed": true,
+        "items": [
+          {
+            "label": "Uniform Fraction",
+            "slug": "mathematics/problems/uniform_fraction"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Deep Learning",
+    "collapsed": true,
+    "items": [
+      {
+        "label": "Attention Mechanisms",
+        "slug": "deep_learning/attention"
+      },
+      {
+        "label": "Attention Is All You Need End-to-End Flow",
+        "slug": "deep_learning/attention_is_all_you_need"
+      },
+      {
+        "label": "CLIP & SigLIP Losses",
+        "slug": "deep_learning/clip_losses"
+      }
+    ]
+  },
+  {
+    "label": "About",
+    "slug": "about"
+  }
+]
