@@ -26,6 +26,6 @@
 
 - The user approved the Astro production cutover after manual review. Normal deployment is automatic on `main`: `ci.yml` calls reusable read-only validation, then a separate write-enabled job publishes the tested artifact to `gh-pages`. GitHub Pages remains branch-based (`gh-pages`, `/`).
 - Use source branches/PRs and require green CI before merging. Do not run manual `mkdocs gh-deploy`, edit generated `gh-pages` files or force-push its history. See `README.md` for the pipeline, backup tags and source-based rollback.
-- Validation artifacts must include hidden files (`.nojekyll`). Keep publishing `main`-only, preserve `gh-pages` history, and confine write permissions to the publishing job.
+- Validation artifacts must include hidden files (`.nojekyll`). Keep publishing `main`-only, preserve `gh-pages` history, and confine write permissions to the publishing job. Preserve previously published `_astro/`/`pagefind/` assets for cached clients without overwriting tested files; remove obsolete pages, not still-cache-referenced fingerprints.
 - Update `README.md` and `AGENTS.md` for infrastructure/config changes; keep detailed conventions in `instructions/` and link rather than duplicate them.
 - Keep `public/llms.txt` synchronized when notes are added or removed. Native sitemap files are the exhaustive URL inventory; preserve the legacy sitemap endpoint.

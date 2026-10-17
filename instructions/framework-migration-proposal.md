@@ -28,7 +28,7 @@ No comparative framework performance benchmark was used to choose the winner. Lo
 - `/theorems.json` aggregates the same render pipeline's per-file metadata into versioned, renderer-independent records. Source lines account for stripped frontmatter. It validates explicit relationships and does not infer dependencies from ordinary links. No global mutable extraction cache or second Markdown source parser.
 - A small vanilla module adds theorem hover/keyboard-focus previews and opens ancestor proofs for deep links. It fetches same-origin pages on demand; it does not download a graph or re-render KaTeX in the browser.
 - A tiny build hook copies Starlight's generated sitemap index to legacy `/sitemap.xml`. Search verification metadata, canonical URLs, robots policy, social links and static diagrams are retained. `llms.txt` is moved to `public/` and reconciled with all notes.
-- Reusable read-only GitHub Actions validation for feature pushes/PRs and the production pipeline. The refactored `ci.yml` publishes its tested artifact from a separate `main`-only job to the existing `gh-pages` branch; native Pages then publishes that branch. Old generated assets are removed while branch history is preserved.
+- Reusable read-only GitHub Actions validation for feature pushes/PRs and the production pipeline. The refactored `ci.yml` publishes its tested artifact from a separate `main`-only job to the existing `gh-pages` branch; native Pages then publishes that branch. Obsolete generated pages are removed while branch history and browser/search fingerprint assets are preserved for cached clients.
 
 ## Preservation and validation
 
@@ -53,7 +53,7 @@ Automated/browser validation covers:
 - Dependency metadata is supported and tested, but existing proofs remain unannotated until the author explicitly declares relationships.
 - The user approved replacing the MkDocs publishing steps with tested Astro build/validation and `dist/` publication to the existing `gh-pages` branch, including `.nojekyll`. GitHub Pages settings remain unchanged.
 - Source and generated-output backup tags are `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17`. `README.md` describes normal deployment and source-based rollback; do not maintain generated files manually.
-- Public checks verified all 25 URLs, all 250 original anchors, 237 internal link/asset targets, the 98-record theorem registry and real search. A broader post-cutover mobile sweep exposed a long inline formula in Universal Algebra; the follow-up scopes horizontal scrolling to mathematical-block bodies without changing source mathematics and extends mobile coverage to every original page. Lazy image verification waits for decoding rather than treating not-yet-loaded images as broken.
+- Public checks verified all 25 URLs, all 250 original anchors, 237 internal link/asset targets, the 98-record theorem registry and real search. A returning-browser check also exposed cached HTML requesting an older fingerprinted stylesheet after deployment. The publisher now carries forward `_astro/` and `pagefind/` assets without overwriting tested files; it still removes obsolete HTML pages. A broader post-cutover mobile sweep exposed a long inline formula in Universal Algebra; the follow-up scopes horizontal scrolling to mathematical-block bodies without changing source mathematics and extends mobile coverage to every original page. Lazy image verification waits for decoding rather than treating not-yet-loaded images as broken.
 
 ## References reviewed
 
