@@ -6,6 +6,14 @@
 uv run mkdocs serve --livereload
 ```
 
+## Browser preview and visual review
+
+Framework-independent browser tooling is available through Pi's official Playwright MCP integration. It runs headlessly on the SSH host and can inspect localhost, LAN, and public URLs without exposing a browser-control port.
+
+See [the preview guide](instructions/site-preview.md) for setup, LAN/SSH commands, interactive inspection, and repeatable screenshot comparisons. Node is needed only for these optional development tools; the production site still builds with MkDocs.
+
+The [framework migration proposal](instructions/framework-migration-proposal.md) recommends Astro + Starlight and records preservation/validation requirements. It is awaiting agreement; no framework or deployment switch has been made.
+
 ## Deployment
 
 Deployment is automated via `.github/workflows/ci.yml`. Pushing to `main` triggers the workflow, which runs `mkdocs gh-deploy --force` to build the site and push it to the `gh-pages` branch. GitHub's built-in `pages-build-deployment` workflow then publishes that branch to the live site. No manual deploy step is needed.

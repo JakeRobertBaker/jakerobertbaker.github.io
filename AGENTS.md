@@ -5,6 +5,14 @@
 - Preview: `uv run mkdocs serve --livereload`
 - Deploy: automated — push to `main` triggers `.github/workflows/ci.yml`, which builds and pushes to `gh-pages`. GitHub's `pages-build-deployment` then publishes to the live site. Do not run `mkdocs gh-deploy` manually.
 
+## Browser preview
+
+Read `instructions/site-preview.md` for the framework-independent Playwright MCP workflow, SSH/LAN access, and screenshot commands. `.pi/mcp.json` uses official Playwright MCP over stdio; respect Pi's project-trust gate. The `site-visual-review` skill packages the review workflow. Do not stop or reuse another worktree's preview port without checking; the Quartz experiment currently owns port 2718.
+
+## Migration planning
+
+`instructions/framework-migration-proposal.md` records the proposed direction and acceptance plan. It is not approved implementation guidance yet: do not start the framework migration or switch deployment until the user agrees. Keep migration work in its own branch/worktree, preserve content wording and legacy URLs/anchors, and require separate approval before publishing.
+
 ## Markdown and Code Style
 
 Make sure to have read @instructions/example_template.md.

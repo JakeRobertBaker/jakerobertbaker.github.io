@@ -1,0 +1,16 @@
+{
+  "name": "jake-notes-dev-tools",
+  "private": true,
+  "type": "module",
+  "description": "Framework-independent browser development tools; the site still builds with MkDocs.",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "screenshots": "node scripts/screenshots.mjs",
+    "test:preview": "node --test tests/preview-tools.test.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
+  }
+}
