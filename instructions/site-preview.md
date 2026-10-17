@@ -24,7 +24,7 @@ Check `ss -ltnp`, the server's worktree, and its process before starting/stoppin
 
 Astro 7 may start a background daemon for non-interactive invocations. In its worktree use `npm run dev -- status`, `npm run dev -- logs --follow`, and `npm run dev -- stop`. After changing Markdown pipeline code, restart with `npm run dev -- --force`. Ordinary Markdown/CSS/component edits update automatically.
 
-Starlight search is normally built with Pagefind, not live-indexed in `astro dev`. Test real search with `npm run build` plus `npm run preview` (stop the dev server first to reuse 2718), or use the simultaneous loopback preview on 4322. The dev server displays Starlight's native search notice; do not replace that with misleading stale results.
+Starlight search is normally built with Pagefind, not live-indexed in `astro dev`. Test real search with `npm run build` plus `npm run preview` (stop the dev server first to reuse 2718), or use the simultaneous loopback preview on 4322. The dev server displays Starlight's native search notice; do not replace that with misleading stale results. Playwright's managed build-preview server uses `astro preview --ignore-lock --host 127.0.0.1 --port 4322` so it stays foreground-owned by the test runner even when launched inside Pi.
 
 For private access, bind a server to loopback and forward it **from the client machine**:
 

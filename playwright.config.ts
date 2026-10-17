@@ -6,7 +6,9 @@ export default defineConfig({
   workers: 2,
   use: { baseURL: 'http://127.0.0.1:4322', trace: 'retain-on-failure' },
   webServer: {
-    command: 'npx astro preview --host 127.0.0.1 --port 4322',
+    // Keep this one-off server foreground-owned by Playwright, even inside Pi
+    // (Astro otherwise detects agents and starts a detached daemon).
+    command: 'npx astro preview --ignore-lock --host 127.0.0.1 --port 4322',
     url: 'http://127.0.0.1:4322',
     reuseExistingServer: !process.env.CI,
   },

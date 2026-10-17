@@ -33,7 +33,7 @@ npm run build
 npm run preview
 ```
 
-Stop that preview before restarting `npm run dev`. For simultaneous local testing, use `npx astro preview --host 127.0.0.1 --port 4322`; browser tests use this loopback port. This is a static artifact preview, not the live-edit server.
+Stop that preview before restarting `npm run dev` (`npx astro preview stop` for an agent-started background preview, Ctrl-C for foreground). For simultaneous local testing, use `npx astro preview --ignore-lock --host 127.0.0.1 --port 4322`; browser tests use this loopback port. `--ignore-lock` selects a one-off foreground server even when Astro detects Pi, so Playwright can own and clean up its process. This is a static artifact preview, not the live-edit server.
 
 ## Writing and architecture
 
