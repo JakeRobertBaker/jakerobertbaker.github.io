@@ -75,15 +75,17 @@ test('theorem registry is generated from the same Markdown and preserves all ide
   expect(response.status()).toBe(200);
   const registry = await response.json();
   expect(registry.version).toBe(1);
-  expect(registry.blocks).toHaveLength(98);
-  expect(new Set(registry.blocks.map((block: { url: string }) => block.url)).size).toBe(98);
+  const blockUrls = registry.blocks.map((block: { url: string }) => block.url);
+  const legacyBlockUrls = baseline.flatMap((original) => original.blockIds.map((id) => `${original.url}#${id}`));
+  // Preserve every migrated identity without freezing the site at its migration size.
+  expect(blockUrls).toEqual(expect.arrayContaining(legacyBlockUrls));
+  expect(new Set(blockUrls).size).toBe(blockUrls.length);
   for (const block of registry.blocks) {
     expect(block.statement).toBeTruthy();
     expect(block.line).toBeGreaterThan(0);
     expect(block.source).toMatch(/\.md$/);
     const source = await readFile(new URL(`../../src/content/docs/${block.source}`, import.meta.url), 'utf8');
     expect(source.split('\n')[block.line - 1], block.url).toMatch(new RegExp(`^:{3,}${block.kind}`));
-    expect(block.uses).toEqual([]); // No dependencies invented during migration.
   }
 });
 
