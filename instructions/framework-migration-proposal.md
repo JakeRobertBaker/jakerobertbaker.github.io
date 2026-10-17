@@ -2,11 +2,11 @@
 
 ## Decision and isolation
 
-The user approved **Astro + Starlight and directive-based authoring**. Migration is implemented in `/home/jake/jakerobertbaker-astro`, branch `migration/astro-starlight`, from the production baseline plus the independent browser tooling commit (`0345595`). Production `main` and `gh-pages` have not been changed or published.
+The user approved **Astro + Starlight and directive-based authoring**, manually reviewed the LAN preview, and subsequently approved pushing and deploying the replacement. Migration was implemented in `/home/jake/jakerobertbaker-astro`, branch `migration/astro-starlight`, from the production baseline plus the independent browser tooling commit (`0345595`). The cutover refactors the existing automatic publishing workflow as well as the website.
 
 The user also authorized stopping the Quartz preview and assigning **2718** to the current preview. Quartz's worktree remains unchanged. Port 8000 was not reachable from the user's machine; the migration uses the already reachable 2718 rather than modifying firewall rules.
 
-**Cutover remains unapproved.** Do not merge/deploy the migration without the user's separate approval.
+**Production cutover is approved.** The staged rollout is: validate the pushed migration branch/PR in GitHub Actions, merge only after successful checks, then verify both publishing workflows and the live site. Backup tags preserve the prior source and generated output; see `README.md` for normal deployment and rollback.
 
 ## Why this framework
 
@@ -28,7 +28,7 @@ No comparative framework performance benchmark was used to choose the winner. Lo
 - `/theorems.json` aggregates the same render pipeline's per-file metadata into versioned, renderer-independent records. Source lines account for stripped frontmatter. It validates explicit relationships and does not infer dependencies from ordinary links. No global mutable extraction cache or second Markdown source parser.
 - A small vanilla module adds theorem hover/keyboard-focus previews and opens ancestor proofs for deep links. It fetches same-origin pages on demand; it does not download a graph or re-render KaTeX in the browser.
 - A tiny build hook copies Starlight's generated sitemap index to legacy `/sitemap.xml`. Search verification metadata, canonical URLs, robots policy, social links and static diagrams are retained. `llms.txt` is moved to `public/` and reconciled with all notes.
-- Read-only GitHub Actions validation for migration pushes/PRs. The existing production publishing workflow is untouched pending cutover approval.
+- Reusable read-only GitHub Actions validation for feature pushes/PRs and the production pipeline. The refactored `ci.yml` publishes its tested artifact from a separate `main`-only job to the existing `gh-pages` branch; native Pages then publishes that branch. Old generated assets are removed while branch history is preserved.
 
 ## Preservation and validation
 
@@ -41,18 +41,18 @@ Automated/browser validation covers:
 - All note images and internal links/fragment targets, no duplicate HTML IDs, no KaTeX errors or leaked legacy syntax.
 - Mobile navigation/order, dark/light layout, wide math containment, proof nesting/disclosure, hover/focus previews, static mathematics without JavaScript, and real Pagefind search on a production build.
 - Live MCP inspection at mobile/desktop sizes. Native Markdown reload was observed from the LAN origin without manual refresh. Disposable theorem-registry additions/edits/deletions were reflected correctly; CSS and Astro component changes also updated in the open browser. All temporary probes were removed.
-- `npm run check`, math/plugin tests, browser-tool tests, production build, full-site Playwright tests, and `npm audit` pass locally. Audit is clean after documented transitive overrides for patched KaTeX and selector parsing. GitHub-hosted workflow execution is not claimed: nothing has been pushed.
+- `npm run check`, math/plugin tests, browser-tool tests, production build, full-site Playwright tests, and `npm audit` passed locally, including a clean archive/install of committed source. Audit was clean after documented transitive overrides for patched KaTeX and selector parsing. GitHub Actions check/run history is the authority for hosted validation and publishing results.
 
 `tests/fixtures/legacy-site.json` is the immutable MkDocs baseline (URLs, anchors, block IDs and body-math hashes), not a generated artifact to refresh whenever tests fail.
 
-## Operational notes and remaining cutover work
+## Operational notes and cutover
 
 - Live dev preview: **http://192.168.178.20:2718/**. Starlight's native dev search notice is expected: Pagefind search is build-time only. For full search review, stop dev and run `npm run build && npm run preview` on that same port, or use the loopback production-build test preview on 4322.
 - Build commands force a clean content render, avoiding stale imported Markdown-plugin metadata. After plugin changes, restart dev with `--force`; ordinary Markdown, CSS and component edits reload natively.
 - The pre-rendered theorem dependency SVGs remain ordinary content assets. **No interactive theorem graph, graph renderer or graph library is implemented.** Future graph work can consume the semantic registry.
 - Dependency metadata is supported and tested, but existing proofs remain unannotated until the author explicitly declares relationships.
-- **Before publication approval:** review the preview and any desired design refinements. Do not deploy or change Pages settings.
-- **After publication approval:** replace the old MkDocs publishing steps with tested Astro build/validation and `dist/` publication to the existing `gh-pages` branch, including `.nojekyll`. Preserve main-only deployment gating. The existing `ci.yml` is not a working Astro publish workflow and must be changed at cutover; it is retained unchanged here specifically to avoid an unapproved production switch.
+- The user approved replacing the MkDocs publishing steps with tested Astro build/validation and `dist/` publication to the existing `gh-pages` branch, including `.nojekyll`. GitHub Pages settings remain unchanged.
+- Source and generated-output backup tags are `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17`. `README.md` describes normal deployment and source-based rollback; do not maintain generated files manually.
 
 ## References reviewed
 

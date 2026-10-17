@@ -1,6 +1,6 @@
 # Jake Notes — Astro + Starlight
 
-Markdown mathematics notes, build-time KaTeX, and a small semantic theorem layer. This migration lives on `migration/astro-starlight`; **production is still the existing MkDocs site**. The framework and authoring direction are approved, but publishing the replacement is not.
+Markdown mathematics notes, build-time KaTeX, and a small semantic theorem layer. Astro + Starlight replaces the former Material for MkDocs site, including its automatic GitHub Pages build/publication workflow.
 
 ## Development
 
@@ -77,11 +77,22 @@ See [browser preview instructions](instructions/site-preview.md) for Pi's offici
 
 The lockfile pins a tested dependency set. `package.json` temporarily overrides transitive KaTeX to the directly pinned patched version and `postcss-selector-parser` to 7.1.6, resolving advisories in upstream math/Expressive Code dependency ranges. Keep these overrides until upstream ranges include patched releases; test builds and `npm audit` when changing them. The current audit is clean. A single legacy KaTeX strictness warning (`newLineInDisplayMode`) is tolerated without altering source mathematics; actual parse failures fail the build.
 
-## Deployment safety
+## Deployment
 
-**Do not deploy this migration yet.** `.github/workflows/validate.yml` builds/tests migration pushes and pull requests with read-only permissions and no publishing job. The original `ci.yml` is unchanged: production continues to build MkDocs from `main` and publish `gh-pages`.
+Pushing or merging to `main` triggers `.github/workflows/ci.yml`:
 
-Before the user approves switching, do not merge the migration to `main`, run a manual deploy, push to `gh-pages`, or change GitHub Pages settings. After approval, the production workflow must be changed to build Astro and publish `dist/` (including `.nojekyll`) to the existing `gh-pages` branch. The old MkDocs publishing workflow is not a usable Astro deploy configuration and must not be left in place at cutover.
+1. It calls the reusable, read-only `validate.yml`: clean install, type checking, math tests, Astro build and browser tests.
+2. Validation uploads the **tested** `dist/` artifact, explicitly including hidden files such as `.nojekyll`.
+3. A separate `main`-only job downloads that exact artifact and publishes it to the existing `gh-pages` branch using the commit-pinned `peaceiris/actions-gh-pages` action. Only this job has `contents: write`; it does not run project build scripts.
+4. GitHub's branch-based `pages-build-deployment` publishes `gh-pages` to the live site. Pages remains configured for `gh-pages` at `/`; no settings change or personal access token is required.
+
+Old generated files are removed, preventing stale Material assets from lingering; `gh-pages` commit history is retained. Publishing runs are serialized. Feature pushes/PRs use read-only validation and cannot publish. `workflow_dispatch` can rerun the normal pipeline; publishing is still restricted to `main`.
+
+Do not run `mkdocs gh-deploy`, manually copy builds to `gh-pages`, or edit generated files there. Make content/config changes on a branch, pass CI and merge to `main`.
+
+### Cutover and rollback
+
+The user approved the staged production cutover after reviewing the LAN preview. Git tags `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17` preserve the previous source and generated output. The migration is merged with a merge commit: if a rollback is needed, review/revert that merge (`git revert -m 1 <cutover-merge-commit>`) through a source PR. This restores the prior MkDocs source/workflow for automatic republication; do not force-push generated history. See the migration record and GitHub run history before deciding to roll back.
 
 Canonical URLs, verification metadata, crawler policy and social links are retained. Starlight generates `sitemap-index.xml`/`sitemap-0.xml`; see the migration record for compatibility handling of the old `sitemap.xml`. `public/llms.txt` is the curated published-content guide and must track added/removed notes.
 

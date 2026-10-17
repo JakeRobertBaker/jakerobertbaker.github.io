@@ -1,9 +1,10 @@
-name: Validate Astro migration
+name: Validate site
 on:
   push:
-    branches: [migration/astro-starlight]
+    branches-ignore: [main, gh-pages]
   pull_request:
   workflow_dispatch:
+  workflow_call:
 permissions:
   contents: read
 jobs:
@@ -11,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
@@ -22,6 +25,13 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:preview
       - run: npm run test:site
+      - name: Preserve the tested site for the publishing job
+        uses: actions/upload-artifact@v7
+        with:
+          name: site-dist
+          path: dist/
+          include-hidden-files: true
+          retention-days: 3
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
