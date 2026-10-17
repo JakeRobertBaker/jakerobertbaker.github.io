@@ -44,7 +44,13 @@
   text-decoration: none;
 }
 .math-permalink:focus-visible { outline: 2px solid var(--sl-color-text-accent); }
-.math-block > .math-block__body { margin: 0; padding: 1rem; }
+/* Also contain long inline formulas; display math has its own scroller below. */
+.math-block > .math-block__body {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
 .math-block__body > :first-child { margin-top: 0; }
 .math-block__body > :last-child { margin-bottom: 0; }
 .sl-markdown-content .katex-display {
