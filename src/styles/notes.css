@@ -1,0 +1,80 @@
+:root {
+  --sl-content-width: 54rem;
+  --sl-color-accent-low: #202b53;
+  --sl-color-accent: #879fff;
+  --sl-color-accent-high: #d2dcff;
+}
+:root[data-theme='light'] {
+  --sl-color-accent-low: #e9edff;
+  --sl-color-accent: #4054b2;
+  --sl-color-accent-high: #25346d;
+}
+.sl-markdown-content .math-block {
+  --block-color: #739cff;
+  margin-block: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--block-color), transparent 35%);
+  border-radius: .4rem;
+  overflow-wrap: anywhere;
+  background: color-mix(in srgb, var(--block-color) 4%, var(--sl-color-bg));
+}
+.sl-markdown-content .math-block--theorem,
+.sl-markdown-content .math-block--corollary { --block-color: #8ba865; }
+.sl-markdown-content .math-block--lemma { --block-color: #52a886; }
+.sl-markdown-content .math-block--proposition { --block-color: #55a7ad; }
+.sl-markdown-content .math-block--example { --block-color: #a28acb; }
+.sl-markdown-content .math-block--proof { --block-color: #8e95a2; padding-inline-start: 0; }
+.math-block > .math-block__title {
+  display: block;
+  margin: 0;
+  padding: .65rem 2.5rem .65rem 1rem;
+  position: relative;
+  background: color-mix(in srgb, var(--block-color) 12%, transparent);
+  border-radius: .35rem .35rem 0 0;
+  font-weight: 650;
+  line-height: 1.6;
+}
+.math-block > summary.math-block__title { display: block; cursor: pointer; margin: 0; }
+.math-block__title > .math-permalink {
+  position: absolute;
+  top: .65rem;
+  right: .5rem;
+  padding-inline: .45rem;
+  color: var(--sl-color-gray-2);
+  font-weight: 400;
+  text-decoration: none;
+}
+.math-permalink:focus-visible { outline: 2px solid var(--sl-color-text-accent); }
+.math-block > .math-block__body { margin: 0; padding: 1rem; }
+.math-block__body > :first-child { margin-top: 0; }
+.math-block__body > :last-child { margin-bottom: 0; }
+.sl-markdown-content .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: .35rem;
+}
+.sl-markdown-content img { max-width: 100%; height: auto; }
+.topic-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+.topic-cards > section { margin: 0; border: 1px solid var(--sl-color-gray-5); border-radius: .4rem; padding: 1.25rem; }
+.topic-cards > section > :first-child { margin-top: 0; }
+.topic-cards h2 { font-size: 1.2rem; line-height: 1.4; margin-bottom: .75rem; }
+#theorem-preview {
+  position: fixed;
+  z-index: 100;
+  width: min(38rem, calc(100vw - 2rem));
+  max-height: min(28rem, 65vh);
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid var(--sl-color-gray-4);
+  border-radius: .5rem;
+  background: var(--sl-color-bg);
+  box-shadow: 0 .5rem 2rem #0004;
+  font-size: .9rem;
+}
+#theorem-preview[hidden] { display: none; }
+#theorem-preview .math-permalink { display: none; }
+:target { scroll-margin-top: 6rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .math-block:target { animation: target-highlight 1.8s ease-out; }
+  @keyframes target-highlight { from { box-shadow: 0 0 0 .2rem var(--sl-color-text-accent); } to { box-shadow: none; } }
+}
