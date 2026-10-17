@@ -83,10 +83,10 @@ Pushing or merging to `main` triggers `.github/workflows/ci.yml`:
 
 1. It calls the reusable, read-only `validate.yml`: clean install, type checking, math tests, Astro build and browser tests.
 2. Validation uploads the **tested** `dist/` artifact, explicitly including hidden files such as `.nojekyll`.
-3. A separate `main`-only job downloads that exact artifact and publishes it to the existing `gh-pages` branch using the commit-pinned `peaceiris/actions-gh-pages` action. Only this job has `contents: write`; it does not run project build scripts.
+3. A separate `main`-only job downloads that exact artifact, adds previously published `_astro/` and `pagefind/` assets **without overwriting any tested files**, and publishes it to the existing `gh-pages` branch using the commit-pinned `peaceiris/actions-gh-pages` action. Only this job has `contents: write`; it does not run project build scripts.
 4. GitHub's branch-based `pages-build-deployment` publishes `gh-pages` to the live site. Pages remains configured for `gh-pages` at `/`; no settings change or personal access token is required.
 
-Old generated files are removed, preventing stale Material assets from lingering; `gh-pages` commit history is retained. Publishing runs are serialized. Feature pushes/PRs use read-only validation and cannot publish. `workflow_dispatch` can rerun the normal pipeline; publishing is still restricted to `main`.
+Obsolete generated pages and files outside those asset directories are removed; `gh-pages` commit history is retained. Browser/search assets are retained so cached HTML, JavaScript and search metadata do not request missing fingerprints after deployment. The publisher reads the current and preceding `gh-pages` commits (the latter seeds initial compatibility); retained assets accumulate across releases. No old HTML pages are copied back. Review asset storage if the site grows substantially, and never prune current/cache-referenced assets casually. Publishing runs are serialized. Feature pushes/PRs use read-only validation and cannot publish. `workflow_dispatch` can rerun the normal pipeline; publishing is still restricted to `main`.
 
 Do not run `mkdocs gh-deploy`, manually copy builds to `gh-pages`, or edit generated files there. Make content/config changes on a branch, pass CI and merge to `main`.
 

@@ -27,6 +27,18 @@ jobs:
         with:
           name: site-dist
           path: dist
+      - name: Retain assets referenced by cached pages
+        # Never overwrite the tested build. Keep old hashed assets, not old pages.
+        # Including the parent seeds compatibility when adopting this policy.
+        run: |
+          git fetch --no-tags --depth=2 origin gh-pages
+          for revision in FETCH_HEAD FETCH_HEAD^; do
+            for directory in _astro pagefind; do
+              if git cat-file -e "$revision:$directory" 2>/dev/null; then
+                git archive "$revision" "$directory" | tar --extract --skip-old-files --directory dist
+              fi
+            done
+          done
       - name: Verify publication artifact
         run: |
           test -f dist/index.html
@@ -44,4 +56,4 @@ jobs:
           force_orphan: false
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          commit_message: Deploy Astro site from ${{ github.sha }}
+          full_commit_message: Deploy Astro site from ${{ github.sha }}
