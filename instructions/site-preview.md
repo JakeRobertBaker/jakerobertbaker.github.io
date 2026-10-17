@@ -4,7 +4,7 @@ Pi's `.pi/mcp.json` uses pinned official Microsoft Playwright MCP over **stdio**
 
 ## Current preview and port ownership
 
-The user authorized stopping Quartz and reusing **2718** for the current preview. The Astro migration in `/home/jake/jakerobertbaker-astro` now uses that port; the Quartz worktree is retained but its preview is stopped.
+The user authorized stopping Quartz and reusing **2718** for the current preview. After production cutover, normal development is back in `/home/jake/jakerobertbaker.github.io` on `main`, whose Astro preview now owns that port. The dedicated Astro migration and Quartz worktrees are retained, with their previews stopped.
 
 - LAN browser: **http://192.168.178.20:2718/**
 - Host-side browser/MCP: `http://127.0.0.1:2718/` or the LAN URL.
@@ -15,7 +15,7 @@ Check `ss -ltnp`, the server's worktree, and its process before starting/stoppin
 
 | Site | Command |
 | --- | --- |
-| Astro migration | `npm run dev` (config binds `0.0.0.0:2718`) |
+| Astro + Starlight, current checkout | `npm run dev` (config binds `0.0.0.0:2718`) |
 | Material baseline, when the slot is free | `uv run mkdocs serve --livereload --dev-addr 0.0.0.0:2718` |
 | Hugo | `hugo server --bind 0.0.0.0 --port 2718 --baseURL http://192.168.178.20:2718/ --appendPort=false` |
 | Archived Quartz experiment | Its `npm run preview` binds 2718; do not restart it over the current preview. |
@@ -87,7 +87,7 @@ npm run screenshots -- --target preview --path /about/ \
 
 `--preview`, `--live`, or `PREVIEW_URL` override comparison origins. `--out` defaults to a temporary directory. Each run replaces its matching image names/report; use separate output directories to retain batches. Read PNGs with Pi's `read` tool.
 
-For reproducible menu/proof states, pass `--scenario /tmp/states.json`, a JSON array of successive captures. Optional `click`/`waitFor` values are Playwright selectors or target-name maps (`live`, `preview`, `site` for `--url`). For production Material versus current Starlight, for example:
+For reproducible menu/proof states, pass `--scenario /tmp/states.json`, a JSON array of successive captures. Optional `click`/`waitFor` values are Playwright selectors or target-name maps (`live`, `preview`, `site` for `--url`). For historical Material-versus-Starlight comparisons, for example (both live and preview now use Starlight; adjust the selectors for current comparisons):
 
 ```json
 [

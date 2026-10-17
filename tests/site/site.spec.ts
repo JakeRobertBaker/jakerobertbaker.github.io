@@ -31,7 +31,11 @@ test('all original pages, mathematics and 250 anchors survive; local links and a
       nodes.map((node) => node instanceof HTMLAnchorElement ? node.href : (node as HTMLImageElement).src));
     for (const link of links) if (link.startsWith('http://127.0.0.1:4322/')) targets.add(link);
     for (const image of await page.locator('.sl-markdown-content img').all())
-      expect(await image.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0), original.url).toBeTruthy();
+      expect(await image.evaluate(async (img: HTMLImageElement) => {
+        img.loading = 'eager';
+        await img.decode().catch(() => {});
+        return img.complete && img.naturalWidth > 0;
+      }), original.url).toBeTruthy();
   }
   for (const target of targets) {
     const url = new URL(target);
@@ -101,12 +105,7 @@ test('hover and keyboard previews render KaTeX and keep normal navigation', asyn
 
 test('mobile navigation, themes, contents, long math, and built-site search', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  const routes = [
-    '/', '/mathematics/probability/normal_distribution/',
-    '/mathematics/linear_models/linear_models/',
-    '/mathematics/analysis/companion_to_analysis/companion_to_analysis_overview/',
-    '/mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91/',
-  ];
+  const routes = baseline.map((original) => original.url);
   for (const colorScheme of ['light', 'dark'] as const) {
     await page.emulateMedia({ colorScheme });
     for (const route of routes) {
@@ -115,6 +114,9 @@ test('mobile navigation, themes, contents, long math, and built-site search', as
       expect(await page.evaluate(() => document.documentElement.scrollWidth), route).toBeLessThanOrEqual(392);
     }
   }
+  await page.goto('/mathematics/set_theory/universal_algebra/');
+  expect(await page.locator('.math-block__body').evaluateAll((elements) => elements.some((element) =>
+    getComputedStyle(element).overflowX === 'auto' && element.scrollWidth > element.clientWidth))).toBeTruthy();
   await page.goto('/');
   await page.getByRole('button', { name: 'Menu', exact: true }).click();
   const sidebar = page.getByRole('navigation', { name: 'Main' });

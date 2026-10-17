@@ -6,7 +6,7 @@ The user approved **Astro + Starlight and directive-based authoring**, manually 
 
 The user also authorized stopping the Quartz preview and assigning **2718** to the current preview. Quartz's worktree remains unchanged. Port 8000 was not reachable from the user's machine; the migration uses the already reachable 2718 rather than modifying firewall rules.
 
-**Production cutover is approved.** The staged rollout is: validate the pushed migration branch/PR in GitHub Actions, merge only after successful checks, then verify both publishing workflows and the live site. Backup tags preserve the prior source and generated output; see `README.md` for normal deployment and rollback.
+**Production cutover completed.** [PR #3](https://github.com/JakeRobertBaker/jakerobertbaker.github.io/pull/3) merged as `ada4d8739dc3b23e74943390f56769cadbe694e2` after both hosted validation runs passed. The [Astro publication workflow](https://github.com/JakeRobertBaker/jakerobertbaker.github.io/actions/runs/39027086242) and [GitHub Pages deployment](https://github.com/JakeRobertBaker/jakerobertbaker.github.io/actions/runs/39027208613) succeeded. GitHub Pages settings remain unchanged. Backup tags preserve the prior source and generated output; see `README.md` for normal deployment and source-based rollback.
 
 ## Why this framework
 
@@ -47,12 +47,13 @@ Automated/browser validation covers:
 
 ## Operational notes and cutover
 
-- Live dev preview: **http://192.168.178.20:2718/**. Starlight's native dev search notice is expected: Pagefind search is build-time only. For full search review, stop dev and run `npm run build && npm run preview` on that same port, or use the loopback production-build test preview on 4322.
+- Production is **https://jakerobertbaker.github.io/**; normal development/preview now runs from the primary checkout on `main`, not the archived migration worktree. Live dev preview: **http://192.168.178.20:2718/**. Starlight's native dev search notice is expected: Pagefind search is build-time only. For full search review, stop dev and run `npm run build && npm run preview` on that same port, or use the loopback production-build test preview on 4322.
 - Build commands force a clean content render, avoiding stale imported Markdown-plugin metadata. After plugin changes, restart dev with `--force`; ordinary Markdown, CSS and component edits reload natively.
 - The pre-rendered theorem dependency SVGs remain ordinary content assets. **No interactive theorem graph, graph renderer or graph library is implemented.** Future graph work can consume the semantic registry.
 - Dependency metadata is supported and tested, but existing proofs remain unannotated until the author explicitly declares relationships.
 - The user approved replacing the MkDocs publishing steps with tested Astro build/validation and `dist/` publication to the existing `gh-pages` branch, including `.nojekyll`. GitHub Pages settings remain unchanged.
 - Source and generated-output backup tags are `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17`. `README.md` describes normal deployment and source-based rollback; do not maintain generated files manually.
+- Public checks verified all 25 URLs, all 250 original anchors, 237 internal link/asset targets, the 98-record theorem registry and real search. A broader post-cutover mobile sweep exposed a long inline formula in Universal Algebra; the follow-up scopes horizontal scrolling to mathematical-block bodies without changing source mathematics and extends mobile coverage to every original page. Lazy image verification waits for decoding rather than treating not-yet-loaded images as broken.
 
 ## References reviewed
 
