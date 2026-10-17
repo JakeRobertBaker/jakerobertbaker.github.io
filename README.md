@@ -1,6 +1,6 @@
 # Jake Notes — Astro + Starlight
 
-Markdown mathematics notes, build-time KaTeX, and a small semantic theorem layer. Astro + Starlight replaces the former Material for MkDocs site, including its automatic GitHub Pages build/publication workflow.
+Markdown mathematics notes, build-time KaTeX, and a small semantic theorem layer. Astro + Starlight replaces the former Material for MkDocs site, including its automatic GitHub Pages build/publication workflow. Live site: **https://jakerobertbaker.github.io/**.
 
 ## Development
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-The native Astro dev server binds `0.0.0.0:2718`, with automatic Markdown, CSS, and component refresh. Open **http://192.168.178.20:2718/** from this LAN or `http://127.0.0.1:2718/` on the host. The user authorized stopping Quartz and reusing 2718; no firewall rules were changed. Check listeners before starting another server on that port.
+The normal development checkout is `/home/jake/jakerobertbaker.github.io` on `main`; the migration worktree is retained for reference, not as the active preview source. The native Astro dev server binds `0.0.0.0:2718`, with automatic Markdown, CSS, and component refresh. Open **http://192.168.178.20:2718/** from this LAN or `http://127.0.0.1:2718/` on the host. The user authorized stopping Quartz and reusing 2718; no firewall rules were changed. Check listeners before starting another server on that port.
 
 Astro 7 may run its development server in the background when invoked non-interactively. Use its native controls:
 
@@ -53,7 +53,7 @@ public/                 Static assets, robots.txt, llms.txt, favicon, .nojekyll
 astro.config.mjs        Static site, Starlight and the Unified Markdown pipeline
 ```
 
-Astro 7 defaults to Sätteri; this project explicitly selects its supported **Unified** processor for `remark-math`, `remark-directive`, and `rehype-katex`. KaTeX HTML/MathML, CSS and fonts are built/bundled locally. Mathematical content and native proof disclosure remain usable without JavaScript. Avoid adding client-side math rendering to ordinary notes.
+Astro 7 defaults to Sätteri; this project explicitly selects its supported **Unified** processor for `remark-math`, `remark-directive`, and `rehype-katex`. KaTeX HTML/MathML, CSS and fonts are built/bundled locally. Mathematical content and native proof disclosure remain usable without JavaScript. Display math and mathematical-block bodies contain horizontal overflow, including long inline formulas, rather than widening mobile pages. Avoid adding client-side math rendering to ordinary notes.
 
 Semantic blocks provide per-file metadata through Astro's render pipeline. `/theorems.json` aggregates those records without a global mutable registry, HTML scraping, a second Markdown parser, or a separate file-watching daemon. Explicit relationships are validated. **No interactive graph is implemented**; a future renderer can consume the versioned registry. Original proofs have not been assigned speculative dependency metadata.
 
