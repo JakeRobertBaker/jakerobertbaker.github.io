@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.83",
+        "--headless",
+        "--browser",
+        "chromium",
+        "--isolated",
+        "--viewport-size",
+        "390,844",
+        "--output-dir",
+        "/tmp/site-preview-mcp"
+      ],
+      "description": "General-purpose browser for website development: navigate any local, LAN, or public preview URL; inspect accessible DOM, interact with elements, resize, capture screenshots, and inspect console/network activity. Independent of the site framework.",
+      "exposure": "deferred"
+    }
+  }
+}
