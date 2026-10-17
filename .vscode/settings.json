@@ -1,6 +1,0 @@
-{
-    "quarto.mathjax.extensions": [
-        "boldsymbol",
-        "mathtools"
-    ],
-}

@@ -1,51 +1,29 @@
-# Project: MkDocs Material site (jakerobertbaker.github.io)
+# Project: Jake Notes — Astro + Starlight
 
-## Dev commands
+## Start here
 
-- Preview: `uv run mkdocs serve --livereload`
-- Deploy: automated — push to `main` triggers `.github/workflows/ci.yml`, which builds and pushes to `gh-pages`. GitHub's `pages-build-deployment` then publishes to the live site. Do not run `mkdocs gh-deploy` manually.
+- Read `README.md` for architecture, commands, dependency policy and deployment safeguards.
+- Read `instructions/example_template.md` before writing/editing notes or mathematical blocks. Preserve the author's mathematical wording; migration is not permission to correct statements.
+- Content: `src/content/docs/`; static assets and `llms.txt`: `public/`.
 
-## Browser preview
+## Development and validation
 
-Read `instructions/site-preview.md` for the framework-independent Playwright MCP workflow, SSH/LAN access, and screenshot commands. `.pi/mcp.json` uses official Playwright MCP over stdio; respect Pi's project-trust gate. The `site-visual-review` skill packages the review workflow. Do not stop or reuse another worktree's preview port without checking; the Quartz experiment currently owns port 2718.
+- `npm ci`, then `npm run dev`: native live preview on `0.0.0.0:2718` (LAN host: `192.168.178.20`). The user explicitly authorized stopping Quartz and repurposing this port. Check listeners/worktrees before starting or stopping servers.
+- Astro 7 native background controls: `npm run dev -- status`, `npm run dev -- logs --follow`, `npm run dev -- stop`.
+- Run `npm run check`, `npm run test:math`, `npm run build`, `npm run test:preview`, and `npm run test:site` after relevant changes. Browser dependencies/setup and the build-only Pagefind search distinction are documented in `README.md`.
+- Use the `site-visual-review` skill and `instructions/site-preview.md` for official Playwright MCP review, screenshots and LAN/reload checks. Respect Pi's project trust. Do not reuse authenticated profiles or publish screenshots.
 
-## Migration planning
+## Architectural constraints
 
-`instructions/framework-migration-proposal.md` records the proposed direction and acceptance plan. It is not approved implementation guidance yet: do not start the framework migration or switch deployment until the user agrees. Keep migration work in its own branch/worktree, preserve content wording and legacy URLs/anchors, and require separate approval before publishing.
+- Static Astro output, Starlight's native docs UI, explicitly selected Unified processor, build-time KaTeX (not MathJax or client auto-render).
+- Concise `:::` directives for semantic blocks; native collapsible proofs. Keep IDs stable and explicit. The shared resolver handles Markdown links and explicit proof dependencies.
+- Registry data comes from the same Markdown AST via Astro render metadata. No process-global mutable extraction cache, duplicate source parser, manually maintained graph data or interactive graph implementation.
+- Use documented sidebar/frontmatter/hooks and small scoped styles/overrides, not a vendored theme or browser DOM rewrites. No React unless a concrete interactive component warrants it; ordinary notes remain `.md`.
+- Preserve legacy case, underscores, repeated basenames, URLs and anchors. Never silently refresh `tests/fixtures/legacy-site.json` to hide regressions.
 
-## Markdown and Code Style
+## Deployment and maintenance
 
-Make sure to have read @instructions/example_template.md.
-
-### Code style
-
-- KaTeX for math (not MathJax) via `pymdownx.arithmatex` with `generic: true`
-- Content lives in `docs/`; theme overrides in `overrides/`
-
-## Admonition syntax (pymdownx.blocks)
-
-This project uses `pymdownx.blocks.admonition` and `pymdownx.blocks.details`, NOT the classic `admonition`/`pymdownx.details`. Do not mix them.
-
-Block syntax: `/// type | title` closed by `///`.
-
-Follow the guidelines in @instructions/example_template.md whenever you use blocks or need to insert something like theorem, lemma, definition etc...
-
-### Referencing blocks
-
-Follow guidelines in @instructions/example_template.md.
-
-## Custom admonition types
-
-Custom types need both YAML registration in `mkdocs.yml` (under `pymdownx.blocks.admonition` > `types`) AND CSS in `docs/stylesheets/extra.css`. Neither replaces the other.
-
-## Maintenance rule
-
-When adding or changing project infrastructure/config (new extensions, overrides, SEO, deploy setup), update `README.md` and `AGENTS.md` to reflect the change.
-
-`docs/llms.txt` is the curated agent-facing map of published content. Keep it in sync when content pages are added or removed; `sitemap.xml` remains the exhaustive generated URL inventory.
-
-Avoid knowledge/information duplication across `README.md`, `AGENTS.md`, `instructions/*.md`. It is better to have these files reference each other instead of repeating info. 
-
-## Transcribe/Cleanup
-
-When transcribing written messy notes to clean katex markdown keep to the authors wording unless explicitly stated otherwise.
+- Framework migration is approved; **production publication is not**. Stay on the dedicated migration branch/worktree. Do not merge to `main`, deploy, push `gh-pages`, or change Pages settings without explicit cutover approval.
+- Production `ci.yml` is intentionally unchanged. Read-only `validate.yml` tests the migration; the Astro publishing workflow remains a cutover task, not a permission to deploy now.
+- Update `README.md` and `AGENTS.md` for infrastructure/config changes; keep detailed conventions in `instructions/` and link rather than duplicate them.
+- Keep `public/llms.txt` synchronized when notes are added or removed. Native sitemap files are the exhaustive URL inventory; preserve the legacy sitemap endpoint.

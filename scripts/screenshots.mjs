@@ -9,7 +9,7 @@ const { values } = parseArgs({
   options: {
     url: { type: "string" },
     target: { type: "string", default: "both" },
-    preview: { type: "string", default: process.env.PREVIEW_URL ?? "http://127.0.0.1:8000" },
+    preview: { type: "string", default: process.env.PREVIEW_URL ?? "http://127.0.0.1:2718" },
     live: { type: "string", default: "https://jakerobertbaker.github.io" },
     path: { type: "string", multiple: true },
     mode: { type: "string", default: "dark" },

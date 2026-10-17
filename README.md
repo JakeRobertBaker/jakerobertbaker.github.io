@@ -1,149 +1,88 @@
-# Jake Notes - MkDocs Material Site
+# Jake Notes — Astro + Starlight
+
+Markdown mathematics notes, build-time KaTeX, and a small semantic theorem layer. This migration lives on `migration/astro-starlight`; **production is still the existing MkDocs site**. The framework and authoring direction are approved, but publishing the replacement is not.
 
 ## Development
 
+Use Node **22.22+** (`.node-version` records the tested version):
+
 ```bash
-uv run mkdocs serve --livereload
+npm ci
+npm run dev
 ```
 
-## Browser preview and visual review
+The native Astro dev server binds `0.0.0.0:2718`, with automatic Markdown, CSS, and component refresh. Open **http://192.168.178.20:2718/** from this LAN or `http://127.0.0.1:2718/` on the host. The user authorized stopping Quartz and reusing 2718; no firewall rules were changed. Check listeners before starting another server on that port.
 
-Framework-independent browser tooling is available through Pi's official Playwright MCP integration. It runs headlessly on the SSH host and can inspect localhost, LAN, and public URLs without exposing a browser-control port.
+Astro 7 may run its development server in the background when invoked non-interactively. Use its native controls:
 
-See [the preview guide](instructions/site-preview.md) for setup, LAN/SSH commands, interactive inspection, and repeatable screenshot comparisons. Node is needed only for these optional development tools; the production site still builds with MkDocs.
-
-The [framework migration proposal](instructions/framework-migration-proposal.md) recommends Astro + Starlight and records preservation/validation requirements. It is awaiting agreement; no framework or deployment switch has been made.
-
-## Deployment
-
-Deployment is automated via `.github/workflows/ci.yml`. Pushing to `main` triggers the workflow, which runs `mkdocs gh-deploy --force` to build the site and push it to the `gh-pages` branch. GitHub's built-in `pages-build-deployment` workflow then publishes that branch to the live site. No manual deploy step is needed.
-
-## Admonition Blocks (pymdownx.blocks)
-
-This project uses `pymdownx.blocks.admonition` and `pymdownx.blocks.details` - the newer block syntax. These must NOT be mixed with the classic `admonition`/`pymdownx.details` extensions (they produce identical HTML and conflict).
-
-### Basic syntax
-
-```markdown
-/// note | Title Here
-Content goes here.
-///
+```bash
+npm run dev -- status
+npm run dev -- logs --follow
+npm run dev -- stop
 ```
 
-### With YAML options (e.g. setting an ID)
+After changing Markdown pipeline/plugin code, restart with `npm run dev -- --force` to invalidate Astro's rendered content metadata cache. Normal Markdown, CSS and Astro component edits update automatically. `npm run build` deliberately uses Astro's native `--force` flag so production artifacts never reuse stale imported-plugin metadata.
 
-```markdown
-/// definition | Bayes' Theorem
-    attrs: {id: def-bayes}
+### Production-build preview and search
 
-Content goes here.
-///
+Starlight's native Pagefind search is generated during the build. The dev server displays its standard search notice; it does not live-reindex search. To review the full built site on the same LAN port:
+
+```bash
+npm run dev -- stop
+npm run build
+npm run preview
 ```
 
-The 4-space-indented `attrs:` line is YAML metadata for the block. It must come immediately after the opening `///` line, before any blank line or content.
+Stop that preview before restarting `npm run dev`. For simultaneous local testing, use `npx astro preview --host 127.0.0.1 --port 4322`; browser tests use this loopback port. This is a static artifact preview, not the live-edit server.
 
-### Collapsible block (details)
+## Writing and architecture
 
-```markdown
-/// proof | Proof of Theorem 1
-Collapsible content - click to expand.
-///
-```
-
-### All available types
-
-| Type | Category | Colour base |
-| ---- | -------- | ----------- |
-| `note` | built-in | `#448aff` |
-| `abstract` | built-in | `#00b0ff` |
-| `info` | built-in | `#00b8d4` |
-| `tip` | built-in | `#00bfa5` |
-| `success` | built-in | `#00c853` |
-| `question` | built-in | `#64dd17` |
-| `warning` | built-in | `#ff9100` |
-| `failure` | built-in | `#ff5252` |
-| `danger` | built-in | `#ff1744` |
-| `bug` | built-in | `#f50057` |
-| `example` | built-in | `#7c4dff` |
-| `quote` | built-in | `#9e9e9e` |
-| `definition` | custom | `#448aff` (note) |
-| `proposition` | custom | `#00bfa5` (tip) |
-| `lemma` | custom | `#00c853` (success) |
-| `theorem` | custom | `#64dd17` (question) |
-| `proof` | custom/details | `#9e9e9e` (quote) |
-
-## Cross-Referencing
-
-### Same page
-
-Give a block an `id` via `attrs:`, then link to it:
-
-```markdown
-/// definition | Sigma Algebra
-    attrs: {id: def-sigma-algebra}
-
-A sigma algebra is...
-///
-
-As defined in [Sigma Algebra](#def-sigma-algebra), ...
-```
-
-### Cross page (with hover preview)
-
-```markdown
-[Sigma Algebra](./set_theory/universal_algebra.md#def-sigma-algebra){data-preview}
-```
-
-The `{data-preview}` attribute (requires `attr_list` extension, enabled) shows a hover preview of the target block.
-
-### Reusable reference links
-
-Define once, use many times within the same file:
-
-```markdown
-[Sigma Algebra]: #def-sigma-algebra
-
-See [Sigma Algebra] for background. As noted in [Sigma Algebra], ...
-```
-
-## Custom Admonition Types
-
-Adding a custom type requires **two** independent layers:
-
-1. **YAML registration** (`mkdocs.yml` > `pymdownx.blocks.admonition` > `types`) - the parser must know about the type name or it rejects the `///` syntax
-2. **CSS** (`docs/stylesheets/extra.css`) - styles the `.admonition.typename` class; without this it falls back to default `note` colours
-
-Neither replaces the other - both are required.
-
-## Math (KaTeX)
-
-Inline: `$...$` or `\(...\)`
-
-Display:
-
-```markdown
-$$
-\int_0^1 f(x)\,dx
-$$
-```
-
-Configured via `pymdownx.arithmatex` with `generic: true` and KaTeX JS/CSS in `extra_javascript`/`extra_css`.
-
-## Google Search / SEO
-
-- **Site verification**: `overrides/main.html` contains a Google Search Console verification `<meta>` tag.
-- **Crawler directives**: `docs/robots.txt` allows all crawlers and points them to the sitemap. MkDocs copies it to the build root.
-- **Sitemap**: MkDocs auto-generates `sitemap.xml` at build time.
-- **Agent discovery**: `docs/llms.txt` provides a curated, topic-grouped guide to all published notes for LLM-based agents. Keep it in sync when content pages are added or removed.
-- **Meta description**: `site_description` in `mkdocs.yml` provides a fallback meta description for pages that don't set their own.
-
-## Project Structure
+Read [the writing conventions](instructions/example_template.md) for mathematical blocks, proof dependencies and cross-references. Notes stay `.md`; use `.mdx` only when a page needs imported interactive components. React is not installed or required.
 
 ```text
-docs/               # Content pages
-overrides/          # Theme template overrides
-docs/stylesheets/   # extra.css (custom admonition styles)
-docs/javascripts/   # katex.js
-docs/llms.txt        # Curated site map for LLM-based agents
-mkdocs.yml          # Site config, nav, extensions
+src/content/docs/        Markdown/optional MDX notes, with title frontmatter
+src/content.config.ts   Starlight collection; preserves case/underscores in URLs
+src/data/navigation.json Editorial sidebar groups, labels and ordering
+src/lib/math-blocks.mjs  Semantic directives, stable heading IDs and registry validation
+src/lib/references.mjs   Shared source-relative link/dependency resolver
+src/pages/theorems.json.ts Generated, renderer-independent theorem registry
+src/components/         Small native Starlight overrides (currently Footer)
+src/scripts/            Hover/focus previews and deep-link proof disclosure
+src/styles/notes.css    Scoped math-block and responsive math styling
+public/                 Static assets, robots.txt, llms.txt, favicon, .nojekyll
+astro.config.mjs        Static site, Starlight and the Unified Markdown pipeline
 ```
+
+Astro 7 defaults to Sätteri; this project explicitly selects its supported **Unified** processor for `remark-math`, `remark-directive`, and `rehype-katex`. KaTeX HTML/MathML, CSS and fonts are built/bundled locally. Mathematical content and native proof disclosure remain usable without JavaScript. Avoid adding client-side math rendering to ordinary notes.
+
+Semantic blocks provide per-file metadata through Astro's render pipeline. `/theorems.json` aggregates those records without a global mutable registry, HTML scraping, a second Markdown parser, or a separate file-watching daemon. Explicit relationships are validated. **No interactive graph is implemented**; a future renderer can consume the versioned registry. Original proofs have not been assigned speculative dependency metadata.
+
+Normal links work without previews. A small vanilla module enhances theorem links on hover/keyboard focus and opens ancestor proofs when following a deep link. Existing headings and block IDs are preserved; do not derive referenced theorem IDs from titles or numbering.
+
+## Validation
+
+```bash
+npm run check
+npm run test:math
+npm run build
+npx playwright install chromium
+npm run test:preview
+npm run test:site
+npm audit
+```
+
+The site suite checks all 25 original URLs, all 250 original content anchors, unchanged body LaTeX hashes, images and local links, proof states/nesting, theorem previews, mobile overflow, navigation, built-site search, the registry and mathematics without JavaScript. `tests/fixtures/legacy-site.json` is an immutable migration baseline captured from MkDocs; never update it just to make a regression pass.
+
+See [browser preview instructions](instructions/site-preview.md) for Pi's official Playwright MCP, trust/reload, SSH/LAN access, screenshots and visual review. No browser-control network port or GUI is required. MCP artifacts belong in `/tmp`, never in published content.
+
+The lockfile pins a tested dependency set. `package.json` temporarily overrides transitive KaTeX to the directly pinned patched version and `postcss-selector-parser` to 7.1.6, resolving advisories in upstream math/Expressive Code dependency ranges. Keep these overrides until upstream ranges include patched releases; test builds and `npm audit` when changing them. The current audit is clean. A single legacy KaTeX strictness warning (`newLineInDisplayMode`) is tolerated without altering source mathematics; actual parse failures fail the build.
+
+## Deployment safety
+
+**Do not deploy this migration yet.** `.github/workflows/validate.yml` builds/tests migration pushes and pull requests with read-only permissions and no publishing job. The original `ci.yml` is unchanged: production continues to build MkDocs from `main` and publish `gh-pages`.
+
+Before the user approves switching, do not merge the migration to `main`, run a manual deploy, push to `gh-pages`, or change GitHub Pages settings. After approval, the production workflow must be changed to build Astro and publish `dist/` (including `.nojekyll`) to the existing `gh-pages` branch. The old MkDocs publishing workflow is not a usable Astro deploy configuration and must not be left in place at cutover.
+
+Canonical URLs, verification metadata, crawler policy and social links are retained. Starlight generates `sitemap-index.xml`/`sitemap-0.xml`; see the migration record for compatibility handling of the old `sitemap.xml`. `public/llms.txt` is the curated published-content guide and must track added/removed notes.
+
+See [the migration record](instructions/framework-migration-proposal.md) for the decision, preservation targets and acceptance status.
