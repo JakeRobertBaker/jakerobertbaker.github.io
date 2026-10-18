@@ -2,10 +2,6 @@
 title: Attention Is All You Need End-to-End Flow
 ---
 
-<span id="transformer-end-to-end-flow"></span>
-<!-- snippets: latex_math -->
-
-
 Notation is setup in [Attention Mechanisms](attention.md).
 
 ## Running Example

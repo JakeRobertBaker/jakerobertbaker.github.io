@@ -4,8 +4,6 @@ description: Personal notes on mathematics, deep learning, and related topics.
 tableOfContents: false
 ---
 
-<span id="jake-notes"></span>
-
 Personal notes on mathematics stuff and deep learning bits.
 
 <div class="topic-cards">

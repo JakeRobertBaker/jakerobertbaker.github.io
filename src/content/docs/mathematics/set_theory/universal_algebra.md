@@ -1,7 +1,7 @@
 ---
 title: Universal Algebra
 ---
-<!-- snippets: latex_math -->
+
 As I read [*Notes on Logic and Set Theory*](https://www.cambridge.org/core/books/notes-on-logic-and-set-theory/A4D56347336629DBFC20710AF214B245), self study notes live here.
 
 There is some good [discussion](https://math.stackexchange.com/questions/921712/what-is-a-set-raised-to-the-0-power-in-relation-to-the-definition-of-a-nullary)
@@ -67,10 +67,7 @@ Hence $A^0$ = $\left\{ \emptyset \right\}$.
 
 :::definition[Finary Operation]{#def-Finary-Operation}
 
-A finary operation is a map from a set $G$ to any of
-$$
-G^0, G^1=G, G^2 = G \times G, ...
-$$
+A finary operation is a map from a set $G$ to any of $G^n, n \in \left\{ 0, 1, 2, \dots \right\}$
 :::
 
 :::definition[Operational Type]{#def-OperationalType}

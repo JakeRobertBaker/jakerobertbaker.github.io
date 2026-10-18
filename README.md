@@ -39,12 +39,12 @@ Stop that preview before restarting `npm run dev` (`npx astro preview stop` for 
 
 ## Workflow
 
-- Routine notes, assets, editorial navigation and small documentation updates may be committed directly to `main`. Preview content and run relevant [checks](#validation) before pushing; check the hosted CI result afterwards.
+- Routine notes, assets, editorial navigation and small documentation updates may be committed directly to `main`. Preview changed pages and run `npm run check`, then commit/push and check CI. A local production build/full browser suite is optional for ordinary note edits; CI always runs both. See [validation](#validation) for the full local check.
 - Use a branch/PR with green CI before merging for infrastructure, rendering, dependencies, broad refactors, URL changes or experiments. Keep unfinished work off `main`.
 
 ## Writing and architecture
 
-Read [the writing conventions](instructions/example_template.md) for the new-page checklist, navigation/discovery updates, legacy anchors and mathematical blocks/references. Ordinary notes stay `.md`; use `.mdx` only for pages needing imported interactive components. React is not installed or required.
+Read [the writing conventions](instructions/example_template.md) for the new-page checklist, links/IDs and mathematical blocks/references. Ordinary notes stay `.md`; use `.mdx` only for pages needing imported interactive components. React is not installed or required.
 
 ```text
 src/content/docs/        Markdown/optional MDX notes, with title frontmatter
@@ -70,17 +70,20 @@ astro.config.mjs        Static site, Starlight and the Unified Markdown pipeline
 
 ## Validation
 
+For ordinary note edits, preview the changed page with `npm run dev` and run `npm run check`. There are no mathematics snapshots or migration fixtures to update.
+
+For full local confidence (required for infrastructure/rendering changes):
+
 ```bash
-npm run check
-npm run test:math
-npm run build
-npx playwright install chromium
-npm run test:preview
-npm run test:site        # Includes the production-theme review/captures
-npm audit
+npx playwright install chromium  # First setup, or after a Playwright upgrade
+npm run validate
 ```
 
-`tests/site/` checks legacy URLs, anchors and body-LaTeX hashes, links/assets, proof behaviour, theorem previews, mobile layout, navigation, built search, the registry and mathematics without JavaScript. Registry checks preserve original block identities while allowing additions and declared dependencies. `tests/fixtures/legacy-site.json` is the immutable MkDocs baseline; never refresh it merely to pass a regression.
+`validate` runs type checking, math/plugin tests, a fresh production build, browser-tool tests and the full site/theme browser suite—in that order. CI runs the same command before deployment. The browser tests alone (`npm run test:site`, including theme review/captures) use existing `dist/`; run `npm run build` first after changing anything. Generated `dist/` is not committed.
+
+`tests/site/` discovers pages from the current build and checks links/assets/fragments, duplicate IDs, mathematics rendering, proof behaviour, previews, navigation, mobile layout, built search, sitemap/discovery, registry consistency and no-JavaScript behaviour. It does not freeze note text, LaTeX, headings or the set of mathematical blocks. When renaming pages/IDs, update actual internal references; historical external links do not require aliases. `public/llms.txt` is an optional curated guide, not a second page inventory; search and the sitemap include new notes automatically.
+
+Run `npm audit` when changing dependencies.
 
 The root `site/` directory may remain from a local MkDocs build; it is ignored by Git and excluded from TypeScript checking, like `dist/`. These root-only exclusions must not hide the tracked `tests/site/` suite.
 
@@ -101,8 +104,4 @@ Failed validation prevents publication, leaving the previous live site in place;
 
 Obsolete pages are removed and `gh-pages` history retained. The publisher carries forward assets from its current and preceding commits so cached clients keep working; no old HTML is copied back. Assets accumulate across releases: review storage as needed, but do not casually prune cache-referenced fingerprints.
 
-Do not run `mkdocs gh-deploy`, manually copy builds to `gh-pages`, edit its generated files or force-push its history.
-
-### Cutover and rollback
-
-Tags `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17` preserve the previous source and output. To undo the cutover, review/revert the migration merge through a source PR (`git revert -m 1 <cutover-merge-commit>`), restoring the prior MkDocs source/workflow for automatic republication. Consult the [migration record](instructions/framework-migration-proposal.md) and GitHub run history first; the record also covers preservation targets, legacy sitemap compatibility and acceptance checks.
+Do not manually copy builds to `gh-pages`, edit its generated files or force-push its history. To roll back a bad release, revert the source change through normal validation/deployment. Framework cutover details are archived in the [migration record](instructions/framework-migration-proposal.md); they are not part of routine authoring.

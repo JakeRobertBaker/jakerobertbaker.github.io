@@ -2,10 +2,6 @@
 title: Chapter 2 - Measure Notes
 ---
 
-<span id="chapter-2-measure-notes"></span>
-<!-- snippets: latex_math -->
-
-
 **Source:** Axler, *Measure, Integration & Real Analysis* (MIRA), Chapter 2.
 
 :::definition[Outer Measure]{#def-outer_measure}

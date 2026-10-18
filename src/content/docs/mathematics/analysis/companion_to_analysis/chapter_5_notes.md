@@ -2,10 +2,6 @@
 title: Chapter 5
 ---
 
-<span id="chapter-5-notes"></span>
-<!-- snippets: latex_math -->
-
-
 Note exercise 5.19 gives us key results and notation:
 
 $$

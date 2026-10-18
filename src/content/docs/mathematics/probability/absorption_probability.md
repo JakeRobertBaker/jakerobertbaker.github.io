@@ -2,10 +2,6 @@
 title: Absorption Probability
 ---
 
-<span id="absorption-probability"></span>
-<!-- snippets: latex_math -->
-
-
 In a Markov chain, every state $i \in I$ is either **transient** or **recurrent**. All absorbing states are recurrent, but not all recurrent states are absorbing. In most absorption problems the recurrent states *are* the absorbing states.
 
 ## Canonical Form

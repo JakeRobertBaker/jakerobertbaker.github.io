@@ -2,9 +2,6 @@
 title: Linear Models
 ---
 
-<span id="linear-model-notes"></span>
-
-
 ## OLS Basics
 
 ::::definition[Standard Normal Vector]{#def-standard_normal}

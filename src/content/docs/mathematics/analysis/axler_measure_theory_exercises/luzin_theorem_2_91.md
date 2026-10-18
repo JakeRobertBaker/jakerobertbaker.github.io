@@ -2,10 +2,6 @@
 title: Chapter 2 - Luzin Theorem
 ---
 
-<span id="luzins-theorem"></span>
-<!-- snippets: latex_math -->
-
-
 Numbered 2.91 in Axler.
 
 Rewrote in my own words and scanned the notes to markdown. A personal exercise. 

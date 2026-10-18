@@ -2,10 +2,6 @@
 title: CLIP & SigLIP Losses
 ---
 
-<span id="loss-comparison-clip-vs-siglip"></span>
-<!-- snippets: latex_math -->
-
-
 Let $\mathbf{U}, \mathbf{V} \in \mathbb{R}^{N \times D}$ be the $\ell_2$-normalized image and text embeddings respectively.
 
 Let $\mathbf{S} = \mathbf{U}\mathbf{V}^\top$ be the $N \times N$ matrix of cosine similarity scores, where $s_{ij} = \mathbf{u}_i \cdot \mathbf{v}_j$.
