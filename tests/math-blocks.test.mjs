@@ -6,11 +6,12 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import mathBlocks, { createRegistry, failMathErrors } from '../src/lib/math-blocks.mjs';
 import { pageUrl, resolveReference } from '../src/lib/references.mjs';
+import headingLabels from '../src/lib/heading-labels.mjs';
 
 const renderer = await createMarkdownProcessor({
   smartypants: false, syntaxHighlight: false,
   remarkPlugins: [remarkMath, remarkDirective, mathBlocks],
-  rehypePlugins: [rehypeKatex, failMathErrors],
+  rehypePlugins: [rehypeKatex, failMathErrors, headingLabels],
 });
 const render = (markdown, source = 'testing.md') => renderer.render(markdown, {
   fileURL: new URL(`../src/content/docs/${source}`, import.meta.url),
@@ -50,6 +51,44 @@ test('proofs default closed; IDs on native asides and literal code remain intact
   assert.equal(result.metadata.frontmatter.mathBlocks.length, 1);
 });
 
+test('remarks and notation are referenceable exposition, not inferred proof results', async () => {
+  const result = await render(`:::remark[Remark]{#rem-one}
+A remark with $x=x$.
+:::
+
+:::notation[Notation]{#not-one}
+Let $X$ denote the space.
+:::
+
+:::theorem{#thm-one}
+A result.
+:::
+`);
+  assert.match(result.code, /<section class="math-block math-block--remark"[^>]*id="rem-one"/);
+  assert.match(result.code, /<section class="math-block math-block--notation"[^>]*id="not-one"/);
+  assert.match(result.code, /aria-label="Link to this remark"/);
+  assert.doesNotMatch(result.code, /Remark · Remark|Notation · Notation/);
+  const blocks = result.metadata.frontmatter.mathBlocks;
+  assert.deepEqual(blocks.map(block => block.kind), ['remark', 'notation', 'theorem']);
+  const registry = createRegistry([{ blocks }]);
+  assert.ok(registry.blocks.some(block => block.url === '/testing/#rem-one'));
+  assert.ok(registry.blocks.every(block => block.uses.length === 0 && block.proves === null));
+  for (const relationship of ['proves="#rem-one"', 'proves="#thm-one" uses="#not-one"']) {
+    const proof = (await render(`:::proof{#p ${relationship}}\nProof.\n:::`)).metadata.frontmatter.mathBlocks;
+    assert.throws(() => createRegistry([{ blocks: [...blocks, ...proof] }]), /dependency is not a result/);
+  }
+  const nested = await render('::::proof\n:::remark{#nested-remark}\nA remark inside a proof.\n:::\n::::');
+  assert.match(nested.code, /<details[\s\S]*class="math-block math-block--remark"/);
+});
+
+test('all statement kinds retain their own semantic class and label', async () => {
+  for (const kind of ['definition', 'theorem', 'lemma', 'proposition', 'corollary', 'example', 'remark', 'notation']) {
+    const result = await render(`:::${kind}{#block}\nStatement.\n:::`);
+    assert.match(result.code, new RegExp(`math-block--${kind}`));
+    assert.equal(result.metadata.frontmatter.mathBlocks[0].kind, kind);
+  }
+});
+
 test('legacy heading IDs use source math, reserve IDs, and retain repeated-heading suffixes', async () => {
   const result = await render('<span id="a-heading"></span>\n\n## A heading\n\n### $n < m$ [1.01]\n\n## A heading');
   assert.match(result.code, /id="a-heading_1"/);
@@ -57,10 +96,24 @@ test('legacy heading IDs use source math, reserve IDs, and retain repeated-headi
   assert.match(result.code, /id="a-heading_2"/);
 });
 
+test('mathematical contents labels contain presentation text once, preserving heading HTML and IDs', async () => {
+  const result = await render('## Apply **Egorov** to each finite $(m,m+1)$, $n\\in\\mathbb{Z}$\n\n### An identity $x=x$\n\n## Ordinary heading');
+  assert.deepEqual(result.metadata.frontmatter.mathHeadingLabels, {
+    'apply-egorov-to-each-finite-mm1-ninmathbbz': 'Apply Egorov to each finite (m,m+1), n∈Z',
+    'an-identity-xx': 'An identity x=x',
+  });
+  assert.match(result.code, /class="katex-html"/);
+  assert.match(result.code, /<annotation encoding="application\/x-tex">/);
+  assert.match(result.code, /id="apply-egorov-to-each-finite-mm1-ninmathbbz"/);
+  assert.equal(result.metadata.headings.length, 3);
+});
+
 test('metadata and KaTeX errors fail with source context', async () => {
   for (const [markdown, message] of [
     [':::theorem{#x}\nOne.\n:::\n\n:::lemma{#x}\nTwo.\n:::', /Duplicate block ID/],
     [':::theorem{wrong="x"}\nOne.\n:::', /Unknown theorem metadata/],
+    [':::remark{open}\nOne.\n:::', /Unknown remark metadata/],
+    [':::notation{proves="#x"}\nOne.\n:::', /Unknown notation metadata/],
     [':::proof{proves="#x"}\nOne.\n:::', /explicit stable ID/],
     [':::proof{#p uses="#x"}\nOne.\n:::', /explicit proves target/],
     [':::proof{open="false"}\nOne.\n:::', /boolean/],

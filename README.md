@@ -53,9 +53,12 @@ src/data/navigation.json Editorial sidebar groups, labels and ordering
 src/lib/math-blocks.mjs  Semantic directives, stable heading IDs and registry validation
 src/lib/references.mjs   Shared source-relative link/dependency resolver
 src/pages/theorems.json.ts Generated, renderer-independent theorem registry
-src/components/         Small native Starlight overrides (currently Footer)
-src/scripts/            Hover/focus previews and deep-link proof disclosure
-src/styles/notes.css    Scoped math-block and responsive math styling
+src/components/         Small native Starlight frame/menu/footer overrides
+src/scripts/            Native navigation, theorem previews and deep-link proof disclosure
+src/styles/             Book typography/palette, structural math and navigation geometry
+src/assets/fonts/       Local ET Book fonts; provenance in the theme guide
+src/route-data.ts       Native contents labels from cached Markdown metadata
+tests/site/theme/       Production-theme geometry, touch checks and representative captures
 public/                 Static assets, robots.txt, llms.txt, favicon, .nojekyll
 astro.config.mjs        Static site, Starlight and the Unified Markdown pipeline
 ```
@@ -63,7 +66,7 @@ astro.config.mjs        Static site, Starlight and the Unified Markdown pipeline
 - Static Astro output with Starlight's native docs UI. Prefer documented sidebar/frontmatter/hooks and small scoped styles/component overrides, not a vendored theme or browser DOM rewrites.
 - Explicit **Unified** Markdown processing (`remark-math`, `remark-directive`, `rehype-katex`), rather than Astro 7's default Sätteri processor. KaTeX HTML/MathML, CSS and fonts are built locally; do not add client-side math rendering. Mathematics and native proof disclosure work without JavaScript.
 - Semantic blocks supply per-file render metadata from the same Markdown AST. `/theorems.json` aggregates it and validates explicit relationships: no process-global mutable extraction cache, HTML scraping, second source parser or separate watcher. No interactive graph or inferred proof dependencies.
-- Small vanilla scripts enhance theorem links with hover/focus previews and deep-link proof disclosure; ordinary links remain usable without them.
+- Small vanilla scripts enhance theorem links with hover/focus previews and deep-link proof disclosure; ordinary links remain usable without them. The book theme reuses Starlight's native navigation/contents components. A post-KaTeX metadata plugin and supported route middleware prevent duplicated mathematical contents labels without changing article headings or IDs.
 
 ## Validation
 
@@ -73,7 +76,7 @@ npm run test:math
 npm run build
 npx playwright install chromium
 npm run test:preview
-npm run test:site
+npm run test:site        # Includes the production-theme review/captures
 npm audit
 ```
 
@@ -81,7 +84,7 @@ npm audit
 
 The root `site/` directory may remain from a local MkDocs build; it is ignored by Git and excluded from TypeScript checking, like `dist/`. These root-only exclusions must not hide the tracked `tests/site/` suite.
 
-See [browser preview instructions](instructions/site-preview.md) for Playwright MCP, browser setup, screenshots, remote access and visual review.
+See [browser preview instructions](instructions/site-preview.md) for Playwright MCP, browser setup, screenshots, remote access and visual review. The [Mathematical Book theme guide](instructions/book-theme.md) documents the production design, source map, responsive navigation contract and focused `npm run test:theme` command. The approved theme is static CSS by default, including without JavaScript; no experiment flags, comparison controls or theme-specific URL/session settings remain.
 
 The lockfile pins tested dependencies. `package.json` overrides transitive KaTeX and `postcss-selector-parser` to patched versions; retain these until upstream ranges include the fixes, and rerun validation and `npm audit` when changing dependencies. Only the legacy KaTeX strictness issue `newLineInDisplayMode` is tolerated; actual parse failures fail the build.
 
