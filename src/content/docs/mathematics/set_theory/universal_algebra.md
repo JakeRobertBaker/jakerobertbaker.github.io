@@ -53,7 +53,7 @@ $$
 Hence $A^n$ is the set of maps from $n=\left\{ 0, \dots, n-1 \right\}$ to $A$, the set of traditional $n$ length tuples.
 
 :::example[Nullary Set]{#exm-nullary-set}
-$A^0$ is the set of maps from $0 = ∅ = \left\{  \right\}$ to $A$
+$A^0$ is the set of maps from $0 = \emptyset = \left\{  \right\}$ to $A$
 
 The only map that does this is 
 $$
@@ -133,17 +133,30 @@ $$
 where $\alpha(\omega)=n$ and $\forall a_1,...,a_n \in A$
 :::
 
-:::definition[The set of $\Omega$-terms in $X$]{#def-Term}
+:::definition[Inductive: $\Omega$-terms in $X$]{#def-Term-Inductive}
 
 Let $\Omega$ be an opertaional type and $X$ be a set.
 
 The set $F_{\Omega}(X)$  of $\Omega$ terms is defined inductively:
 
-1. If $x \in X$ then $x \in F_{Ω}(X)$
-2. If $w \in \Omega$ with $\alpha(w)=n$ and $t_1,...,t_n \in \Omega$ then $wt_1...t_n \in F_{Ω}(X)$.
+a. If $x \in X$ then $x \in F_{Ω}(X)$
+
+b. If $w \in \Omega$ with $\alpha(w)=n$ and $t_1,...,t_n \in \Omega$ then $wt_1...t_n \in F_{Ω}(X)$.
 :::
 
 Note that this really the intersection of all operation structures that contain $X$.
+
+More formally
+
+:::definition[$\Omega$-terms in $X$]{#def-term}
+Let $M$ be the set of finite strings in $\Omega \cup X$.
+
+Consider $\mathcal{C} = \left\{ A \subseteq M : A \text{ satisfies a. and b.} \right\}$
+
+$F_{\Omega}(X) \coloneqq \bigcap_{A \in \mathcal{C}} A$
+:::
+
+Note $\mathcal{C}$ is non empty because $M \in \mathcal{C}$
 
 :::theorem[$F_\Omega(X)$ is a sigma structure]{#thm-FX_is_sigma}
 
