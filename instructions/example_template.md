@@ -70,11 +70,25 @@ The proof goes here. $\blacksquare$
 :::
 ```
 
-Kinds: `definition`, `theorem`, `lemma`, `proposition`, `corollary`, `example`, and `proof`. Standard `note`, `tip`, `caution`, `danger` remain native Starlight asides. Titles support inline math/Markdown and can be omitted. The kind is included in the rendered label.
+Kinds: `definition`, `theorem`, `lemma`, `proposition`, `corollary`, `example`, `proof`, `remark`, and `notation`. Titles support inline math/Markdown and can be omitted. The kind is included in the rendered label.
+
+Use `remark` for a mathematical observation or qualification, and `notation` for symbol/convention setup, rather than using a note solely for its visual styling:
+
+```markdown
+:::remark[About the hypothesis]{#rem-hypothesis}
+The assumption is used only in the final step.
+:::
+
+:::notation{#not-space}
+Write $X$ for the underlying space.
+:::
+```
+
+Standard `note`, `tip`, `caution`, `danger` remain native Starlight asides: notes/tips are general annotations, while caution/danger retain alert semantics. A remark/notation block is referenceable exposition, not automatically a theorem or a proof dependency. Exercises and solutions may remain ordinary headings, especially in long exercise sets. Do not infer a block's kind from its ID prefix, or add unused directive aliases; introduce a new semantic kind deliberately with validation, rendering and tests.
 
 - Give referenced results/proofs a permanent ID (`#thm-result`). IDs begin with a letter and contain letters, digits, `_`, `.`, or `-`; preserve legacy spelling/case. Identity is canonical page URL + fragment, not title or numbering. Same IDs on different pages are allowed.
 - Proofs use native `<details>` and default closed. Add `{open}` alongside other attributes to begin expanded. Never use `open="false"` (a present HTML boolean attribute means true).
-- `proves` identifies exactly one result established by this proof. `uses` lists explicitly declared result dependencies separated by whitespace. They use the same reference syntax as links. Relationship-bearing proofs need explicit IDs; `uses` also requires `proves`.
+- `proves` identifies exactly one result established by this proof. `uses` lists explicitly declared result dependencies separated by whitespace. Eligible result kinds are `definition`, `theorem`, `lemma`, `proposition`, `corollary` and `example`; remarks, notation, notes and proofs can be linked normally but are not result targets for these relationships. They use the same reference syntax as links. Relationship-bearing proofs need explicit IDs; `uses` also requires `proves`.
 - Ordinary explanatory links do not create dependency edges. Do not infer or invent proof dependencies during transcription/migration. Unannotated/unidentified existing proofs may remain so until the author declares relationships.
 - Only identified blocks appear in `/theorems.json`. It stores kind, Markdown title/statement, source location, canonical URL and explicit proof relationships, independently of a future graph renderer. Nested proof text is excluded from a theorem's statement.
 - Unknown block types/options, duplicate block IDs and unresolved declared dependencies are errors. The site suite also catches collisions with headings and broken ordinary references.

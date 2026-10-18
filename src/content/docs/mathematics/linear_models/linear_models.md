@@ -202,7 +202,7 @@ $$
 
 ::::
 
-::::note[Remark]{#rem-R2_general}
+::::remark[Remark]{#rem-R2_general}
 
 Note that $\mathbf{\hat{y}}$ in [Definition](#def-R2) is general. We will specify details to prove the following.
 ::::

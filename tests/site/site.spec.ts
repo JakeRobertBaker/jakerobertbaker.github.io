@@ -70,6 +70,43 @@ test('native proofs, nested blocks, preserved image attributes and source math i
   await expect(page.locator('#deep-proof')).toHaveAttribute('open', '');
 });
 
+test('native desktop and mobile contents use mathematical labels once and keep original anchors', async ({ page }) => {
+  const route = '/mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91/';
+  const id = 'apply-egorov-to-each-finite-mm1-ninmathbbz';
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(route);
+    await expect(page.locator(`[id="${id}"] .katex`)).toHaveCount(2);
+    if (width === 390) await page.locator('#starlight__on-this-page--mobile').click();
+    const scope = width === 390 ? 'mobile-starlight-toc' : 'starlight-toc';
+    const link = page.locator(`${scope} a[href="#${id}"]`);
+    await expect(link).toHaveText('Apply Egorov to each finite (m,m+1), n∈Z');
+    await link.click();
+    await expect(page).toHaveURL(`${route}#${id}`);
+    await expect(page.locator(`[id="${id}"]`)).toBeVisible();
+    await expect(link).toHaveAttribute('aria-current', 'true');
+  }
+});
+
+test('remarks and notation retain published identities and use semantic blocks', async ({ page, request }) => {
+  const targets = [
+    ['/mathematics/linear_models/linear_models/', 'rem-R2_general', 'remark'],
+    ['/mathematics/probability/ballot_notes/', 'rem-Beta-Binomial-Proportion', 'remark'],
+    ['/deep_learning/attention_is_all_you_need/', 'rem-enc-self-attn', 'remark'],
+    ['/deep_learning/attention/', 'not-attention', 'notation'],
+  ];
+  const registry = await (await request.get('/theorems.json')).json();
+  for (const [route, id, kind] of targets) {
+    await page.goto(`${route}#${id}`);
+    await expect(page.locator(`[id="${id}"]`)).toHaveClass(`math-block math-block--${kind}`);
+    await expect(page.locator(`[id="${id}"] .math-permalink`)).toHaveAttribute('href', `#${id}`);
+    expect(registry.blocks.find((block: { url: string }) => block.url === `${route}#${id}`)?.kind).toBe(kind);
+  }
+  await page.goto('/mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes/');
+  await expect(page.locator('.math-block--remark')).toContainText('Already have: countable implies outer measure zero');
+  await expect(page.locator('.starlight-aside--note')).toContainText('Therefore');
+});
+
 test('theorem registry is generated from the same Markdown and preserves all identified blocks', async ({ request }) => {
   const response = await request.get('/theorems.json');
   expect(response.status()).toBe(200);
