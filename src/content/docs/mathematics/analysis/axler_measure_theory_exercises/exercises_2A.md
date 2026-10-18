@@ -2,10 +2,6 @@
 title: Chapter 2 Exercises A
 ---
 
-<span id="exercises-2a-outer-measure-on-mathbbr"></span>
-<!-- snippets: latex_math -->
-
-
 **Source:** Axler, *Measure, Integration & Real Analysis* (MIRA), Section 2A, pp. 23–24.
 
 ---

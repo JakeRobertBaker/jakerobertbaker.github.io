@@ -108,7 +108,10 @@ test('mathematical contents labels contain presentation text once, preserving he
   assert.equal(result.metadata.headings.length, 3);
 });
 
-test('metadata and KaTeX errors fail with source context', async () => {
+test('metadata and KaTeX errors fail with source context', async (t) => {
+  // Astro logs before rejecting. Silence only these intentional failures;
+  // assert.rejects still reports any missing rejection or unexpected error.
+  t.mock.method(console, 'error', () => {});
   for (const [markdown, message] of [
     [':::theorem{#x}\nOne.\n:::\n\n:::lemma{#x}\nTwo.\n:::', /Duplicate block ID/],
     [':::theorem{wrong="x"}\nOne.\n:::', /Unknown theorem metadata/],
