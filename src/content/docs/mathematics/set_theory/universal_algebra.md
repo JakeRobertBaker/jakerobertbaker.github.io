@@ -1,6 +1,7 @@
 ---
 title: Universal Algebra
 ---
+<!-- snippets: latex_math -->
 
 As I read [*Notes on Logic and Set Theory*](https://www.cambridge.org/core/books/notes-on-logic-and-set-theory/A4D56347336629DBFC20710AF214B245), self study notes live here.
 
@@ -67,7 +68,33 @@ Hence $A^0$ = $\left\{ \emptyset \right\}$.
 
 :::definition[Finary Operation]{#def-Finary-Operation}
 
-A finary operation is a map from a set $G$ to any of $G^n, n \in \left\{ 0, 1, 2, \dots \right\}$
+A finary operation is a map from $G$ to $G^n, n \in \left\{ 0, 1, 2, \dots \right\}$
+:::
+
+:::example[Group Operations]{#exm-group-ops}
+A group has associativity, identity and inverses.
+
+$$
+\begin{align*}
+m &: G \times G & \to G & \text{ multiplication} \\
+i &: G & \to G & \text{ inverse} \\
+e &: G^0 = \left\{ \emptyset \right\} & \to G & \text{ identity}
+\end{align*}
+$$
+
+Because $e(\emptyset) \in G$ picks a single element we usually denote it as $e$.
+
+The standard group properties of associative, identity and inverse hold:
+
+$$
+\begin{align*}
+m(x, m(y,z)) &= m(m(x,y),z) \\
+m(e, x) &= x \\
+m(i(x),x) &= e
+\end{align*}
+$$
+
+For all $x,y,z \in G$.
 :::
 
 :::definition[Operational Type]{#def-OperationalType}
@@ -77,6 +104,10 @@ An operational type is a pair $(\Omega, \alpha)$ with
 - set of operation symbols $\Omega$
 - a map
 $\alpha : \Omega \mapsto \mathbb{N}$ that assigns each $\omega \in \Omega$ it's arity $\alpha(\omega)$.
+:::
+
+:::example[Group Arity]{#exm-group-ops-arity}
+The operation symbols for a group make an operational type with $\Omega = \left\{ m,i,e \right\}$ and $\alpha(m)=2, \alpha(i)=1, \alpha(e)=0$
 :::
 
 :::definition[Operational Structure]{#def-OperationalStructure}
