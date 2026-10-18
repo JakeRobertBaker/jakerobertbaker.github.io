@@ -1,0 +1,316 @@
+/* Mathematical Book: ET Book, warm paper/ink, and restrained semantic rules. */
+@font-face {
+  font-family: 'ET Book'; font-style: normal; font-weight: 400; font-display: swap;
+  src: url('../assets/fonts/et-book-roman-line-figures.woff') format('woff');
+}
+@font-face {
+  font-family: 'ET Book'; font-style: italic; font-weight: 400; font-display: swap;
+  src: url('../assets/fonts/et-book-display-italic-old-style-figures.woff') format('woff');
+}
+@font-face {
+  font-family: 'ET Book'; font-style: normal; font-weight: 600 900; font-display: swap;
+  src: url('../assets/fonts/et-book-bold-line-figures.woff') format('woff');
+}
+
+:root {
+  --sl-sidebar-width: 16rem;
+  --sl-content-width: 56rem;
+  --sl-color-white: #f2f0e9;
+  --sl-color-gray-1: #e8e0d3;
+  --sl-color-gray-2: #d3cbbf;
+  --sl-color-gray-3: #ada69c;
+  --sl-color-gray-4: #8c8275;
+  --sl-color-gray-5: #514a40;
+  --sl-color-gray-6: #302c26;
+  --sl-color-bg: var(--sl-color-black);
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+  --sl-color-accent: #c9ad87;
+  --sl-color-accent-high: #e0c7a5;
+  --sl-color-accent-low: #423528;
+  --sl-color-text-accent: #d4b58b;
+  --notes-rule: #ab8860;
+  --notes-definition-rule: #85939a;
+  --notes-example-rule: #9e8a9c;
+  --notes-neutral-rule: #746b60;
+  --notes-rule-gap: 1.1rem;
+  --notes-prose: 'ET Book', Georgia, serif;
+  --notes-heading: 'ET Book', Georgia, serif;
+  --notes-base: 1.3125rem;
+  --notes-leading: 1.55;
+  --notes-title-size: clamp(2.5rem, 4vw, 3.4rem);
+  --notes-heading-weight: 400;
+  --notes-h2-size: 1.65em;
+  --notes-h3-size: 1.3em;
+  --sl-color-black: #211f1b;
+  --sl-color-text: #ded8cd;
+  --sl-color-hairline: #3b3930;
+  --sl-color-hairline-light: #3b3930;
+  --sl-color-hairline-shade: #3b3930;
+}
+:root[data-theme='light'] {
+  --sl-color-white: #29281f;
+  --sl-color-gray-1: #393127;
+  --sl-color-gray-2: #4c4236;
+  --sl-color-gray-3: #756a5d;
+  --sl-color-gray-4: #948777;
+  --sl-color-gray-5: #d6cbbc;
+  --sl-color-gray-6: #eee7dc;
+  --sl-color-gray-7: #f4f5ef;
+  --sl-color-black: #fbf8ef;
+  --sl-color-hairline: #e5e0d1;
+  --sl-color-hairline-light: #e5e0d1;
+  --sl-color-hairline-shade: #e5e0d1;
+  --sl-color-accent: #795737;
+  --sl-color-accent-high: #634224;
+  --sl-color-accent-low: #efe4d3;
+  --sl-color-text-accent: #795737;
+  --sl-color-text: #3c382f;
+  --notes-rule: #b69a76;
+  --notes-neutral-rule: #c6b9a7;
+  --notes-definition-rule: #91a0a7;
+  --notes-example-rule: #b09aa5;
+}
+
+.sl-markdown-content {
+  font-family: var(--notes-prose);
+  font-size: var(--notes-base);
+  line-height: var(--notes-leading);
+  font-optical-sizing: auto;
+  color: var(--sl-color-text);
+  --sl-content-gap-y: 1.1em;
+}
+.main-pane h1 {
+  font-family: var(--notes-heading);
+  font-size: var(--notes-title-size);
+  font-weight: var(--notes-heading-weight);
+  letter-spacing: -.028em;
+  line-height: 1.13;
+  text-wrap: balance;
+  margin-top: 0;
+}
+.sl-markdown-content :is(h2, h3, h4, h5, h6) {
+  font-family: var(--notes-heading);
+  font-weight: var(--notes-heading-weight);
+  letter-spacing: -.018em;
+  line-height: 1.25;
+  text-wrap: pretty;
+}
+/* Starlight also sizes heading wrappers; don't multiply em sizes twice. */
+.sl-markdown-content .sl-heading-wrapper { font-size: inherit; }
+.sl-markdown-content h2 { font-size: var(--notes-h2-size); }
+.sl-markdown-content h3 { font-size: var(--notes-h3-size); }
+.sl-markdown-content :is(h4, h5, h6) { font-size: 1.05em; }
+.sl-markdown-content :is(h2, h3) { font-style: italic; }
+.sl-markdown-content a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: .17em;
+}
+.sl-markdown-content .katex { font-size: 1.04em; }
+
+.sl-markdown-content .katex-display { margin-block: 1.15em; }
+.content-panel:first-child { padding-top: 3.5rem; padding-bottom: 1.75rem; }
+.content-panel + .content-panel { border-top: 0; padding-top: 1.25rem; }
+
+/* Place the fine rule in the gutter. Statements retain the full prose width. */
+.sl-markdown-content .math-block {
+  --block-color: var(--notes-rule);
+  margin-block: 1.7em;
+  margin-inline-start: calc(-1 * var(--notes-rule-gap));
+  padding: .1em 0 .1em calc(var(--notes-rule-gap) - 2px);
+  border: 0;
+  border-inline-start: 2px solid var(--block-color);
+  border-radius: 0;
+  background: transparent;
+  font-size: inherit;
+}
+.math-block > .math-block__title {
+  padding: 0 1.75em .5em 0;
+  margin: 0;
+  background: transparent;
+  border-radius: 0;
+  color: var(--sl-color-white);
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.math-block > .math-block__body { margin: 0; padding: 0; }
+.math-block .math-block {
+  margin-inline-start: 0;
+  padding-inline-start: calc(.75em - 2px);
+}
+.math-block__title > .math-permalink {
+  top: 0; right: 0;
+  color: var(--sl-color-gray-3);
+  font-family: var(--sl-font-system);
+  font-size: .75em;
+  padding: .2em .4em;
+}
+.sl-markdown-content :is(.math-block--proof, .math-block--remark) {
+  --block-color: var(--notes-neutral-rule);
+}
+.math-block--proof > .math-block__title {
+  font-style: italic;
+  font-weight: 400;
+}
+.math-block--proof[open] > summary.math-block__title { margin-bottom: .3em; }
+.math-block--proof:not([open]) > summary.math-block__title { padding-bottom: 0; }
+.sl-markdown-content :is(.starlight-aside--note, .starlight-aside--tip) {
+  --sl-color-asides-text-accent: var(--sl-color-text-accent);
+  border: 0;
+  border-inline-start: 1px solid var(--notes-neutral-rule);
+  background: transparent;
+  margin-block: 1.7em;
+  margin-inline-start: calc(-1 * var(--notes-rule-gap));
+  padding: .1em 0 .1em calc(var(--notes-rule-gap) - 1px);
+  color: var(--sl-color-text);
+  font-size: inherit;
+}
+.math-block :is(.starlight-aside--note, .starlight-aside--tip) {
+  margin-inline-start: 0;
+  padding-inline-start: calc(.75em - 1px);
+}
+:is(.starlight-aside--note, .starlight-aside--tip) > .starlight-aside__title {
+  color: var(--sl-color-white);
+  font-size: 1em;
+  line-height: 1.45;
+  margin: 0;
+}
+:is(.starlight-aside--note, .starlight-aside--tip) > .starlight-aside__content { margin-top: .5em; }
+.starlight-aside__content > :first-child { margin-top: 0; }
+.starlight-aside__content > :last-child { margin-bottom: 0; }
+:is(.starlight-aside--note, .starlight-aside--tip) .starlight-aside__icon { display: none; }
+
+/* A quiet subject index, not a second set of article headings. */
+.sidebar-content { padding-top: 2rem; }
+.sidebar-content :is(a, .large) {
+  font-family: 'ET Book', Georgia, serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--sl-color-gray-3);
+}
+.sidebar-content .top-level > li > details > summary .large,
+.sidebar-content .top-level > li > a.large {
+  color: var(--sl-color-text);
+  font-weight: 550;
+}
+.sidebar-content summary { padding-block: .4em; }
+.sidebar-content ul ul li { border-inline-start-color: transparent; }
+.sidebar-content a { padding-block: .4em; border-radius: 0; }
+.sidebar-content a[aria-current='page'] {
+  background: color-mix(in srgb, var(--notes-rule) 7%, transparent);
+  color: var(--sl-color-text-accent);
+  box-shadow: -2px 0 var(--notes-rule);
+  font-weight: 600;
+}
+.sidebar-content :is(a, summary):hover,
+.sidebar-content a:focus-visible { color: var(--sl-color-white); }
+
+/* Reuse Starlight's current-section observer and native mobile contents. */
+.right-sidebar { border-inline-start: 0; }
+.right-sidebar-panel { padding-top: 3rem; }
+starlight-toc h2 {
+  font-family: inherit;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--sl-color-text);
+  margin-bottom: 1.15rem;
+}
+starlight-toc nav > ul { border-inline-start: 1px solid var(--sl-color-hairline-light); }
+starlight-toc a {
+  position: relative;
+  border-radius: 0;
+  padding-block: .45em;
+  padding-inline-start: calc(.85rem + var(--depth) * .75rem);
+  font-size: 1.125rem;
+  line-height: 1.45;
+  color: var(--sl-color-gray-3);
+}
+starlight-toc a[aria-current='true'] {
+  color: var(--sl-color-text-accent);
+  font-weight: 600;
+}
+starlight-toc a[aria-current='true']::before {
+  content: '';
+  position: absolute;
+  inset-block: .2em;
+  inset-inline-start: -1px;
+  width: 2px;
+  background: var(--notes-rule);
+}
+#theorem-preview {
+  border-radius: .15rem;
+  padding: 1.25rem 1.5rem;
+  font-size: var(--notes-base);
+}
+:focus-visible { outline: 2px solid var(--sl-color-text-accent); outline-offset: 3px; }
+
+@media (max-width: 49.99rem) {
+  :root {
+    --sl-content-pad-x: 1.25rem;
+    --notes-rule-gap: .75rem;
+    --notes-title-size: 2.25rem;
+  }
+  .content-panel:first-child { padding-top: 2.25rem; padding-bottom: 1rem; }
+  .content-panel + .content-panel { padding-top: .75rem; }
+}
+@media print {
+  /* Native print CSS resets the greys, but our explicit prose colour must
+     also switch to dark ink when printing from dark mode. */
+  :root[data-theme] {
+    --sl-color-black: #fff;
+    --sl-color-bg: #fff;
+    --sl-color-white: #29281f;
+    --sl-color-text: #3c382f;
+    --sl-color-text-accent: #795737;
+    --notes-rule: #b69a76;
+    --notes-definition-rule: #91a0a7;
+    --notes-example-rule: #b09aa5;
+    --notes-neutral-rule: #c6b9a7;
+  }
+  .math-block { break-inside: auto; }
+}
+
+.sl-markdown-content :is(.math-block--definition, .math-block--notation) {
+  --block-color: var(--notes-definition-rule);
+}
+.sl-markdown-content .math-block--example {
+  --block-color: var(--notes-example-rule);
+}
+
+/* Some prose contains a single unbreakable inline set/formula. At book size
+   it can exceed a phone column: scroll that paragraph, not the whole page.
+   Statements/proofs already have a body scroller; keep that behaviour and
+   KaTeX's inline baseline/font metrics unchanged. */
+.sl-markdown-content p:has(.katex):not(.math-block p) { overflow-x: auto; }
+
+/* The interface shares the book's typography; KaTeX keeps its own fonts. */
+.site-title {
+  color: var(--sl-color-white);
+  font-family: 'ET Book', Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.page > header :is(button[data-open-modal], select) {
+  font-family: 'ET Book', Georgia, serif;
+  font-size: 1.0625rem;
+}
+:is(button[data-open-modal], .sl-menu-button, mobile-starlight-toc .toggle) {
+  border-radius: 0;
+  box-shadow: none;
+}
+.sl-menu-button { border: 1px solid var(--sl-color-gray-5); }
+
+/* Typography only: Starlight owns the desktop map, responsive disclosure,
+   active-section observer, hash links and keyboard behaviour. */
+:is(starlight-toc, mobile-starlight-toc) {
+  font-family: 'ET Book', Georgia, serif;
+}
+:is(starlight-toc, mobile-starlight-toc) a {
+  font-size: 1.125rem;
+}
+mobile-starlight-toc summary {
+  font-size: 1.0625rem;
+}

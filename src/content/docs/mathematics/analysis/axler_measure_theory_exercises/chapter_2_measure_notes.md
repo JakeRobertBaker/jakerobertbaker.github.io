@@ -132,7 +132,7 @@ $$
 
 is a $\sigma$-algebra on $\mathbb{R}$.
 
-:::note[Remark]
+:::remark[Remark]
 
 Already have: countable implies outer measure zero, which implies Lebesgue measurable.
 

@@ -6,6 +6,7 @@ import remarkMath from 'remark-math';
 import remarkDirective from 'remark-directive';
 import rehypeKatex from 'rehype-katex';
 import mathBlocks, { failMathErrors } from './src/lib/math-blocks.mjs';
+import headingLabels from './src/lib/heading-labels.mjs';
 import navigation from './src/data/navigation.json' with { type: 'json' };
 
 export default defineConfig({
@@ -19,15 +20,23 @@ export default defineConfig({
     processor: unified({
       smartypants: false,
       remarkPlugins: [remarkMath, remarkDirective, mathBlocks],
-      rehypePlugins: [[rehypeKatex, { strict: (code) => code === 'newLineInDisplayMode' ? 'ignore' : 'warn', trust: false }], failMathErrors],
+      rehypePlugins: [[rehypeKatex, { strict: (code) => code === 'newLineInDisplayMode' ? 'ignore' : 'warn', trust: false }], failMathErrors, headingLabels],
     }),
   },
   integrations: [starlight({
     title: 'Jake Notes',
     description: 'Personal notes on mathematics, deep learning, and related topics.',
     sidebar: navigation,
-    customCss: ['katex/dist/katex.min.css', './src/styles/notes.css'],
-    components: { Footer: './src/components/Footer.astro' },
+    routeMiddleware: './src/route-data.ts',
+    customCss: [
+      'katex/dist/katex.min.css', './src/styles/notes.css',
+      './src/styles/book.css', './src/styles/navigation.css',
+    ],
+    components: {
+      Footer: './src/components/Footer.astro',
+      PageFrame: './src/components/PageFrame.astro',
+      MobileMenuToggle: './src/components/MobileMenuToggle.astro',
+    },
     social: [
       { icon: 'github', label: 'GitHub', href: 'https://github.com/jakerobertbaker' },
       { icon: 'linkedin', label: 'LinkedIn', href: 'https://linkedin.com/in/jake-robert-baker' },
