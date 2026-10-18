@@ -131,7 +131,7 @@ $$
 
 Because of MHA $\mathbf{M}$ is like a context-aware representation of every source token, informed by all other source tokens. It is passed **unchanged** into every one of the $N$ decoder layers.
 
-:::note[Remark — what the self-attention is comparing]{#rem-enc-self-attn}
+:::remark[Remark — what the self-attention is comparing]{#rem-enc-self-attn}
 
 Let's consider the first layer of the stack.
 
@@ -192,7 +192,7 @@ $$
 \quad (T = 4)
 $$
 
-:::note[Remark — why shift right]{#rem-shift-right}
+:::remark[Remark — why shift right]{#rem-shift-right}
 
 The shift means: the decoder at position $i$ must predict target token $i+1$ using only the tokens at positions $1, \ldots, i$. Seeing $\langle\text{BOS}\rangle$ it should predict LE; seeing $\langle\text{BOS}\rangle$, LE it should predict TEMPS; and so on. This is **teacher forcing** — the ground-truth tokens are fed in as input rather than the model's own previous predictions.
 :::
@@ -277,7 +277,7 @@ $$
 Here the queries come from the decoder's current representation $\mathbf{g}^{(1)}$ and the keys/values come from the encoder's final output $\mathbf{M}$. The score matrix is $T \times S = 4 \times 5$ — each of the $T=4$ target positions attends over all $S=5$ source positions.
 
 No causal mask is applied here — the decoder is free to attend to **any** source position when generating any target position. A **padding mask** is applied to suppress attention to any padded source positions.
-:::note[Remark — what the cross-attention is comparing]{#rem-cross-attn}
+:::remark[Remark — what the cross-attention is comparing]{#rem-cross-attn}
 
 The similarity $\mathbf{Z}_{i,j} = \mathbf{q}_i \cdot \mathbf{k}_j$ measures how much **target token $i$ attends to source token $j$**.
 
@@ -316,7 +316,7 @@ $$
 
 where $\mathbf{W}_O : (D,\, |\mathcal{V}|)$ is a learned linear projection. Row $i$ of $\hat{\mathbf{P}}$ is the model's predicted probability distribution over all vocabulary tokens for target position $i$.
 
-:::note[Remark — weight tying]{#rem-weight-tying}
+:::remark[Remark — weight tying]{#rem-weight-tying}
 
 The paper shares the same weight matrix between the two embedding layers (source and target) and the pre-softmax linear transformation $\mathbf{W}_O$. In the embedding layers the weights are multiplied by $\sqrt{D}$.
 :::
@@ -407,7 +407,7 @@ The causal mask is still applied inside the decoder at each step, consistent wit
 
 Generation terminates when $\langle\text{EOS}\rangle$ is produced or a maximum length is reached.
 
-:::note[Remark — training vs inference]{#rem-inference}
+:::remark[Remark — training vs inference]{#rem-inference}
 
 During training, all $T=4$ target tokens are processed **in parallel** by a single decoder call (with the causal mask enforcing causality). This is what makes training efficient. During inference, the decoder is called **sequentially** $T{+}1$ times — each step's output token becomes part of the next step's input — since the true targets are unknown. The causal mask and the shifted-right convention together ensure that training exactly mimics the conditional dependencies seen at inference time.
 :::

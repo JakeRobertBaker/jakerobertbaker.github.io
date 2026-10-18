@@ -8,7 +8,7 @@ title: Attention Mechanisms
 
 ## Notation
 
-:::note[Notation]{#not-attention}
+:::notation[Notation]{#not-attention}
 
 Let $(S, D)$ denote the shape $\mathbb{R}^{S \times D}$ and write $\mathbf{X} \in \mathbb{R}^{S \times D}$ as $\mathbf{X} : (S, D)$.
 

@@ -9,6 +9,8 @@ import { pageUrl, resolveReference } from "./references.mjs"
 
 const root = fileURLToPath(new URL("../content/docs/", import.meta.url))
 export const resultKinds = new Set(["definition", "theorem", "lemma", "proposition", "corollary", "example"])
+// Referenceable exposition is not automatically a proven result/dependency.
+export const expositionKinds = new Set(["remark", "notation"])
 const asides = new Set(["note", "tip", "caution", "danger"])
 const serialOptions = { extensions: [directiveToMarkdown(), mathToMarkdown()] }
 const serialize = (children) => toMarkdown({ type: "root", children }, serialOptions).trim()
@@ -41,7 +43,7 @@ export default function mathBlocks() {
     const ids = new Set()
     visit(tree, "containerDirective", (node) => {
       const kind = node.name
-      if (!resultKinds.has(kind) && kind !== "proof" && !asides.has(kind))
+      if (!resultKinds.has(kind) && !expositionKinds.has(kind) && kind !== "proof" && !asides.has(kind))
         fail(`Unknown block type: ${kind}`, node)
       const attrs = node.attributes ?? {}
       const allowed = kind === "proof" ? ["id", "open", "proves", "uses"] : ["id"]

@@ -19,7 +19,7 @@ for $x \in \lbrace 1,...,n \rbrace$.
 
 :::
 
-:::note[Remark]{#rem-Beta-Binomial-Proportion}
+:::remark[Remark]{#rem-Beta-Binomial-Proportion}
 
 Note that $f(x|n,\alpha ,\beta) \propto \frac{1}{x! (n-x)!} \Gamma(x+\alpha) \Gamma(n-x + \beta)$ when we consider $x$ to be the only variable.
 :::

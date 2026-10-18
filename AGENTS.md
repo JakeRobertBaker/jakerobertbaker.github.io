@@ -15,6 +15,7 @@ For preview work, also read `instructions/local-preview.md` if present. It is op
 | [`README.md`](README.md) | Setting up, running checks, changing architecture/dependencies, deploying or rolling back. Includes the source-directory map and commands. |
 | [`instructions/example_template.md`](instructions/example_template.md) | Adding/editing notes: page checklist, sidebar/discovery, legacy anchors, mathematics, semantic blocks and proof references. |
 | [`instructions/site-preview.md`](instructions/site-preview.md) | Reviewing previews: port ownership, LAN access, Playwright MCP, reload, search and screenshots. Also use the `site-visual-review` skill. |
+| [`instructions/book-theme.md`](instructions/book-theme.md) | Changing the production book theme, navigation geometry, local fonts or responsive visual checks. |
 | [`instructions/framework-migration-proposal.md`](instructions/framework-migration-proposal.md) | Investigating migration decisions, compatibility requirements or cutover history. This is a historical record, not the routine development guide. |
 
 ## Working rules

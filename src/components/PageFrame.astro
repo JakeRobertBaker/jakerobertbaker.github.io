@@ -1,0 +1,17 @@
+---
+import Default from '@astrojs/starlight/components/PageFrame.astro';
+---
+<Default>
+  <slot name="header" slot="header" />
+  <Fragment slot="sidebar">
+    <div class="subject-index-heading">
+      <h2>Subject index</h2>
+      <button popovertarget="starlight__sidebar" popovertargetaction="hide" aria-label="Close subject index">×</button>
+    </div>
+    <slot name="sidebar" />
+  </Fragment>
+  <slot />
+</Default>
+<script>
+  import '../scripts/navigation';
+</script>
