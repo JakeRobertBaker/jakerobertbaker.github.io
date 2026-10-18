@@ -2,10 +2,6 @@
 title: Uniform Fraction
 ---
 
-<span id="uniform-fraction"></span>
-<!-- snippets: latex_math -->
-
-
 Let $X,Y \sim$ $U\left( 0,1 \right)$,
 
 $$

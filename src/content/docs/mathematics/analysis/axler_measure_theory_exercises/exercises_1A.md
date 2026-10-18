@@ -2,11 +2,6 @@
 title: Chapter 1 Exercises A
 ---
 
-<span id="exercises-1a"></span>
-<!-- snippets: latex_math -->
-
-
-
 ## 7.
 
 ### Solution.

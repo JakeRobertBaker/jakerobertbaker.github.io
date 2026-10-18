@@ -32,7 +32,7 @@ No comparative framework performance benchmark was used to choose the winner. Lo
 
 ## Preservation and validation
 
-Automated/browser validation covers:
+At cutover, automated/browser validation covered:
 
 - All **25 original note URLs**, including the previously unlisted Uniform Fraction page, now included under Problems.
 - All **250 legacy content anchors**, including exact-case/underscore theorem IDs, source H1 aliases, math headings and repeated-heading suffixes.
@@ -43,7 +43,7 @@ Automated/browser validation covers:
 - Live MCP inspection at mobile/desktop sizes. Native Markdown reload was observed from the LAN origin without manual refresh. Disposable theorem-registry additions/edits/deletions were reflected correctly; CSS and Astro component changes also updated in the open browser. All temporary probes were removed.
 - `npm run check`, math/plugin tests, browser-tool tests, production build, full-site Playwright tests, and `npm audit` passed locally, including a clean archive/install of committed source. Audit was clean after documented transitive overrides for patched KaTeX and selector parsing. GitHub Actions check/run history is the authority for hosted validation and publishing results.
 
-`tests/fixtures/legacy-site.json` is the immutable MkDocs baseline (URLs, anchors, block IDs and body-math hashes), not a generated artifact to refresh whenever tests fail.
+The one-time MkDocs snapshot (`tests/fixtures/legacy-site.json`) and historical-content assertions were retired after cutover; Git history retains them if needed. Normal authoring may change mathematics, IDs and blocks without compatibility aliases. Current validation and authoring policy live in [README.md](../README.md#validation) and the [writing guide](example_template.md).
 
 ## Operational notes and cutover
 

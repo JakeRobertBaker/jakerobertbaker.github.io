@@ -2,10 +2,6 @@
 title: Attention Mechanisms
 ---
 
-<span id="attention-transformer-details"></span>
-<!-- snippets: latex_math -->
-
-
 ## Notation
 
 :::notation[Notation]{#not-attention}

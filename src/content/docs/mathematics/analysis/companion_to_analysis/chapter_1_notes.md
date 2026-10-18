@@ -2,11 +2,6 @@
 title: Chapter 1
 ---
 
-<span id="notes-on-chapter-1"></span>
-<!-- snippets: latex_math -->
-
-
-
 ## FA
 
 :::definition[The fundamental axiom of analysis]{#def-fundamental-axiom}

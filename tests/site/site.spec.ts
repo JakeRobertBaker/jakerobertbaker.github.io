@@ -1,32 +1,32 @@
 import { test, expect } from '@playwright/test';
-import { readFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
+import { readFile, readdir } from 'node:fs/promises';
+import { sep } from 'node:path';
 
-const baseline = JSON.parse(await readFile(new URL('../fixtures/legacy-site.json', import.meta.url), 'utf8')) as {
-  source: string; url: string; ids: string[]; blockIds: string[]; mathSha256: string; mathCount: number;
-}[];
+// Discover the current build, not a frozen list of migration-era notes.
+// This suite requires a fresh build; `npm run validate` handles that ordering.
+const routes = (await readdir(new URL('../../dist/', import.meta.url), { recursive: true }))
+  .map((path) => path.split(sep).join('/'))
+  .filter((path) => path === 'index.html' || path.endsWith('/index.html'))
+  .map((path) => `/${path.slice(0, -'index.html'.length)}`)
+  .sort();
 
-test('all original pages, mathematics and 250 anchors survive; local links and assets resolve', async ({ page, request }) => {
+test('current pages render mathematics; local links and assets resolve', async ({ page, request }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
   const targets = new Set<string>();
-  for (const original of baseline) {
-    const source = await readFile(new URL(`../../src/content/docs/${original.source}`, import.meta.url), 'utf8');
-    const body = source.replace(/^---\n[\s\S]*?\n---\n/, '');
-    const math = body.match(/\$\$[\s\S]*?\$\$|(?<!\$)\$(?!\$)[^\n$]+?\$/g) ?? [];
-    expect(createHash('sha256').update(math.join('\n')).digest('hex'), original.source).toBe(original.mathSha256);
-    const response = await page.goto(original.url);
-    expect(response?.status(), original.url).toBe(200);
+  expect(routes).toContain('/');
+  for (const route of routes) {
+    const response = await page.goto(route);
+    expect(response?.status(), route).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://jakerobertbaker.github.io${original.url}`);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://jakerobertbaker.github.io${route}`);
     await expect(page.locator('meta[name="google-site-verification"]')).toHaveAttribute('content', 'gEOmW-qgr_yKbiRv9hNzVzRaIHlBm7kxsZTmr8coNRI');
     await expect(page.locator('.katex-error')).toHaveCount(0);
     const ids = await page.locator('[id]').evaluateAll((nodes) => nodes.map((node) => node.id));
-    expect(ids, original.url).toEqual(expect.arrayContaining(original.ids));
-    expect(new Set(ids).size, original.url).toBe(ids.length);
+    expect(new Set(ids).size, route).toBe(ids.length);
     const text = await page.locator('main .sl-markdown-content').innerText();
-    expect(text, original.url).not.toMatch(/^\/\/\/|^attrs:|\{data-preview\}|^:::+(?:theorem|proof|definition)/m);
+    expect(text, route).not.toMatch(/^\/\/\/|^attrs:|\{data-preview\}|^:::+(?:theorem|proof|definition)/m);
     const links = await page.locator('main .sl-markdown-content a[href], main .sl-markdown-content img[src]').evaluateAll((nodes) =>
       nodes.map((node) => node instanceof HTMLAnchorElement ? node.href : (node as HTMLImageElement).src));
     for (const link of links) if (link.startsWith('http://127.0.0.1:4322/')) targets.add(link);
@@ -35,7 +35,7 @@ test('all original pages, mathematics and 250 anchors survive; local links and a
         img.loading = 'eager';
         await img.decode().catch(() => {});
         return img.complete && img.naturalWidth > 0;
-      }), original.url).toBeTruthy();
+      }), route).toBeTruthy();
   }
   for (const target of targets) {
     const url = new URL(target);
@@ -107,16 +107,25 @@ test('remarks and notation retain published identities and use semantic blocks',
   await expect(page.locator('.starlight-aside--note')).toContainText('Therefore');
 });
 
-test('theorem registry is generated from the same Markdown and preserves all identified blocks', async ({ request }) => {
+test('theorem registry agrees with current rendered blocks and Markdown locations', async ({ page, request }) => {
   const response = await request.get('/theorems.json');
   expect(response.status()).toBe(200);
   const registry = await response.json();
   expect(registry.version).toBe(1);
   const blockUrls = registry.blocks.map((block: { url: string }) => block.url);
-  const legacyBlockUrls = baseline.flatMap((original) => original.blockIds.map((id) => `${original.url}#${id}`));
-  // Preserve every migrated identity without freezing the site at its migration size.
-  expect(blockUrls).toEqual(expect.arrayContaining(legacyBlockUrls));
   expect(new Set(blockUrls).size).toBe(blockUrls.length);
+  const renderedBlockUrls: string[] = [];
+  for (const route of routes) {
+    await page.goto(route);
+    const blocks = await page.locator('[data-math-kind][id]').evaluateAll((nodes) =>
+      nodes.map((node) => ({ id: node.id, kind: node.getAttribute('data-math-kind') })));
+    for (const block of blocks) {
+      const url = `${route}#${block.id}`;
+      renderedBlockUrls.push(url);
+      expect(registry.blocks.find((entry: { url: string }) => entry.url === url)?.kind, url).toBe(block.kind);
+    }
+  }
+  expect([...blockUrls].sort()).toEqual(renderedBlockUrls.sort());
   for (const block of registry.blocks) {
     expect(block.statement).toBeTruthy();
     expect(block.line).toBeGreaterThan(0);
@@ -144,18 +153,17 @@ test('hover and keyboard previews render KaTeX and keep normal navigation', asyn
 
 test('mobile navigation, themes, contents, long math, and built-site search', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  const routes = baseline.map((original) => original.url);
   for (const colorScheme of ['light', 'dark'] as const) {
     await page.emulateMedia({ colorScheme });
     for (const route of routes) {
       await page.goto(route);
       await expect(page.locator('h1')).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth), route).toBeLessThanOrEqual(392);
+      // Wide math must remain scrollable, but no note has to keep a wide formula.
+      expect(await page.locator('.math-block__body').evaluateAll((elements) => elements.every((element) =>
+        element.scrollWidth <= element.clientWidth || getComputedStyle(element).overflowX === 'auto')), route).toBeTruthy();
     }
   }
-  await page.goto('/mathematics/set_theory/universal_algebra/');
-  expect(await page.locator('.math-block__body').evaluateAll((elements) => elements.some((element) =>
-    getComputedStyle(element).overflowX === 'auto' && element.scrollWidth > element.clientWidth))).toBeTruthy();
   await page.goto('/');
   await page.getByRole('button', { name: 'Menu', exact: true }).click();
   const sidebar = page.getByRole('navigation', { name: 'Main' });
@@ -172,15 +180,22 @@ test('mobile navigation, themes, contents, long math, and built-site search', as
   await expect(page.locator('.pagefind-ui__results')).toContainText('Luzin');
 });
 
-test('crawler discovery, legacy sitemap and Pages static assets are retained', async ({ request }) => {
+test('current pages are discoverable; sitemap alias and Pages static assets work', async ({ request }) => {
   const sitemap = await request.get('/sitemap.xml');
   expect(sitemap.status()).toBe(200);
   expect(await sitemap.text()).toBe(await (await request.get('/sitemap-index.xml')).text());
   const urls = await (await request.get('/sitemap-0.xml')).text();
   const guide = await (await request.get('/llms.txt')).text();
-  for (const original of baseline) {
-    expect(urls).toContain(`https://jakerobertbaker.github.io${original.url}`);
-    expect(guide).toContain(`https://jakerobertbaker.github.io${original.url}`);
+  for (const route of routes)
+    expect(urls).toContain(`<loc>https://jakerobertbaker.github.io${route}</loc>`);
+  // The guide is curated, not exhaustive. Check its actual links instead of
+  // requiring a manual entry for every new note.
+  for (const [, path] of guide.matchAll(/\]\(https:\/\/jakerobertbaker\.github\.io([^)]*)\)/g)) {
+    const url = new URL(path || '/', 'https://jakerobertbaker.github.io');
+    const response = await request.get(url.pathname + url.search);
+    expect(response.status(), url.href).toBe(200);
+    if (url.hash && response.headers()['content-type']?.includes('text/html'))
+      expect(await response.text(), url.href).toContain(`id="${decodeURIComponent(url.hash.slice(1))}"`);
   }
   expect(await (await request.get('/robots.txt')).text()).toContain('https://jakerobertbaker.github.io/sitemap.xml');
   expect(await readFile(new URL('../../dist/.nojekyll', import.meta.url), 'utf8')).toBe('');

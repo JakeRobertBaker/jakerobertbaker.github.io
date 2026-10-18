@@ -2,10 +2,6 @@
 title: Normal Distribution
 ---
 
-<span id="normal-distribution"></span>
-<!-- snippets: latex_math -->
-
-
 ## Complete the matrix square
 
 The matrix version of

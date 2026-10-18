@@ -2,10 +2,6 @@
 title: Chapter 2 Exercises D
 ---
 
-<span id="2d"></span>
-<!-- snippets: latex_math -->
-
-
 ## Exercise 1
 
 > (a) Show that the set of numbers in $\left( 0,1 \right)$ that have decimal expansions containing 100 consecutive 4s is a Boreal subset of $\mathbb{R}$

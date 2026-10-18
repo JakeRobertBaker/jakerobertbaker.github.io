@@ -2,10 +2,6 @@
 title: Shapley Formula
 ---
 
-<span id="shapley-formula"></span>
-<!-- snippets: latex_math -->
-
-
 ## Setup
 
 Let $N = \{1, \dots, n\}$ be the set of players and $S \subseteq N$ a coalition. A **cooperative game** is a characteristic function $v : \mathcal{P}(N) \to \mathbb{R}$ with $v(\varnothing) = 0$, assigning a value to every coalition.
