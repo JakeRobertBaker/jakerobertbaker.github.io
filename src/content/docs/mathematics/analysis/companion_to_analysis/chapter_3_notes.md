@@ -2,11 +2,6 @@
 title: Chapter 3
 ---
 
-<span id="notes-on-chapter-1"></span>
-<!-- snippets: latex_math -->
-
-
-
 ## Exercises
 
 ### Ex 3.9

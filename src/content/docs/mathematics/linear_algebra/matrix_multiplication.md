@@ -2,11 +2,6 @@
 title: Matrix Multiplication
 ---
 
-<span id="common-identities"></span>
-<!-- snippets: latex_math -->
-<!-- snippets: latex_math -->
-
-
 ## Linear Sum of Cols
 
 $$

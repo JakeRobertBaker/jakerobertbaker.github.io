@@ -19,12 +19,8 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-      - run: npm run check
-      - run: npm run test:math
-      - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:preview
-      - run: npm run test:site
+      - run: npm run validate
       - name: Preserve the tested site for the publishing job
         uses: actions/upload-artifact@v7
         with:

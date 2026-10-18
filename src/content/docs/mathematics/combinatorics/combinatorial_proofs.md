@@ -2,9 +2,6 @@
 title: Combinatorial Proofs and Definitions
 ---
 
-<span id="combinatorial-proofs-and-definitions"></span>
-
-
 ## Permutations and Combinations
 
 Consider a size $n$ set $A$.

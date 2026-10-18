@@ -2,9 +2,6 @@
 title: Bayesian Ballot Sampling
 ---
 
-<span id="ballot-sampling-with-bayes"></span>
-
-
 ## Beta Binomial
 
 :::definition[Beta-Binomial Distribution]{#def-Beta-Binomial}

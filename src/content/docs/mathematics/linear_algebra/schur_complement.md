@@ -2,7 +2,6 @@
 title: Schur Complement
 ---
 
-<!-- snippets: latex_math -->
 Using the matrix multiplication row and column [identities](./matrix_multiplication.md).
 
 ##  Schur Complement of D

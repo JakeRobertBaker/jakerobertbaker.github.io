@@ -16,14 +16,15 @@ Notes go here.
 
 Starlight renders the page title; do not add a second H1. Use `.mdx` with imported Astro components only when interaction requires it; ordinary mathematical blocks need no imports or JSX.
 
-Filenames determine canonical URLs, preserving case and underscores. Use ordinary Markdown links: `[a result](../other-note.md#thm-result)`, `[same page](#def-limit)`, or reference-style links. One shared transform resolves source-relative note/asset paths and proof metadata. Absolute site paths and external URLs are supported. Do not rename published pages/IDs without compatibility handling.
+Filenames determine canonical URLs, preserving case and underscores. Use ordinary Markdown links: `[a result](../other-note.md#thm-result)`, `[same page](#def-limit)`, or reference-style links. One shared transform resolves source-relative note/asset paths and proof metadata. Absolute site paths and external URLs are supported. When renaming pages/IDs, update their actual internal references; no historical aliases are required.
 
 ### Adding a page
 
 1. Create a `.md` file under `src/content/docs/` with `title` frontmatter, as above. **No HTML anchor span is required for a new page.**
 2. Add a `slug` entry to the appropriate group in `src/data/navigation.json` if the page should appear in the sidebar. Use its path relative to `src/content/docs/`, without `.md` or a leading slash; for example, `mathematics/problems/new_problem`. A `label` is optional and overrides the page title. Preserve existing editorial labels and ordering.
-3. Add the published URL and a short description to `public/llms.txt`; remove/update entries when removing/moving notes. The generated sitemap is the exhaustive URL inventory, not a file to edit.
-4. Run the relevant [validation commands](../README.md#validation); review rendered mathematics and navigation when content changes.
+3. Preview the page, review mathematics/navigation, and follow the [everyday workflow](../README.md#workflow).
+
+Search and the sitemap include new notes automatically. `public/llms.txt` is a curated guide: update it only when useful, not for every new page. No test snapshots or theorem inventories need updating.
 
 ### Sidebar policy
 
@@ -31,11 +32,11 @@ Filenames determine canonical URLs, preserving case and underscores. Use ordinar
 
 Manual entries are a supported Starlight pattern, not an Astro requirement. If a section grows enough that per-page entries become a nuisance, Starlight supports an `autogenerate` directory group alongside manual groups, with page-level `sidebar.label` and `sidebar.order` frontmatter. Prefer that native option over a custom generator; changing the policy should preserve existing navigation deliberately. See the [Starlight sidebar guide](https://starlight.astro.build/guides/sidebar/).
 
-### Legacy anchors
+### Links and IDs
 
-Spans such as `<span id="uniform-fraction"></span>` are **migration compatibility aliases**, not normal authoring boilerplate. MkDocs generated an anchor for the original `# Uniform Fraction` heading. Its text is now the frontmatter title, which Starlight renders with `id="_top"`; the span keeps the old `/mathematics/problems/uniform_fraction/#uniform-fraction` link working without a duplicate H1. Keep existing aliases, but do not copy them into new pages.
+An HTML `id` is the destination of a URL's `#fragment`. Use IDs that suit the current notes (for example `#exm-nullary-set` for an example); update internal links and proof metadata when renaming them. Do not add invisible alias spans solely to preserve old external links.
 
-Ordinary `##`/`###` headings receive IDs automatically. The heading-ID policy intentionally retains the previous ASCII/Python-Markdown convention, using source LaTeX before KaTeX rendering and `_1`, `_2`, … for repeated headings. For new long-lived cross-references, prefer explicit IDs on semantic blocks, not generated heading anchors.
+Page titles use `#_top`. Ordinary `##`/`###` headings receive IDs automatically from source text/LaTeX, with `_1`, `_2`, … for repeated headings. Prefer explicit IDs on semantic blocks for references.
 
 ## Mathematics
 
@@ -86,10 +87,10 @@ Write $X$ for the underlying space.
 
 Standard `note`, `tip`, `caution`, `danger` remain native Starlight asides: notes/tips are general annotations, while caution/danger retain alert semantics. A remark/notation block is referenceable exposition, not automatically a theorem or a proof dependency. Exercises and solutions may remain ordinary headings, especially in long exercise sets. Do not infer a block's kind from its ID prefix, or add unused directive aliases; introduce a new semantic kind deliberately with validation, rendering and tests.
 
-- Give referenced results/proofs a permanent ID (`#thm-result`). IDs begin with a letter and contain letters, digits, `_`, `.`, or `-`; preserve legacy spelling/case. Identity is canonical page URL + fragment, not title or numbering. Same IDs on different pages are allowed.
+- Give referenced results/proofs an explicit ID (`#thm-result`). IDs begin with a letter and contain letters, digits, `_`, `.`, or `-`; references are case-sensitive. Identity is canonical page URL + fragment, not title or numbering. Same IDs on different pages are allowed.
 - Proofs use native `<details>` and default closed. Add `{open}` alongside other attributes to begin expanded. Never use `open="false"` (a present HTML boolean attribute means true).
 - `proves` identifies exactly one result established by this proof. `uses` lists explicitly declared result dependencies separated by whitespace. Eligible result kinds are `definition`, `theorem`, `lemma`, `proposition`, `corollary` and `example`; remarks, notation, notes and proofs can be linked normally but are not result targets for these relationships. They use the same reference syntax as links. Relationship-bearing proofs need explicit IDs; `uses` also requires `proves`.
-- Ordinary explanatory links do not create dependency edges. Do not infer or invent proof dependencies during transcription/migration. Unannotated/unidentified existing proofs may remain so until the author declares relationships.
+- Ordinary explanatory links do not create dependency edges. Do not infer proof dependencies from prose. Unannotated/unidentified existing proofs may remain so until the author declares relationships.
 - Only identified blocks appear in `/theorems.json`. It stores kind, Markdown title/statement, source location, canonical URL and explicit proof relationships, independently of a future graph renderer. Nested proof text is excluded from a theorem's statement.
 - Unknown block types/options, duplicate block IDs and unresolved declared dependencies are errors. The site suite also catches collisions with headings and broken ordinary references.
 

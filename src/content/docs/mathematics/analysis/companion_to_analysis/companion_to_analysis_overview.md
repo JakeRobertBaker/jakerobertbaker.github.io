@@ -2,9 +2,6 @@
 title: Overview
 ---
 
-<span id="key-definitions-korner-a-companion-to-analysis-cta"></span>
-
-
 Some summaries for my revision.
 
 **Source:** T. W. Körner, *A Companion to Analysis* (AMS Graduate Studies in Mathematics, Vol. 62). Chapters 1–6.
