@@ -1,20 +1,69 @@
 ---
 title: Universal Algebra
 ---
-
-<span id="universal-algebra"></span>
 <!-- snippets: latex_math -->
-
-
-Based on the Johnstone [notes](https://www.cambridge.org/core/books/notes-on-logic-and-set-theory/A4D56347336629DBFC20710AF214B245).
+As I read [*Notes on Logic and Set Theory*](https://www.cambridge.org/core/books/notes-on-logic-and-set-theory/A4D56347336629DBFC20710AF214B245), self study notes live here.
 
 There is some good [discussion](https://math.stackexchange.com/questions/921712/what-is-a-set-raised-to-the-0-power-in-relation-to-the-definition-of-a-nullary)
 on singleton sets here.
 
-:::definition[Nullary Set]{#def-nullary-set}
+## Initial Definitions
 
-We denote the nullary set as $G^0$ as $\left\{ \emptyset \right\}$.
+Before going into Chapter 1. of Johstone I want to skirt over some set theory definitions.
+
+Let's assume that we have the basic ZFC axioms established.
+
+Let's construct a tuple via Kuratowski's definition.
+
+:::definition[Ordered Pair]{#def-ordered-pair}
+$(a,b) \coloneqq \left\{ \left\{ a \right\}, \left\{ a, b \right\} \right\}$
 :::
+
+Let $A,B$ be sets.
+
+:::definition[function]{#def-function}
+A function $f: A\to B$ is
+
+$$
+f = \left\{ \left( a, f \left( a \right) \right): a \in A \right\}
+$$
+:::
+
+Recall the Von Neumann definition of ordinals. I shall revise this properly later.
+
+Basically, $0 = \left\{  \right\} = \emptyset$, $n+1 = n \cup \left\{ n \right\}$, so $n=\left\{ 0,\dots, n-1 \right\}$.
+
+:::definition[$n$-tuple]{#def-n-tuple}
+An $n$-tuple is a map from $n$ to $A$
+:::
+
+:::example[Traditional Tuple]{#exm-trad-tuple}
+The tuple traditionally written as $\left( a,b,c \right)$ is
+
+$\left\{ (0,a), (1,b), (2,c) \right\}$.
+:::
+
+:::definition[$A^B$]{#def-set-power}
+$$
+A^B \coloneqq \left\{ f : \text{f is a map from } B \text{ to } A \right\}
+$$
+:::
+
+Hence $A^n$ is the set of maps from $n=\left\{ 0, \dots, n-1 \right\}$ to $A$, the set of traditional $n$ length tuples.
+
+:::example[Nullary Set]{#exm-nullary-set}
+$A^0$ is the set of maps from $0 = ∅ = \left\{  \right\}$ to $A$
+
+The only map that does this is 
+$$
+f = \left\{ (x, f(x)) : x \in \emptyset \right\} = \left\{  \right\}
+$$
+
+
+Hence $A^0$ = $\left\{ \emptyset \right\}$.
+:::
+
+## Chapter 1. Notes
 
 :::definition[Finary Operation]{#def-Finary-Operation}
 
