@@ -4,7 +4,7 @@ Pi's `.pi/mcp.json` uses pinned official Microsoft Playwright MCP over **stdio**
 
 ## Preview access
 
-Use the current session's intended checkout and preview URL; do not assume SSH, a particular LAN, or the machine used during migration. [The README](../README.md#development) is the canonical source for server commands, configured ports/bind addresses, native background controls, and the dev-versus-built-search distinction.
+Use the current session's intended checkout and preview URL; do not assume SSH or LAN access. [The README](../README.md#development) is the canonical source for server commands, configured ports/bind addresses, native background controls, and the dev-versus-built-search distinction.
 
 Before starting/stopping a server, check listeners (for example `ss -ltnp` on Linux), its process and working directory, and any other worktrees. A configured port is not permission to stop its current owner. The browser's `127.0.0.1` means the machine running that browser, not necessarily the machine running the development server.
 
@@ -64,7 +64,7 @@ Invoke `/skill:site-visual-review` or ask Pi to inspect a URL. Tool search disco
 
 `browser_run_code_unsafe` exists but executes arbitrary code in the MCP server process. Prefer ordinary browser tools; use server-side code only when needed and reviewed. MCP is not a sandbox.
 
-Check KaTeX, nested/open proofs, stable anchors, cross-page links, hover/focus previews, navigation/search, keyboard focus, responsive math and mobile overflow. Snapshots choose actions; **inspect screenshots** to judge appearance. Verify reload with a temporary disposable page edit while leaving the browser open, then restore/remove the probe. Avoid changing other experiments just to test reload.
+Scope review to the change. For note edits, inspect the affected math, blocks, links and mobile overflow. For rendering/navigation changes, also check proofs, previews, keyboard focus, contents and built search. Snapshots choose actions; **inspect screenshots** to judge appearance. Test automatic reload only when relevant to the task, using a disposable edit and restoring it afterwards.
 
 ## Repeatable screenshots
 
@@ -85,15 +85,12 @@ npm run screenshots -- --target preview --path /about/ \
 
 `--preview`, `--live`, or `PREVIEW_URL` override comparison origins. `--out` defaults to a temporary directory. Each run replaces its matching image names/report; use separate output directories to retain batches. Read PNGs with Pi's `read` tool.
 
-For reproducible menu/proof states, pass `--scenario /tmp/states.json`, a JSON array of successive captures. Optional `click`/`waitFor` values are Playwright selectors or target-name maps (`live`, `preview`, `site` for `--url`). For historical Material-versus-Starlight comparisons, for example (both live and preview now use Starlight; adjust the selectors for current comparisons):
+For reproducible menu/proof states, pass `--scenario /tmp/states.json`, a JSON array of successive captures. Optional `click`/`waitFor` values are Playwright selectors or target-name maps (`live`, `preview`, `site` for `--url`). For example, at a mobile viewport:
 
 ```json
 [
   { "name": "home" },
-  { "name": "menu", "click": {
-    "live": ".md-header label[for=__drawer]",
-    "preview": "role=button[name=\"Menu\"]"
-  } }
+  { "name": "menu", "click": ".sl-menu-button" }
 ]
 ```
 
