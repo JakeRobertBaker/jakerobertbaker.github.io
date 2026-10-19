@@ -1,27 +1,26 @@
 # Jake Notes — Astro + Starlight
 
-Markdown mathematics notes in `src/content/docs/`; static assets in `public/`. Start with `README.md`, then read the task-specific guidance below before making changes.
+Start with [`README.md`](README.md) for commands, workflow, architecture and validation. Read only the task-relevant guidance below.
 
-## Documentation
+## Task guidance
 
-Detailed guidance lives in `instructions/`. Keep each concept in one canonical document and link to it rather than repeating it here. Update affected documentation in the same change; maintain this map when adding or moving guidance.
+### Adding or editing notes
 
-For preview work, also read `instructions/local-preview.md` if present. It is optional, gitignored machine-specific context; current session instructions and verified server ownership take precedence.
+Read [`instructions/example_template.md`](instructions/example_template.md) for page setup, sidebar, links, mathematics and semantic blocks.
 
-### Documentation map
+### Browser review
 
-| Document | Read when |
-| --- | --- |
-| [`README.md`](README.md) | Setting up, running checks, changing architecture/dependencies, deploying or rolling back. Includes the source-directory map and commands. |
-| [`instructions/example_template.md`](instructions/example_template.md) | Adding/editing notes: page checklist, sidebar, links/IDs, mathematics, semantic blocks and proof references. |
-| [`instructions/site-preview.md`](instructions/site-preview.md) | Reviewing previews: port ownership, LAN access, Playwright MCP, reload, search and screenshots. Also use the `site-visual-review` skill. |
-| [`instructions/book-theme.md`](instructions/book-theme.md) | Changing the production book theme, navigation geometry, local fonts or responsive visual checks. |
-| [`instructions/framework-migration-proposal.md`](instructions/framework-migration-proposal.md) | Investigating migration decisions, compatibility requirements or cutover history. This is a historical record, not the routine development guide. |
+Read [`instructions/site-preview.md`](instructions/site-preview.md) and use the `site-visual-review` skill for preview access, search, screenshots and visual checks.
+
+Also read `instructions/local-preview.md` if present. It is optional, gitignored machine-specific context; current session instructions and verified server ownership take precedence.
+
+### Theme and navigation changes
+
+Read [`instructions/book-theme.md`](instructions/book-theme.md) for typography, fonts, navigation geometry and responsive tests.
 
 ## Working rules
 
-- Work in the current session's intended checkout. Routine content and small documentation changes may go directly on `main`; preview and run relevant checks before pushing. Use a branch/PR with green CI for infrastructure, rendering, dependencies, broad refactors or experiments. See the [workflow guidance](README.md#workflow).
-- Check listeners and worktrees before starting/stopping a preview; do not assume a machine, access method or port is available. Use Astro's native controls documented in `README.md`.
-- Preserve the author's mathematics unless asked to edit it. When renaming pages/IDs, update actual internal references; do not add aliases or historical snapshots for old external links. Keep `tests/site/` tracked and checked; build exclusions must not hide it.
-- Follow the architecture and validation guidance in `README.md`. For browser work, respect project trust, use fresh unauthenticated contexts and keep artifacts outside published content.
-- Deploy through the tested CI pipeline only. Do not edit generated `gh-pages` files or force-push its history.
+- Preserve the author's mathematics unless asked to edit it.
+- Use the intended checkout. Verify listeners/process ownership and worktrees before starting or stopping previews; do not assume a port is available.
+- Follow the README's workflow, validation and deployment guidance.
+- Keep guidance canonical and task-scoped. Update affected docs with code changes and maintain this map when adding or moving guidance.
