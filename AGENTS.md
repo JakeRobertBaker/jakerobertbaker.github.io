@@ -6,7 +6,7 @@ Start with [`README.md`](README.md) for commands, workflow, architecture and val
 
 ### Adding or editing notes
 
-Read [`instructions/example_template.md`](instructions/example_template.md) for page setup, sidebar, links, mathematics and semantic blocks.
+Read [`instructions/adding-notes.md`](instructions/adding-notes.md) for repository integration and optional proof relationships, and [`instructions/example_template.md`](instructions/example_template.md) for Markdown conventions. Keep the template self-contained for upload to ChatGPT; keep repository workflow and navigation guidance in the adding-notes guide.
 
 ### Browser review
 
