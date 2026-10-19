@@ -20,6 +20,7 @@ Read [`instructions/book-theme.md`](instructions/book-theme.md) for typography, 
 
 ## Working rules
 
+- Ideally, each refactor makes this repo more elegant, less over complex, closer to best practice so that future agents and users encounter less friction and token waste.
 - Preserve the author's mathematics unless asked to edit it.
 - Use the intended checkout. Verify listeners/process ownership and worktrees before starting or stopping previews; do not assume a port is available.
 - Follow the README's workflow, validation and deployment guidance.
