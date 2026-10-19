@@ -44,7 +44,7 @@ Stop preview before restarting dev: Ctrl-C for a foreground server, `npx astro p
 - **Ordinary notes, assets, editorial navigation and small docs changes:** preview affected pages and run `npm run check`. These may go directly on `main`; check CI after pushing. A local full build/browser suite is optional; CI runs it before publishing.
 - **Infrastructure, rendering, dependencies, broad refactors, URL changes or experiments:** use a branch/PR, run full validation locally, and merge with green CI.
 
-See [Writing mathematical notes](instructions/example_template.md) for page setup, links, math and semantic blocks. Keep ordinary notes in `.md`; use `.mdx` only when imported components are needed. React is not installed or required.
+See [Adding and maintaining notes](instructions/adding-notes.md) for repository integration and the self-contained [transcription template](instructions/example_template.md) for Markdown conventions (also suitable for upload to ChatGPT).
 
 ## Source map and architecture
 

@@ -46,7 +46,7 @@ Breakpoints match pinned Starlight: **phone <50rem**, **compact desktop 50–72r
 
 `--notes-header-offset` is the visible masthead; `--notes-sidebar-offset` is persistent space above the panel. They differ after scrolling on narrow screens. Derive control/panel positions together in `navigation.css`, not scroll-event geometry or scattered offsets. Starlight owns document scroll-padding: extra target margins double anchor offsets and disrupt current-section tracking.
 
-Keep native Menu/X, `<details>`, popovers, focus/inert handling, Escape, hash links and current-section tracking. The script runs after Starlight's sidebar media listener. Re-test on framework upgrades: native IDs, footer utilities and breakpoints are version-specific. Don't vendor Starlight or rewrite article DOM. Block kinds/relationships belong in the [writing guide](example_template.md#semantic-mathematical-blocks); don't infer them from prose.
+Keep native Menu/X, `<details>`, popovers, focus/inert handling, Escape, hash links and current-section tracking. The script runs after Starlight's sidebar media listener. Re-test on framework upgrades: native IDs, footer utilities and breakpoints are version-specific. Don't vendor Starlight or rewrite article DOM. Block kinds belong in the [transcription template](example_template.md#semantic-mathematical-blocks); optional [proof relationships](adding-notes.md#optional-proof-relationships) belong in the repository writing guide. Don't infer them from prose.
 
 ## Review
 
