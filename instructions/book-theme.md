@@ -1,18 +1,38 @@
 # Mathematical Book theme
 
-The production default is **ET Book / standard 21px prose (1.3125rem) / wide 56rem article / fine rules / warm sepia / distinct statement-definition markers / on-demand subject index / scroll-away masthead / square serif controls / expanded desktop contents**. Light/dark/auto remains native Starlight. There are no experiment flags, comparison controls or theme-specific URL/session settings; old experimental query parameters are inert. Book styling and native disclosure work without JavaScript.
+The production default is **ET Book / standard 21px prose (1.3125rem) / wide 56rem article / fine rules / warm sepia / distinct statement-definition markers / on-demand subject index / scroll-away masthead / square serif controls / expanded desktop contents**. Light/dark/auto remains native Starlight. Book styling and native disclosure work without JavaScript.
 
 ## Source map
 
-| Location | Responsibility |
-| --- | --- |
-| `src/styles/book.css` | Approved typography, light/dark palette and mathematical/interface appearance. |
-| `src/styles/notes.css` | Structural math/scrollers, topic cards and theorem-preview positioning. |
-| `src/styles/navigation.css` | All masthead, persistent-control, sidebar and responsive contents geometry. |
-| `src/components/PageFrame.astro`, `MobileMenuToggle.astro` | Small slot-forwarding native overrides; desktop subject-index controls. |
-| `src/scripts/navigation.ts` | IntersectionObserver for masthead visibility; native sidebar popover on desktop. |
-| `src/lib/heading-labels.mjs`, `src/route-data.ts` | Plain contents labels from the existing KaTeX MathML render, via cached Astro metadata and supported Starlight middleware. No changed heading HTML/IDs or second math renderer. |
-| `tests/site/theme.spec.ts`, `tests/site/theme/` | Production-artifact visual contracts and representative captures, always included in CI. |
+### Book appearance — `src/styles/book.css`
+
+Typography, light/dark palette and mathematical/interface appearance.
+
+### Structural styles — `src/styles/notes.css`
+
+Math scrollers, topic cards and theorem-preview positioning.
+
+### Navigation layout — `src/styles/navigation.css`
+
+Masthead, persistent controls, sidebar and responsive contents geometry.
+
+### Native overrides — `src/components/`
+
+`PageFrame.astro` and `MobileMenuToggle.astro` forward native slots and add desktop subject-index controls.
+
+### Navigation behaviour — `src/scripts/navigation.ts`
+
+Observes masthead visibility and extends the native sidebar popover to desktop.
+
+### Mathematical contents labels
+
+`src/lib/heading-labels.mjs` and `src/route-data.ts` supply plain contents labels from the existing KaTeX MathML render, via cached Astro metadata and supported Starlight middleware. They do not change heading HTML/IDs or add a second math renderer.
+
+### Visual tests — `tests/site/theme.spec.ts`, `tests/site/theme/`
+
+Production-artifact visual contracts and representative captures, always included in CI.
+
+### Local fonts
 
 Local ET Book WOFFs in `src/assets/fonts/` are unmodified from [Tufte CSS](https://github.com/edwardtufte/tufte-css/tree/b5d7b7bbe5ce9c4c50fcfad4f19ee3646cfd7ae1/et-book); retain the published [MIT notice](../public/fonts/ET-Book-LICENSE.txt). No font CDN or extra package; KaTeX keeps its own fonts.
 
