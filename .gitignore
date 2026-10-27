@@ -4,10 +4,5 @@ dist/
 test-results/
 playwright-report/
 
-# Keep local MkDocs caches out of Git after switching an existing checkout.
-# Root-anchored: a generic site/ pattern would hide tests/site/.
-/site/
-/.venv/
-
 # Optional machine-specific preview/access notes, never published.
 /instructions/local-preview.md
