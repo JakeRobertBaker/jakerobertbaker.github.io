@@ -15,7 +15,7 @@ npm run dev
 
 `npm ci` installs the lockfile's dependencies. `npm run dev` starts the live-edit server at **http://127.0.0.1:2718/**; Markdown, CSS and components reload automatically. Check existing listeners before starting a server; use `npm run dev -- --port 4321` to choose another port.
 
-Dev and preview currently bind to **all network interfaces**. For local-only access, use `npm run dev -- --host 127.0.0.1` or `npm run preview -- --host 127.0.0.1`. Do not expose them to untrusted networks. See [preview access](instructions/site-preview.md#preview-access) for SSH/LAN access.
+Host and port live once, in `server` in `astro.config.mjs`; dev and preview both use them. They bind **all network interfaces** for LAN access; add `-- --host 127.0.0.1` for local-only access. See [preview access](instructions/site-preview.md#preview-access) for SSH/LAN access.
 
 Astro 7 can background servers in agent sessions. Use its native controls:
 
