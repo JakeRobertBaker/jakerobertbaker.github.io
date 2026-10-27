@@ -104,4 +104,4 @@ GitHub Pages deploys from GitHub Actions (repository Settings → Pages → Sour
 
 Branch pushes validate without deploying; their checks also appear on pull requests. Failed validation leaves the live site unchanged, and deployments are serialized. Each deployment replaces the whole site, so a page cached before a deploy may briefly request removed assets until it refreshes.
 
-Roll back by reverting the source change through normal validation and deployment. The `gh-pages` branch is the retired publishing source, kept only as an archive.
+Roll back by reverting the source change through normal validation and deployment. The pre-Astro source and published output are preserved by the `pre-astro-source-2026-10-17` and `pre-astro-pages-2026-10-17` tags.
