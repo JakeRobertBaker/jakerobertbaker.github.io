@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { readFileSync } from 'node:fs';
 import { copyFile } from 'node:fs/promises';
 import starlight from '@astrojs/starlight';
 import { unified } from '@astrojs/markdown-remark';
@@ -7,7 +8,10 @@ import remarkDirective from 'remark-directive';
 import rehypeKatex from 'rehype-katex';
 import mathBlocks, { failMathErrors } from './src/lib/math-blocks.mjs';
 import headingLabels from './src/lib/heading-labels.mjs';
-import navigation from './src/data/navigation.json' with { type: 'json' };
+
+// Read on each config reload instead of retaining Node's cached JSON import.
+const navigationFile = new URL('./src/data/navigation.json', import.meta.url);
+const navigation = JSON.parse(readFileSync(navigationFile, 'utf8'));
 
 export default defineConfig({
   site: 'https://jakerobertbaker.github.io',
@@ -23,7 +27,12 @@ export default defineConfig({
       rehypePlugins: [[rehypeKatex, { strict: (code) => code === 'newLineInDisplayMode' ? 'ignore' : 'warn', trust: false }], failMathErrors, headingLabels],
     }),
   },
-  integrations: [starlight({
+  integrations: [{
+    name: 'watch-navigation',
+    hooks: {
+      'astro:config:setup': ({ addWatchFile }) => addWatchFile(navigationFile),
+    },
+  }, starlight({
     title: 'Jake Notes',
     description: 'Personal notes on mathematics, deep learning, and related topics.',
     sidebar: navigation,

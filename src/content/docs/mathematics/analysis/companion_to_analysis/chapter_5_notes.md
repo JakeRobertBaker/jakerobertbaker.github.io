@@ -1,7 +1,7 @@
 ---
 title: Chapter 5
 ---
-
+<!-- snippets: latex_math -->
 Note exercise 5.19 gives us key results and notation:
 
 $$
@@ -145,3 +145,16 @@ So $0 \leq \hat{S}_{j} - l \leq \hat{S}_{k} - l < a_{\sigma(k)}$ for all $j \in 
 $\hat{S}_{k+1} \leq l$
 
 ![Diagram](tikz_series_plot_variant_below.svg)
+
+## Lemma 5.60 Proof Note
+
+$y=f(x)$, $ k(h) \coloneqq f(x+h) - f(x) $
+
+$$
+\begin{align*}
+\frac{g(f(x+h)) - g(f(x))}{f(x+h) - f(x)} &=
+\frac{g(y + k(h))}{k(h)}
+\end{align*}
+$$
+
+Blah.

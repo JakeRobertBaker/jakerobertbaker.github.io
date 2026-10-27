@@ -100,12 +100,16 @@
                 "slug": "mathematics/analysis/companion_to_analysis/chapter_3_notes"
               },
               {
-                "label": "Dependency Summary",
-                "slug": "mathematics/analysis/companion_to_analysis/theorem_dependencies"
+                "label": "Chapter 4",
+                "slug": "mathematics/analysis/companion_to_analysis/chapter_4_notes"
               },
               {
                 "label": "Chapter 5",
                 "slug": "mathematics/analysis/companion_to_analysis/chapter_5_notes"
+              },
+              {
+                "label": "Dependency Summary",
+                "slug": "mathematics/analysis/companion_to_analysis/theorem_dependencies"
               }
             ]
           },
