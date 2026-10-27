@@ -18,7 +18,7 @@ Masthead, persistent controls, sidebar and responsive contents geometry.
 
 ### Native overrides — `src/components/`
 
-`PageFrame.astro` and `MobileMenuToggle.astro` forward native slots and add desktop subject-index controls.
+`PageFrame.astro` and `MobileMenuToggle.astro` forward native slots and add desktop subject-index controls. `PageFrame` also loads the page scripts (navigation and theorem previews).
 
 ### Navigation behaviour — `src/scripts/navigation.ts`
 
