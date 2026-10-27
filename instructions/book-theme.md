@@ -6,7 +6,7 @@ The production default is **ET Book / standard 21px prose (1.3125rem) / wide 56r
 
 ### Book appearance — `src/styles/book.css`
 
-Typography, light/dark palette and mathematical/interface appearance.
+Typography, light/dark palette and mathematical/interface appearance. `--sl-font` sets ET Book for all of Starlight's interface (prose, controls, search, pagination); don't repeat `font-family` per component.
 
 ### Structural styles — `src/styles/notes.css`
 
@@ -18,7 +18,7 @@ Masthead, persistent controls, sidebar and responsive contents geometry.
 
 ### Native overrides — `src/components/`
 
-`PageFrame.astro` and `MobileMenuToggle.astro` forward native slots and add desktop subject-index controls.
+`PageFrame.astro` and `MobileMenuToggle.astro` forward native slots and add desktop subject-index controls. `PageFrame` also loads the page scripts (navigation and theorem previews).
 
 ### Navigation behaviour — `src/scripts/navigation.ts`
 

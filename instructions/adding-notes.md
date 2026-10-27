@@ -5,7 +5,7 @@ For Markdown syntax, page structure and transcription conventions, use [Notes Tr
 ## Adding a page
 
 1. Create a `.md` file under `src/content/docs/`, following the template's frontmatter and formatting conventions. Use `.mdx` only when imported components are needed; React is not installed or required.
-2. To include the page in the sidebar, add a `slug` entry to the appropriate group in `src/data/navigation.json`: its path relative to `src/content/docs/`, without `.md` or a leading slash, e.g. `mathematics/problems/new_problem`. An optional `label` overrides the title. Preserve the curated groups and order.
+2. To include the page in the sidebar, add a `- slug:` entry to the appropriate group in `src/data/navigation.yaml`: its path relative to `src/content/docs/`, without `.md` or a leading slash, e.g. `mathematics/problems/new_problem`. An optional `label` overrides the title. Preserve the curated groups and order.
 3. Preview the page, check its math/navigation, and follow the [workflow](../README.md#workflow) and [preview instructions](site-preview.md).
 
 The sidebar controls presentation, not page creation. Notes without entries still get URLs, search indexing and sitemap entries unless explicitly excluded. No theorem inventory or snapshots need updating. `public/llms.txt` is an optional curated guide, not a page inventory.
