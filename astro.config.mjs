@@ -43,7 +43,6 @@ export default defineConfig({
       './src/styles/book.css', './src/styles/navigation.css',
     ],
     components: {
-      Footer: './src/components/Footer.astro',
       PageFrame: './src/components/PageFrame.astro',
       MobileMenuToggle: './src/components/MobileMenuToggle.astro',
     },
