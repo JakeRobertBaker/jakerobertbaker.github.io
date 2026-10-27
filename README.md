@@ -15,7 +15,7 @@ npm run dev
 
 `npm ci` installs the lockfile's dependencies. `npm run dev` starts the live-edit server at **http://127.0.0.1:2718/**; Markdown, CSS and components reload automatically. Check existing listeners before starting a server; use `npm run dev -- --port 4321` to choose another port.
 
-Dev and preview currently bind to **all network interfaces**. For local-only access, use `npm run dev -- --host 127.0.0.1` or `npm run preview -- --host 127.0.0.1`. Do not expose them to untrusted networks. See [preview access](instructions/site-preview.md#preview-access) for SSH/LAN access.
+Host and port live once, in `server` in `astro.config.mjs`; dev and preview both use them. They bind **all network interfaces** for LAN access; add `-- --host 127.0.0.1` for local-only access. See [preview access](instructions/site-preview.md#preview-access) for SSH/LAN access.
 
 Astro 7 can background servers in agent sessions. Use its native controls:
 
@@ -50,7 +50,7 @@ See [Adding and maintaining notes](instructions/adding-notes.md) for repository 
 
 ### Notes and navigation
 
-`src/content/docs/` holds notes with title frontmatter. `src/data/navigation.json` controls curated sidebar groups, labels and order; edits automatically reload the dev configuration and browser. `src/content.config.ts` defines the collection and preserves case/underscores in URLs.
+`src/content/docs/` holds notes with title frontmatter. `src/data/navigation.yaml` controls curated sidebar groups, labels and order; edits automatically reload the dev configuration and browser. `src/content.config.ts` defines the collection and preserves case/underscores in URLs.
 
 ### Configuration and mathematics
 
@@ -91,18 +91,17 @@ The site suite discovers current built pages and checks links/assets/fragments, 
 
 ### Dependencies
 
-Dependencies are pinned by the lockfile. When changing them, run full validation and `npm audit`. KaTeX and `postcss-selector-parser` have patched transitive overrides; reassess them when upstream ranges include the fixes. Only KaTeX's `newLineInDisplayMode` strictness warning is ignored; parse errors fail the build.
+Dependencies are pinned by the lockfile. When changing them, run full validation and `npm audit`. The `katex` override makes `rehype-katex` and `remark-math` (which still declare `^0.16`) use the root KaTeX; drop it once their ranges include it. Only KaTeX's `newLineInDisplayMode` strictness warning is ignored; parse errors fail the build.
 
 See [browser preview instructions](instructions/site-preview.md) for interactive inspection and screenshots, and the [theme guide](instructions/book-theme.md) for responsive contracts and visual tests.
 
 ## Deployment
 
-Pushing or merging to `main` triggers `.github/workflows/ci.yml`:
+GitHub Pages deploys from GitHub Actions (repository Settings → Pages → Source: **GitHub Actions**). Pushing or merging to `main` runs `.github/workflows/ci.yml`:
 
-1. Reusable, read-only `validate.yml` runs validation and uploads the tested `dist/`, including hidden files such as `.nojekyll`.
-2. A separate `main`-only job downloads that artifact, retains published `_astro/` and `pagefind/` assets **without overwriting tested files**, and publishes to `gh-pages`. Only this job has `contents: write`; it runs no project build scripts.
-3. GitHub Pages publishes `gh-pages` at `/`.
+1. The reusable, read-only `validate.yml` runs `npm run validate` and uploads the tested `dist/` as the Pages artifact.
+2. A separate `deploy` job publishes that exact artifact with `actions/deploy-pages`. Only it has `pages`/`id-token` write access, and it runs no project code.
 
-Feature pushes/PRs validate without publishing. Failed validation leaves the previous live site in place; publication runs are serialized. Obsolete HTML is removed, while branch history and fingerprinted assets are retained for cached clients. Assets accumulate: review storage as needed, but do not casually prune cache-referenced files.
+Branch pushes validate without deploying; their checks also appear on pull requests. Failed validation leaves the live site unchanged, and deployments are serialized. Each deployment replaces the whole site, so a page cached before a deploy may briefly request removed assets until it refreshes.
 
-Deploy through CI only: do not edit generated `gh-pages` files or force-push its history. Roll back by reverting the source change through normal validation/deployment.
+Roll back by reverting the source change through normal validation and deployment. The `gh-pages` branch is the retired publishing source, kept only as an archive.

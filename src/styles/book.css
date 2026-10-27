@@ -34,8 +34,8 @@
   --notes-example-rule: #9e8a9c;
   --notes-neutral-rule: #746b60;
   --notes-rule-gap: 1.1rem;
-  --notes-prose: 'ET Book', Georgia, serif;
-  --notes-heading: 'ET Book', Georgia, serif;
+  /* Starlight's interface font: prose, controls, search and pagination. */
+  --sl-font: 'ET Book', Georgia, serif;
   --notes-base: 1.3125rem;
   --notes-leading: 1.55;
   --notes-title-size: clamp(2.5rem, 4vw, 3.4rem);
@@ -73,7 +73,6 @@
 }
 
 .sl-markdown-content {
-  font-family: var(--notes-prose);
   font-size: var(--notes-base);
   line-height: var(--notes-leading);
   font-optical-sizing: auto;
@@ -81,7 +80,6 @@
   --sl-content-gap-y: 1.1em;
 }
 .main-pane h1 {
-  font-family: var(--notes-heading);
   font-size: var(--notes-title-size);
   font-weight: var(--notes-heading-weight);
   letter-spacing: -.028em;
@@ -90,7 +88,6 @@
   margin-top: 0;
 }
 .sl-markdown-content :is(h2, h3, h4, h5, h6) {
-  font-family: var(--notes-heading);
   font-weight: var(--notes-heading-weight);
   letter-spacing: -.018em;
   line-height: 1.25;
@@ -184,7 +181,6 @@
 /* A quiet subject index, not a second set of article headings. */
 .sidebar-content { padding-top: 2rem; }
 .sidebar-content :is(a, .large) {
-  font-family: 'ET Book', Georgia, serif;
   font-size: 1.125rem;
   font-weight: 400;
   color: var(--sl-color-gray-3);
@@ -210,7 +206,6 @@
 .right-sidebar { border-inline-start: 0; }
 .right-sidebar-panel { padding-top: 3rem; }
 starlight-toc h2 {
-  font-family: inherit;
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 1.3;
@@ -285,16 +280,14 @@ starlight-toc a[aria-current='true']::before {
    KaTeX's inline baseline/font metrics unchanged. */
 .sl-markdown-content p:has(.katex):not(.math-block p) { overflow-x: auto; }
 
-/* The interface shares the book's typography; KaTeX keeps its own fonts. */
+/* The interface shares the book's typography via --sl-font; KaTeX keeps its own fonts. */
 .site-title {
   color: var(--sl-color-white);
-  font-family: 'ET Book', Georgia, serif;
   font-size: 1.55rem;
   font-weight: 400;
   letter-spacing: 0;
 }
 .page > header :is(button[data-open-modal], select) {
-  font-family: 'ET Book', Georgia, serif;
   font-size: 1.0625rem;
 }
 :is(button[data-open-modal], .sl-menu-button, mobile-starlight-toc .toggle) {
@@ -302,12 +295,10 @@ starlight-toc a[aria-current='true']::before {
   box-shadow: none;
 }
 .sl-menu-button { border: 1px solid var(--sl-color-gray-5); }
+.pagination-links a { border-radius: 0; box-shadow: none; }
 
 /* Typography only: Starlight owns the desktop map, responsive disclosure,
    active-section observer, hash links and keyboard behaviour. */
-:is(starlight-toc, mobile-starlight-toc) {
-  font-family: 'ET Book', Georgia, serif;
-}
 :is(starlight-toc, mobile-starlight-toc) a {
   font-size: 1.125rem;
 }
