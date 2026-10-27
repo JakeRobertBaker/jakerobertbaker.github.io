@@ -10,9 +10,7 @@ Read [`instructions/adding-notes.md`](instructions/adding-notes.md) for reposito
 
 ### Browser review
 
-Read [`instructions/site-preview.md`](instructions/site-preview.md) and use the `site-visual-review` skill for preview access, search, screenshots and visual checks.
-
-Also read `instructions/local-preview.md` if present. It is optional, gitignored machine-specific context; current session instructions and verified server ownership take precedence.
+Read [`instructions/site-preview.md`](instructions/site-preview.md) and use the `site-visual-review` skill for preview access, search, screenshots and visual checks. It also covers the optional, gitignored `instructions/local-preview.md`.
 
 ### Theme and navigation changes
 
