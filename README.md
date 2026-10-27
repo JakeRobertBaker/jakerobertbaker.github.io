@@ -91,7 +91,7 @@ The site suite discovers current built pages and checks links/assets/fragments, 
 
 ### Dependencies
 
-Dependencies are pinned by the lockfile. When changing them, run full validation and `npm audit`. KaTeX and `postcss-selector-parser` have patched transitive overrides; reassess them when upstream ranges include the fixes. Only KaTeX's `newLineInDisplayMode` strictness warning is ignored; parse errors fail the build.
+Dependencies are pinned by the lockfile. When changing them, run full validation and `npm audit`. The `katex` override makes `rehype-katex` and `remark-math` (which still declare `^0.16`) use the root KaTeX; drop it once their ranges include it. Only KaTeX's `newLineInDisplayMode` strictness warning is ignored; parse errors fail the build.
 
 See [browser preview instructions](instructions/site-preview.md) for interactive inspection and screenshots, and the [theme guide](instructions/book-theme.md) for responsive contracts and visual tests.
 
