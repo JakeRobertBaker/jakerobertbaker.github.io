@@ -3,6 +3,8 @@ title: "Chapter 4"
 ---
 <!-- snippets: latex_math -->
 
+An easy recap.
+
 ## Limit definitions
 
 :::definition[Limit of a function]{#def-limit}
@@ -40,3 +42,42 @@ f(y) & \text{ if } \mathbf{y \neq x} \\
 $$
 
 Then, $\tilde{f}(\mathbf{y}) \to \mathbf{a}$ as $\mathbf{y \to x}$ iff $\tilde{f}$ is continuous at $\mathbf{x}$.
+
+### Bookwork: Composition of Limits
+
+
+If,
+
+$$
+k(h) \to k_L \text{ as } h \to h_L
+\\
+q(k) \to q_L \text{ as } k \to k_L
+$$
+
+Then,
+
+$$
+q(k(h)) \to q_L \text{ as } h \to h_L
+$$
+
+#### Proof
+
+This could be proven via the above Exercise proposition and using results about continuity of compositions.
+
+We can just prove it directly. The second assumption gives us,
+
+$$
+\forall \epsilon > 0 \exists \delta > 0 : \lVert k-k_L \rVert < \delta \implies \lVert q-q_L \rVert < \epsilon
+$$
+
+The first assumption gives us
+
+$$
+\exists \nu > 0 : \lVert h-h_L \rVert < \nu \implies \lVert k - k_L \rVert < \delta
+$$
+
+Hence
+
+$$
+\exists \nu > 0 : \lVert h - h_L \rVert < \nu \implies \lVert q(k(h)) - q_L \rVert < \epsilon
+$$
