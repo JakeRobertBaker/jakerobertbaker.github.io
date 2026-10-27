@@ -22,3 +22,21 @@ $$
 \| \mathbf{y} - \mathbf{x} \| < \delta \implies \| f(\mathbf{y}) - \mathbf{a} \| < \epsilon.
 $$
 :::
+
+### Proposition from Exercise
+
+
+Let $E,\mathbf{x}, f, \mathbf{a}$ be as in the above definition.
+
+
+Define $\tilde{f} : E \to \mathbb{R}^p$ by
+
+$$
+\tilde{f}(\mathbf{y}) =
+\begin{cases}
+f(y) & \text{ if } \mathbf{y \neq x} \\
+\mathbf{a} & \text{ if } \mathbf{y=x}
+\end{cases}
+$$
+
+Then, $\tilde{f}(\mathbf{y}) \to \mathbf{a}$ as $\mathbf{y \to x}$ iff $\tilde{f}$ is continuous at $\mathbf{x}$.
