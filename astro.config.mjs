@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import { readFileSync } from 'node:fs';
+import { parse as parseYaml } from 'yaml';
 import { copyFile } from 'node:fs/promises';
 import starlight from '@astrojs/starlight';
 import { unified } from '@astrojs/markdown-remark';
@@ -9,9 +10,9 @@ import rehypeKatex from 'rehype-katex';
 import mathBlocks, { failMathErrors } from './src/lib/math-blocks.mjs';
 import headingLabels from './src/lib/heading-labels.mjs';
 
-// Read on each config reload instead of retaining Node's cached JSON import.
-const navigationFile = new URL('./src/data/navigation.json', import.meta.url);
-const navigation = JSON.parse(readFileSync(navigationFile, 'utf8'));
+// Read on each config reload; the watcher below restarts config on edits.
+const navigationFile = new URL('./src/data/navigation.yaml', import.meta.url);
+const navigation = parseYaml(readFileSync(navigationFile, 'utf8'));
 
 export default defineConfig({
   site: 'https://jakerobertbaker.github.io',
