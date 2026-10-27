@@ -50,7 +50,7 @@ See [Adding and maintaining notes](instructions/adding-notes.md) for repository 
 
 ### Notes and navigation
 
-`src/content/docs/` holds notes with title frontmatter. `src/data/navigation.json` controls curated sidebar groups, labels and order. `src/content.config.ts` defines the collection and preserves case/underscores in URLs.
+`src/content/docs/` holds notes with title frontmatter. `src/data/navigation.json` controls curated sidebar groups, labels and order; edits automatically reload the dev configuration and browser. `src/content.config.ts` defines the collection and preserves case/underscores in URLs.
 
 ### Configuration and mathematics
 
