@@ -1,10 +1,15 @@
 name: Validate site
 on:
+  # Same-repository branch pushes also report checks on their pull requests.
   push:
     branches-ignore: [main, gh-pages]
-  pull_request:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      publish:
+        description: Upload the tested dist/ as the GitHub Pages artifact
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
@@ -21,13 +26,11 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run validate
-      - name: Preserve the tested site for the publishing job
-        uses: actions/upload-artifact@v7
+      - name: Upload the tested site for deployment
+        if: inputs.publish
+        uses: actions/upload-pages-artifact@v5
         with:
-          name: site-dist
           path: dist/
-          include-hidden-files: true
-          retention-days: 3
       - uses: actions/upload-artifact@v7
         if: failure()
         with:

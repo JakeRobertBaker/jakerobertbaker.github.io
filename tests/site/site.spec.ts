@@ -180,7 +180,7 @@ test('mobile navigation, themes, contents, long math, and built-site search', as
   await expect(page.locator('.pagefind-ui__results')).toContainText('Luzin');
 });
 
-test('current pages are discoverable; sitemap alias and Pages static assets work', async ({ request }) => {
+test('current pages are discoverable and the sitemap alias works', async ({ request }) => {
   const sitemap = await request.get('/sitemap.xml');
   expect(sitemap.status()).toBe(200);
   expect(await sitemap.text()).toBe(await (await request.get('/sitemap-index.xml')).text());
@@ -198,7 +198,6 @@ test('current pages are discoverable; sitemap alias and Pages static assets work
       expect(await response.text(), url.href).toContain(`id="${decodeURIComponent(url.hash.slice(1))}"`);
   }
   expect(await (await request.get('/robots.txt')).text()).toContain('https://jakerobertbaker.github.io/sitemap.xml');
-  expect(await readFile(new URL('../../dist/.nojekyll', import.meta.url), 'utf8')).toBe('');
 });
 
 test('static mathematics and proof disclosure work without client JavaScript', async ({ browser }) => {

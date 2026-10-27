@@ -6,54 +6,24 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: publish-gh-pages
+  group: pages
   cancel-in-progress: false
 jobs:
   validate:
     uses: ./.github/workflows/validate.yml
-    permissions:
-      contents: read
-  publish:
+    with:
+      publish: ${{ github.ref == 'refs/heads/main' }}
+  deploy:
     if: github.ref == 'refs/heads/main'
     needs: validate
     runs-on: ubuntu-latest
+    # Only this job can deploy, and it runs no project code.
     permissions:
-      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-      - uses: actions/download-artifact@v7
-        with:
-          name: site-dist
-          path: dist
-      - name: Retain assets referenced by cached pages
-        # Never overwrite the tested build. Keep old hashed assets, not old pages.
-        # Including the parent seeds compatibility when adopting this policy.
-        run: |
-          git fetch --no-tags --depth=2 origin gh-pages
-          for revision in FETCH_HEAD FETCH_HEAD^; do
-            for directory in _astro pagefind; do
-              if git cat-file -e "$revision:$directory" 2>/dev/null; then
-                git archive "$revision" "$directory" | tar --extract --skip-old-files --directory dist
-              fi
-            done
-          done
-      - name: Verify publication artifact
-        run: |
-          test -f dist/index.html
-          test -f dist/.nojekyll
-          test -f dist/theorems.json
-          test -f dist/sitemap.xml
-          test -d dist/_astro
-      - name: Publish tested Astro output to gh-pages
-        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./dist
-          keep_files: false
-          force_orphan: false
-          user_name: github-actions[bot]
-          user_email: 41898282+github-actions[bot]@users.noreply.github.com
-          full_commit_message: Deploy Astro site from ${{ github.sha }}
+      - id: deployment
+        uses: actions/deploy-pages@v5
