@@ -97,12 +97,11 @@ See [browser preview instructions](instructions/site-preview.md) for interactive
 
 ## Deployment
 
-Pushing or merging to `main` triggers `.github/workflows/ci.yml`:
+GitHub Pages deploys from GitHub Actions (repository Settings → Pages → Source: **GitHub Actions**). Pushing or merging to `main` runs `.github/workflows/ci.yml`:
 
-1. Reusable, read-only `validate.yml` runs validation and uploads the tested `dist/`, including hidden files such as `.nojekyll`.
-2. A separate `main`-only job downloads that artifact, retains published `_astro/` and `pagefind/` assets **without overwriting tested files**, and publishes to `gh-pages`. Only this job has `contents: write`; it runs no project build scripts.
-3. GitHub Pages publishes `gh-pages` at `/`.
+1. The reusable, read-only `validate.yml` runs `npm run validate` and uploads the tested `dist/` as the Pages artifact.
+2. A separate `deploy` job publishes that exact artifact with `actions/deploy-pages`. Only it has `pages`/`id-token` write access, and it runs no project code.
 
-Feature pushes/PRs validate without publishing. Failed validation leaves the previous live site in place; publication runs are serialized. Obsolete HTML is removed, while branch history and fingerprinted assets are retained for cached clients. Assets accumulate: review storage as needed, but do not casually prune cache-referenced files.
+Branch pushes validate without deploying; their checks also appear on pull requests. Failed validation leaves the live site unchanged, and deployments are serialized. Each deployment replaces the whole site, so a page cached before a deploy may briefly request removed assets until it refreshes.
 
-Deploy through CI only: do not edit generated `gh-pages` files or force-push its history. Roll back by reverting the source change through normal validation/deployment.
+Roll back by reverting the source change through normal validation and deployment. The `gh-pages` branch is the retired publishing source, kept only as an archive.
