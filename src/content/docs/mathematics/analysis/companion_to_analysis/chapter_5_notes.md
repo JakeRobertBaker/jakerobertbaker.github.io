@@ -157,4 +157,4 @@ $$
 \end{align*}
 $$
 
-Blah.
+See [composition of limits](chapter_4_notes.md#lem-compose-limits) in Chapter 4.

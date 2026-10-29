@@ -41,6 +41,15 @@ export default function mathBlocks() {
     const fail = (message, node) => file.fail(message, shifted(node.position, lineOffset))
     const blocks = []
     const ids = new Set()
+    const labelOf = (node) => node.children[0]?.data?.directiveLabel ? node.children[0] : null
+    const kindName = (kind) => kind[0].toUpperCase() + kind.slice(1)
+    // Untitled proofs are named after what they prove, so record same-page
+    // titles before blocks are rewritten.
+    const titles = new Map()
+    visit(tree, "containerDirective", (node) => {
+      const id = node.attributes?.id
+      if (id) titles.set(id, labelOf(node)?.children ?? [text(kindName(node.name))])
+    })
     visit(tree, "containerDirective", (node) => {
       const kind = node.name
       if (!resultKinds.has(kind) && !expositionKinds.has(kind) && kind !== "proof" && !asides.has(kind))
@@ -49,19 +58,27 @@ export default function mathBlocks() {
       const allowed = kind === "proof" ? ["id", "open", "proves", "uses"] : ["id"]
       for (const key of Object.keys(attrs))
         if (!allowed.includes(key)) fail(`Unknown ${kind} metadata: ${key}`, node)
-      const id = attrs.id
-      if (id && !/^[A-Za-z][\w.-]*$/.test(id)) fail(`Invalid block ID: ${id}`, node)
-      if (id && ids.has(id)) fail(`Duplicate block ID: ${id}`, node)
-      if (id) ids.add(id)
-      if ((attrs.proves !== undefined || attrs.uses !== undefined) && !id)
-        fail("A proof with relationships needs an explicit stable ID", node)
       if (attrs.proves !== undefined && !attrs.proves.trim()) fail("proves needs a target", node)
       if (attrs.uses !== undefined && !attrs.proves) fail("uses needs an explicit proves target", node)
+      const target = attrs.proves && resolveReference(attrs.proves.trim(), source)
+      const targetId = target?.split("#")[1]
+      if (target && !targetId) fail(`proves must name a block, e.g. #thm-result: ${attrs.proves}`, node)
+      const local = target && (target.startsWith("#") || target.startsWith(`${pageUrl(source)}#`)) ? targetId : null
+      // A proof of a result gets a stable default ID; further proofs of the
+      // same result choose their own.
+      const id = attrs.id ?? (targetId && `proof-${targetId}`)
+      if (id && !/^[A-Za-z][\w.-]*$/.test(id)) fail(`Invalid block ID: ${id}`, node)
+      if (id && ids.has(id)) fail(`Duplicate block ID: ${id}${attrs.id ? "" : " (give further proofs their own {#id})"}`, node)
+      if (id) ids.add(id)
       if (attrs.open !== undefined && !["", "true"].includes(attrs.open))
         fail("Use the boolean {open} attribute for an initially expanded proof", node)
-      const label = node.children[0]?.data?.directiveLabel ? node.children[0] : null
-      const name = kind[0].toUpperCase() + kind.slice(1)
-      const title = label ? serialize([label]) : name
+      const label = labelOf(node)
+      const name = kindName(kind)
+      // Pages render independently, so only same-page targets can name a proof.
+      if (target && !label && !local) fail(`A proof of a result on another page needs a title: :::proof[Proof of …]{proves="${attrs.proves}"}`, node)
+      const targetTitle = !label && titles.get(local)
+      const derived = targetTitle && [text("Proof of "), ...structuredClone(targetTitle)]
+      const title = derived ? serialize([{ type: "paragraph", children: derived }]) : label ? serialize([label]) : name
       const body = label ? node.children.slice(1) : node.children
       if (id) blocks.push({
         id, kind, title, statement: serialize(withoutProofs(body)),
@@ -82,7 +99,8 @@ export default function mathBlocks() {
         }
         return
       }
-      const titleChildren = label ? [...label.children] : [text(name)]
+      const titleChildren = derived ? [derived[0], { type: "link", url: `#${local}`, children: derived.slice(1) }]
+        : label ? [...label.children] : [text(name)]
       if (label && title !== name && !title.toLowerCase().startsWith(`${name.toLowerCase()} `))
         titleChildren.unshift(text(`${name} · `))
       if (id) titleChildren.push({

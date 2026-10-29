@@ -45,7 +45,7 @@ Then, $\tilde{f}(\mathbf{y}) \to \mathbf{a}$ as $\mathbf{y \to x}$ iff $\tilde{f
 
 ### Bookwork: Composition of Limits
 
-
+:::lemma[Composition of limits]{#lem-compose-limits}
 If,
 
 $$
@@ -60,8 +60,9 @@ $$
 q(k(h)) \to q_L \text{ as } h \to h_L
 $$
 
-#### Proof
+:::
 
+:::proof{proves="#lem-compose-limits" open}
 This could be proven via the above Exercise proposition and using results about continuity of compositions.
 
 We can just prove it directly. The second assumption gives us,
@@ -81,3 +82,5 @@ Hence
 $$
 \exists \nu > 0 : \lVert h - h_L \rVert < \nu \implies \lVert q(k(h)) - q_L \rVert < \epsilon
 $$
+
+:::
