@@ -25,12 +25,13 @@ Proofs use native `<details>`. Hash navigation opens containing proofs with Java
 **Not required for ordinary writing or transcription.** Add these only when deliberately recording what a proof establishes or uses:
 
 ```markdown
-:::proof[Proof]{#proof-result proves="#thm-result" uses="#def-limit-point ../other-note.md#lem-helper"}
+:::proof{proves="#thm-result" uses="#def-limit-point ../other-note.md#lem-helper"}
 The proof goes here.
 :::
 ```
 
-- `proves` names exactly one result. `uses` is a whitespace-separated list and requires `proves`. References use the same syntax as links; relationship-bearing proofs need explicit IDs.
+- `proves` names exactly one result. `uses` is a whitespace-separated list and requires `proves`. References use the same syntax as links.
+- The [template](example_template.md#semantic-mathematical-blocks) defines default proof titles and IDs. A proof of a result on another page needs an explicit title because pages render independently; the plugin does not parse other notes.
 - Targets must be identified `definition`, `theorem`, `lemma`, `proposition`, `corollary`, or `example` blocks. Remarks, notation, asides and proofs can be linked normally, but are not relationship targets.
 - Ordinary links imply no dependencies. Do not infer relationships from prose or annotate existing proofs without the author's intent.
 

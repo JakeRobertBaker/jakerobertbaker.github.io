@@ -8,7 +8,7 @@ This is a self-contained guide for transcribing handwritten mathematical notes i
 - Preserve the author's mathematics, notation, wording and logical structure. Do not silently correct arguments, fill gaps, invent proofs or add claims.
 - If handwriting is ambiguous or illegible, ask for clarification or mark the uncertainty explicitly rather than guessing.
 - Use ordinary `.md` syntax. Do not use imports, JSX, MkDocs `///`, `!!!` or `???` blocks, or `{data-preview}` link attributes.
-- Do not generate sidebar configuration, repository commands or proof-dependency metadata unless explicitly requested.
+- Do not generate sidebar configuration or repository commands. Use `proves` only for a proof the notes present as the proof of a specific stated result; add `uses` only when explicitly requested.
 
 ## Page structure and exercises
 
@@ -70,16 +70,31 @@ A *limit point* of $F \subseteq \mathbb{R}$ is a point $x$ such that …
 The statement, with ordinary Markdown and $\LaTeX$.
 :::
 
-:::proof
+:::proof{proves="#thm-result"}
 The proof goes here. $\blacksquare$
+:::
+
+:::proof
+A proof that is not attached to a stated result. $\blacksquare$
 :::
 ```
 
 Kinds: `definition`, `theorem`, `lemma`, `proposition`, `corollary`, `example`, `proof`, `remark`, and `notation`. Use `remark` for mathematical observations and `notation` for symbol/convention setup. Exercises and solutions can remain ordinary headings.
 
-Titles in `[...]` are optional and support inline math/Markdown. The kind is included automatically in the rendered label; do not repeat “Theorem” or “Definition” in the title. IDs in `{#...}` are optional unless referenced. Preserve supplied IDs; for new referenced blocks, use descriptive IDs such as `def-limit-point` or `thm-result`.
+Every block has the form `:::kind[Title]{#id …}`, with one `{...}` attribute group after the optional title; separate attributes with spaces, e.g. `{#proof-alt open}`, never `{#proof-alt}{open}`. Titles in `[...]` are optional and support inline math/Markdown. The kind is included automatically in the rendered label; do not repeat “Theorem” or “Definition” in the title. IDs in `{#...}` are optional unless referenced. Preserve supplied IDs; for new referenced blocks, use descriptive IDs such as `def-limit-point` or `thm-result`.
 
-Proofs are collapsible and initially closed. Use `:::proof{open}` only when an initially expanded proof is desired; never use `open="false"`.
+Proofs are collapsible and accept these attributes, all optional:
+
+```markdown
+:::proof[Title]{#id proves="#thm-result" uses="#def-limit-point" open}
+```
+
+- `proves="#thm-result"` names the one result the proof establishes. If the title is omitted, the proof is labelled “Proof of A useful result”, linked to the result, and its ID defaults to `proof-thm-result`.
+- A second proof of the same result needs its own ID, e.g. `:::proof[A second argument]{#proof-thm-result-alt proves="#thm-result"}`.
+- A proof of a result on another page needs an explicit title.
+- `uses="…"` lists, separated by spaces, the results the proof depends on; it requires `proves`.
+- `open` starts the proof expanded; proofs are closed by default. Never use `open="false"`.
+- Without `proves`, a proof is labelled “Proof” or its title.
 
 For nesting, make the outer fence longer than the inner fence:
 
