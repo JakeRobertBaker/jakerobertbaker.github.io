@@ -44,6 +44,39 @@ A proof linking to [another result](#thm-id).
   assert.deepEqual(createRegistry(input), registry);
 });
 
+test('untitled proofs are named after, link to and take their ID from what they prove', async () => {
+  const result = await render(`:::proof{proves="#lem-id" open}
+Proof before its statement.
+:::
+
+:::lemma[An identity $x=x$]{#lem-id}
+Statement.
+:::
+
+:::proof[A second argument]{#proof-lem-id-alt proves="testing.md#lem-id"}
+Another proof.
+:::
+
+:::theorem{#thm-untitled}
+Statement.
+:::
+
+:::proof{proves="#thm-untitled"}
+Proof.
+:::
+`);
+  assert.match(result.code, /<details[^>]*id="proof-lem-id"[^>]*open[\s\S]*?<summary class="math-block__title">Proof of <a href="#lem-id">An identity <span class="katex">/);
+  assert.match(result.code, /<summary class="math-block__title">Proof · A second argument/);
+  assert.match(result.code, /<summary class="math-block__title">Proof of <a href="#thm-untitled">Theorem<\/a>/);
+  const registry = createRegistry([{ blocks: result.metadata.frontmatter.mathBlocks }]);
+  const proofs = registry.blocks.filter((b) => b.kind === 'proof');
+  assert.deepEqual(proofs.map((b) => [b.id, b.title, b.proves]), [
+    ['proof-lem-id', 'Proof of An identity $x=x$', '/testing/#lem-id'],
+    ['proof-lem-id-alt', 'A second argument', '/testing/#lem-id'],
+    ['proof-thm-untitled', 'Proof of Theorem', '/testing/#thm-untitled'],
+  ]);
+});
+
 test('proofs default closed; IDs on native asides and literal code remain intact', async () => {
   const result = await render(':::proof\nA proof.\n:::\n\n:::note[Remark]{#rem-one}\nA note.\n:::\n\n```md\n:::theorem{#fake}\n```');
   assert.doesNotMatch(result.code, /<details[^>]*open/);
@@ -74,7 +107,7 @@ A result.
   assert.ok(registry.blocks.some(block => block.url === '/testing/#rem-one'));
   assert.ok(registry.blocks.every(block => block.uses.length === 0 && block.proves === null));
   for (const relationship of ['proves="#rem-one"', 'proves="#thm-one" uses="#not-one"']) {
-    const proof = (await render(`:::proof{#p ${relationship}}\nProof.\n:::`)).metadata.frontmatter.mathBlocks;
+    const proof = (await render(`:::proof[Proof]{#p ${relationship}}\nProof.\n:::`)).metadata.frontmatter.mathBlocks;
     assert.throws(() => createRegistry([{ blocks: [...blocks, ...proof] }]), /dependency is not a result/);
   }
   const nested = await render('::::proof\n:::remark{#nested-remark}\nA remark inside a proof.\n:::\n::::');
@@ -117,7 +150,9 @@ test('metadata and KaTeX errors fail with source context', async (t) => {
     [':::theorem{wrong="x"}\nOne.\n:::', /Unknown theorem metadata/],
     [':::remark{open}\nOne.\n:::', /Unknown remark metadata/],
     [':::notation{proves="#x"}\nOne.\n:::', /Unknown notation metadata/],
-    [':::proof{proves="#x"}\nOne.\n:::', /explicit stable ID/],
+    [':::proof{proves="other.md#x"}\nOne.\n:::', /another page needs a title/],
+    [':::proof{proves="other.md"}\nOne.\n:::', /must name a block/],
+    [':::lemma{#x}\nOne.\n:::\n\n:::proof{proves="#x"}\nA.\n:::\n\n:::proof{proves="#x"}\nB.\n:::', /give further proofs their own/],
     [':::proof{#p uses="#x"}\nOne.\n:::', /explicit proves target/],
     [':::proof{open="false"}\nOne.\n:::', /boolean/],
     ['$\\noSuchCommand$', /Undefined control sequence/],
