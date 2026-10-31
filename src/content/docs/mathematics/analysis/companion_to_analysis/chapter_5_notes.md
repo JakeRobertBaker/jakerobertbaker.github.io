@@ -177,7 +177,50 @@ $$
 $$
  
 ### Solution
-$f$ is strictly increasing due to [1.48 extension](chapter_1_notes.md#lem-strict-increasing-derivative).
+$f$ is strictly increasing due to [1.48 extension](chapter_1_notes.md#lem-strict-increasing-derivative). This uses the mean value inequality.
 
 
-Because [strictly increasing continuity makes bijection](chapter_1_notes.md#lem-strict-cont-bijection) $f: [a,b] \to [c,d]$
+Because [strictly increasing continuity makes bijection](chapter_1_notes.md#lem-strict-cont-bijection) $f: [a,b] \to [c,d]$ is a bijection. This uses the intermediate value theorem.
+
+If $f(x) < f(y)$ then $x \neq y$. If $x>y$ then $f(x) > f(y)$, contradiction. Hence $x < y$. So $f^{-1}$ is strict increasing.
+
+#### $f^{-1}$ is continuous
+
+<img src="/mathematics/analysis/companion_to_analysis/ex_5_66_inverse_continuity_sketch.svg" alt="Sketch: an interval of radius epsilon around x_0 on the left, and on the right the interval from f(x_0 - epsilon) to f(x_0 + epsilon) around y_0 = f(x_0)" width="80%">
+
+Let $\varepsilon > 0$, $y_0 \in [c,d]$. Bijection gives unique $x_0 \in [a,b]$ such that $f(x_0) = y_0$.
+
+If $y \in [c,d]$ then $f^{-1}$ strict increasing gives
+
+$$
+f(x_0 - \varepsilon) < y < f(x_0 + \varepsilon) \implies x_0 - \varepsilon < f^{-1}(y) < x_0 + \varepsilon.
+$$
+
+Let $\delta = \min\{ f(x_0+\varepsilon) - f(x_0),\ f(x_0) - f(x_0-\varepsilon) \}$.
+
+Then
+
+$$
+|y - y_0| < \delta \implies f(x_0-\varepsilon) < y < f(x_0+\varepsilon) \implies x_0 - \varepsilon < f^{-1}(y) < x_0 + \varepsilon.
+$$
+
+Hence $f^{-1}$ is continuous.
+
+#### $f^{-1}$ is differentiable
+
+Let $g=f^{-1}$ and $k(h) \coloneqq g(x+h) - g(x)$
+
+$$
+\frac{g(x+h) - g(x)}{h} =
+\frac{g(x+h)-g(x)}{f(g(x+h)) - f(g(x))} =
+\frac{k}{f(k+g(x)) - f(g(x))}
+$$
+
+Because $f$ is differentiable on $(a,b)$ with non zero derivative and the quotient is non zero for positive $h$, this fraction has a well defined limit as $k \to 0$.
+
+By the [composition of limits](chapter_4_notes.md#lem-compose-limits) this tends towards
+
+$$
+\frac{1}{f'(g(x))}
+$$
+.

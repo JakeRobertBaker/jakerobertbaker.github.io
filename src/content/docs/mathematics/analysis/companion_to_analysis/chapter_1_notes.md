@@ -573,7 +573,7 @@ Take $f= -g, K=0$.
 
 Then, $f'(x) \leq K \forall x \in U$.
 
-The mean value theorem gives us that $f(b) - f(a) \leq K(b-a) = 0$
+The mean value inequality gives us that $f(b) - f(a) \leq K(b-a) = 0$
 :::
 
 :::lemma[1.48 Strict Extension]{#lem-strict-increasing-derivative}

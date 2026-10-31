@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 150" role="img" aria-labelledby="t">
+  <title id="t">An interval of radius epsilon around x_0, and the interval from f(x_0 - epsilon) to f(x_0 + epsilon) around y_0 = f(x_0)</title>
+  <style>
+    .ink { stroke: #1a1a1a; fill: none; stroke-width: 2; stroke-linecap: round; }
+    text { fill: #1a1a1a; font: italic 22px "Latin Modern Roman", "STIX Two Text", Georgia, serif; text-anchor: middle; }
+    text .s { font-size: 15px; }
+    @media (prefers-color-scheme: dark) {
+      .ink { stroke: #e6e6e6; }
+      text { fill: #e6e6e6; }
+    }
+  </style>
+  <!-- x side -->
+  <path class="ink" d="M20 80 H235"/>
+  <path class="ink" d="M130 72 V88"/>
+  <path class="ink" d="M62 66 Q52 80 62 94"/>
+  <path class="ink" d="M198 66 Q208 80 198 94"/>
+  <text x="203" y="45">ε</text>
+  <text x="130" y="118">x<tspan class="s" dy="5">0</tspan></text>
+  <!-- y side -->
+  <path class="ink" d="M345 80 H700"/>
+  <path class="ink" d="M520 72 V88"/>
+  <path class="ink" d="M392 66 Q382 80 392 94"/>
+  <path class="ink" d="M648 66 Q658 80 648 94"/>
+  <text x="520" y="45">y</text>
+  <text x="392" y="118">f(x<tspan class="s" dy="5">0</tspan><tspan dy="-5"> − ε)</tspan></text>
+  <text x="520" y="138">y<tspan class="s" dy="5">0</tspan><tspan dy="-5"> = f(x</tspan><tspan class="s" dy="5">0</tspan><tspan dy="-5">)</tspan></text>
+  <text x="648" y="118">f(x<tspan class="s" dy="5">0</tspan><tspan dy="-5"> + ε)</tspan></text>
+</svg>
