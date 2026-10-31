@@ -3,6 +3,7 @@ dist/
 .astro/
 test-results/
 playwright-report/
+.claude/settings.local.json
 
 # Optional machine-specific preview/access notes, never published.
 /instructions/local-preview.md

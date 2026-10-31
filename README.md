@@ -74,12 +74,7 @@ Runs Astro/TypeScript diagnostics. It is not a production build or a complete ma
 
 ### Full validation — `npm run validate`
 
-For infrastructure/rendering changes, or full local confidence:
-
-```bash
-npx playwright install chromium  # First setup or after a Playwright upgrade
-npm run validate
-```
+For infrastructure/rendering changes, or full local confidence, run `npm run validate` after [browser setup](instructions/site-preview.md#browser-setup).
 
 This runs type checking, math/plugin tests, a fresh production build, screenshot-tool tests and the full site/theme browser suite. CI runs the same command. Generated files and browser artifacts are not committed.
 
@@ -92,8 +87,6 @@ The site suite discovers current built pages and checks links/assets/fragments, 
 ### Dependencies
 
 Dependencies are pinned by the lockfile. When changing them, run full validation and `npm audit`. The `katex` override makes `rehype-katex` and `remark-math` (which still declare `^0.16`) use the root KaTeX; drop it once their ranges include it. Only KaTeX's `newLineInDisplayMode` strictness warning is ignored; parse errors fail the build.
-
-See [browser preview instructions](instructions/site-preview.md) for interactive inspection and screenshots, and the [theme guide](instructions/book-theme.md) for responsive contracts and visual tests.
 
 ## Deployment
 

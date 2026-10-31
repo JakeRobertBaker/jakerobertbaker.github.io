@@ -5,6 +5,6 @@ description: Inspect local, LAN, or public website previews using Playwright MCP
 
 # Site visual review
 
-Read `../../../instructions/site-preview.md` relative to this skill directory and follow it; resolve its paths against the repository root.
+Read `instructions/site-preview.md` at the repository root and follow it.
 
-Use the Playwright MCP from `.pi/mcp.json` (discover its deferred tools through tool search) for exploration, and `npm run screenshots` for matched comparison batches. Read the PNGs and `report.json`; generating images is not reviewing them. Keep viewport, theme, route, scroll position and menu state matched between targets.
+Use the project's Playwright MCP (`.pi/mcp.json`, also `.mcp.json`; discover its deferred tools through tool search) for exploration, and `npm run screenshots` for matched comparison batches. Read the PNGs and `report.json`; generating images is not reviewing them. Keep viewport, theme, route, scroll position and menu state matched between targets.

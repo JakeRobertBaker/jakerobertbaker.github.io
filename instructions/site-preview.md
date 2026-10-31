@@ -12,15 +12,26 @@ Before starting or stopping a server, check listeners (`ss -ltnp`), the owning p
 
 `instructions/local-preview.md` is optional and gitignored: machine-specific checkout, host or LAN notes. Read it if present, verify it against running processes, and never store credentials there.
 
+## Browser setup
+
+Each Playwright version needs its own Chromium build, cached under `~/.cache/ms-playwright`. Install once per machine, and again after upgrading either package:
+
+```bash
+npx playwright install chromium                    # Tests, validation and screenshots
+npx -y @playwright/mcp@0.0.83 install-browser chromium  # Interactive MCP only
+```
+
+CI adds `--with-deps` for system libraries; on a desktop Linux those are usually present already.
+
 ## Interactive inspection — Playwright MCP
 
-`.pi/mcp.json` configures the pinned official [Playwright MCP](https://github.com/microsoft/playwright-mcp) over stdio: a headless, isolated browser on the machine running the agent. Review the config before trusting the project; never bypass a trust prompt on the user's behalf. Install its browser once with `npx -y @playwright/mcp@0.0.83 install-browser chromium`.
+`.pi/mcp.json` (Pi; symlinked as `.mcp.json` for Claude Code and other agents) configures the pinned official [Playwright MCP](https://github.com/microsoft/playwright-mcp) over stdio: a headless, isolated browser on the machine running the agent. Review the config before trusting the project; never bypass a trust prompt on the user's behalf.
 
 Use fresh snapshots to choose element references, and **inspect screenshots** to judge appearance; snapshots are not visual review. Resize to phone and desktop and check both colour schemes. Avoid `browser_run_code_unsafe`, which runs code in the MCP process.
 
 ## Repeatable screenshots — `npm run screenshots`
 
-`scripts/screenshots.mjs` captures matched viewport/theme screenshots and a `report.json` of console, page and HTTP failures and document width; failures exit nonzero. Run `npx playwright install chromium` once.
+`scripts/screenshots.mjs` captures matched viewport/theme screenshots and a `report.json` of console, page and HTTP failures and document width; failures exit nonzero.
 
 ```bash
 # Production versus the local preview (default target: both).
