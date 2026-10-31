@@ -621,22 +621,26 @@ If $a,b \in U : a \neq b$ then w.l.o.g let $a<b$ then $f(a) < f(b) \implies a \n
 
 Note the second point in the above proof is a standalone fact which does not use the intermediate value theorem.
 
+:::lemma
 If $f: U \to \mathbb{R}$, for interval $U$
 
 $$
 \text{strictly monotonic } \implies \text{ injective }
 $$
+:::
 
 
 The other way round requires continuity
 
-If $f : U \to \mathbb{R}$ is continuous
+:::lemma
+If $f : U \to \mathbb{R}$ is continuous, for interval $U$.
 
 $$
 \text{ injective } \implies \text{ strictly monotonic }
 $$
+:::
 
-Proof
+:::proof
 
 Suppose we are not strictly monotonic.
 
@@ -670,3 +674,4 @@ So, there exists $\theta_1 \in (a,b)$ such that $f(\theta_1)=y$.
 Similarly, there exists $\theta_2 \in (b,c)$ such that $f(\theta_2)=y$
 
 This violates injectivity and we again have a contradiction.
+:::
