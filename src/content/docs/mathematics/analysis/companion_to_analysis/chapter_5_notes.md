@@ -158,3 +158,26 @@ $$
 $$
 
 See [composition of limits](chapter_4_notes.md#lem-compose-limits) in Chapter 4.
+
+## Exercise 5.66 One-dimensional inverse function theorem.
+
+Suppose,
+- $f : \left[ a,b \right] \to \left[ c,d \right]$ is continuous
+- $f$ is differentiable on $\left( a,b \right)$ 
+- $f'(x) > 0 \forall x \in \left( a,b \right)$
+- $f(a)=c, f(b)=d$
+
+Show,
+-  $f$ is a bijection 
+- $f^{-1}: \left[ c,d \right] \to \left[ a,b \right]$ is continuous
+- $f^{-1}$ is differentiable on $\left( c,d \right)$ with 
+
+$$
+\left( f^{-1} \right)'(x) = \frac{1}{f'(f^{-1}(x))}
+$$
+ 
+### Solution
+$f$ is strictly increasing due to [1.48 extension](chapter_1_notes.md#lem-strict-increasing-derivative).
+
+
+Because [strictly increasing continuity makes bijection](chapter_1_notes.md#lem-strict-cont-bijection) $f: [a,b] \to [c,d]$
