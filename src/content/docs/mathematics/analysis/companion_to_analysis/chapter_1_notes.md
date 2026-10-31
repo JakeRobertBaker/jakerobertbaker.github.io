@@ -1,7 +1,7 @@
 ---
 title: Chapter 1
 ---
-
+<!-- snippets: latex_math -->
 ## FA
 
 :::definition[The fundamental axiom of analysis]{#def-fundamental-axiom}
@@ -551,3 +551,122 @@ $$
 $$
 
 So $\Theta$ preserves positivity, and therefore order as well. Hence $\Theta : \mathbb{R} \to \mathbb{F}$ is an isomorphism of ordered fields extending $\phi$. $\blacksquare$
+
+## Minor Extension of 1.48
+
+:::theorem[1.48 Non Negative Derivatives imply increacing]{#thm-increasing-derivative}
+Let,
+- $U=\left( \alpha, \beta \right)$ be an open interval on $\mathbb{R}$.  
+- $a,b \in U$ and $a<b$
+- $g : U \to \mathbb{R}$ is differentiable
+- $g'(x) \geq 0  \forall x \in U$
+
+Then,
+
+$$
+g(b) - g(a) \geq 0
+$$
+:::
+
+:::proof{proves="#thm-increasing-derivative"}
+Take $f= -g, K=0$.
+
+Then, $f'(x) \leq K \forall x \in U$.
+
+The mean value theorem gives us that $f(b) - f(a) \leq K(b-a) = 0$
+:::
+
+:::lemma[1.48 Strict Extension]{#lem-strict-increasing-derivative}
+Let,
+- $U=\left( \alpha, \beta \right)$ be an open interval on $\mathbb{R}$.  
+- $a,b \in U$ and $a<b$
+- $g : U \to \mathbb{R}$ is differentiable
+- $g'(x) > 0  \forall x \in U$
+
+Then,
+
+$$
+g(b) - g(a) > 0
+$$
+
+:::
+
+:::proof{proves="#lem-strict-increasing-derivative" open}
+Already have from 1.48 that $g(b) \geq g(a)$
+
+Suppose $g(a) = g(b)$.
+
+Then $\forall x \in (a,b), f(a) \leq f(x) \leq f(b) \implies f(x) = f(a) = f(b)$
+
+$\implies f'(x) = 0 \forall x \in (a,b)$ contradiction.
+
+Hence $g(a) \neq g(b)$ and we are done.
+:::
+
+:::lemma[Strict increase and continuity make bijection]{#lem-strict-cont-bijection}
+Let,
+ - $U=\left( \alpha, \beta \right)$ be an open interval on $\mathbb{R}$.
+ - $f: U \to \mathbb{R}$ be continuous.
+
+Then,
+- $f: U \to [f(\alpha), f(\beta)]$ is a bijection.
+:::
+
+:::proof{proves="#lem-strict-cont-bijection" open}
+
+If $y \in [f(\alpha),f(\beta)]$ continuity let's the intermediate value theorem give us a $c \in [\alpha, \beta]$ such that $f(c) = y$. Hence we surject.
+
+If $a,b \in U : a \neq b$ then w.l.o.g let $a<b$ then $f(a) < f(b) \implies a \neq b$. Hence we inject.
+:::
+
+Note the second point in the above proof is a standalone fact which does not use the intermediate value theorem.
+
+If $f: U \to \mathbb{R}$, for interval $U$
+
+$$
+\text{strictly monotonic } \implies \text{ injective }
+$$
+
+
+The other way round requires continuity
+
+If $f : U \to \mathbb{R}$ is continuous
+
+$$
+\text{ injective } \implies \text{ strictly monotonic }
+$$
+
+Proof
+
+Suppose we are not strictly monotonic.
+
+There must then exist $a,b,c \in U$ such that $a<b<c$ one of
+
+- $f(a)<f(b)$ and $f(b) \geq f(c)$
+- $f(a) > f(b)$ and $f(b) \leq f(c)$
+
+holds to violate strict monotonicity.
+
+In the first case:
+
+If $f(b)=f(c)$ we have violated injectivity and have a contradiction.
+
+Assume $f(b)>f(c)$.
+
+Consider $y$ such that 
+
+$$
+\begin{equation}
+\max \left\{ f(a), f(c) \right\} < y < f(b)
+\end{equation}
+$$
+
+The intermediate value theorem on $\left[ f(a), f(c) \right]$ gives us $\theta_1 \in \left[ a,b \right]$ such that $f(\theta_1) = y$
+
+Clearly, $\theta_1 \neq a,b$ otherwise (1) is violated.
+
+So, there exists $\theta_1 \in (a,b)$ such that $f(\theta_1)=y$.
+
+Similarly, there exists $\theta_2 \in (b,c)$ such that $f(\theta_2)=y$
+
+This violates injectivity and we again have a contradiction.
