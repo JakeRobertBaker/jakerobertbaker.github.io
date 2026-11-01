@@ -1,0 +1,9 @@
+---
+title: Theory Graph
+description: Interactive graph of the results in Theory and the proofs between them.
+---
+import TheoremGraph from '../../../../../components/TheoremGraph.astro';
+
+Each card is a statement from [Theory](theory.md). Each labelled arrow is a proof, running from the results it uses to the result it proves. Click a card or proof to highlight its connections, drag to rearrange, and scroll or pinch to zoom. Double-click a card to open it in the notes.
+
+<TheoremGraph include={['theory.md']} label="Companion to Analysis theory graph" />

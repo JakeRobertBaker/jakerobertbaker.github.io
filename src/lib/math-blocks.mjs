@@ -2,6 +2,7 @@ import path from "node:path"
 import { readFileSync } from "node:fs"
 import { fileURLToPath } from "node:url"
 import { visit } from "unist-util-visit"
+import { toHtml } from "hast-util-to-html"
 import { toMarkdown } from "mdast-util-to-markdown"
 import { directiveToMarkdown } from "mdast-util-directive"
 import { mathToMarkdown } from "mdast-util-math"
@@ -101,8 +102,11 @@ export default function mathBlocks() {
       }
       const titleChildren = derived ? [derived[0], { type: "link", url: `#${local}`, children: derived.slice(1) }]
         : label ? [...label.children] : [text(name)]
+      // The kind prefix is marked so graphs can show the bare title.
       if (label && title !== name && !title.toLowerCase().startsWith(`${name.toLowerCase()} `))
-        titleChildren.unshift(text(`${name} · `))
+        titleChildren.unshift({ type: "mathKind", data: {
+          hName: "span", hProperties: { className: ["math-block__kind"] }, hChildren: [text(`${name} · `)],
+        } })
       if (id) titleChildren.push({
         type: "link", url: `#${id}`, children: [text("#")],
         data: { hProperties: { className: ["math-permalink"], "aria-label": `Link to this ${kind}` } },
@@ -146,6 +150,35 @@ export default function mathBlocks() {
     file.data.astro ??= { frontmatter: {} }
     file.data.astro.frontmatter ??= {}
     file.data.astro.frontmatter.mathBlocks = blocks
+  }
+}
+
+// After KaTeX: record each identified block's rendered title and statement, so
+// graphs reuse the page's own HTML instead of rendering Markdown a second time.
+export function mathBlockHtml() {
+  const has = (node, name) => node.properties?.className?.includes(name)
+  // Copies drop IDs and qualify fragment links, so they work on other pages.
+  // Titles also lose links, as they are shown inside other links or buttons.
+  const copy = (nodes, skip, page, links) => nodes.filter((node) => !skip(node)).flatMap((node) => {
+    if (node.type !== "element") return [node]
+    const children = copy(node.children, skip, page, links)
+    if (node.tagName === "a" && !links) return children
+    const { id: _, ...properties } = node.properties
+    if (typeof properties.href === "string" && properties.href.startsWith("#")) properties.href = page + properties.href
+    return [{ ...node, properties, children }]
+  })
+  return (tree, file) => {
+    const blocks = file.data.astro?.frontmatter?.mathBlocks
+    if (!blocks?.length) return
+    const page = pageUrl(blocks[0].source)
+    const byId = new Map(blocks.map((block) => [block.id, block]))
+    visit(tree, "element", (node) => {
+      const block = node.properties?.["data-math-kind"] && byId.get(node.properties.id)
+      const [title, body] = node.children.filter((child) => child.type === "element")
+      if (!block || !has(title, "math-block__title") || !has(body, "math-block__body")) return
+      block.titleHtml = toHtml(copy(title.children, (child) => has(child, "math-block__kind") || has(child, "math-permalink"), page, false)).trim()
+      block.html = toHtml(copy(body.children, (child) => child.properties?.["data-math-kind"] === "proof", page, true)).trim()
+    })
   }
 }
 

@@ -60,6 +60,8 @@
               slug: mathematics/analysis/companion_to_analysis/chapter_5_notes
             - label: Dependency Summary
               slug: mathematics/analysis/companion_to_analysis/theorem_dependencies
+            - label: Theory Graph
+              slug: mathematics/analysis/companion_to_analysis/theory_graph
         - label: Axler Measure Theory
           collapsed: true
           items:

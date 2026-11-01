@@ -7,7 +7,7 @@ import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import remarkDirective from 'remark-directive';
 import rehypeKatex from 'rehype-katex';
-import mathBlocks, { failMathErrors } from './src/lib/math-blocks.mjs';
+import mathBlocks, { failMathErrors, mathBlockHtml } from './src/lib/math-blocks.mjs';
 import headingLabels from './src/lib/heading-labels.mjs';
 
 // Read on each config reload; the watcher below restarts config on edits.
@@ -25,7 +25,7 @@ export default defineConfig({
     processor: unified({
       smartypants: false,
       remarkPlugins: [remarkMath, remarkDirective, mathBlocks],
-      rehypePlugins: [[rehypeKatex, { strict: (code) => code === 'newLineInDisplayMode' ? 'ignore' : 'warn', trust: false }], failMathErrors, headingLabels],
+      rehypePlugins: [[rehypeKatex, { strict: (code) => code === 'newLineInDisplayMode' ? 'ignore' : 'warn', trust: false }], failMathErrors, mathBlockHtml, headingLabels],
     }),
   },
   integrations: [{
