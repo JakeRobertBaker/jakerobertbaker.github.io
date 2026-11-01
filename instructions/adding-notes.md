@@ -35,4 +35,20 @@ The proof goes here.
 - Targets must be identified `definition`, `theorem`, `lemma`, `proposition`, `corollary`, or `example` blocks. Remarks, notation, asides and proofs can be linked normally, but are not relationship targets.
 - Ordinary links imply no dependencies. Do not infer relationships from prose or annotate existing proofs without the author's intent.
 
-Identified blocks automatically appear in `/theorems.json` with Markdown statements, source locations, URLs and declared relationships; nested proofs are excluded from result statements. There is no graph UI or manually maintained graph data. Unknown block types/options, duplicate block IDs and invalid declared relationships fail validation.
+Identified blocks automatically appear in `/theorems.json` with Markdown statements, rendered title/statement HTML, source locations, URLs and declared relationships; nested proofs are excluded from result statements. There is no manually maintained graph data. Unknown block types/options, duplicate block IDs and invalid declared relationships fail validation.
+
+## Proof graphs
+
+Declared relationships can be drawn as an interactive graph: results are cards, and each proof is a labelled arrow from what it `uses` to what it `proves`. Add an `.mdx` page and choose results by page or block, with references relative to that page:
+
+```mdx
+import TheoremGraph from '../../../../../components/TheoremGraph.astro';
+
+<TheoremGraph include={['theory.md', 'chapter_1_notes.md#thm-increasing-derivative']} />
+```
+
+- A proof appears only when every result it uses and proves is included. Proofs with no `uses` draw no arrow.
+- Proof titles become arrow labels, so give graph proofs short explicit titles, e.g. `:::proof[Theorem 1.35]{proves="#thm-IVT" uses="#def-fundamental-axiom"}`.
+- A reference that matches no result fails the build.
+
+[Theory Graph](../src/content/docs/mathematics/analysis/companion_to_analysis/theory_graph.mdx) is the working example.

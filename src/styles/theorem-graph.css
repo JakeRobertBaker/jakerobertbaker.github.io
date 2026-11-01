@@ -1,0 +1,156 @@
+/* Proof graphs. Without JavaScript the cards and proofs read as a plain list;
+   theorem-graph.ts sets [data-ready] and positions them on a pannable canvas. */
+.theorem-graph {
+  --tg-edge: var(--sl-color-gray-4);
+  --tg-lit: var(--sl-color-text-accent);
+  --tg-card: var(--sl-color-bg);
+  position: relative;
+  display: block;
+  margin-block: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+.theorem-graph p { margin: 0 0 .45em; }
+.theorem-graph :is(p, ul, ol):last-child { margin-bottom: 0; }
+.theorem-graph :is(ul, ol) { margin: 0 0 .45em; padding-inline-start: 1.2em; }
+.theorem-graph .katex-display { margin: .4em 0; overflow-x: auto; overflow-y: hidden; }
+.theorem-graph button {
+  font: inherit;
+  color: var(--sl-color-white);
+  background: var(--sl-color-bg);
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: .3rem;
+  padding: .15rem .55rem;
+  cursor: pointer;
+}
+.theorem-graph button:hover, .theorem-graph button[aria-pressed='true'] { border-color: var(--tg-lit); color: var(--tg-lit); }
+.theorem-graph__toolbar { display: none; }
+
+.tg-node {
+  --tg-rule: var(--notes-rule);
+  box-sizing: border-box;
+  width: min(100%, 24rem);
+  margin: 0 0 1rem;
+  padding: .7rem .9rem .8rem;
+  background: var(--tg-card);
+  border: 1px solid var(--sl-color-gray-5);
+  border-inline-start: 3px solid var(--tg-rule);
+  border-radius: .35rem;
+  overflow-wrap: anywhere;
+}
+.tg-node--definition { --tg-rule: var(--notes-definition-rule); }
+.tg-node--example { --tg-rule: var(--notes-example-rule); }
+.tg-node__title { margin-bottom: .45em; font-weight: 600; line-height: 1.3; }
+.tg-node__title a { color: var(--sl-color-white); text-decoration: none; }
+.tg-node__title a:hover { text-decoration: underline; }
+.tg-node__kind {
+  display: block;
+  color: var(--sl-color-gray-3);
+  font: 500 .68rem/1.4 var(--sl-font-system);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.tg-proofs { margin: 0; padding-inline-start: 1.2em; }
+.tg-proof { color: var(--sl-color-text-accent); }
+.tg-proof__title { font-style: italic; }
+
+/* Interactive canvas. */
+.theorem-graph[data-ready] .theorem-graph__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin-bottom: .5rem;
+  font-size: .85rem;
+}
+.theorem-graph[data-ready] .theorem-graph__viewport {
+  position: relative;
+  height: min(75vh, 48rem);
+  overflow: hidden;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: .4rem;
+  background:
+    radial-gradient(circle, var(--sl-color-gray-5) .7px, transparent 1px) 0 0 / 1.5rem 1.5rem,
+    color-mix(in srgb, var(--sl-color-gray-6) 40%, var(--sl-color-black));
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.theorem-graph[data-ready] .theorem-graph__viewport.is-panning { cursor: grabbing; }
+.theorem-graph__world { position: absolute; inset: 0 auto auto 0; transform-origin: 0 0; }
+.theorem-graph__world.is-gliding { transition: transform .35s ease; }
+.theorem-graph__edges { position: absolute; overflow: visible; width: 1px; height: 1px; }
+.theorem-graph[data-ready] :is(.tg-proofs, .tg-proofs > li) { display: contents; }
+.theorem-graph[data-ready] :is(.tg-node, .tg-proof) {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  transition: opacity .2s, border-color .2s, box-shadow .2s;
+}
+.theorem-graph[data-ready] .tg-node { width: 15rem; cursor: pointer; box-shadow: 0 .2rem .9rem #0002; }
+.theorem-graph[data-ready] .tg-node.is-open { width: 24rem; }
+.theorem-graph[data-ready] .tg-node:not(.is-open) .tg-node__body { display: none; }
+.theorem-graph[data-ready] .tg-node:not(.is-open) .tg-node__title { margin-bottom: 0; }
+.theorem-graph[data-ready] .tg-node:focus-visible { outline: 2px solid var(--tg-lit); outline-offset: 2px; }
+.theorem-graph[data-ready] .tg-proof {
+  white-space: nowrap;
+  padding: .1rem .5rem;
+  font-size: .82rem;
+  text-decoration: none;
+  background: var(--tg-card);
+  border: 1px solid var(--tg-edge);
+  border-radius: 1rem;
+}
+.theorem-graph[data-ready] .tg-proof__route { display: none; }
+.tg-edge path { fill: none; stroke: var(--tg-edge); stroke-width: 1.6; transition: stroke .2s, opacity .2s; }
+.tg-edge path.tg-arrowhead { fill: var(--tg-edge); stroke: none; }
+
+/* Selection: lit items stay, everything else recedes. */
+.theorem-graph.has-selection :is(.tg-node, .tg-proof, .tg-edge):not(.is-lit) { opacity: .22; }
+.theorem-graph .tg-edge.is-lit path { stroke: var(--tg-lit); stroke-width: 2.4; }
+.theorem-graph .tg-edge.is-lit path.tg-arrowhead { fill: var(--tg-lit); }
+.theorem-graph .tg-proof.is-lit { border-color: var(--tg-lit); }
+.theorem-graph .is-selected { border-color: var(--tg-lit); box-shadow: 0 0 0 2px var(--tg-lit); }
+
+/* Far zoom: titles only, enlarged to stay legible. */
+.theorem-graph__viewport.is-far .tg-node__body { visibility: hidden; }
+.theorem-graph__viewport.is-far .tg-node__title { font-size: 1.8em; }
+.theorem-graph__viewport.is-far .tg-proof { font-size: 1.3rem; }
+
+.theorem-graph__panel {
+  position: absolute;
+  z-index: 2;
+  right: .75rem;
+  bottom: .75rem;
+  box-sizing: border-box;
+  width: min(24rem, calc(100% - 1.5rem));
+  max-height: min(60%, 30rem);
+  overflow: auto;
+  padding: .8rem 1rem;
+  font-size: .9rem;
+  background: var(--tg-card);
+  border: 1px solid var(--sl-color-gray-4);
+  border-radius: .4rem;
+  box-shadow: 0 .5rem 2rem #0004;
+}
+.theorem-graph__panel[hidden] { display: none; }
+.theorem-graph__panel h3 { margin: 0 2rem .5rem 0; font-size: 1rem; font-weight: 600; font-style: normal; line-height: 1.3; }
+.theorem-graph__panel :is(h4, .tg-panel__kind) {
+  margin: .8rem 0 .3rem;
+  color: var(--sl-color-gray-3);
+  font: 500 .7rem/1.4 var(--sl-font-system);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.theorem-graph__panel .tg-panel__close { position: absolute; top: .5rem; right: .5rem; border: 0; font-size: 1.1rem; line-height: 1; }
+.theorem-graph__panel .tg-panel__list { display: flex; flex-wrap: wrap; gap: .3rem; font-size: .85rem; }
+.theorem-graph__panel a { color: var(--sl-color-text-accent); }
+.theorem-graph__panel .tg-panel__modes { display: flex; flex-wrap: wrap; gap: .3rem; font-size: .8rem; }
+.theorem-graph__panel .tg-panel__kind { margin: 0; }
+.theorem-graph__panel .tg-panel__hint { margin: 0 0 .35rem; color: var(--sl-color-gray-3); font-size: .8rem; line-height: 1.35; }
+.theorem-graph__panel .tg-panel__modes + .tg-panel__hint { margin-top: .4rem; }
+.theorem-graph__panel .tg-panel__open { display: inline-block; margin-top: .6rem; font-size: .9rem; }
+
+.theorem-graph:fullscreen { margin: 0; padding: .75rem; background: var(--sl-color-black); overflow: auto; }
+.theorem-graph:fullscreen .theorem-graph__viewport { height: calc(100vh - 3.5rem); }

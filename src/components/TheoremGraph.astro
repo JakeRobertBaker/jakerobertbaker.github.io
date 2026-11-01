@@ -1,0 +1,78 @@
+---
+// Interactive proof graph. Nodes are results; each proof is an arrow from the
+// results it uses to the result it proves. Statements are the notes' own
+// build-time KaTeX HTML, so the graph needs no Markdown or math rendering.
+import { loadRegistry, type Block } from '../lib/registry';
+import { resultKinds } from '../lib/math-blocks.mjs';
+import { resolveReference } from '../lib/references.mjs';
+import '../styles/theorem-graph.css';
+
+interface Props {
+  /** Pages or blocks, as Markdown references relative to this page, e.g. "theory.md" or "theory.md#thm-IVT". */
+  include: string[];
+  /** Accessible name for the graph. */
+  label?: string;
+}
+const { include, label = 'Proof graph' } = Astro.props;
+const { blocks } = await loadRegistry();
+const here = `${Astro.url.pathname.replace(/^\/|\/$/g, '') || 'index'}.md`;
+
+const results = blocks.filter((block) => resultKinds.has(block.kind));
+const selected = new Set<Block>();
+for (const reference of include) {
+  const url = resolveReference(reference, here);
+  const matches = url.includes('#') ? results.filter((block) => block.url === url)
+    : results.filter((block) => block.url.startsWith(`${url}#`));
+  if (!matches.length) throw new Error(`TheoremGraph in ${here}: no results match ${reference}`);
+  for (const block of matches) selected.add(block);
+}
+const nodes = [...selected];
+const index = new Map(nodes.map((block, i) => [block.url, i]));
+// A proof is drawn only when everything it uses and proves is in the graph.
+const edges = blocks.filter((block) => block.kind === 'proof' && block.proves && index.has(block.proves)
+  && block.uses.length && block.uses.every((url) => index.has(url)));
+const name = (kind: string) => kind[0].toUpperCase() + kind.slice(1);
+const plainTitle = (block: Block) => block.title.replace(/\$([^$]*)\$/g, '$1');
+const data = edges.map((proof) => ({ from: proof.uses.map((url) => index.get(url)!), to: index.get(proof.proves!)! }));
+---
+<theorem-graph class="theorem-graph not-content" data-pagefind-ignore>
+  <div class="theorem-graph__toolbar" role="toolbar" aria-label={`${label} controls`}>
+    <button type="button" data-action="zoom-in" aria-label="Zoom in">+</button>
+    <button type="button" data-action="zoom-out" aria-label="Zoom out">−</button>
+    <button type="button" data-action="statements" aria-pressed="false">Statements</button>
+    <button type="button" data-action="fit">Fit</button>
+    <button type="button" data-action="relayout">Relayout</button>
+    <button type="button" data-action="fullscreen">Full screen</button>
+  </div>
+  <div class="theorem-graph__viewport" role="group" aria-label={label}>
+    <div class="theorem-graph__world">
+      <svg class="theorem-graph__edges" aria-hidden="true"></svg>
+      {nodes.map((block, i) => (
+        <article class={`tg-node tg-node--${block.kind}`} data-node={i} tabindex="0" aria-expanded="false" aria-label={`${name(block.kind)}: ${plainTitle(block)}`}>
+          <header class="tg-node__title">
+            <span class="tg-node__kind">{name(block.kind)}</span>
+            <a href={block.url} set:html={block.titleHtml ?? block.title} />
+          </header>
+          <div class="tg-node__body" set:html={block.html ?? ''} />
+        </article>
+      ))}
+      <ul class="tg-proofs">
+        {edges.map((proof, i) => (
+          <li>
+            <a class="tg-proof" data-edge={i} href={proof.url}>
+              <span class="tg-proof__title" set:html={proof.titleHtml ?? proof.title} />
+              <span class="tg-proof__route">: {proof.uses.map((url) => plainTitle(nodes[index.get(url)!])).join(', ')} ⟹ {plainTitle(nodes[index.get(proof.proves!)!])}</span>
+            </a>
+            <template set:html={proof.html ?? ''} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+  <aside class="theorem-graph__panel" aria-live="polite" hidden></aside>
+  <script type="application/json" set:html={JSON.stringify(data)} />
+</theorem-graph>
+
+<script>
+  import '../scripts/theorem-graph';
+</script>

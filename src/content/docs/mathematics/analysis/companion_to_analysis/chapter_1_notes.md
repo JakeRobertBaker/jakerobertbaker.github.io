@@ -552,7 +552,7 @@ $$
 
 So $\Theta$ preserves positivity, and therefore order as well. Hence $\Theta : \mathbb{R} \to \mathbb{F}$ is an isomorphism of ordered fields extending $\phi$. $\blacksquare$
 
-## Minor Extension of 1.48
+## Theorem 1.48 and a Minior Extension
 
 :::theorem[1.48 Non Negative Derivatives imply increacing]{#thm-increasing-derivative}
 Let,
@@ -603,6 +603,8 @@ $\implies f'(x) = 0 \forall x \in (a,b)$ contradiction.
 Hence $g(a) \neq g(b)$ and we are done.
 :::
 
+## Monotonic Continuity Results
+
 :::lemma[Strict increase and continuity make bijection]{#lem-strict-cont-bijection}
 Let,
  - $U=\left( \alpha, \beta \right)$ be an open interval on $\mathbb{R}$.
@@ -620,6 +622,8 @@ If $a,b \in U : a \neq b$ then w.l.o.g let $a<b$ then $f(a) < f(b) \implies a \n
 :::
 
 Note the second point in the above proof is a standalone fact which does not use the intermediate value theorem.
+
+### Fundamental Facts
 
 :::lemma
 If $f: U \to \mathbb{R}$, for interval $U$

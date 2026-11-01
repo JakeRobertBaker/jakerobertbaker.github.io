@@ -76,7 +76,7 @@ async function show(link: HTMLAnchorElement) {
   } catch { /* Preview is optional; the ordinary link is always usable. */ }
 }
 function linkFrom(event: Event) {
-  return event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('.sl-markdown-content a[href*="#"]') : null;
+  return event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('.sl-markdown-content a[href*="#"]:not(.theorem-graph__world a)') : null;
 }
 document.addEventListener('pointerover', (event) => {
   if (event.pointerType === 'touch' || preview.contains(event.target as Node)) return;

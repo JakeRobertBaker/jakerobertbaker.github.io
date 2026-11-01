@@ -25,7 +25,15 @@ test('current pages render mathematics; local links and assets resolve', async (
     await expect(page.locator('.katex-error')).toHaveCount(0);
     const ids = await page.locator('[id]').evaluateAll((nodes) => nodes.map((node) => node.id));
     expect(new Set(ids).size, route).toBe(ids.length);
-    const text = await page.locator('main .sl-markdown-content').innerText();
+    // Code blocks may show directive syntax; only rendered prose must not.
+    const text = await page.locator('main .sl-markdown-content').evaluate((content) => {
+      const copy = content.cloneNode(true) as HTMLElement;
+      copy.querySelectorAll('pre').forEach((block) => block.remove());
+      document.body.append(copy);
+      const rendered = copy.innerText;
+      copy.remove();
+      return rendered;
+    });
     expect(text, route).not.toMatch(/^\/\/\/|^attrs:|\{data-preview\}|^:::+(?:theorem|proof|definition)/m);
     const links = await page.locator('main .sl-markdown-content a[href], main .sl-markdown-content img[src]').evaluateAll((nodes) =>
       nodes.map((node) => node instanceof HTMLAnchorElement ? node.href : (node as HTMLImageElement).src));
@@ -208,5 +216,52 @@ test('static mathematics and proof disclosure work without client JavaScript', a
   const proof = page.locator('details[data-math-kind="proof"]').first();
   await proof.locator('summary').click();
   await expect(proof).toHaveAttribute('open', '');
+  await context.close();
+});
+
+test('proof graphs lay out registry results and proofs, select them, and degrade to a list', async ({ page, request, browser }) => {
+  const route = '/mathematics/analysis/companion_to_analysis/theory_graph/';
+  const { blocks } = await (await request.get('/theorems.json')).json();
+  const page_ = '/mathematics/analysis/companion_to_analysis/theory/';
+  const results = blocks.filter((block: { url: string; kind: string }) => block.url.startsWith(page_) && block.kind !== 'proof');
+  const proofs = blocks.filter((block: { url: string; kind: string; proves: string | null }) =>
+    block.kind === 'proof' && block.proves?.startsWith(page_));
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(route);
+  const graph = page.locator('theorem-graph', { has: page.getByRole('group', { name: 'Companion to Analysis theory graph' }) });
+  await expect(graph).toHaveAttribute('data-ready', '');
+  await expect(graph.locator('.tg-node')).toHaveCount(results.length);
+  await expect(graph.locator('.tg-proof')).toHaveCount(proofs.length);
+  await expect(graph.locator('.tg-edge')).toHaveCount(proofs.length);
+  // Cards start as titles; a click opens the statement, a second click folds it.
+  const card = graph.locator('.tg-node').first();
+  await expect(card.locator('.tg-node__body')).toBeHidden();
+  await card.locator('.tg-node__kind').click();
+  await expect(card).toHaveAttribute('aria-expanded', 'true');
+  await expect(card.locator('.tg-node__body .katex').first()).toBeVisible();
+  await card.locator('.tg-node__kind').click();
+  await expect(card.locator('.tg-node__body')).toBeHidden();
+  await graph.getByRole('button', { name: 'Statements' }).click();
+  await expect(graph.locator('.tg-node.is-open')).toHaveCount(results.length);
+  await page.waitForTimeout(1500); // Let the layout settle around the opened cards.
+  // Laid out: no two cards overlap.
+  const boxes = await graph.locator('.tg-node').evaluateAll((nodes) => nodes.map((node) => node.getBoundingClientRect().toJSON()));
+  for (const [i, a] of boxes.entries()) for (const b of boxes.slice(i + 1))
+    expect(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top).toBeTruthy();
+  const panel = graph.locator('.theorem-graph__panel');
+  await graph.locator('.tg-node .tg-node__body').first().click();
+  await expect(panel).toBeVisible();
+  await expect(panel.getByRole('button', { name: 'All upstream' })).toBeVisible();
+  await expect(graph).toHaveClass(/has-selection/);
+  await graph.locator('.tg-proof').first().click();
+  await expect(page).toHaveURL(route);
+  await expect(panel.locator('h4', { hasText: 'Proof' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(panel).toBeHidden();
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const static_ = await context.newPage();
+  await static_.goto(`http://127.0.0.1:4322${route}`);
+  await expect(static_.locator('.tg-node .katex').first()).toBeVisible();
+  await expect(static_.locator('.tg-proof__route').first()).toBeVisible();
   await context.close();
 });

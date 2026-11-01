@@ -4,17 +4,39 @@ import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import remarkDirective from 'remark-directive';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import mathBlocks, { createRegistry, failMathErrors } from '../src/lib/math-blocks.mjs';
+import mathBlocks, { createRegistry, failMathErrors, mathBlockHtml } from '../src/lib/math-blocks.mjs';
 import { pageUrl, resolveReference } from '../src/lib/references.mjs';
 import headingLabels from '../src/lib/heading-labels.mjs';
 
 const renderer = await createMarkdownProcessor({
   smartypants: false, syntaxHighlight: false,
   remarkPlugins: [remarkMath, remarkDirective, mathBlocks],
-  rehypePlugins: [rehypeKatex, failMathErrors, headingLabels],
+  rehypePlugins: [rehypeKatex, failMathErrors, mathBlockHtml, headingLabels],
 });
 const render = (markdown, source = 'testing.md') => renderer.render(markdown, {
   fileURL: new URL(`../src/content/docs/${source}`, import.meta.url),
+});
+
+test('blocks record rendered title and statement HTML without proofs, prefixes or IDs', async () => {
+  const [theorem, proof, untitled] = (await render(`::::theorem[Square $x^2$]{#thm-sq}
+Statement $y$.
+
+:::proof[Theorem 1.2]{proves="#thm-sq"}
+Proof $z$ uses [the result](#thm-sq).
+:::
+::::
+:::proof{proves="#thm-sq" #prf-two}
+Again.
+:::
+`)).metadata.frontmatter.mathBlocks;
+  assert.match(theorem.titleHtml, /^Square <span class="katex">/);
+  assert.doesNotMatch(theorem.titleHtml, /Theorem ·|math-permalink/);
+  assert.match(theorem.html, /^<p>Statement <span class="katex">/);
+  assert.doesNotMatch(theorem.html, /Proof|details|id=/);
+  assert.equal(proof.titleHtml, 'Theorem 1.2');
+  assert.match(proof.html, /^<p>Proof <span class="katex">.*<a href="\/testing\/#thm-sq">/);
+  assert.match(untitled.titleHtml, /^Proof of Square <span class="katex">/);
+  assert.doesNotMatch(untitled.titleHtml, /<a /);
 });
 
 test('semantic blocks, nested proofs, title math, explicit metadata and no inferred edges', async () => {
@@ -66,7 +88,7 @@ Proof.
 :::
 `);
   assert.match(result.code, /<details[^>]*id="proof-lem-id"[^>]*open[\s\S]*?<summary class="math-block__title">Proof of <a href="#lem-id">An identity <span class="katex">/);
-  assert.match(result.code, /<summary class="math-block__title">Proof · A second argument/);
+  assert.match(result.code, /<summary class="math-block__title"><span class="math-block__kind">Proof · <\/span>A second argument/);
   assert.match(result.code, /<summary class="math-block__title">Proof of <a href="#thm-untitled">Theorem<\/a>/);
   const registry = createRegistry([{ blocks: result.metadata.frontmatter.mathBlocks }]);
   const proofs = registry.blocks.filter((b) => b.kind === 'proof');
