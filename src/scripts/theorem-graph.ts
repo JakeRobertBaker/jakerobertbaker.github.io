@@ -4,7 +4,7 @@ import { forceLink, forceManyBody, forceSimulation, forceX, forceY, type Simulat
 
 interface Edge { from: number[]; to: number }
 interface Item extends SimulationNodeDatum { el: HTMLElement; w: number; h: number; card: boolean }
-type Mode = 'neighbours' | 'ancestors' | 'descendants';
+type Mode = 'direct' | 'upstream' | 'downstream';
 
 const svgNS = 'http://www.w3.org/2000/svg';
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -87,8 +87,9 @@ class TheoremGraph extends HTMLElement {
       { source: proofs[i], target: nodes[edge.to] },
     ]);
     const radius = (item: Item) => Math.hypot(item.w, item.h) / 2;
+    const linkForce = forceLink(links).distance((link) => (radius(link.source as Item) + radius(link.target as Item)) * .7 + 40).strength(.6);
     const simulation = forceSimulation<Item>(items)
-      .force('link', forceLink(links).distance((link) => (radius(link.source as Item) + radius(link.target as Item)) * .7 + 40).strength(.6))
+      .force('link', linkForce)
       .force('charge', forceManyBody<Item>().strength((item) => item.card ? -2200 : -250).distanceMax(2000))
       .force('x', forceX(0).strength(.04))
       .force('y', forceY(0).strength(.04))
@@ -175,14 +176,38 @@ class TheoremGraph extends HTMLElement {
     simulation.on('tick', draw);
     layout(false);
 
+    // Pointer gesture in progress, if any (see the pointer handlers below).
+    let gesture: { id: number; item?: Item; x: number; y: number; moved: boolean } | null = null;
+    const dragging = (item: Item) => gesture?.item === item && gesture.moved;
+
+    // Cards start as titles; opening one shows its statement and the layout
+    // briefly re-settles around its new size.
+    const statements = this.querySelector<HTMLButtonElement>('[data-action="statements"]')!;
+    const open = (indices: number[], value: boolean) => {
+      for (const i of indices) {
+        cards[i].classList.toggle('is-open', value);
+        cards[i].setAttribute('aria-expanded', String(value));
+        nodes[i].w = cards[i].offsetWidth;
+        nodes[i].h = cards[i].offsetHeight;
+      }
+      statements.setAttribute('aria-pressed', String(cards.every((card) => card.classList.contains('is-open'))));
+      linkForce.distance(linkForce.distance());
+      // A single card stays where it was clicked while its neighbours move.
+      const held = indices.length === 1 ? nodes[indices[0]] : null;
+      if (held && held.fx == null) [held.fx, held.fy] = [held.x, held.y];
+      const release = () => { if (held && !dragging(held)) held.fx = held.fy = null; };
+      if (reducedMotion.matches) { simulation.alpha(.35).tick(150); draw(); release(); }
+      else simulation.on('end.hold', () => { simulation.on('end.hold', null); release(); }).alpha(.35).restart();
+    };
+
     // Selection highlights a result's proofs, or what it depends on or implies.
     let selected: { node?: number; edge?: number; mode: Mode } | null = null;
     const html = (el: Element | null | undefined) => el?.innerHTML ?? '';
     const titleOf = (i: number) => html(cards[i].querySelector('.tg-node__title a'));
     const nodeButton = (i: number) => `<button type="button" data-select-node="${i}">${titleOf(i)}</button>`;
     const edgeButton = (i: number) => `<button type="button" data-select-edge="${i}">${html(chips[i].querySelector('.tg-proof__title'))}</button>`;
-    const list = (heading: string, buttons: string[]) =>
-      buttons.length ? `<h4>${heading}</h4><div class="tg-panel__list">${buttons.join('')}</div>` : '';
+    const list = (heading: string, hint: string, buttons: string[]) => buttons.length
+      ? `<h4>${heading}</h4><p class="tg-panel__hint">${hint}</p><div class="tg-panel__list">${buttons.join('')}</div>` : '';
     const close = '<button type="button" class="tg-panel__close" data-action="clear" aria-label="Close">×</button>';
 
     const highlight = () => {
@@ -194,16 +219,17 @@ class TheoremGraph extends HTMLElement {
       } else if (selected?.node !== undefined) {
         litNodes.add(selected.node);
         const { mode } = selected;
-        // Neighbours take one step either way; the other modes take the closure.
+        // Direct takes one step either way; up- and downstream follow proofs
+        // backwards or forwards until nothing new is reached.
         for (let changed = true; changed;) {
           changed = false;
           edges.forEach((edge, i) => {
             if (litEdges.has(i)) return;
-            const into = litNodes.has(edge.to) && (mode === 'ancestors' || (mode === 'neighbours' && edge.to === selected!.node));
-            const out = edge.from.some((n) => litNodes.has(n)) && (mode === 'descendants' || (mode === 'neighbours' && edge.from.includes(selected!.node!)));
+            const into = litNodes.has(edge.to) && (mode === 'upstream' || (mode === 'direct' && edge.to === selected!.node));
+            const out = edge.from.some((n) => litNodes.has(n)) && (mode === 'downstream' || (mode === 'direct' && edge.from.includes(selected!.node!)));
             if (!into && !out) return;
             litEdges.add(i);
-            for (const n of into ? edge.from : [edge.to]) if (!litNodes.has(n)) { litNodes.add(n); changed = mode !== 'neighbours'; }
+            for (const n of into ? edge.from : [edge.to]) if (!litNodes.has(n)) { litNodes.add(n); changed = mode !== 'direct'; }
           });
         }
       }
@@ -219,41 +245,60 @@ class TheoremGraph extends HTMLElement {
       groups.forEach((el, i) => el.classList.toggle('is-lit', litEdges.has(i)));
     };
 
-    const showNode = (i: number, mode: Mode = 'neighbours') => {
+    const modes: Record<Mode, [string, string]> = {
+      direct: ['Direct', 'Proofs into and out of this result.'],
+      upstream: ['All upstream', 'Everything this could rest on, following proofs backwards. Alternative proofs are all included.'],
+      downstream: ['All downstream', 'Everything this helps to prove, following proofs forwards.'],
+    };
+    const showNode = (i: number, mode: Mode = 'direct') => {
       selected = { node: i, mode };
       const card = cards[i];
       const proved = edges.flatMap((edge, n) => edge.to === i ? [n] : []);
       const used = edges.flatMap((edge, n) => edge.from.includes(i) ? [n] : []);
-      const modes: [Mode, string][] = [['neighbours', 'Neighbours'], ['ancestors', 'Depends on'], ['descendants', 'Consequences']];
-      panel.innerHTML = `${close}<h3>${titleOf(i)}</h3>${html(card.querySelector('.tg-node__body'))}`
-        + list('Proved by', proved.map(edgeButton)) + list('Used in', used.map(edgeButton))
-        + `<div class="tg-panel__modes" role="group" aria-label="Highlight">${modes.map(([value, text]) =>
+      panel.innerHTML = `${close}<p class="tg-panel__kind">${html(card.querySelector('.tg-node__kind'))}</p><h3>${titleOf(i)}</h3>`
+        + list('← Proved by', 'Proofs of this result, from other results.', proved.map(edgeButton))
+        + list('Used in →', 'Proofs that use this result.', used.map(edgeButton))
+        + `<h4>Highlight</h4><div class="tg-panel__modes" role="group" aria-label="Highlight">${Object.entries(modes).map(([value, [text]]) =>
           `<button type="button" data-mode="${value}" aria-pressed="${value === mode}">${text}</button>`).join('')}</div>`
+        + `<p class="tg-panel__hint">${modes[mode][1]}</p>`
         + `<a class="tg-panel__open" href="${card.querySelector('a')!.getAttribute('href')}">Open in notes →</a>`;
       panel.hidden = false;
       highlight();
     };
     const showEdge = (i: number) => {
-      selected = { edge: i, mode: 'neighbours' };
+      selected = { edge: i, mode: 'direct' };
       const chip = chips[i];
-      panel.innerHTML = `${close}<h3>${html(chip.querySelector('.tg-proof__title'))}</h3>`
-        + list('Uses', edges[i].from.map(nodeButton)) + list('Proves', [nodeButton(edges[i].to)])
+      panel.innerHTML = `${close}<p class="tg-panel__kind">Proof</p><h3>${html(chip.querySelector('.tg-proof__title'))}</h3>`
+        + list('Uses', 'The results this proof starts from.', edges[i].from.map(nodeButton))
+        + list('Proves', 'The result it establishes.', [nodeButton(edges[i].to)])
         + `<h4>Proof</h4>${html(chip.parentElement!.querySelector('template'))}`
         + `<a class="tg-panel__open" href="${chip.getAttribute('href')}">Open proof in notes →</a>`;
       panel.hidden = false;
       highlight();
+    };
+    // Clicking a card selects and opens it; clicking it again folds it.
+    const activate = (i: number, toggle = true) => {
+      const isOpen = cards[i].classList.contains('is-open');
+      if (selected?.node === i && toggle) open([i], !isOpen);
+      else if (!isOpen) open([i], true);
+      showNode(i, selected?.node === i ? selected.mode : 'direct');
+      if (cards[i].classList.contains('is-open')) reveal(nodes[i]);
     };
     const clear = () => {
       selected = null;
       panel.hidden = true;
       highlight();
     };
+    // Pan the least distance that brings a whole box into view, favouring its
+    // top-left corner when it is larger than the viewport.
     const reveal = (item: Item) => {
-      const { k } = this.view;
-      const x = item.x! * k + this.view.x, y = item.y! * k + this.view.y;
-      const margin = 40;
-      if (x > margin && x < viewport.clientWidth - margin && y > margin && y < viewport.clientHeight - margin) return;
-      this.view = { k, x: viewport.clientWidth / 2 - item.x! * k, y: viewport.clientHeight / 3 - item.y! * k };
+      const { x, y, k } = this.view, margin = 24;
+      const shift = (start: number, size: number, room: number) =>
+        Math.max(margin - start, Math.min(0, room - margin - start - size));
+      const dx = shift((item.x! - item.w / 2) * k + x, item.w * k, viewport.clientWidth);
+      const dy = shift((item.y! - item.h / 2) * k + y, item.h * k, viewport.clientHeight);
+      if (!dx && !dy) return;
+      this.view = { k, x: x + dx, y: y + dy };
       glide();
       apply();
     };
@@ -261,7 +306,7 @@ class TheoremGraph extends HTMLElement {
     // Pointer gestures: drag a card or proof, pan the background, pinch to zoom.
     // Capture starts only once a gesture moves, so plain clicks reach links.
     const pointers = new Map<number, { x: number; y: number }>();
-    let gesture: { id: number; item?: Item; x: number; y: number; moved: boolean } | null = null;
+
     let pinch: { distance: number } | null = null;
     let suppressClick = false;
     const local = (event: { clientX: number; clientY: number }) => {
@@ -354,7 +399,7 @@ class TheoremGraph extends HTMLElement {
       if (chip) {
         event.preventDefault();
         showEdge(Number(chip.dataset.edge));
-      } else if (card) showNode(Number(card.dataset.node));
+      } else if (card) activate(Number(card.dataset.node));
       else clear();
     });
     viewport.addEventListener('dblclick', (event) => {
@@ -365,7 +410,7 @@ class TheoremGraph extends HTMLElement {
       const card = (event.target as Element).closest<HTMLElement>('.tg-node');
       if (card && event.target === card && (event.key === 'Enter' || event.key === ' ')) {
         event.preventDefault();
-        showNode(Number(card.dataset.node));
+        activate(Number(card.dataset.node));
       }
     });
     viewport.addEventListener('focusin', (event) => {
@@ -379,7 +424,7 @@ class TheoremGraph extends HTMLElement {
       if (!button) return;
       if (button.dataset.selectNode) {
         const i = Number(button.dataset.selectNode);
-        showNode(i);
+        activate(i, false);
         reveal(nodes[i]);
       } else if (button.dataset.selectEdge) {
         const i = Number(button.dataset.selectEdge);
@@ -401,6 +446,7 @@ class TheoremGraph extends HTMLElement {
       if (action === 'zoom-in') { glide(); zoomAt(1.3, ...middle()); }
       else if (action === 'zoom-out') { glide(); zoomAt(1 / 1.3, ...middle()); }
       else if (action === 'fit') fit(items, true);
+      else if (action === 'statements') open(cards.map((_, i) => i), statements.getAttribute('aria-pressed') !== 'true');
       else if (action === 'relayout') {
         simulation.on('end.fit', () => { simulation.on('end.fit', null); fit(items, true); });
         layout(true);

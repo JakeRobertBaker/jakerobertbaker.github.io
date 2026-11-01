@@ -39,6 +39,7 @@ const data = edges.map((proof) => ({ from: proof.uses.map((url) => index.get(url
   <div class="theorem-graph__toolbar" role="toolbar" aria-label={`${label} controls`}>
     <button type="button" data-action="zoom-in" aria-label="Zoom in">+</button>
     <button type="button" data-action="zoom-out" aria-label="Zoom out">−</button>
+    <button type="button" data-action="statements" aria-pressed="false">Statements</button>
     <button type="button" data-action="fit">Fit</button>
     <button type="button" data-action="relayout">Relayout</button>
     <button type="button" data-action="fullscreen">Full screen</button>
@@ -47,7 +48,7 @@ const data = edges.map((proof) => ({ from: proof.uses.map((url) => index.get(url
     <div class="theorem-graph__world">
       <svg class="theorem-graph__edges" aria-hidden="true"></svg>
       {nodes.map((block, i) => (
-        <article class={`tg-node tg-node--${block.kind}`} data-node={i} tabindex="0" aria-label={`${name(block.kind)}: ${plainTitle(block)}`}>
+        <article class={`tg-node tg-node--${block.kind}`} data-node={i} tabindex="0" aria-expanded="false" aria-label={`${name(block.kind)}: ${plainTitle(block)}`}>
           <header class="tg-node__title">
             <span class="tg-node__kind">{name(block.kind)}</span>
             <a href={block.url} set:html={block.titleHtml ?? block.title} />
