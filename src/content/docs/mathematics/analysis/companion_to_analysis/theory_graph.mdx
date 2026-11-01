@@ -4,44 +4,16 @@ description: Interactive graph of the results in Theory and the proofs between t
 ---
 import TheoremGraph from '../../../../../components/TheoremGraph.astro';
 
-Each card is a statement from [Theory](theory.md). Each labelled arrow is a proof, running from the results it uses to the result it proves. Click a card to show its statement and highlight its proofs; click it again to fold it, or use **Statements** to show them all. Click a proof to see what it uses. Drag to rearrange, scroll or pinch to zoom, and double-click a card to open it in the notes.
 
 ## Blocks
 
 Cards (Nodes) in these graphs are `:::theorem`, `:::definition` and other blocks.
 
-Directed edges are produced by `:::proof` blocks like
-
-```markdown
-:::proof[Theorem 1.53]{#prf-FA-from-IVT proves="#def-fundamental-axiom" uses="#thm-IVT"}
-See Theorem 1.53 of the book.
-:::
-```
-
-which create an edge pointing into node `#def-fundamental-axiom` from each of the nodes in `uses`.
+Directed edges are produced by labelled `:::proof` blocks like `Add the forms`, which create an edge pointing into node `#thm-even-plus-odd` from each of the nodes in `uses`.
 
 A proof with several `uses` premises draws a line from each premise to the proof's label, and a single arrow from the label to the `proves` node.
 
-## Interactive
-Clicking a card expands its statement and opens its relationships.
-
-- `PROVED BY` in edges
-- `USED IN` out edges
-- `HIGHLIGHT` dims everything except direct neighbours, all upstream, or all downstream results
-
-## Graph Object
-You can specify the pages or single blocks (e.g. `'theory.md#thm-IVT'`) to include. The graph below is produced by
-
-```markdown
-<TheoremGraph include={['theory.md']} label="Companion to Analysis theory graph" />
-```
-
-
-<TheoremGraph include={['theory.md']} label="Companion to Analysis theory graph" />
-
-## Trivial Example
-
-### The Blocks
+### Example
 
 From [Theory Graph Example](theory_graph_example.md):
 
@@ -63,8 +35,27 @@ $m + n = 2j + (2k + 1) = 2(j + k) + 1$.
 :::
 ```
 
-### The graph
+#### Renders as
 
 One proof using two premises: both lines meet at the *Add the forms* label, and one arrow leaves it.
 
 <TheoremGraph include={['theory_graph_example.md']} label="Trivial example graph" />
+
+
+## Interactive
+Clicking a card expands its statement and opens its relationships.
+
+- `PROVED BY` in edges
+- `USED IN` out edges
+- `HIGHLIGHT` dims everything except direct neighbours, all upstream, or all downstream results
+
+## Graph Object
+You can specify the pages or single blocks (e.g. `'theory.md#thm-IVT'`) to include. The graph below is produced by
+
+```markdown
+<TheoremGraph include={['theory.md']} label="Companion to Analysis theory graph" />
+```
+
+
+<TheoremGraph include={['theory.md']} label="Companion to Analysis theory graph" />
+
