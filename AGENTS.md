@@ -20,7 +20,6 @@ Read [`instructions/book-theme.md`](instructions/book-theme.md) for typography, 
 
 - Ideally, each refactor makes this repo more elegant, less over complex, closer to best practice so that future agents and users encounter less friction and token waste.
 - Preserve the author's mathematics unless asked to edit it.
-- Do not add AI author/co-author attribution to commits or pull requests. Claude Code attribution is disabled in `.claude/settings.json`; keep it disabled.
 - Use the intended checkout. Verify listeners/process ownership and worktrees before starting or stopping previews; do not assume a port is available.
 - Follow the README's workflow, validation and deployment guidance.
 - Keep guidance canonical and task-scoped. Update affected docs with code changes and maintain this map when adding or moving guidance.
