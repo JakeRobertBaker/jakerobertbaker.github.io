@@ -59,12 +59,21 @@ See Lemma 1.45 and Theorem 1.42 of the book.
 See Lemma 3.14 and Theorem 1.42 of the book.
 :::
 
-:::theorem[Supremum Principle]{#thm-Sup}
+:::definition[Supremum]{#def-Sup}
+Let $A \subseteq \mathbb{R}$ be non empty.
+
+$\alpha$ is the least upper bound (supremum) of A if
+
+1. $\alpha \geq a \ \forall a \in A$.
+2. $\beta \geq a \ \forall a \in A \implies \beta \geq \alpha$
+:::
+
+:::theorem[Theorem 3.7 Supremum Principle]{#thm-Sup}
 Let,
 - $A \subseteq \mathbb{R}$ be non empty.
-- $A$ is bounded above, $\exists K \in \mathbb{R} : \forall a \in A a \leq K$
+- $A$ is bounded above, $\exists K \in \mathbb{R} : a \leq K\ \forall a \in A$
 
-Then, $A$ has a supermom.
+Then, $A$ has a supremum.
 :::
 
 :::proof[Theorem 3.7; Exercises 3.9 or 3.10]{#prf-SUP-from-FA proves="#thm-Sup" uses="#def-fundamental-axiom"}
