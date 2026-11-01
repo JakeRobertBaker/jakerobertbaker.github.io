@@ -38,13 +38,7 @@ Completing the square and the other standard fiddley matrix results. Aim to full
 TODO: via Axler make sure I understand the multivariate change of variable proof.
 
 [Normal Distribution](mathematics/probability/normal_distribution.md) · [Schur Complement](mathematics/linear_algebra/schur_complement.md) · [Matrix Multiplication](mathematics/linear_algebra/matrix_multiplication.md)
-
 </section>
-</div>
-
-## More notes
-
-<div class="topic-cards">
 <section>
 
 ### Probability & Statistics
@@ -59,18 +53,18 @@ TODO: via Axler make sure I understand the multivariate change of variable proof
 
 ### Algebra & Combinatorics
 
-- [Universal Algebra](mathematics/set_theory/universal_algebra.md): free structures and algebraic theories
-- [Combinatorial Proofs](mathematics/combinatorics/combinatorial_proofs.md): multinomials and stars and bars
-- [Shapley Formula](mathematics/game_theory/shapley_formula.md): averaging marginal contributions
+- [Universal Algebra](mathematics/set_theory/universal_algebra.md): I was going through Quantum Computing since Democritus and realised that my understanding of models, ordinals and other topics was poor. An aside from the main text but fun to go through.
+- [Combinatorial Proofs](mathematics/combinatorics/combinatorial_proofs.md): Very basic notes from first year undergrad.
+- [Shapley Formula](mathematics/game_theory/shapley_formula.md): Had to use these for work. Wanted to get the definitions right.
 
 </section>
 <section>
 
 ### Deep Learning
 
-- [Attention Mechanisms](deep_learning/attention.md): self-attention, positional encoding, multi-head
-- [Attention Is All You Need](deep_learning/attention_is_all_you_need.md): the transformer end to end
-- [CLIP & SigLIP Losses](deep_learning/clip_losses.md): softmax InfoNCE vs sigmoid loss
+- [Attention Mechanisms](deep_learning/attention.md): the key definitions of self attention
+- [Attention Is All You Need](deep_learning/attention_is_all_you_need.md): how this is used in the attention is all you need translation model, end to end run.
+- [CLIP & SigLIP Losses](deep_learning/clip_losses.md): some manual clip notes from when I had to fiddle the loss functions for work.
 
 </section>
 </div>
