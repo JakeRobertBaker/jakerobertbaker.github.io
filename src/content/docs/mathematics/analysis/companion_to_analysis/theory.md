@@ -77,5 +77,5 @@ Then, $A$ has a supremum.
 :::
 
 :::proof[Theorem 3.7; Exercises 3.9 or 3.10]{#prf-SUP-from-FA proves="#thm-Sup" uses="#def-fundamental-axiom"}
-See Theorem 3.7 and Exercises 3.9 or 3.10 of the book. [Exercise 3.9](chapter_3_notes.md#ex-39) is worked in the chapter 3 notes.
+See Theorem 3.7 and Exercises 3.9 or 3.10 of the book. [Exercise 3.9](chapter_3_notes.md#exercise-39) is worked in the chapter 3 notes.
 :::
