@@ -299,7 +299,7 @@ h \left( t_A \left( \underline{a} \right) \right)
 &= w_A (h(t_1(\underline{a}), \dots, h (t_m (\underline{a}) ) )) \\
 &= w_A
 \left(
-{t_1}_B \left( h \left( a_1 \right), \dots, h \left( a_n \right) \right), \dots
+{t_1}_B \left( h \left( a_1 \right), \dots, h \left( a_n \right) \right), \dots,
 {t_m}_B \left( h \left( a_1 \right), \dots, h \left( a_n \right) \right)
 \right)
 \\ \text{ [def of derived operation] } 
