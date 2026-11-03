@@ -309,7 +309,14 @@ h \left(
 \omega \left( 
 h \left( {t_1}_B \left( a_1, \dots, a_n \right) \right), \dots
 h \left( {t_m}_B \left( a_1, \dots, a_n \right) \right)
-\right)
+\right) \\
+\text{ [inductive hyp] } &=
+\omega \left( 
+{t_1}_B \left( h(a_1), \dots, h(a_n) \right), \dots,
+{t_m}_B \left( h(a_1), \dots, h(a_n) \right)
+\right) \\
+\text{ [derived op def] } &=
+t_B \left( h(a_1), \dots, h(a_n) \right)
 \end{align*}
 $$
 
