@@ -407,6 +407,39 @@ t_A \left(
 \end{align*}
 $$
 
+:::lemma[Substitution Lemma]{#lem-sub-general}
+Let,
+- $A$ be a $\Omega$ structure.
+- $t \in F_{\Omega} \left( X_n \right)$
+- $f : X_n \to A$
+- $\bar{f}: F_{\Omega} \left( X_n \right) $ be the unique homomorphism extending $f$.
+- $x_i \in X_n$, $u \in F_{\Omega} \left( X_n \right)$
+- $g : X_n \to A$ which agrees with $f$ on all of $X_n$ except that $g(x_i) = \bar{f} (u)$
+
+Then,
+
+$$
+\bar{f} \left( s \left[ u / x_i \right] \right) =
+\bar{g} \left( s \right)
+$$
+:::
+
+:::proof{proves="#lem-sub-general" open}
+$$
+\begin{align*}
+\bar{f} \left( s \left[ u / x_i \right] \right) &= \\
+\text{[Substitute Prop]} &=
+\bar{f} \left( s_{FX} \left( x_1, \dots, u, \dots, x_n \right) \right)
+\\
+\text{[comute derived op]} &=
+s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
+\\
+\text{[Ex 1.2]} &=
+\bar{g}(s)
+\end{align*}
+$$
+:::
+
 :::definition[n-ary Equation]{#def-nary_equation}
 
 An n-ary equation in operational type $(\Omega, \alpha)$ is an expression $(s=t)$ for $s,t \in F_{\Omega}(X_n)$
