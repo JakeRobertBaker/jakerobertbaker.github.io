@@ -326,7 +326,7 @@ t_B \left( h(a_1), \dots, h(a_n) \right)
 $$
 :::
 
-:::proof{proves="#derived-homo" open}
+:::proof{proves="#lem-derived-homo" open}
 Let $P(t)$ denote the lemma result.
 
 $$
