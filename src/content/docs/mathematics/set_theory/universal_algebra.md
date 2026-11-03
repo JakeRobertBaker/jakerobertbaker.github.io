@@ -145,20 +145,17 @@ $$
 where $\alpha(\omega)=n$ and $\forall a_1,...,a_n \in A$
 :::
 
-:::definition[Inductive: $\Omega$-terms in $X$]{#def-Term-Inductive}
-
+:::definition[$\Omega$-terms in $X$ properties]{#def-Term-Inductive}
 Let $\Omega$ be an opertaional type and $X$ be a set.
 
-The set $F_{\Omega}(X)$  of $\Omega$ terms is defined inductively:
+Let $A$ be a set. $A$ satisfies the $\Omega$ term properties if,
 
-a. If $x \in X$ then $x \in F_{Ω}(X)$
+a. If $x \in X$ then $x \in A$
 
-b. If $w \in \Omega$ with $\alpha(w)=n$ and $t_1,...,t_n \in \Omega$ then $wt_1...t_n \in F_{Ω}(X)$.
+b. If $w \in \Omega$ with $\alpha(w)=n$ and $t_1,...,t_n \in A$ then $wt_1...t_n \in A$.
 :::
 
-Note that this really the intersection of all operation structures that contain $X$.
-
-More formally
+The set $F_{\Omega}(X)$  of $\Omega$ terms is defined as the minimal set that obeys these inductive properties.
 
 :::definition[$\Omega$-terms in $X$]{#def-term}
 Let $M$ be the set of finite strings in $\Omega \cup X$.
@@ -168,7 +165,9 @@ Consider $\mathcal{C} = \left\{ A \subseteq M : A \text{ satisfies a. and b.} \r
 $F_{\Omega}(X) \coloneqq \bigcap_{A \in \mathcal{C}} A$
 :::
 
-Note $\mathcal{C}$ is non empty because $M \in \mathcal{C}$
+Note:
+- $\mathcal{C}$ is non empty because $M \in \mathcal{C}$
+- $\forall \ A \in \mathcal{C}, X \subseteq A \implies X \subseteq \bigcap_{A \in \mathcal{C}} A \neq \emptyset$
 
 :::theorem[$F_\Omega(X)$ is a sigma structure]{#thm-FX_is_sigma}
 
