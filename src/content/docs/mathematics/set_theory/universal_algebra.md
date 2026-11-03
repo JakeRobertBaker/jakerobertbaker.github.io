@@ -228,7 +228,7 @@ Therefore a derived operation really is just the map it represents
 If $t=mx_1 m x_2 x_3$ then $t_A(\underline{a})= m \left( a_1, m \left( a_2, a_3) \right) \right)$
 :::
 
-:::proposition[Derived Operations Are Literally Themselves]{#prp-derived-literal}
+:::remark[Derived Operations Are Literally Themselves]{#prp-derived-literal}
 For general $t \in F_{\Omega}(X_n)$, 
 $$
 t = \dots \omega x_1 \dots x_m \dots
@@ -240,8 +240,18 @@ $$
 t_A(\underline{a}) = \left( \dots, \omega \left( a_1, \dots a_m \right), \dots \right)
 $$
 
+It is kind of obvious from the definition. We will prove it rigorously.
 :::
-The proof of this is immediate from the inductive definition.
+
+In order to prove some of these obvious results rigorously we need structural induction.
+
+We aim to prove property $P(t)$ for every term $t \in F_{\Omega} (X)$.
+
+Consider $S = \left\{ t : P(t) \right\}$ if $S$ obeys properties (a) and (b) of $\Omega$ terms in $X$.
+
+Then $S \in \mathcal{C}$. Then $F_{\Omega}(X) \subseteq S$
+
+## Old.
 
 In particular when $A = F_{\Omega}(X_n)$, $\underline{u}=\left( u_1,\dots, u_n \right) \in A$
 $$
