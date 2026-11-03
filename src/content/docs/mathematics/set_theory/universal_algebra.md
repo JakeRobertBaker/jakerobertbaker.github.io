@@ -257,8 +257,63 @@ In practice one has to,
 
 a. Show $P(x)$ holds $\forall \ x \in X$.
 
-b. Show that if $P(t)$ holds for $ t \in \left\{ t_1, \dots, t_n \right\}$ then it holds for $t=\omega t_1 \dots t_n$
+b. Show that if $P(t)$ holds for $ t \in \left\{ t_1, \dots, t_m \right\}$ then it holds for $t=\omega t_1 \dots t_m$
 
+:::lemma[Homomorphism commutes with derived operation]{#lem-derived-homo}
+If,
+- $h : A \to B$ is a homomorphism
+- $t \in F_{\Omega}(X)$
+
+Then,
+
+$$
+h \left( t_A \left( a_1, \dots, a_n \right) \right) =
+t_B \left( h(a_1), \dots, h(a_n) \right)
+$$
+:::
+
+:::proof{proves="#derived-homo" open}
+Let $P(t)$ denote the lemma result.
+
+$$
+h \left( t_A \left( a_1, \dots, a_n \right) \right) =
+t_B \left( h(a_1), \dots, h(a_n) \right)
+\  \forall a_1, \dots, a_n \in A
+$$
+
+**(a)**
+
+By definition of derived operators,
+
+$$
+h \left( {x_i}_A \left( a_1, \dots, a_n \right) \right) =
+h \left( a_i \right) =
+{x_i}_B \left( h(a_1), \dots, h(a_n) \right)
+$$
+
+**(b)**
+
+Assume $t = \omega t_1 \dots t_m$ and $P(t_i)$ holds for $i=1, \dots, m$ 
+
+$$
+\begin{align*}
+h \left( t_A \left( a_1, \dots, a_n \right) \right) & \\
+\text{[derived op def]} &=
+h \left( 
+\omega \left(
+{t_1}_B \left( a_1, \dots, a_n \right), \dots,
+{t_m}_B \left( a_1, \dots, a_n \right)
+\right) 
+\right) \\
+\text{ [comute homo] } &=
+\omega \left( 
+h \left( {t_1}_B \left( a_1, \dots, a_n \right) \right), \dots
+h \left( {t_m}_B \left( a_1, \dots, a_n \right) \right)
+\right)
+\end{align*}
+$$
+
+:::
 
 ## Old.
 
@@ -275,7 +330,7 @@ $$
 t_{F_{\Omega}(X)}(x_1,\dots, x_n) = t
 $$
 
-:::lemma[Homomorphisms commute with derived operations]{#lem-derived-homo}
+:::lemma[Homomorphisms commute with derived operations]{#lem-derived-homo-old}
 If,
 - $h: A \to B$ is a homomorphism
 - $t \in F_{\Omega}(X)$
