@@ -347,18 +347,18 @@ $$
 h \left( t_A \left( a_1, \dots, a_n \right) \right) & \\
 \text{[derived op def]} &=
 h \left( 
-\omega \left(
-{t_1}_B \left( a_1, \dots, a_n \right), \dots,
-{t_m}_B \left( a_1, \dots, a_n \right)
+\omega_A \left(
+{t_1}_A \left( a_1, \dots, a_n \right), \dots,
+{t_m}_A \left( a_1, \dots, a_n \right)
 \right) 
 \right) \\
 \text{ [comute homo] } &=
-\omega \left( 
-h \left( {t_1}_B \left( a_1, \dots, a_n \right) \right), \dots
-h \left( {t_m}_B \left( a_1, \dots, a_n \right) \right)
+\omega_B \left( 
+h \left( {t_1}_A \left( a_1, \dots, a_n \right) \right), \dots
+h \left( {t_m}_A \left( a_1, \dots, a_n \right) \right)
 \right) \\
 [ P(t_i) \text{ holds }] &=
-\omega \left( 
+\omega_B \left( 
 {t_1}_B \left( h(a_1), \dots, h(a_n) \right), \dots,
 {t_m}_B \left( h(a_1), \dots, h(a_n) \right)
 \right) \\
