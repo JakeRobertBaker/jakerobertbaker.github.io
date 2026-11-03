@@ -306,6 +306,13 @@ t_m \left( u_1, \dots, u_n \right)
 $$
 :::
 
+
+When $x_i = u_i$ we get,
+
+:::corollary[Derived Ops Are Themselves]{#cor-der-ops-self}
+$t_{F_{\Omega}(X)} \left( x_1, \dots, x_n \right) = t $
+:::
+
 :::lemma[Homomorphism commutes with derived operation]{#lem-derived-homo}
 If,
 - $h : A \to B$ is a homomorphism
@@ -369,21 +376,36 @@ $$
 
 :::
 
-## Old.
+### Exercise 1.2
 
-In particular when $A = F_{\Omega}(X_n)$, $\underline{u}=\left( u_1,\dots, u_n \right) \in A$
+Let,
+
+- $t \in F_{\Omega} \left( X_n \right)$
+- $a_1, \dots, a_n$ be elements of $\Omega$ structure $A$.
+- $f: X_n \to A$ by $f(x_i) = a_i$
+- $ \bar{f} : F_{\Omega} \left( X_n \right) \to A$ be the unique homomorphism extending $f$.
+
+Show,
+
 $$
-t_A(\underline{u}) =  \dots \omega u_1 \dots u_n \dots =
-t[u_1/x_1, \dots, u_n/x_n] \ \forall \underline{u} \in F_{\Omega}(X_n)
+t_A \left( a_1, \dots, a_n \right) = \bar{f}(t)
 $$
 
-Where $t[u / x_i]$ denote replacing symbol $x_i$ with $u$ where $x_i$ appears in $t$.
+#### Solution
 
-This also means that
 $$
-t_{F_{\Omega}(X)}(x_1,\dots, x_n) = t
+\begin{align*}
+\bar{f} \left( t \right) & \\
+\text{[Corollary]}
+&= \bar{f} \left( t_{F_{\Omega}(X)} \left( x_1, \dots, x_n \right) \right)
+\\
+\text{[ comute derived op ]} &=
+t_A \left( 
+\bar{f}(x_1), \dots, \bar{f}(x_n)
+\right) \\
+&= t_A \left( a_1, \dots, a_n \right)
+\end{align*}
 $$
-
 
 :::definition[n-ary Equation]{#def-nary_equation}
 
