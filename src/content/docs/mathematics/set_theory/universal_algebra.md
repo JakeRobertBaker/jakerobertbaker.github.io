@@ -167,7 +167,7 @@ $F_{\Omega}(X) \coloneqq \bigcap_{A \in \mathcal{C}} A$
 
 Note:
 - $\mathcal{C}$ is non empty because $M \in \mathcal{C}$
-- $\forall \ A \in \mathcal{C}, X \subseteq A \implies X \subseteq \bigcap_{A \in \mathcal{C}} A \neq \emptyset$
+- $\forall \ A \in \mathcal{C}, X \subseteq A \implies X \subseteq \bigcap_{A \in \mathcal{C}} A$
 
 :::theorem[$F_\Omega(X)$ is a sigma structure]{#thm-FX_is_sigma}
 
@@ -245,11 +245,20 @@ It is kind of obvious from the definition. We will prove it rigorously.
 
 In order to prove some of these obvious results rigorously we need structural induction.
 
-We aim to prove property $P(t)$ for every term $t \in F_{\Omega} (X)$.
+We aim to prove property $P(t)$ for every term $t \in F_{\Omega} (X) \subseteq M$.
 
-Consider $S = \left\{ t : P(t) \right\}$ if $S$ obeys properties (a) and (b) of $\Omega$ terms in $X$.
+Let $S = \left\{ t \in F_{\Omega}(X) : P(t) \right\}$.
 
-Then $S \in \mathcal{C}$. Then $F_{\Omega}(X) \subseteq S$
+$S$ satisfies properties (a) and (b) of $\Omega$-terms in $X$ $\implies S \in \mathcal{C}$ $\implies F_{\Omega}(X) \subseteq S$.
+
+Hence $S = F_{\Omega} (X)$.
+
+In practice one has to,
+
+a. Show $P(x)$ holds $\forall \ x \in X$.
+
+b. Show that if $P(t)$ holds for $ t \in \left\{ t_1, \dots, t_n \right\}$ then it holds for $t=\omega t_1 \dots t_n$
+
 
 ## Old.
 
