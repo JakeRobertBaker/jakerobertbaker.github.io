@@ -259,7 +259,51 @@ In practice one has to,
 a. Show $P(x)$ holds $\forall \ x \in X$.
 
 b. Show that if $P(t)$ holds for $ t \in \left\{ t_1, \dots, t_m \right\}$ then it holds for $t=\omega t_1 \dots t_m$
+:::
 
+:::proposition[Derived Operations Substitute]{#prp-derived-op-sub}
+If, 
+- structure $A = F_{\Omega} (X_n)$
+- $t \in F_{\Omega} (X_n)$
+
+Then,
+$$
+t_A \left( u_1, \dots, u_n \right) = t[u_1, \dots, u_n / x_1, \dots, x_n]
+\\ \forall \ u_1, \dots, u_n \in F_{\Omega} (X_n)
+$$
+:::
+
+
+:::proof{proves="#prp-derived-op-sub" open}
+
+**(a)**
+$$
+{x_i}(u_1, \dots, u_n) = u_i = x_i[u_i / x_i]
+$$
+
+**(b)**
+
+Assume that $t=\omega t_1 \dots t_m$ and that $t_i \left( u_1, \dots, u_n \right) = t[u_1, \dots, u_n / x_1, \dots, x_m]$ for each $i=1, \dots, m$.
+
+Then,
+
+$$
+\begin{align*}
+& t_A \left( u_1, \dots, u_n \right) \\
+\text{[derived op def]} &= 
+\omega_A \left( 
+t_1 \left( u_1, \dots, u_n \right), \dots,
+t_m \left( u_1, \dots, u_n \right)
+\right) \\
+\text{[interpret in FX]} &=
+\omega
+t_1 \left( u_1, \dots, u_n \right) \dots
+t_m \left( u_1, \dots, u_n \right)
+\\
+\text{[induct hyp]} &= \omega t_1 [swaps] \dots t_m [swaps] \\
+&= t[swaps]
+\end{align*}
+$$
 :::
 
 :::lemma[Homomorphism commutes with derived operation]{#lem-derived-homo}
