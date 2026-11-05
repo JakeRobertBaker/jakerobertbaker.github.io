@@ -50,7 +50,7 @@ async function show(link: HTMLAnchorElement) {
     const clone = target.cloneNode(true) as HTMLElement;
     // Fetch only same-origin pages, strip executable content and duplicate IDs,
     // and keep nested proofs out of statement previews.
-    clone.querySelectorAll('script, style, iframe, object, embed, details[data-math-kind="proof"]').forEach((node) => node.remove());
+    clone.querySelectorAll('script, style, iframe, object, embed, details[data-math-kind]').forEach((node) => node.remove());
     for (const element of [clone, ...clone.querySelectorAll('*')]) {
       element.removeAttribute('id');
       for (const attr of [...element.attributes])

@@ -32,10 +32,16 @@ The proof goes here.
 
 - `proves` names exactly one result. `uses` is a whitespace-separated list and requires `proves`. References use the same syntax as links.
 - The [template](example_template.md#semantic-mathematical-blocks) defines default proof titles and IDs. A proof of a result on another page needs an explicit title because pages render independently; the plugin does not parse other notes.
-- Targets must be identified `definition`, `theorem`, `lemma`, `proposition`, `corollary`, or `example` blocks. Remarks, notation, asides and proofs can be linked normally, but are not relationship targets.
+- Targets must be identified `definition`, `theorem`, `lemma`, `proposition`, `corollary`, `example`, or `exercise` blocks. A `solution` takes the same attributes as a proof and is drawn the same way in graphs. Remarks, notation, asides and proofs can be linked normally, but are not relationship targets.
 - Ordinary links imply no dependencies. Do not infer relationships from prose or annotate existing proofs without the author's intent.
 
 Identified blocks automatically appear in `/theorems.json` with Markdown statements, rendered title/statement HTML, source locations, URLs and declared relationships; nested proofs are excluded from result statements. There is no manually maintained graph data. Unknown block types/options, duplicate block IDs and invalid declared relationships fail validation.
+
+## Numbering and books
+
+The [template](example_template.md#numbering) defines the syntax. Book IDs used by `{n=… book=ID}` are declared once in `src/data/books.yaml` (`name` for hover text, `short_name` for the tag and references); edits reload the dev server. `src/lib/books.mjs` reads and checks that file, and is the one place to change if pages later need different book lists. `numbering: true` is part of the docs collection schema in `src/content.config.ts`.
+
+Numbers and reference text are resolved per page while rendering, in `src/lib/math-blocks.mjs`: empty same-page links and `\ref`/`\by` in math take the target's number, and `\ref`/`\by` become KaTeX `\href` links (KaTeX trusts only same-site `\href`). References to other pages need explicit text, like proofs of results on other pages. Numbers appear in `/theorems.json` (`label`, `book`), graphs and previews. Unknown books, duplicate numbers in one series and references to missing blocks fail the build.
 
 ## Proof graphs
 

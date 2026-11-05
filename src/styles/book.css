@@ -143,15 +143,26 @@
   font-size: .75em;
   padding: .2em .4em;
 }
-.sl-markdown-content :is(.math-block--proof, .math-block--remark) {
+.sl-markdown-content :is(.math-block--proof, .math-block--solution, .math-block--remark) {
   --block-color: var(--notes-neutral-rule);
 }
-.math-block--proof > .math-block__title {
+:is(.math-block--proof, .math-block--solution) > .math-block__title {
   font-style: italic;
   font-weight: 400;
 }
-.math-block--proof[open] > summary.math-block__title { margin-bottom: .3em; }
-.math-block--proof:not([open]) > summary.math-block__title { padding-bottom: 0; }
+:is(.math-block--proof, .math-block--solution)[open] > summary.math-block__title { margin-bottom: .3em; }
+:is(.math-block--proof, .math-block--solution):not([open]) > summary.math-block__title { padding-bottom: 0; }
+/* A book result's source: quiet small capitals after the title. */
+.math-block__source {
+  margin-inline-start: .7em;
+  color: var(--sl-color-gray-3);
+  font-size: .8em;
+  font-style: normal;
+  font-variant-caps: all-small-caps;
+  font-weight: 400;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
 .sl-markdown-content :is(.starlight-aside--note, .starlight-aside--tip) {
   --sl-color-asides-text-accent: var(--sl-color-text-accent);
   border: 0;
@@ -270,7 +281,7 @@ starlight-toc a[aria-current='true']::before {
 .sl-markdown-content :is(.math-block--definition, .math-block--notation) {
   --block-color: var(--notes-definition-rule);
 }
-.sl-markdown-content .math-block--example {
+.sl-markdown-content :is(.math-block--example, .math-block--exercise) {
   --block-color: var(--notes-example-rule);
 }
 

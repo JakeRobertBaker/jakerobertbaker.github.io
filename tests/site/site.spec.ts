@@ -143,6 +143,31 @@ test('theorem registry agrees with current rendered blocks and Markdown location
   }
 });
 
+test('numbered blocks show their numbers and book tags; references in mathematics link and preview', async ({ page, request }) => {
+  const { blocks } = await (await request.get('/theorems.json')).json();
+  const numbered = blocks.filter((block: { label: string | null }) => block.label);
+  for (const block of numbered) {
+    const [path, id] = block.url.split('#');
+    if (new URL(page.url()).pathname !== path) await page.goto(path);
+    const title = page.locator(`[id="${id}"] > .math-block__title`);
+    await expect(title, block.url).toContainText(block.label);
+    if (block.book) await expect(title.locator('.math-block__source'), block.url).toHaveAttribute('title', block.book.name);
+    else await expect(title.locator('.math-block__source'), block.url).toHaveCount(0);
+  }
+  // Discover a page whose mathematics contains a reference, rather than freezing note text.
+  let route;
+  for (const candidate of routes)
+    if (/<a href="#[^"]+"><span class="mord/.test(await readFile(new URL(`../../dist${candidate}index.html`, import.meta.url), 'utf8'))) { route = candidate; break; }
+  test.skip(!route, 'no page references a block from mathematics yet');
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(route!);
+  const reference = page.locator('.katex a[href^="#"]').first();
+  await expect(page.locator(await reference.getAttribute('href') as string)).toHaveCount(1);
+  await reference.scrollIntoViewIfNeeded();
+  await reference.hover();
+  await expect(page.locator('#theorem-preview')).toBeVisible();
+});
+
 test('hover and keyboard previews render KaTeX and keep normal navigation', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/mathematics/probability/normal_distribution/');
@@ -223,7 +248,7 @@ test('proof graphs lay out registry results and proofs, select them, and degrade
   const route = '/mathematics/analysis/companion_to_analysis/theory_graph/';
   const { blocks } = await (await request.get('/theorems.json')).json();
   const page_ = '/mathematics/analysis/companion_to_analysis/theory/';
-  const results = blocks.filter((block: { url: string; kind: string }) => block.url.startsWith(page_) && block.kind !== 'proof');
+  const results = blocks.filter((block: { url: string; kind: string }) => block.url.startsWith(page_) && !['proof', 'solution'].includes(block.kind));
   const proofs = blocks.filter((block: { url: string; kind: string; proves: string | null }) =>
     block.kind === 'proof' && block.proves?.startsWith(page_));
   await page.setViewportSize({ width: 1440, height: 1000 });

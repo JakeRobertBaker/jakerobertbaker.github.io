@@ -7,12 +7,15 @@ import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import remarkDirective from 'remark-directive';
 import rehypeKatex from 'rehype-katex';
-import mathBlocks, { failMathErrors, mathBlockHtml } from './src/lib/math-blocks.mjs';
+import mathBlocks, { failMathErrors, katexOptions, mathBlockHtml } from './src/lib/math-blocks.mjs';
 import headingLabels from './src/lib/heading-labels.mjs';
+import { loadBooks } from './src/lib/books.mjs';
 
 // Read on each config reload; the watcher below restarts config on edits.
 const navigationFile = new URL('./src/data/navigation.yaml', import.meta.url);
 const navigation = parseYaml(readFileSync(navigationFile, 'utf8'));
+const booksFile = new URL('./src/data/books.yaml', import.meta.url);
+const books = loadBooks(booksFile);
 
 export default defineConfig({
   site: 'https://jakerobertbaker.github.io',
@@ -24,14 +27,14 @@ export default defineConfig({
   markdown: {
     processor: unified({
       smartypants: false,
-      remarkPlugins: [remarkMath, remarkDirective, mathBlocks],
-      rehypePlugins: [[rehypeKatex, { strict: (code) => code === 'newLineInDisplayMode' ? 'ignore' : 'warn', trust: false }], failMathErrors, mathBlockHtml, headingLabels],
+      remarkPlugins: [remarkMath, remarkDirective, [mathBlocks, { books }]],
+      rehypePlugins: [[rehypeKatex, katexOptions], failMathErrors, mathBlockHtml, headingLabels],
     }),
   },
   integrations: [{
-    name: 'watch-navigation',
+    name: 'watch-data',
     hooks: {
-      'astro:config:setup': ({ addWatchFile }) => addWatchFile(navigationFile),
+      'astro:config:setup': ({ addWatchFile }) => { addWatchFile(navigationFile); addWatchFile(booksFile); },
     },
   }, starlight({
     title: 'Jake Notes',

@@ -79,7 +79,7 @@ A proof that is not attached to a stated result. $\blacksquare$
 :::
 ```
 
-Kinds: `definition`, `theorem`, `lemma`, `proposition`, `corollary`, `example`, `proof`, `remark`, and `notation`. Use `remark` for mathematical observations and `notation` for symbol/convention setup. Exercises and solutions can remain ordinary headings.
+Kinds: `definition`, `theorem`, `lemma`, `proposition`, `corollary`, `example`, `exercise`, `proof`, `solution`, `remark`, and `notation`. Use `remark` for mathematical observations and `notation` for symbol/convention setup. Pages of numbered exercises from a source may instead keep the heading structure shown above.
 
 Every block has the form `:::kind[Title]{#id …}`, with one `{...}` attribute group after the optional title; separate attributes with spaces, e.g. `{#proof-alt open}`, never `{#proof-alt}{open}`. Titles in `[...]` are optional and support inline math/Markdown. The kind is included automatically in the rendered label; do not repeat “Theorem” or “Definition” in the title. IDs in `{#...}` are optional unless referenced. Preserve supplied IDs; for new referenced blocks, use descriptive IDs such as `def-limit-point` or `thm-result`.
 
@@ -95,6 +95,52 @@ Proofs are collapsible and accept these attributes, all optional:
 - `uses="…"` lists, separated by spaces, the results the proof depends on; it requires `proves`.
 - `open` starts the proof expanded; proofs are closed by default. Never use `open="false"`.
 - Without `proves`, a proof is labelled “Proof” or its title.
+
+A `solution` works exactly like a proof, with the same attributes, but is labelled “Solution to …”:
+
+```markdown
+:::exercise[Optional title]{#ex-1-2}
+Show that …
+:::
+
+:::solution{proves="#ex-1-2"}
+The working. $\blacksquare$
+:::
+```
+
+### Numbering
+
+Blocks other than proofs and solutions can be numbered:
+
+- `{#lem-x n=3}` fixes a block's number: “Lemma 3”.
+- `{#lem-x n=1.3 book=JS}` gives a source's own number and tags the block with the source's short name: “Lemma 1.3 · Title  JOHNSTONE”. Book IDs such as `JS` are declared by the site; use only IDs you have been given.
+- Frontmatter `numbering: true` numbers every other block on the page in one sequence (1, 2, 3, …, skipping numbers fixed with `n`). Book numbers do not affect this sequence.
+
+```markdown
+---
+title: "Universal Algebra"
+numbering: true
+---
+```
+
+Do not put numbers in titles (`[1.3. Title]`); use `n`. Only add `numbering`, `n` or `book` when the notes number their results or you are asked to.
+
+### References
+
+- An empty link to a block on the same page is filled with its number: `[](#lem-x)` reads “Lemma 3”, or “Johnstone 1.3” for a book result. On unnumbered pages it shows the block's title. Links to other pages need their own text.
+- Inside mathematics, `\ref{lem-x}` is a linked “Lemma 3”, and `\by{lem-x}` is a linked bracketed reason “[Lemma 3]”, intended for the justification column of `align*`:
+
+```markdown
+$$
+\begin{align*}
+\bar{f}(t) & \\
+\by{cor-self} &= \bar{f}\left(t(x_1, \dots, x_n)\right) \\
+\text{[induction]} &= t_A(a_1, \dots, a_n)
+\end{align*}
+$$
+```
+
+- `\ref[Text]{id}` and `\by[Text]{id}` choose the text; they are required for other pages (`\by[Kunen 2.1]{other-note.md#thm-k}`) and for unnumbered targets whose titles contain math. Ordinary `\text{[…]}` reasons remain fine. A reference to an ID that does not exist fails the build.
 
 For nesting, make the outer fence longer than the inner fence:
 
