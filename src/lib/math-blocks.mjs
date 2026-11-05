@@ -84,25 +84,27 @@ export default function mathBlocks({ books = {} } = {}) {
         fail(`Unknown book: ${book} (known: ${Object.keys(books).join(", ") || "none"}; see src/data/books.yaml)`, node)
       if (n === undefined) return
       if (!/^[\w.-]+$/.test(n)) fail(`Invalid number: ${n}`, node)
-      const series = fixed.get(book ?? "") ?? fixed.set(book ?? "", new Set()).get(book ?? "")
+      const key = book ?? ""
+      if (!fixed.has(key)) fixed.set(key, new Set())
+      const series = fixed.get(key)
       if (series.has(n)) fail(`Duplicate number ${n}${book ? ` for book ${book}` : ""}`, node)
       series.add(n)
       numbers.set(node, { number: n, book: book ? { id: book, ...books[book] } : null })
     })
-    if (file.data.astro?.frontmatter?.numbering === true) {
-      let next = 1
-      visit(tree, "containerDirective", (node) => {
-        if (!numberedKinds.has(node.name) || numbers.has(node)) return
+    // Then auto-number the rest (skipping fixed own numbers) and index every
+    // identified block, so proofs and references can name later targets.
+    const autoNumber = file.data.astro?.frontmatter?.numbering === true
+    const targets = new Map()
+    let next = 1
+    visit(tree, "containerDirective", (node) => {
+      if (autoNumber && numberedKinds.has(node.name) && !numbers.has(node)) {
         while (fixed.get("")?.has(String(next))) next++
         numbers.set(node, { number: String(next++), book: null })
-      })
-    }
-    const labelText = (kind, num) => `${kindName(kind)} ${num.number}`
-    const referenceText = (kind, num) => num.book ? `${num.book.short_name} ${num.number}` : labelText(kind, num)
-    const targets = new Map()
-    visit(tree, "containerDirective", (node) => {
+      }
       if (node.attributes?.id) targets.set(node.attributes.id, { kind: node.name, num: numbers.get(node) })
     })
+    const labelText = (kind, num) => `${kindName(kind)} ${num.number}`
+    const referenceText = (kind, num) => num.book ? `${num.book.short_name} ${num.number}` : labelText(kind, num)
     visit(tree, "containerDirective", (node) => {
       const kind = node.name
       if (!numberedKinds.has(kind) && !proofKinds.has(kind) && !asides.has(kind))
@@ -215,6 +217,8 @@ export default function mathBlocks({ books = {} } = {}) {
           : `\\href{${target.url}}{\\text{${texText(label)}}}`
       })
       if (value === node.value) return
+      // remark-math also stores the TeX in node.data.hChildren, which is what
+      // rehype-katex reads; keep both copies in step.
       replaceText(node.data?.hChildren, node.value, value)
       node.value = value
     })
