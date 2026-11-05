@@ -169,7 +169,7 @@ Note:
 - $\mathcal{C}$ is non empty because $M \in \mathcal{C}$
 - $\forall \ A \in \mathcal{C}, X \subseteq A \implies X \subseteq \bigcap_{A \in \mathcal{C}} A$
 
-:::theorem[$F_\Omega(X)$ is a sigma structure]{#thm-FX_is_sigma}
+:::theorem[1.1. $F_\Omega(X)$ is a sigma structure]{#thm-FX_is_sigma}
 
 i. The set of $\Omega$-terms in $X$, $F_{\Omega}(X)$ has a $\Omega$ structure.
 
@@ -190,7 +190,7 @@ We need to show that this interpretation does indeed map from $F_{\Omega}(X)^{\a
 If $\alpha(\omega)=n$ and $t_i$, $i \in \left\{ 1, \dots, n \right\}$ then by b. $w_{FX}(t_1, \dots, t_n)$ is indeed in $FX$.
 :::
 
-:::lemma[X terms from finite]{#lem-XfromFinite}
+:::lemma[1.3. X terms from finite]{#lem-XfromFinite}
 
 $F_{\Omega}(X)=\bigcup \lbrace F_{\Omega}(X^\prime) \mid X^\prime \subset X \text{ is finite} \rbrace$
 :::
@@ -327,7 +327,7 @@ $$
 :::
 
 :::proof{proves="#lem-derived-homo" open}
-Let $P(t)$ denote the lemma result.
+let $p(t)$ denote the lemma result.
 
 $$
 h \left( t_A \left( a_1, \dots, a_n \right) \right) =
@@ -501,7 +501,7 @@ This is just the smallest subset of all possible equations $(s=t)$ such that it 
 The equivalence classes of $\sim_E$ on $F_{\Omega}(X)$ is $F_{(\Omega, E)}(X)$
 :::
 
-:::theorem[The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model}
+:::theorem[1.4. The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model}
 
 1. $F_{(\Omega, E)}(X)$ inherits $\Omega$-structure from $F_{\Omega}(X)$ and satisfies the equations in $E$.
 
