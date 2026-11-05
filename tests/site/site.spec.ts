@@ -161,7 +161,14 @@ test('numbered blocks show their numbers and book tags; references in mathematic
   test.skip(!route, 'no page references a block from mathematics yet');
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(route!);
-  const reference = page.locator('.katex a[href^="#"]').first();
+  // Every link in the mathematics, not just the first align* row, must be hit-testable.
+  const covered = await page.locator('.katex-html a[href^="#"]').evaluateAll((links) => links.filter((link) => {
+    link.scrollIntoView({ block: 'center' });
+    const box = link.getBoundingClientRect();
+    return !link.contains(document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2));
+  }).map((link) => link.getAttribute('href')));
+  expect(covered, route).toEqual([]);
+  const reference = page.locator('.katex a[href^="#"]').last();
   await expect(page.locator(await reference.getAttribute('href') as string)).toHaveCount(1);
   await reference.scrollIntoViewIfNeeded();
   await reference.hover();

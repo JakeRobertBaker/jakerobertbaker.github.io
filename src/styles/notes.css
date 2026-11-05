@@ -13,6 +13,9 @@
   overflow-y: hidden;
 }
 .math-block__body > :first-child { margin-top: 0; }
+/* KaTeX stacks align* rows in vlists whose transparent depth spans overlap
+   rows below the first; lift \ref/\by links above them so they take hover and clicks. */
+.katex a { position: relative; z-index: 1; }
 .math-block__body > :last-child { margin-bottom: 0; }
 .sl-markdown-content .katex-display {
   max-width: 100%;
