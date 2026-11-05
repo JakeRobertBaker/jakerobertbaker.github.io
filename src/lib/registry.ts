@@ -4,6 +4,8 @@ import { createRegistry } from './math-blocks.mjs';
 export interface Block {
   id: string; kind: string; title: string; statement: string; source: string; line: number;
   url: string; proves: string | null; uses: string[]; titleHtml?: string; html?: string;
+  /** "Lemma 1.3" on numbered blocks; book for book-numbered ones. */
+  label: string | null; book: { id: string; name: string; short_name: string } | null;
 }
 
 // Shared by /theorems.json and graphs: per-page render metadata, aggregated once.

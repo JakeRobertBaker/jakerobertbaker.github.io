@@ -1,0 +1,6 @@
+# Books cited by number in notes. Each key is the book ID used in a block's
+# attributes, e.g. :::lemma[Title]{#lem-x n=1.3 book=JS}. `short_name` is the
+# tag and reference text ("Johnstone 1.3"); `name` is shown on hover.
+JS:
+  name: Johnstone, Notes on Logic and Set Theory
+  short_name: Johnstone

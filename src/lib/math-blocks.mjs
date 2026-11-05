@@ -7,26 +7,50 @@ import { toMarkdown } from "mdast-util-to-markdown"
 import { directiveToMarkdown } from "mdast-util-directive"
 import { mathToMarkdown } from "mdast-util-math"
 import { pageUrl, resolveReference } from "./references.mjs"
+import { presentationText } from "./heading-labels.mjs"
 
 const root = fileURLToPath(new URL("../content/docs/", import.meta.url))
-export const resultKinds = new Set(["definition", "theorem", "lemma", "proposition", "corollary", "example"])
+export const resultKinds = new Set(["definition", "theorem", "lemma", "proposition", "corollary", "example", "exercise"])
 // Referenceable exposition is not automatically a proven result/dependency.
 export const expositionKinds = new Set(["remark", "notation"])
+// Collapsible arguments: a proof of a result, or a solution to an exercise.
+export const proofKinds = new Set(["proof", "solution"])
+const numberedKinds = new Set([...resultKinds, ...expositionKinds])
 const asides = new Set(["note", "tip", "caution", "danger"])
 const serialOptions = { extensions: [directiveToMarkdown(), mathToMarkdown()] }
 const serialize = (children) => toMarkdown({ type: "root", children }, serialOptions).trim()
 const text = (value) => ({ type: "text", value })
+// Plain text of a title, or null if it contains math (which \text{} cannot show).
+const plainText = (nodes) => {
+  let value = ""
+  for (const node of nodes) {
+    const part = node.type === "inlineMath" ? null : node.value ?? plainText(node.children ?? [])
+    if (part === null) return null
+    value += part
+  }
+  return value
+}
+// Escape text placed in a KaTeX \text{...} argument.
+const texText = (value) => value.replace(/[\\{}$&#%_^~]/g, (c) =>
+  ({ "\\": "\\textbackslash{}", "^": "\\textasciicircum{}", "~": "\\textasciitilde{}" })[c] ?? `\\${c}`)
+// \ref{id}, \by{id} and their [text] overrides inside $...$ / $$...$$.
+const mathReference = /\\(by|ref)(?:\[([^\]]*)\])?\{([^{}]*)\}/g
+const replaceText = (nodes, from, to) => nodes?.forEach((node) => {
+  if (node.type === "text" && node.value === from) node.value = to
+  replaceText(node.children, from, to)
+})
 const shifted = (position, offset) => position && ({
   start: { ...position.start, line: position.start.line + offset },
   end: { ...position.end, line: position.end.line + offset },
 })
 
 function withoutProofs(nodes) {
-  return nodes.filter((node) => !(node.type === "containerDirective" && node.name === "proof"))
+  return nodes.filter((node) => !(node.type === "containerDirective" && proofKinds.has(node.name)))
     .map((node) => node.children ? { ...node, children: withoutProofs(node.children) } : node)
 }
 
-export default function mathBlocks() {
+// `books` maps a book ID (used as {book=ID}) to { name, short_name }.
+export default function mathBlocks({ books = {} } = {}) {
   return (tree, file) => {
     if (!file.path || !path.resolve(file.path).startsWith(root)) return
     const source = path.relative(root, file.path).split(path.sep).join("/")
@@ -47,16 +71,48 @@ export default function mathBlocks() {
     // Untitled proofs are named after what they prove, so record same-page
     // titles before blocks are rewritten.
     const titles = new Map()
+    // Numbers: {n=…} fixes one, optionally from a book ({n=1.2 book=JS});
+    // frontmatter `numbering: true` numbers the rest in one page-wide series.
+    const numbers = new Map()
+    const fixed = new Map()
     visit(tree, "containerDirective", (node) => {
-      const id = node.attributes?.id
+      const { id, n, book } = node.attributes ?? {}
       if (id) titles.set(id, labelOf(node)?.children ?? [text(kindName(node.name))])
+      if (!numberedKinds.has(node.name)) return
+      if (book !== undefined && n === undefined) fail(`A book result needs its number: {n=1.2 book=${book}}`, node)
+      if (book !== undefined && !Object.hasOwn(books, book))
+        fail(`Unknown book: ${book} (known: ${Object.keys(books).join(", ") || "none"}; see src/data/books.yaml)`, node)
+      if (n === undefined) return
+      if (!/^[\w.-]+$/.test(n)) fail(`Invalid number: ${n}`, node)
+      const key = book ?? ""
+      if (!fixed.has(key)) fixed.set(key, new Set())
+      const series = fixed.get(key)
+      if (series.has(n)) fail(`Duplicate number ${n}${book ? ` for book ${book}` : ""}`, node)
+      series.add(n)
+      numbers.set(node, { number: n, book: book ? { id: book, ...books[book] } : null })
     })
+    // Then auto-number the rest (skipping fixed own numbers) and index every
+    // identified block, so proofs and references can name later targets.
+    const autoNumber = file.data.astro?.frontmatter?.numbering === true
+    const targets = new Map()
+    let next = 1
+    visit(tree, "containerDirective", (node) => {
+      if (autoNumber && numberedKinds.has(node.name) && !numbers.has(node)) {
+        while (fixed.get("")?.has(String(next))) next++
+        numbers.set(node, { number: String(next++), book: null })
+      }
+      if (node.attributes?.id) targets.set(node.attributes.id, { kind: node.name, num: numbers.get(node) })
+    })
+    const labelText = (kind, num) => `${kindName(kind)} ${num.number}`
+    const referenceText = (kind, num) => num.book ? `${num.book.short_name} ${num.number}` : labelText(kind, num)
     visit(tree, "containerDirective", (node) => {
       const kind = node.name
-      if (!resultKinds.has(kind) && !expositionKinds.has(kind) && kind !== "proof" && !asides.has(kind))
+      if (!numberedKinds.has(kind) && !proofKinds.has(kind) && !asides.has(kind))
         fail(`Unknown block type: ${kind}`, node)
       const attrs = node.attributes ?? {}
-      const allowed = kind === "proof" ? ["id", "open", "proves", "uses"] : ["id"]
+      const num = numbers.get(node)
+      const allowed = proofKinds.has(kind) ? ["id", "open", "proves", "uses"]
+        : numberedKinds.has(kind) ? ["id", "n", "book"] : ["id"]
       for (const key of Object.keys(attrs))
         if (!allowed.includes(key)) fail(`Unknown ${kind} metadata: ${key}`, node)
       if (attrs.proves !== undefined && !attrs.proves.trim()) fail("proves needs a target", node)
@@ -67,23 +123,27 @@ export default function mathBlocks() {
       const local = target && (target.startsWith("#") || target.startsWith(`${pageUrl(source)}#`)) ? targetId : null
       // A proof of a result gets a stable default ID; further proofs of the
       // same result choose their own.
-      const id = attrs.id ?? (targetId && `proof-${targetId}`)
+      const id = attrs.id ?? (targetId && `${kind}-${targetId}`)
       if (id && !/^[A-Za-z][\w.-]*$/.test(id)) fail(`Invalid block ID: ${id}`, node)
-      if (id && ids.has(id)) fail(`Duplicate block ID: ${id}${attrs.id ? "" : " (give further proofs their own {#id})"}`, node)
+      if (id && ids.has(id)) fail(`Duplicate block ID: ${id}${attrs.id ? "" : ` (give further ${kind}s their own {#id})`}`, node)
       if (id) ids.add(id)
       if (attrs.open !== undefined && !["", "true"].includes(attrs.open))
         fail("Use the boolean {open} attribute for an initially expanded proof", node)
       const label = labelOf(node)
       const name = kindName(kind)
       // Pages render independently, so only same-page targets can name a proof.
-      if (target && !label && !local) fail(`A proof of a result on another page needs a title: :::proof[Proof of …]{proves="${attrs.proves}"}`, node)
-      const targetTitle = !label && titles.get(local)
-      const derived = targetTitle && [text("Proof of "), ...structuredClone(targetTitle)]
-      const title = derived ? serialize([{ type: "paragraph", children: derived }]) : label ? serialize([label]) : name
+      if (target && !label && !local) fail(`A ${kind} of a result on another page needs a title: :::${kind}[${name} of …]{proves="${attrs.proves}"}`, node)
+      // Numbered targets are named by number ("Proof of Lemma 3"), others by title.
+      const targetBlock = !label && local && targets.get(local)
+      const targetTitle = targetBlock && (targetBlock.num ? [text(labelText(targetBlock.kind, targetBlock.num))] : titles.get(local))
+      const derived = targetTitle && [text(kind === "solution" ? "Solution to " : "Proof of "), ...structuredClone(targetTitle)]
+      const prefix = num ? labelText(kind, num) : name
+      const title = derived ? serialize([{ type: "paragraph", children: derived }]) : label ? serialize([label]) : prefix
       const body = label ? node.children.slice(1) : node.children
       if (id) blocks.push({
         id, kind, title, statement: serialize(withoutProofs(body)),
         source, line: (node.position?.start.line ?? 1) + lineOffset,
+        label: num ? labelText(kind, num) : null, book: num?.book ?? null,
         url: `${pageUrl(source)}#${id}`,
         proves: attrs.proves ?? null,
         uses: attrs.uses?.trim().split(/\s+/).filter(Boolean) ?? [],
@@ -101,12 +161,16 @@ export default function mathBlocks() {
         return
       }
       const titleChildren = derived ? [derived[0], { type: "link", url: `#${local}`, children: derived.slice(1) }]
-        : label ? [...label.children] : [text(name)]
+        : label ? [...label.children] : [text(prefix)]
       // The kind prefix is marked so graphs can show the bare title.
-      if (label && title !== name && !title.toLowerCase().startsWith(`${name.toLowerCase()} `))
+      if (label && (num || (title !== name && !title.toLowerCase().startsWith(`${name.toLowerCase()} `))))
         titleChildren.unshift({ type: "mathKind", data: {
-          hName: "span", hProperties: { className: ["math-block__kind"] }, hChildren: [text(`${name} · `)],
+          hName: "span", hProperties: { className: ["math-block__kind"] }, hChildren: [text(`${prefix} · `)],
         } })
+      if (num?.book) titleChildren.push({ type: "mathSource", data: {
+        hName: "span", hProperties: { className: ["math-block__source"], title: num.book.name },
+        hChildren: [text(num.book.short_name)],
+      } })
       if (id) titleChildren.push({
         type: "link", url: `#${id}`, children: [text("#")],
         data: { hProperties: { className: ["math-permalink"], "aria-label": `Link to this ${kind}` } },
@@ -114,7 +178,7 @@ export default function mathBlocks() {
       Object.assign(node, {
         type: "blockquote",
         data: {
-          hName: kind === "proof" ? "details" : "section",
+          hName: proofKinds.has(kind) ? "details" : "section",
           hProperties: {
             className: ["math-block", `math-block--${kind}`], "data-math-kind": kind,
             ...(id ? { id } : {}), ...(attrs.open !== undefined ? { open: true } : {}),
@@ -122,11 +186,41 @@ export default function mathBlocks() {
         },
         children: [
           { type: "paragraph", children: titleChildren,
-            data: { hName: kind === "proof" ? "summary" : "header", hProperties: { className: ["math-block__title"] } } },
+            data: { hName: proofKinds.has(kind) ? "summary" : "header", hProperties: { className: ["math-block__title"] } } },
           { type: "blockquote", children: body,
             data: { hName: "div", hProperties: { className: ["math-block__body"] } } },
         ],
       })
+    })
+    // Same-page references take their text from the target: its number, or
+    // its title on unnumbered pages. Other pages render independently.
+    const lookup = (reference, node, form) => {
+      const url = resolveReference(reference.includes("#") ? reference : `#${reference}`, source)
+      const [page, id] = url.split("#")
+      if (page && page !== pageUrl(source)) return { url, text: null, external: true }
+      const target = targets.get(id)
+      if (!target) fail(`${form}: no block with ID ${id} on this page`, node)
+      return { url: `#${id}`, text: target.num ? referenceText(target.kind, target.num) : null, title: titles.get(id) }
+    }
+    visit(tree, "link", (node) => {
+      if (node.children.length || !node.url.includes("#")) return
+      const target = lookup(node.url, node, `[](${node.url})`)
+      if (target.external) fail(`A link to another page needs text: [text](${node.url})`, node)
+      node.children = target.text ? [text(target.text)] : structuredClone(target.title)
+    })
+    visit(tree, (node) => node.type === "math" || node.type === "inlineMath", (node) => {
+      const value = node.value.replace(mathReference, (form, command, override, reference) => {
+        const target = lookup(reference.trim(), node, form)
+        const label = override ?? target.text ?? (target.title && plainText(target.title))
+        if (label == null) fail(`${form} needs its text: \\${command}[Text]{${reference}}`, node)
+        return command === "by" ? `\\text{[\\href{${target.url}}{${texText(label)}}]}`
+          : `\\href{${target.url}}{\\text{${texText(label)}}}`
+      })
+      if (value === node.value) return
+      // remark-math also stores the TeX in node.data.hChildren, which is what
+      // rehype-katex reads; keep both copies in step.
+      replaceText(node.data?.hChildren, node.value, value)
+      node.value = value
     })
     // Keep the established Python-Markdown heading convention, including _1
     // suffixes and source LaTeX (before KaTeX expands it into repeated HTML).
@@ -143,6 +237,20 @@ export default function mathBlocks() {
       headingIds.add(id)
       node.data = { ...node.data, hProperties: { ...node.data?.hProperties, id } }
     })
+    // Optional contents entries: each top-level identified block with the
+    // headings it sits under (outermost first). Labels are added after KaTeX.
+    const contents = []
+    const headings = []
+    const outline = (node, nested) => {
+      if (node.type === "heading") {
+        while (headings.length && headings.at(-1).depth >= node.depth) headings.pop()
+        headings.push({ depth: node.depth, id: node.data.hProperties.id })
+      }
+      const { id, "data-math-kind": kind } = node.data?.hProperties ?? {}
+      if (kind && id && !nested && numberedKinds.has(kind)) contents.push({ id, kind, sections: headings.map((h) => h.id) })
+      for (const child of node.children ?? []) outline(child, nested || Boolean(kind))
+    }
+    outline(tree, false)
     visit(tree, (node) => {
       if (["link", "definition", "image"].includes(node.type))
         node.url = resolveReference(node.url, source)
@@ -150,6 +258,7 @@ export default function mathBlocks() {
     file.data.astro ??= { frontmatter: {} }
     file.data.astro.frontmatter ??= {}
     file.data.astro.frontmatter.mathBlocks = blocks
+    file.data.astro.frontmatter.mathContents = contents
   }
 }
 
@@ -170,16 +279,26 @@ export function mathBlockHtml() {
   return (tree, file) => {
     const blocks = file.data.astro?.frontmatter?.mathBlocks
     if (!blocks?.length) return
+    const contents = new Map(file.data.astro.frontmatter.mathContents?.map((entry) => [entry.id, entry]))
     const page = pageUrl(blocks[0].source)
     const byId = new Map(blocks.map((block) => [block.id, block]))
     visit(tree, "element", (node) => {
       const block = node.properties?.["data-math-kind"] && byId.get(node.properties.id)
       const [title, body] = node.children.filter((child) => child.type === "element")
       if (!block || !has(title, "math-block__title") || !has(body, "math-block__body")) return
-      block.titleHtml = toHtml(copy(title.children, (child) => has(child, "math-block__kind") || has(child, "math-permalink"), page, false)).trim()
-      block.html = toHtml(copy(body.children, (child) => child.properties?.["data-math-kind"] === "proof", page, true)).trim()
+      const entry = contents.get(block.id)
+      if (entry) entry.text = presentationText({ children: title.children.filter((child) => !["math-block__source", "math-permalink"].some((name) => has(child, name))) })
+      block.titleHtml = toHtml(copy(title.children, (child) => ["math-block__kind", "math-block__source", "math-permalink"].some((name) => has(child, name)), page, false)).trim()
+      block.html = toHtml(copy(body.children, (child) => proofKinds.has(child.properties?.["data-math-kind"]), page, true)).trim()
     })
   }
+}
+
+// Shared by the site and tests. KaTeX may emit only same-site links, which is
+// what \ref/\by expand to; other trusted commands stay disabled.
+export const katexOptions = {
+  strict: (code) => code === "newLineInDisplayMode" ? "ignore" : "warn",
+  trust: ({ command, url }) => command === "\\href" && /^[#/](?!\/)/.test(url),
 }
 
 export function failMathErrors() {

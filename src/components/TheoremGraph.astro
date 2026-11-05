@@ -3,7 +3,7 @@
 // results it uses to the result it proves. Statements are the notes' own
 // build-time KaTeX HTML, so the graph needs no Markdown or math rendering.
 import { loadRegistry, type Block } from '../lib/registry';
-import { resultKinds } from '../lib/math-blocks.mjs';
+import { proofKinds, resultKinds } from '../lib/math-blocks.mjs';
 import { resolveReference } from '../lib/references.mjs';
 import '../styles/theorem-graph.css';
 
@@ -29,9 +29,9 @@ for (const reference of include) {
 const nodes = [...selected];
 const index = new Map(nodes.map((block, i) => [block.url, i]));
 // A proof is drawn only when everything it uses and proves is in the graph.
-const edges = blocks.filter((block) => block.kind === 'proof' && block.proves && index.has(block.proves)
+const edges = blocks.filter((block) => proofKinds.has(block.kind) && block.proves && index.has(block.proves)
   && block.uses.length && block.uses.every((url) => index.has(url)));
-const name = (kind: string) => kind[0].toUpperCase() + kind.slice(1);
+const name = (block: Block) => block.label ?? block.kind[0].toUpperCase() + block.kind.slice(1);
 const plainTitle = (block: Block) => block.title.replace(/\$([^$]*)\$/g, '$1');
 const data = edges.map((proof) => ({ from: proof.uses.map((url) => index.get(url)!), to: index.get(proof.proves!)! }));
 ---
@@ -48,9 +48,9 @@ const data = edges.map((proof) => ({ from: proof.uses.map((url) => index.get(url
     <div class="theorem-graph__world">
       <svg class="theorem-graph__edges" aria-hidden="true"></svg>
       {nodes.map((block, i) => (
-        <article class={`tg-node tg-node--${block.kind}`} data-node={i} tabindex="0" aria-expanded="false" aria-label={`${name(block.kind)}: ${plainTitle(block)}`}>
+        <article class={`tg-node tg-node--${block.kind}`} data-node={i} tabindex="0" aria-expanded="false" aria-label={`${name(block)}${block.book ? ` (${block.book.short_name})` : ''}: ${plainTitle(block)}`}>
           <header class="tg-node__title">
-            <span class="tg-node__kind">{name(block.kind)}</span>
+            <span class="tg-node__kind">{name(block)}{block.book && <span class="tg-node__source" title={block.book.name}> · {block.book.short_name}</span>}</span>
             <a href={block.url} set:html={block.titleHtml ?? block.title} />
           </header>
           <div class="tg-node__body" set:html={block.html ?? ''} />

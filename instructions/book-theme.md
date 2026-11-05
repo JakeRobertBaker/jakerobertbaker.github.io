@@ -28,6 +28,8 @@ Observes masthead visibility and extends the native sidebar popover to desktop.
 
 `src/lib/heading-labels.mjs` and `src/route-data.ts` supply plain contents labels from the existing KaTeX MathML render, via cached Astro metadata and supported Starlight middleware. They do not change heading HTML/IDs or add a second math renderer.
 
+Pages with frontmatter `contentsBlocks` also list their top-level identified blocks in both contents, under the nearest listed heading and before its subheadings; `math-blocks.mjs` records each block's headings and plain label. Starlight's current-section highlight follows headings only, so it stays on the section while a block is read. Keep this in route data rather than overriding Starlight's contents components or turning block titles into headings.
+
 ### Visual tests — `tests/site/theme.spec.ts`, `tests/site/theme/`
 
 Production-artifact visual contracts and representative captures, always included in CI.

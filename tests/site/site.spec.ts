@@ -96,6 +96,31 @@ test('native desktop and mobile contents use mathematical labels once and keep o
   }
 });
 
+test('pages that opt in list their blocks in desktop and mobile contents', async ({ page, request }) => {
+  const { blocks } = await (await request.get('/theorems.json')).json();
+  const urls = new Set(blocks.map((block: { url: string }) => block.url));
+  // Discover an opted-in page from the build rather than freezing a note.
+  let route: string | undefined, id: string | undefined, kind = "";
+  for (const candidate of routes) {
+    const html = await readFile(new URL(`../../dist${candidate}index.html`, import.meta.url), 'utf8');
+    const start = html.indexOf('<h2 id="starlight__on-this-page"');
+    const toc = start < 0 ? '' : html.slice(start, html.indexOf('</nav>', start));
+    id = [...toc.matchAll(/<a href="#([^"]+)"/g)].map((match) => match[1]).find((slug) => urls.has(`${candidate}#${slug}`));
+    if (id) { route = candidate; kind = blocks.find((block: { url: string }) => block.url === `${route}#${id}`)?.kind ?? ""; break; }
+  }
+  test.skip(!route, 'no page lists blocks in its contents yet');
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(route!);
+    if (width === 390) await page.locator('#starlight__on-this-page--mobile').click();
+    const link = page.locator(`${width === 390 ? 'mobile-starlight-toc' : 'starlight-toc'} a[href="#${id}"]`);
+    await expect(link).toContainText(new RegExp(`^${kind[0].toUpperCase()}${kind.slice(1)}`));
+    await link.click();
+    await expect(page).toHaveURL(`${route}#${id}`);
+    await expect(page.locator(`[id="${id}"]`)).toBeInViewport();
+  }
+});
+
 test('remarks and notation retain published identities and use semantic blocks', async ({ page, request }) => {
   const targets = [
     ['/mathematics/linear_models/linear_models/', 'rem-R2_general', 'remark'],
@@ -141,6 +166,38 @@ test('theorem registry agrees with current rendered blocks and Markdown location
     const source = await readFile(new URL(`../../src/content/docs/${block.source}`, import.meta.url), 'utf8');
     expect(source.split('\n')[block.line - 1], block.url).toMatch(new RegExp(`^:{3,}${block.kind}`));
   }
+});
+
+test('numbered blocks show their numbers and book tags; references in mathematics link and preview', async ({ page, request }) => {
+  const { blocks } = await (await request.get('/theorems.json')).json();
+  const numbered = blocks.filter((block: { label: string | null }) => block.label);
+  for (const block of numbered) {
+    const [path, id] = block.url.split('#');
+    if (new URL(page.url()).pathname !== path) await page.goto(path);
+    const title = page.locator(`[id="${id}"] > .math-block__title`);
+    await expect(title, block.url).toContainText(block.label);
+    if (block.book) await expect(title.locator('.math-block__source'), block.url).toHaveAttribute('title', block.book.name);
+    else await expect(title.locator('.math-block__source'), block.url).toHaveCount(0);
+  }
+  // Discover a page whose mathematics contains a reference, rather than freezing note text.
+  let route;
+  for (const candidate of routes)
+    if (/<a href="#[^"]+"><span class="mord/.test(await readFile(new URL(`../../dist${candidate}index.html`, import.meta.url), 'utf8'))) { route = candidate; break; }
+  test.skip(!route, 'no page references a block from mathematics yet');
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(route!);
+  // Every link in the mathematics, not just the first align* row, must be hit-testable.
+  const covered = await page.locator('.katex-html a[href^="#"]').evaluateAll((links) => links.filter((link) => {
+    link.scrollIntoView({ block: 'center' });
+    const box = link.getBoundingClientRect();
+    return !link.contains(document.elementFromPoint(box.left + box.width / 2, box.top + box.height / 2));
+  }).map((link) => link.getAttribute('href')));
+  expect(covered, route).toEqual([]);
+  const reference = page.locator('.katex a[href^="#"]').last();
+  await expect(page.locator(await reference.getAttribute('href') as string)).toHaveCount(1);
+  await reference.scrollIntoViewIfNeeded();
+  await reference.hover();
+  await expect(page.locator('#theorem-preview')).toBeVisible();
 });
 
 test('hover and keyboard previews render KaTeX and keep normal navigation', async ({ page }) => {
@@ -223,7 +280,7 @@ test('proof graphs lay out registry results and proofs, select them, and degrade
   const route = '/mathematics/analysis/companion_to_analysis/theory_graph/';
   const { blocks } = await (await request.get('/theorems.json')).json();
   const page_ = '/mathematics/analysis/companion_to_analysis/theory/';
-  const results = blocks.filter((block: { url: string; kind: string }) => block.url.startsWith(page_) && block.kind !== 'proof');
+  const results = blocks.filter((block: { url: string; kind: string }) => block.url.startsWith(page_) && !['proof', 'solution'].includes(block.kind));
   const proofs = blocks.filter((block: { url: string; kind: string; proves: string | null }) =>
     block.kind === 'proof' && block.proves?.startsWith(page_));
   await page.setViewportSize({ width: 1440, height: 1000 });
