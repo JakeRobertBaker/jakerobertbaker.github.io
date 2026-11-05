@@ -1,5 +1,6 @@
 ---
 title: Universal Algebra
+numbering: true
 ---
 <!-- snippets: latex_math -->
 
@@ -169,7 +170,7 @@ Note:
 - $\mathcal{C}$ is non empty because $M \in \mathcal{C}$
 - $\forall \ A \in \mathcal{C}, X \subseteq A \implies X \subseteq \bigcap_{A \in \mathcal{C}} A$
 
-:::theorem[1.1. $F_\Omega(X)$ is a sigma structure]{#thm-FX_is_sigma}
+:::theorem[$F_\Omega(X)$ is a sigma structure]{#thm-FX_is_sigma n=1.1 book=JS}
 
 i. The set of $\Omega$-terms in $X$, $F_{\Omega}(X)$ has a $\Omega$ structure.
 
@@ -190,7 +191,7 @@ We need to show that this interpretation does indeed map from $F_{\Omega}(X)^{\a
 If $\alpha(\omega)=n$ and $t_i$, $i \in \left\{ 1, \dots, n \right\}$ then by b. $w_{FX}(t_1, \dots, t_n)$ is indeed in $FX$.
 :::
 
-:::lemma[1.3. X terms from finite]{#lem-XfromFinite}
+:::lemma[X terms from finite]{#lem-XfromFinite n=1.3 book=JS}
 
 $F_{\Omega}(X)=\bigcup \lbrace F_{\Omega}(X^\prime) \mid X^\prime \subset X \text{ is finite} \rbrace$
 :::
@@ -376,8 +377,7 @@ $$
 
 :::
 
-### Exercise 1.2
-
+:::exercise{#ex-1-2 n=1.2 book=JS}
 Let,
 
 - $t \in F_{\Omega} \left( X_n \right)$
@@ -390,22 +390,23 @@ Show,
 $$
 t_A \left( a_1, \dots, a_n \right) = \bar{f}(t)
 $$
+:::
 
-#### Solution
-
+:::solution{proves="#ex-1-2" open}
 $$
 \begin{align*}
 \bar{f} \left( t \right) & \\
-\text{[Corollary]}
+\by{cor-der-ops-self}
 &= \bar{f} \left( t_{F_{\Omega}(X)} \left( x_1, \dots, x_n \right) \right)
 \\
-\text{[ comute derived op ]} &=
+\by{lem-derived-homo} &=
 t_A \left( 
 \bar{f}(x_1), \dots, \bar{f}(x_n)
 \right) \\
 &= t_A \left( a_1, \dots, a_n \right)
 \end{align*}
 $$
+:::
 
 :::lemma[Substitution Lemma]{#lem-sub-general}
 Let,
@@ -428,13 +429,13 @@ $$
 $$
 \begin{align*}
 \bar{f} \left( s \left[ u / x_i \right] \right) &= \\
-\text{[Substitute Prop]} &=
+\by{prp-derived-op-sub} &=
 \bar{f} \left( s_{FX} \left( x_1, \dots, u, \dots, x_n \right) \right)
 \\
-\text{[comute derived op]} &=
+\by{lem-derived-homo} &=
 s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
 \\
-\text{[Ex 1.2]} &=
+\by{ex-1-2} &=
 \bar{g}(s)
 \end{align*}
 $$
@@ -501,7 +502,7 @@ This is just the smallest subset of all possible equations $(s=t)$ such that it 
 The equivalence classes of $\sim_E$ on $F_{\Omega}(X)$ is $F_{(\Omega, E)}(X)$
 :::
 
-:::theorem[1.4. The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model}
+:::theorem[The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model n=1.4 book=JS}
 
 1. $F_{(\Omega, E)}(X)$ inherits $\Omega$-structure from $F_{\Omega}(X)$ and satisfies the equations in $E$.
 
