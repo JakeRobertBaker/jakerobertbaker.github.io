@@ -123,6 +123,8 @@ numbering: true
 ---
 ```
 
+To list a page's identified blocks in its “On this page” contents, add `contentsBlocks: all`, or a list of kinds such as `contentsBlocks: [theorem, lemma, exercise]`. Blocks nested inside other blocks are not listed.
+
 Do not put numbers in titles (`[1.3. Title]`); use `n`. Only add `numbering`, `n` or `book` when the notes number their results or you are asked to.
 
 ### References

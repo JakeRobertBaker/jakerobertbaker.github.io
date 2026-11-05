@@ -96,6 +96,31 @@ test('native desktop and mobile contents use mathematical labels once and keep o
   }
 });
 
+test('pages that opt in list their blocks in desktop and mobile contents', async ({ page, request }) => {
+  const { blocks } = await (await request.get('/theorems.json')).json();
+  const urls = new Set(blocks.map((block: { url: string }) => block.url));
+  // Discover an opted-in page from the build rather than freezing a note.
+  let route: string | undefined, id: string | undefined, kind = "";
+  for (const candidate of routes) {
+    const html = await readFile(new URL(`../../dist${candidate}index.html`, import.meta.url), 'utf8');
+    const start = html.indexOf('<h2 id="starlight__on-this-page"');
+    const toc = start < 0 ? '' : html.slice(start, html.indexOf('</nav>', start));
+    id = [...toc.matchAll(/<a href="#([^"]+)"/g)].map((match) => match[1]).find((slug) => urls.has(`${candidate}#${slug}`));
+    if (id) { route = candidate; kind = blocks.find((block: { url: string }) => block.url === `${route}#${id}`)?.kind ?? ""; break; }
+  }
+  test.skip(!route, 'no page lists blocks in its contents yet');
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(route!);
+    if (width === 390) await page.locator('#starlight__on-this-page--mobile').click();
+    const link = page.locator(`${width === 390 ? 'mobile-starlight-toc' : 'starlight-toc'} a[href="#${id}"]`);
+    await expect(link).toContainText(new RegExp(`^${kind[0].toUpperCase()}${kind.slice(1)}`));
+    await link.click();
+    await expect(page).toHaveURL(`${route}#${id}`);
+    await expect(page.locator(`[id="${id}"]`)).toBeInViewport();
+  }
+});
+
 test('remarks and notation retain published identities and use semantic blocks', async ({ page, request }) => {
   const targets = [
     ['/mathematics/linear_models/linear_models/', 'rem-R2_general', 'remark'],

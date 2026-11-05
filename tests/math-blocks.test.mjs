@@ -262,6 +262,44 @@ test('the books file loads and rejects malformed entries', async (t) => {
   }
 });
 
+test('contents entries record top-level blocks with their headings and plain labels', async () => {
+  const result = await render(`:::definition[Before any heading]{#def-a}
+A.
+:::
+
+## Section $F_\\Omega$
+
+::::theorem[Sum $x+y$]{#thm-b n=1.1 book=JS}
+B.
+
+:::remark{#rem-nested}
+Nested blocks stay out of the contents.
+:::
+::::
+
+:::proof{proves="#thm-b"}
+Proofs too.
+:::
+
+### Sub
+
+:::lemma{#lem-c}
+C.
+:::
+
+## Next
+
+:::note{#note-d}
+Asides too.
+:::
+`, 'testing.md', { numbering: true });
+  assert.deepEqual(result.metadata.frontmatter.mathContents, [
+    { id: 'def-a', kind: 'definition', sections: [], text: 'Definition 1 · Before any heading' },
+    { id: 'thm-b', kind: 'theorem', sections: ['section-f_omega'], text: 'Theorem 1.1 · Sum x+y' },
+    { id: 'lem-c', kind: 'lemma', sections: ['section-f_omega', 'sub'], text: 'Lemma 3' },
+  ]);
+});
+
 test('legacy heading IDs use source math, reserve IDs, and retain repeated-heading suffixes', async () => {
   const result = await render('<span id="a-heading"></span>\n\n## A heading\n\n### $n < m$ [1.01]\n\n## A heading');
   assert.match(result.code, /id="a-heading_1"/);

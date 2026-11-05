@@ -7,6 +7,7 @@ import { toMarkdown } from "mdast-util-to-markdown"
 import { directiveToMarkdown } from "mdast-util-directive"
 import { mathToMarkdown } from "mdast-util-math"
 import { pageUrl, resolveReference } from "./references.mjs"
+import { presentationText } from "./heading-labels.mjs"
 
 const root = fileURLToPath(new URL("../content/docs/", import.meta.url))
 export const resultKinds = new Set(["definition", "theorem", "lemma", "proposition", "corollary", "example", "exercise"])
@@ -232,6 +233,20 @@ export default function mathBlocks({ books = {} } = {}) {
       headingIds.add(id)
       node.data = { ...node.data, hProperties: { ...node.data?.hProperties, id } }
     })
+    // Optional contents entries: each top-level identified block with the
+    // headings it sits under (outermost first). Labels are added after KaTeX.
+    const contents = []
+    const headings = []
+    const outline = (node, nested) => {
+      if (node.type === "heading") {
+        while (headings.length && headings.at(-1).depth >= node.depth) headings.pop()
+        headings.push({ depth: node.depth, id: node.data.hProperties.id })
+      }
+      const { id, "data-math-kind": kind } = node.data?.hProperties ?? {}
+      if (kind && id && !nested && numberedKinds.has(kind)) contents.push({ id, kind, sections: headings.map((h) => h.id) })
+      for (const child of node.children ?? []) outline(child, nested || Boolean(kind))
+    }
+    outline(tree, false)
     visit(tree, (node) => {
       if (["link", "definition", "image"].includes(node.type))
         node.url = resolveReference(node.url, source)
@@ -239,6 +254,7 @@ export default function mathBlocks({ books = {} } = {}) {
     file.data.astro ??= { frontmatter: {} }
     file.data.astro.frontmatter ??= {}
     file.data.astro.frontmatter.mathBlocks = blocks
+    file.data.astro.frontmatter.mathContents = contents
   }
 }
 
@@ -259,12 +275,15 @@ export function mathBlockHtml() {
   return (tree, file) => {
     const blocks = file.data.astro?.frontmatter?.mathBlocks
     if (!blocks?.length) return
+    const contents = new Map(file.data.astro.frontmatter.mathContents?.map((entry) => [entry.id, entry]))
     const page = pageUrl(blocks[0].source)
     const byId = new Map(blocks.map((block) => [block.id, block]))
     visit(tree, "element", (node) => {
       const block = node.properties?.["data-math-kind"] && byId.get(node.properties.id)
       const [title, body] = node.children.filter((child) => child.type === "element")
       if (!block || !has(title, "math-block__title") || !has(body, "math-block__body")) return
+      const entry = contents.get(block.id)
+      if (entry) entry.text = presentationText({ children: title.children.filter((child) => !["math-block__source", "math-permalink"].some((name) => has(child, name))) })
       block.titleHtml = toHtml(copy(title.children, (child) => ["math-block__kind", "math-block__source", "math-permalink"].some((name) => has(child, name)), page, false)).trim()
       block.html = toHtml(copy(body.children, (child) => proofKinds.has(child.properties?.["data-math-kind"]), page, true)).trim()
     })

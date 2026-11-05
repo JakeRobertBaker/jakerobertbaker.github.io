@@ -1,6 +1,7 @@
 ---
 title: Universal Algebra
 numbering: true
+contentsBlocks: all
 ---
 <!-- snippets: latex_math -->
 
