@@ -582,6 +582,44 @@ $$
 Transitivity (b)(iii) gives us that $u_{n+1} \sim u_{0}$ which is what we seek to prove.
 :::
 
+:::lemma[Quotient Homomorphism]{#lem-quotient-homomorphism}
+Let $q: F_{\Omega}(X) \to F_{\Omega, E}(X)$ by,
+
+$$
+q(t) = [t] \ \forall t \in F_{\Omega}(X)
+$$
+
+Then, $q$ is a homomorphism.
+:::
+
+This is immediate from the definition being well defined. Formally,
+
+:::proof{proves="#lem-quotient-homomorphism"}
+Let $\omega \in \Omega, \alpha(\omega)=n, t_1, \dots, t_n \in FX$ 
+
+$$
+\begin{align*}
+q \left( \omega t_1 \dots t_n \right) \\ 
+\text{[def of q]} &= \left[ \omega t_1 \dots t_n \right] \\
+\by{prp-ex-operations-well-defined} &= \omega_{EX} \left( [t_1], \dots, t_n \right) \\
+\text{[def of q]} &= \omega_{EX} \left( q(t_1), \dots, q(t_n) \right)
+\end{align*}
+$$
+:::
+
+In other words we have shown that $\omega_{EX} \left( [u_1], \dots, [u_m] \right) = \left[ \omega_{FX} \left( u_1, \dots, u_m \right) \right]$.
+
+Because of [derived operations commute](#lem-derived-homo) we have corollary,
+
+:::corollary[Derived Op Quotient]{#cor-derived-op-quotient}
+If $t \in FX$ then,
+
+$$
+t_{EX} \left( [u_1], \dots, [u_n] \right) =
+\left[ t_{FX} \left( u_1, \dots, u_n \right) \right]
+$$
+:::
+
 :::theorem[The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model n=1.4 book=JS}
 
 1. $F_{(\Omega, E)}(X)$ inherits $\Omega$-structure from $F_{\Omega}(X)$ and satisfies the equations in $E$.
