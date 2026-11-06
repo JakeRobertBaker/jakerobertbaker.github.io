@@ -1,7 +1,6 @@
 ---
 title: Theory
 ---
-<!-- snippets: latex_math -->
 
 :::definition[The fundamental axiom of analysis]{#def-fundamental-axiom}
 If,
