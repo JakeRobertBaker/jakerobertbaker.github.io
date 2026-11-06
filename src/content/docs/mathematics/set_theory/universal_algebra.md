@@ -530,7 +530,7 @@ Let $[t]$ denote the equivalence class of $t \in F_{\Omega}(X)$.
 Let $\omega \in \Omega$. Then, $\forall t_1, \dots, t_n \in FX$
 
 $$
-\omega_{EX} \left( t_1, \dots, t_n \right) \coloneqq \left[ \omega t_1 \dots t_n \right]
+\omega_{EX} \left( [t_1], \dots, [t_n] \right) \coloneqq \left[ \omega t_1 \dots t_n \right]
 $$
 :::
 
@@ -539,30 +539,30 @@ The interpretation of operation $\omega \in \Omega$ in $F_{(\Omega, E)}(X)$ is w
 
 Let $t_i, s_i \in FX$ and $t_i \sim_{E} s_i \ \forall \ i \in \left\{ 1, \dots, n \right\}$.
 
-Then, $\omega t_1, \dots, t_n  \sim \omega s_1, \dots, s_n $.
+Then, $\omega t_1, \dots, t_n  \sim_{E} \omega s_1, \dots, s_n $.
 :::
 
-:::proof{proves="#prp-ex-operations-well-defined" open}
+:::proof{proves="#prp-ex-operations-well-defined"}
 
 $\exists N : t_i, s_i \in F_{\Omega} (X_N)$. Let $y=x_{N+1}$. We do this so substitution leaves the $s_i, t_i$ unaffected.
 
-For $j=1, \dots, n+1$ let,
+For $j=1, \dots, n$ let,
 
 $$
 u_j = \omega t_1 \dots t_{j-1} y s_{j+1} \dots s_n
 $$
 
-so,
+Let,
 
 $$
 \begin{align*}
 u_{0} &= \omega s_1 \dots s_n
-\\ \vdots \\
+\\
 u_{n+1} &= \omega t_1 \dots t_n
 \end{align*}
 $$
 
-Substitution rule (c) (ii) gives, for $j=1, \dots n+1$
+Substitution rule (c) (ii) gives, for $j=2, \dots n$
 
 $$
 \begin{align*}
@@ -571,8 +571,15 @@ u_{j} [t_j / y] &\sim u_{j} [s_j / y] \\
 \end{align*}
 $$
 
-$[\omega t_1 x_2 \dots x_n] = [u[s_1/y]] = [u[t_1/y]] = [\omega s_1 x_2 \dots x_n]$
+So, $u_{j} \left[ t_j / y \right] = u_{j-1} \left[ t_{j-1} / y \right]$ for $j=2, \dots, n$.
 
+Then,
+
+$$
+u_{n+1} = u_{n} [t_n / y] \sim u_{n-1} [t_{n-1} / y] \sim \dots \sim u_1 [t_1 / y] = u_0
+$$
+
+Transitivity (b)(iii) gives us that $u_{n+1} \sim u_{0}$ which is what we seek to prove.
 :::
 
 :::theorem[The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model n=1.4 book=JS}
