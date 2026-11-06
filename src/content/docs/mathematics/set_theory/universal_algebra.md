@@ -482,18 +482,22 @@ $$
 Let $E$ be a set of equations. The set $\tilde{E}$ of derived equation satisfies:
 
 :::list{style="a. (i)"}
+
 1. $E \subset \tilde{E}$
 
 2. $\tilde{E}$ defines an equivalence relation $s \sim_E t \iff (s=t) \in \tilde{E}$ on the set of terms $F_{\Omega}(X)$
 
     1. reflexive: $(t=t) \in \tilde{E} \ \forall t \in F_{\Omega}(X)$
+
     2. symmetric: $(s=t) \implies (t=s)$
+
     3. transitive: $(s=t),(t=u) \implies (s=u)$
 
 3. Substitution rules:
 
-    1. $(s=t) \in \tilde{E} \implies (s[u / x_i] = t[u / x_i])$
-    2. $(s=t), u \in F_{\Omega}(X_n) \implies u[s/x_i] = u[t/x_i]$
+    1. $(s=t) \in \tilde{E} \implies (s[u / x_i] = t[u / x_i]) \in \tilde{E}$
+
+    2. $(s=t) \in \tilde{E}, u \in F_{\Omega}(X_n) \implies \left( u[s/x_i] = u[t/x_i] \right) \in \tilde{E}$
 :::
 
 ::::
@@ -502,8 +506,15 @@ This is just the smallest subset of all possible equations $(s=t)$ such that it 
 
 :::example[Group Theory Example]{#exm-group_theory}
 
-1. $t = m e x_1 = x_1 = s \in \tilde{E} \implies m e u = u \forall u \in F_{\Omega}(X)$
-2. $u = m x_1 x_2$, $t=s$ as before, $\implies m x_1 \textcolor{red}{mex_1} = m x_1 \textcolor{red}{x_1}$
+Substitution  rule (c) (i)
+
+Let $t=mex_1$, $s=x_1$, then $(s=t) = (m e x_1 = x_1) \in \tilde{E}$
+
+Substitution rule (c) (ii)
+
+Let $u = m x_1 x_2$, $t=s$ as before. We can then take $u$ and replace $x_2$ with $s$ and $t$.
+
+$\left( m x_1 \textcolor{pink}{mex_1} = m x_1 \textcolor{pink}{x_1} \right) \in \tilde{E}$
 :::
 
 :::definition[Equivalence Classes of Equations on X]{#def-XEquivalence}
