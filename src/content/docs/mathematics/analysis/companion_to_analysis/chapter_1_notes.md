@@ -1,7 +1,6 @@
 ---
 title: Chapter 1
 ---
-<!-- snippets: latex_math -->
 ## FA
 
 :::definition[The fundamental axiom of analysis]{#def-fundamental-axiom}

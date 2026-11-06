@@ -3,7 +3,6 @@ title: Universal Algebra
 numbering: true
 contentsBlocks: all
 ---
-<!-- snippets: latex_math -->
 
 As I read [*Notes on Logic and Set Theory*](https://www.cambridge.org/core/books/notes-on-logic-and-set-theory/A4D56347336629DBFC20710AF214B245), self study notes live here.
 

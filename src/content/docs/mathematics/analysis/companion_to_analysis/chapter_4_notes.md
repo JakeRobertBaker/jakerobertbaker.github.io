@@ -1,7 +1,6 @@
 ---
 title: "Chapter 4"
 ---
-<!-- snippets: latex_math -->
 
 An easy recap.
 

@@ -1,7 +1,6 @@
 ---
 title: Chapter 5
 ---
-<!-- snippets: latex_math -->
 Note exercise 5.19 gives us key results and notation:
 
 $$

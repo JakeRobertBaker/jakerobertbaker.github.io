@@ -1,7 +1,6 @@
 ---
 title: Chapter 3
 ---
-<!-- snippets: latex_math -->
 
 ## Exercises
 ### Exercise 3.9
