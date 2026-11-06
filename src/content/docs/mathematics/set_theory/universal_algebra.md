@@ -230,7 +230,7 @@ Therefore a derived operation really is just the map it represents
 If $t=mx_1 m x_2 x_3$ then $t_A(\underline{a})= m \left( a_1, m \left( a_2, a_3) \right) \right)$
 :::
 
-:::remark[Derived operations have an obvious interpretation]{#prp-derived-literal}
+:::remark[Derived Ops Interpretation]{#rem-derived-ops-interpret}
 For general $t \in F_{\Omega}(X_n)$, 
 $$
 t = \dots \omega x_1 \dots x_m \dots
@@ -380,7 +380,7 @@ $$
 
 :::
 
-:::exercise[Derived Operations Obvious Interpretation]{#ex-1-2 n=1.2 book=JS}
+:::exercise[Derived Ops Interpretation]{#ex-1-2 n=1.2 book=JS}
 Let,
 
 - $t \in F_{\Omega} \left( X_n \right)$
@@ -394,6 +394,11 @@ $$
 t_A \left( a_1, \dots, a_n \right) = \bar{f}(t)
 $$
 :::
+
+This really is just our earlier remark that
+$$
+t_A(\underline{a}) = \left( \dots, \omega \left( a_1, \dots a_n \right), \dots \right)
+$$
 
 :::solution{proves="#ex-1-2" open}
 $$
