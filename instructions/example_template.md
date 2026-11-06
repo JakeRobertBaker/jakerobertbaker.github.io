@@ -156,6 +156,26 @@ Proof content. $\blacksquare$
 ::::
 ```
 
+### Labelled lists
+
+Write ordered lists with `1.`, `2.`, … and indent nested items under their parent. Markdown has no `a.` or `i.` list syntax: such lines become plain paragraphs or, when indented, code. To match a source's labels, wrap the list in `:::list` and name one marker per nesting level (up to three) from `1.` `(1)` `a.` `(a)` `A.` `(A)` `i.` `(i)` `I.` `(I)`:
+
+```markdown
+::::definition[Derived equations]{#def-derived}
+$\tilde{E}$ satisfies:
+
+:::list{style="(a) (i)"}
+1. $E \subset \tilde{E}$
+2. $\sim_E$ is an equivalence relation:
+
+    1. reflexive
+    2. symmetric
+:::
+::::
+```
+
+This renders as (a), (b) with (i), (ii) beneath. Write irregular labels such as (iii′) as text instead.
+
 For general annotations or warnings, native Starlight `note`, `tip`, `caution`, and `danger` containers are also available, e.g. `:::note[Title]` followed by content and a closing `:::`.
 
 ## Links, IDs and images

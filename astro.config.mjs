@@ -7,6 +7,7 @@ import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import remarkDirective from 'remark-directive';
 import rehypeKatex from 'rehype-katex';
+import listStyles from './src/lib/list-styles.mjs';
 import mathBlocks, { failMathErrors, katexOptions, mathBlockHtml } from './src/lib/math-blocks.mjs';
 import headingLabels from './src/lib/heading-labels.mjs';
 import { loadBooks } from './src/lib/books.mjs';
@@ -27,7 +28,7 @@ export default defineConfig({
   markdown: {
     processor: unified({
       smartypants: false,
-      remarkPlugins: [remarkMath, remarkDirective, [mathBlocks, { books }]],
+      remarkPlugins: [remarkMath, remarkDirective, listStyles, [mathBlocks, { books }]],
       rehypePlugins: [[rehypeKatex, katexOptions], failMathErrors, mathBlockHtml, headingLabels],
     }),
   },
