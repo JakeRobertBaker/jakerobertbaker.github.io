@@ -7,11 +7,12 @@ import rehypeKatex from 'rehype-katex';
 import mathBlocks, { createRegistry, failMathErrors, katexOptions, mathBlockHtml } from '../src/lib/math-blocks.mjs';
 import { pageUrl, resolveReference } from '../src/lib/references.mjs';
 import headingLabels from '../src/lib/heading-labels.mjs';
+import listStyles from '../src/lib/list-styles.mjs';
 
 const books = { JS: { name: 'Johnstone, Notes on Logic and Set Theory', short_name: 'Johnstone' }, KN: { name: 'Kunen, Set Theory', short_name: 'Kunen' } };
 const renderer = await createMarkdownProcessor({
   smartypants: false, syntaxHighlight: false,
-  remarkPlugins: [remarkMath, remarkDirective, [mathBlocks, { books }]],
+  remarkPlugins: [remarkMath, remarkDirective, listStyles, [mathBlocks, { books }]],
   rehypePlugins: [[rehypeKatex, katexOptions], failMathErrors, mathBlockHtml, headingLabels],
 });
 const render = (markdown, source = 'testing.md', frontmatter = {}) => renderer.render(markdown, {
@@ -334,6 +335,26 @@ test('metadata and KaTeX errors fail with source context', async (t) => {
     [':::proof{#p uses="#x"}\nOne.\n:::', /explicit proves target/],
     [':::proof{open="false"}\nOne.\n:::', /boolean/],
     ['$\\noSuchCommand$', /Undefined control sequence/],
+  ]) await assert.rejects(render(markdown), message);
+});
+
+test('list directives set one marker per nesting level, inside blocks and out', async (t) => {
+  const { code, metadata } = await render(`::::definition[D]{#def-d}
+:::list{style="(a) (i)"}
+1. $x$
+
+    1. nested
+:::
+::::`);
+  assert.match(code, /<div class="list-styles" style="--list-1: paren-lower-alpha; --list-2: paren-lower-roman"><ol>\s*<li>/);
+  assert.match(metadata.frontmatter.mathBlocks[0].html, /^<div class="list-styles"/);
+  assert.match((await render(':::list{style="A."}\n1. One\n:::')).code, /style="--list-1: upper-alpha"/);
+  t.mock.method(console, 'error', () => {});
+  for (const [markdown, message] of [
+    [':::list\n1. A\n:::', /list needs 1–3 marker styles/],
+    [':::list{style="a. i. 1. A."}\n1. A\n:::', /list needs 1–3 marker styles/],
+    [':::list{style="(b)"}\n1. A\n:::', /Unknown list marker "\(b\)"/],
+    [':::list{style="a." #x}\n1. A\n:::', /Unknown list metadata: id/],
   ]) await assert.rejects(render(markdown), message);
 });
 

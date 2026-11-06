@@ -8,6 +8,7 @@ import { directiveToMarkdown } from "mdast-util-directive"
 import { mathToMarkdown } from "mdast-util-math"
 import { pageUrl, resolveReference } from "./references.mjs"
 import { presentationText } from "./heading-labels.mjs"
+import { listDirective } from "./list-styles.mjs"
 
 const root = fileURLToPath(new URL("../content/docs/", import.meta.url))
 export const resultKinds = new Set(["definition", "theorem", "lemma", "proposition", "corollary", "example", "exercise"])
@@ -107,6 +108,7 @@ export default function mathBlocks({ books = {} } = {}) {
     const referenceText = (kind, num) => num.book ? `${num.book.short_name} ${num.number}` : labelText(kind, num)
     visit(tree, "containerDirective", (node) => {
       const kind = node.name
+      if (kind === listDirective) return
       if (!numberedKinds.has(kind) && !proofKinds.has(kind) && !asides.has(kind))
         fail(`Unknown block type: ${kind}`, node)
       const attrs = node.attributes ?? {}
