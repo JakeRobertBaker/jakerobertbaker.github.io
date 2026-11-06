@@ -230,7 +230,7 @@ Therefore a derived operation really is just the map it represents
 If $t=mx_1 m x_2 x_3$ then $t_A(\underline{a})= m \left( a_1, m \left( a_2, a_3) \right) \right)$
 :::
 
-:::remark[Derived Operations Are Literally Themselves]{#prp-derived-literal}
+:::remark[Derived operations have an obvious interpretation]{#prp-derived-literal}
 For general $t \in F_{\Omega}(X_n)$, 
 $$
 t = \dots \omega x_1 \dots x_m \dots
@@ -265,12 +265,12 @@ b. Show that if $P(t)$ holds for $ t \in \left\{ t_1, \dots, t_m \right\}$ then 
 
 :::proposition[Derived Operations Substitute]{#prp-derived-op-sub}
 If, 
-- structure $A = F_{\Omega} (X_n)$
+- structure $A = FX \coloneqq F_{\Omega} (X_n)$
 - $t \in F_{\Omega} (X_n)$
 
 Then,
 $$
-t_A \left( u_1, \dots, u_n \right) = t[u_1, \dots, u_n / x_1, \dots, x_n]
+t_{FX} \left( u_1, \dots, u_n \right) = t[u_1, \dots, u_n / x_1, \dots, x_n]
 \\ \forall \ u_1, \dots, u_n \in F_{\Omega} (X_n)
 $$
 :::
@@ -285,22 +285,24 @@ $$
 
 **(b)**
 
-Assume that $t=\omega t_1 \dots t_m$ and that $t_i \left( u_1, \dots, u_n \right) = t[u_1, \dots, u_n / x_1, \dots, x_m]$ for each $i=1, \dots, m$.
+Assume,
+- $t=\omega t_1 \dots t_m$,
+- ${t_i}_{FX} \left( u_1, \dots, u_n \right) = t_i[u_1, \dots, u_n / x_1, \dots, x_m]$ for each $i=1, \dots, m$.
 
 Then,
 
 $$
 \begin{align*}
-& t_A \left( u_1, \dots, u_n \right) \\
+& t_{FX} \left( u_1, \dots, u_n \right) \\
 \text{[derived op def]} &= 
-\omega_A \left( 
-t_1 \left( u_1, \dots, u_n \right), \dots,
-t_m \left( u_1, \dots, u_n \right)
+\omega_{FX} \left( 
+{t_1}_{FX} \left( u_1, \dots, u_n \right), \dots,
+{t_m}_{FX} \left( u_1, \dots, u_n \right)
 \right) \\
 \text{[interpret in FX]} &=
 \omega
-t_1 \left( u_1, \dots, u_n \right) \dots
-t_m \left( u_1, \dots, u_n \right)
+{t_1}_{FX} \left( u_1, \dots, u_n \right) \dots
+{t_m}_{FX} \left( u_1, \dots, u_n \right)
 \\
 \text{[induct hyp]} &= \omega t_1 [swaps] \dots t_m [swaps] \\
 &= t[swaps]
@@ -378,7 +380,7 @@ $$
 
 :::
 
-:::exercise{#ex-1-2 n=1.2 book=JS}
+:::exercise[Derived Operations Obvious Interpretation]{#ex-1-2 n=1.2 book=JS}
 Let,
 
 - $t \in F_{\Omega} \left( X_n \right)$

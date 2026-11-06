@@ -118,6 +118,7 @@ test('pages that opt in list their blocks in desktop and mobile contents', async
     await link.click();
     await expect(page).toHaveURL(`${route}#${id}`);
     await expect(page.locator(`[id="${id}"]`)).toBeInViewport();
+    await expect(link).toHaveAttribute('aria-current', 'true');
   }
 });
 
