@@ -418,9 +418,9 @@ $$
 :::lemma[Substitution Lemma]{#lem-sub-general}
 Let,
 - $A$ be a $\Omega$ structure.
-- $t \in F_{\Omega} \left( X_n \right)$
+- $s \in F_{\Omega} \left( X_n \right)$
 - $f : X_n \to A$
-- $\bar{f}: F_{\Omega} \left( X_n \right) $ be the unique homomorphism extending $f$.
+- $\bar{f}: F_{\Omega} \left( X_n \right) \to A$ be the unique homomorphism extending $f$.
 - $x_i \in X_n$, $u \in F_{\Omega} \left( X_n \right)$
 - $g : X_n \to A$ which agrees with $f$ on all of $X_n$ except that $g(x_i) = \bar{f} (u)$
 
@@ -441,6 +441,8 @@ $$
 \\
 \by{lem-derived-homo} &=
 s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
+\\
+[ \text{def of }g ] &= s_{A} \left( g(x_1), \dots, g(x_i), \dots, g(x_n) \right)
 \\
 \by{ex-1-2} &=
 \bar{g}(s)
@@ -517,9 +519,60 @@ Let $u = m x_1 x_2$, $t,s$ as before. We can then take $u$ and replace $x_2$ wit
 $\left( m x_1 \textcolor{pink}{mex_1} = m x_1 \textcolor{pink}{x_1} \right) \in \tilde{E}$
 :::
 
-:::definition[Equivalence Classes of Equations on X]{#def-XEquivalence}
+:::definition[Equivalence Classes of Terms on X]{#def-XEquivalence}
 
 The equivalence classes of $\sim_E$ on $F_{\Omega}(X)$ is $F_{(\Omega, E)}(X)$
+
+Let $[t]$ denote the equivalence class of $t \in F_{\Omega}(X)$.
+:::
+
+:::definition[EX Operation]{#def-ex-operation}
+Let $\omega \in \Omega$. Then, $\forall t_1, \dots, t_n \in FX$
+
+$$
+\omega_{EX} \left( t_1, \dots, t_n \right) \coloneqq \left[ \omega t_1 \dots t_n \right]
+$$
+:::
+
+:::proposition[EX operations well defined]{#prp-ex-operations-well-defined}
+The interpretation of operation $\omega \in \Omega$ in $F_{(\Omega, E)}(X)$ is well defined.
+
+Let $t_i, s_i \in FX$ and $t_i \sim_{E} s_i \ \forall \ i \in \left\{ 1, \dots, n \right\}$.
+
+Then, $\omega t_1, \dots, t_n  \sim \omega s_1, \dots, s_n $.
+:::
+
+:::proof{proves="#prp-ex-operations-well-defined" open}
+
+$\exists N : t_i, s_i \in F_{\Omega} (X_N)$. Let $y=x_{N+1}$. We do this so substitution leaves the $s_i, t_i$ unaffected.
+
+For $j=1, \dots, n+1$ let,
+
+$$
+u_j = \omega t_1 \dots t_{j-1} y s_{j+1} \dots s_n
+$$
+
+so,
+
+$$
+\begin{align*}
+u_{0} &= \omega s_1 \dots s_n
+\\ \vdots \\
+u_{n+1} &= \omega t_1 \dots t_n
+\end{align*}
+$$
+
+Substitution rule (c) (ii) gives, for $j=1, \dots n+1$
+
+$$
+\begin{align*}
+u_{j} [t_j / y] &\sim u_{j} [s_j / y] \\
+\omega t_1 \dots t_j s_{j+1} \dots s_n &\sim \omega t_1 \dots t_{j-1} s_j \dots s_n = u_{j-1} [t_{j-1} / y]
+\end{align*}
+$$
+
+$[\omega t_1 x_2 \dots x_n] = [u[s_1/y]] = [u[t_1/y]] = [\omega s_1 x_2 \dots x_n]$
+
 :::
 
 :::theorem[The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model n=1.4 book=JS}
@@ -530,8 +583,6 @@ The equivalence classes of $\sim_E$ on $F_{\Omega}(X)$ is $F_{(\Omega, E)}(X)$
 
     i.e. For any homomorphism $f: X \to (\Omega, E) \text{ model } A$ there is a unique homomorphism $\tilde{f}: F_{(\Omega, E)}(X) \to A$
 :::
-
-Let $[t]$ denote the equivalence class of $t \in F_{\Omega}(X)$
 
 :::proof[Proof of Theorem: Equivalence classes satisfy E]{open}
 
