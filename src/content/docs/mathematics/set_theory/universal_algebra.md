@@ -512,7 +512,7 @@ Let $t=mex_1$, $s=x_1$, then $(s=t) = (m e x_1 = x_1) \in \tilde{E}$
 
 Substitution rule (c) (ii)
 
-Let $u = m x_1 x_2$, $t=s$ as before. We can then take $u$ and replace $x_2$ with $s$ and $t$.
+Let $u = m x_1 x_2$, $t,s$ as before. We can then take $u$ and replace $x_2$ with $s$ and $t$.
 
 $\left( m x_1 \textcolor{pink}{mex_1} = m x_1 \textcolor{pink}{x_1} \right) \in \tilde{E}$
 :::
