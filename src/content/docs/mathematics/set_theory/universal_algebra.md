@@ -654,7 +654,7 @@ t_{EX} \left( [u_1], \dots, [u_n] \right) &=
 $$
 :::
 
-::::theorem[The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model n=1.4 book=JS}
+::::theorem[The set of equivalence classes satisfies the equations in E]{#thm-E-classes-model n=1.4 book=JS}
 
 :::list{style="(i)"}
 1. $F_{(\Omega, E)}(X)$ inherits $\Omega$-structure from $F_{\Omega}(X)$ and satisfies the equations in $E$.
@@ -672,6 +672,31 @@ $$
 :::
 
 ::::
+
+:::proof{proves="#thm-E-classes-model"}
+**(i)**
+
+$EX$ inherits a valid $\Omega$ structure on the induced operations $\omega_{EX}$ by $\by{prp-ex-operations-well-defined}$.
+
+We can show that equations in $E$ are satisfied in $EX$.
+
+Assume $s,t \in FX$ such that $t_{FX} \equiv s_{FX}$. We need to show that $t_{EX} \equiv s_{EX}$.
+
+Let $u_1, \dots, u_n \in FX$. Then, 
+
+$$
+\begin{align*}
+s_{EX} \left( 
+[u_1], \dots, [u_n] 
+\right) \\
+\by{cor-derived-op-quotient} &=
+\left[ s_{FX} \left( u_1, \dots, u_n \right) \right] \\
+[\text{since } s_{FX} \equiv t_{FX}] &=
+\left[ t_{FX} \left( u_1, \dots, u_n \right) \right] \\
+\by{cor-derived-op-quotient} &= t_{EX} \left( [u_1], \dots, [u_n] \right)
+\end{align*}
+$$
+:::
 
 :::proof[[OLD TO BE DELETED] Proof of Theorem: Equivalence classes satisfy E]
 
