@@ -620,7 +620,7 @@ $$
 \begin{align*}
 q \left( \omega t_1 \dots t_n \right) \\ 
 \text{[def of q]} &= \left[ \omega t_1 \dots t_n \right] \\
-\by{prp-ex-operations-well-defined} &= \omega_{EX} \left( [t_1], \dots, t_n \right) \\
+\by{prp-ex-operations-well-defined} &= \omega_{EX} \left( [t_1], \dots, [t_n] \right) \\
 \text{[def of q]} &= \omega_{EX} \left( q(t_1), \dots, q(t_n) \right)
 \end{align*}
 $$
@@ -663,7 +663,7 @@ $$
 
     Given, $(\Omega, E) \text{ model } A$.
 
-    For any homomorphism $f: X \to A$ there is a unique homomorphism,
+    For any map $f: X \to A$ there is a unique homomorphism,
 
     $\tilde{f}: F_{(\Omega, E)}(X) \to A$
 
@@ -680,7 +680,7 @@ $EX$ inherits a valid $\Omega$ structure on the induced operations $\omega_{EX}$
 
 We can show that equations in $E$ are satisfied in $EX$.
 
-Assume $s,t \in FX$ such that $t_{FX} \equiv s_{FX}$. We need to show that $t_{EX} \equiv s_{EX}$.
+Assume $s,t \in FX$ such that $t \sim_{E} s$. We need to show that $t_{EX} \equiv s_{EX}$.
 
 Let $u_1, \dots, u_n \in FX$. Then, 
 
