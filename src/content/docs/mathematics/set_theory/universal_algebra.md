@@ -148,8 +148,8 @@ $$
 where $\alpha(\omega)=n$ and $\forall a_1,...,a_n \in A$
 :::
 
-:::definition[$\Omega$-terms in $X$ properties]{#def-Term-Inductive}
-Let $\Omega$ be an opertaional type and $X$ be a set.
+:::definition[$\Omega$-terms properties]{#def-term-properties}
+Let $\Omega$ be an operational type and $X$ be a set.
 
 Let $A$ be a set. $A$ satisfies the $\Omega$ term properties if,
 
@@ -167,6 +167,8 @@ Consider $\mathcal{C} = \left\{ A \subseteq M : A \text{ satisfies a. and b.} \r
 
 $F_{\Omega}(X) \coloneqq \bigcap_{A \in \mathcal{C}} A$
 :::
+
+We often denote $FX \coloneqq F_{\Omega}\left( X \right)$.
 
 Note:
 
@@ -232,7 +234,7 @@ Therefore a derived operation really is just the map it represents
 If $t=mx_1 m x_2 x_3$ then $t_A(\underline{a})= m \left( a_1, m \left( a_2, a_3) \right) \right)$
 :::
 
-:::remark[Derived Ops Interpretation]{#rem-derived-ops-interpret}
+:::remark[Derived Ops Fill In]{#rem-derived-ops-fill-in}
 For general $t \in F_{\Omega}(X_n)$, 
 $$
 t = \dots \omega x_1 \dots x_m \dots
@@ -266,19 +268,15 @@ b. Show that if $P(t)$ holds for $ t \in \left\{ t_1, \dots, t_m \right\}$ then 
 :::
 
 :::proposition[Derived Operations Substitute]{#prp-derived-op-sub}
-If, 
+If, $t \in F_{\Omega} (X_n)$
 
-- structure $A = FX \coloneqq F_{\Omega} (X_n)$
-- $t \in F_{\Omega} (X_n)$
-
-Then,
+Then $\forall \ u_1, \dots, u_n \in F_{\Omega} (X_n)$,
 $$
 t_{FX} \left( u_1, \dots, u_n \right) = t[u_1, \dots, u_n / x_1, \dots, x_n]
-\\ \forall \ u_1, \dots, u_n \in F_{\Omega} (X_n)
 $$
 :::
 
-:::proof{proves="#prp-derived-op-sub" open}
+:::proof{proves="#prp-derived-op-sub"}
 
 **(a)**
 $$
@@ -319,7 +317,7 @@ When $x_i = u_i$ we get,
 $t_{F_{\Omega}(X)} \left( x_1, \dots, x_n \right) = t $
 :::
 
-:::lemma[Homomorphism commutes with derived operation]{#lem-derived-homo}
+:::lemma[Derived Ops Commute Homomorphisms]{#lem-derived-ops-commute}
 If,
 
 - $h : A \to B$ is a homomorphism
@@ -333,7 +331,7 @@ t_B \left( h(a_1), \dots, h(a_n) \right)
 $$
 :::
 
-:::proof{proves="#lem-derived-homo" open}
+:::proof{proves="#lem-derived-ops-commute" open}
 let $p(t)$ denote the lemma result.
 
 $$
@@ -366,7 +364,7 @@ h \left(
 {t_m}_A \left( a_1, \dots, a_n \right)
 \right) 
 \right) \\
-\text{ [comute homo] } &=
+\text{ [ops comute homo] } &=
 \omega_B \left( 
 h \left( {t_1}_A \left( a_1, \dots, a_n \right) \right), \dots
 h \left( {t_m}_A \left( a_1, \dots, a_n \right) \right)
@@ -383,7 +381,9 @@ $$
 
 :::
 
-:::exercise[Derived Ops Interpretation]{#ex-1-2 n=1.2 book=JS}
+We can now formally prove [remark](#rem-derived-ops-fill-in).
+
+:::exercise[Derived Ops Fill In]{#ex-1-2 n=1.2 book=JS}
 Let,
 
 - $t \in F_{\Omega} \left( X_n \right)$
@@ -410,7 +410,7 @@ $$
 \by{cor-der-ops-self}
 &= \bar{f} \left( t_{F_{\Omega}(X)} \left( x_1, \dots, x_n \right) \right)
 \\
-\by{lem-derived-homo} &=
+\by{lem-derived-ops-commute} &=
 t_A \left( 
 \bar{f}(x_1), \dots, \bar{f}(x_n)
 \right) \\
@@ -444,7 +444,7 @@ $$
 \by{prp-derived-op-sub} &=
 \bar{f} \left( s_{FX} \left( x_1, \dots, u, \dots, x_n \right) \right)
 \\
-\by{lem-derived-homo} &=
+\by{lem-derived-ops-commute} &=
 s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
 \\
 [ \text{def of }g ] &= s_{A} \left( g(x_1), \dots, g(x_i), \dots, g(x_n) \right)
@@ -615,7 +615,7 @@ $$
 
 In other words we have shown that $\omega_{EX} \left( [u_1], \dots, [u_m] \right) = \left[ \omega_{FX} \left( u_1, \dots, u_m \right) \right]$.
 
-Because of [derived operations commute](#lem-derived-homo) we have corollary,
+Because of [derived operations commute](#lem-derived-ops-commute) we have corollary,
 
 :::corollary[Derived Op Quotient]{#cor-derived-op-quotient}
 If $t \in FX$ then,
