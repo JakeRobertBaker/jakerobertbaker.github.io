@@ -654,7 +654,7 @@ t_{EX} \left( [u_1], \dots, [u_n] \right) &=
 $$
 :::
 
-:::theorem[The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model n=1.4 book=JS}
+::::theorem[The set of equivalence classes satisfies the equations in E]{#thm-X_e_classes_model n=1.4 book=JS}
 
 :::list{style="(i)"}
 1. $F_{(\Omega, E)}(X)$ inherits $\Omega$-structure from $F_{\Omega}(X)$ and satisfies the equations in $E$.
@@ -668,9 +668,10 @@ $$
     $\tilde{f}: F_{(\Omega, E)}(X) \to A$
 
     extending $f$.
-:::
 
 :::
+
+::::
 
 :::proof[[OLD TO BE DELETED] Proof of Theorem: Equivalence classes satisfy E]
 

@@ -4,19 +4,19 @@ title: Linear Models
 
 ## OLS Basics
 
-::::definition[Standard Normal Vector]{#def-standard_normal}
+:::definition[Standard Normal Vector]{#def-standard_normal}
 
 A random vector $\mathbf{z} \in \mathbb{R^n}$ is standard normal **iff** components
 $(\mathbf{z_i})_{i=1}^n$
 are independantly identically distributed $\mathcal{N}(\mathbf{0,I_n})$.
-::::
+:::
 
-::::note
+:::note
 
 If a vector in standard normal w.r.t one basis then it is standard normal w.r.t any basis.
-::::
+:::
 
-::::definition[OLS]{#def-ols_lm}
+:::definition[OLS]{#def-ols_lm}
 
 An ordinary least squares linear model (OLM) provides an estimate $\hat{\beta}$ of unknown coefficent $\beta \in \mathbb{R^{p \times 1}}$ to the problem,
 
@@ -32,17 +32,17 @@ We **assume** that $\dfrac{\varepsilon}{\sigma}$ is
 standard normal ([Definition](#def-standard_normal))
 $\Leftrightarrow \varepsilon \sim \mathcal{N}(\mathbf{0, \sigma^2 I_n})$,
 where we may not know $\sigma$.
-::::
+:::
 
-::::theorem[Solution of OLS]{#thm-ols_solution}
+:::theorem[Solution of OLS]{#thm-ols_solution}
 
 Assume that $\mathbf{X}$ has full rank.
 
 The solution of OLS is given by $\hat{\beta} = \mathbf{(X^TX)^{-1}X^Ty}$.
-::::
+:::
 
 
-::::proof[Proof]
+:::proof[Proof]
 
 Let subspace $U \leq \mathbb{R^n}$ generated via the span of $\mathbf{X}$ columns. Then by property of orthogonal projection the
 $\mathbf{\hat{y}=X \beta} \in U$
@@ -66,12 +66,12 @@ $$
 \mathbf{\hat{\beta}} = \mathbf{(X^TX)^{-1}X^Ty}
 \end{align*}
 $$
-::::
+:::
 
 
 ## Large Model vs Submodel
 
-::::theorem[ANOVA F-test]{#thm-anova_F_test}
+:::theorem[ANOVA F-test]{#thm-anova_F_test}
 
 Let $p=p_0+p_1, \mathbf{X = [X_0, X_1]} \in \mathbb{R}^{n \times p}$ for
 $\mathbf{X_0} \in \mathbb{R}^{n \times p_0}, \mathbf{X_1} \in \mathbb{R}^{n \times p_1}$
@@ -104,9 +104,9 @@ $$
 \sim
 F_{p_1, n-p}
 $$
-::::
+:::
 
-::::proof[Proof]
+:::proof[Proof]
 
 The following picture is helpful:
 
@@ -149,11 +149,11 @@ $\mathbf{\hat{\varepsilon}}_\mathcal{N} - \mathbf{\hat{\varepsilon}}_\mathcal{F}
 
 Now under the null hypothesis $\mathbf{y} = \mu_\mathcal{N} + \varepsilon$ for some $\mu_\mathcal{N} \in U_0$, therefore since $U_1, U^\perp$ are orthogonal to $U_0$ it holds that for any
 $W \in \lbrace U_1, U^\perp \rbrace \ \mathbf{P}_W \mathbf{y} = \mathbf{P}_W \mathbf{\varepsilon}$. This gives us what we wanted.
-::::
+:::
 
 ## R2 and Sample Correlation
 
-::::definition[Sample Correlation]{#def-sample_correlation}
+:::definition[Sample Correlation]{#def-sample_correlation}
 
 The **sample correlation** between vectors $\mathbf{x,y}$ is defined as
 
@@ -174,10 +174,10 @@ $$
 
 Where we are lax with notation and let $\mathbf{1}$ denote $\text{span}\lbrace\mathbf{1}\rbrace$ for
 $\mathbf{1} = [1,\ ...\ ,1]^T$.
-::::
+:::
 
 
-::::definition[Coefficient of Determination]{#def-R2}
+:::definition[Coefficient of Determination]{#def-R2}
 
 Given real and predicted $\mathbf{y}$, $\mathbf{\hat{y}}$, the **coefficent of determination** is defined as $R2(\mathbf{y,\hat{y}})$
 
@@ -197,21 +197,21 @@ SS_{tot} &= \| \mathbf{y-\bar{y}} \|^2
 \end{align*}
 $$
 
-::::
+:::
 
-::::remark[Remark]{#rem-R2_general}
+:::remark[Remark]{#rem-R2_general}
 
 Note that $\mathbf{\hat{y}}$ in [Definition](#def-R2) is general. We will specify details to prove the following.
-::::
+:::
 
-::::lemma[R² as Squared Correlation]{#lem-R2_as_squared_correlation}
+:::lemma[R² as Squared Correlation]{#lem-R2_as_squared_correlation}
 
 If the predictions $\mathbf{\hat{y}}$ are standard ols as in [Definition](#def-ols_lm), then it holds that
 
 $$
 r(\mathbf{y}, \mathbf{\hat{y}}) = R2(\mathbf{y,\hat{y}})
 $$
-::::
+:::
 
 ::::proof[Proof]
 
