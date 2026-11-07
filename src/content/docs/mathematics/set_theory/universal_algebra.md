@@ -518,6 +518,8 @@ Let $E$ be a set of equations. The set $\tilde{E}$ of derived equation satisfies
 
 ::::
 
+Note this definition really means the intersection of all sets with the above properties. This design is the same pattern we used in defining $FX$.
+
 Let's prove a more general version of c. (i).
 
 :::proposition[Simultaneous Substitution]{#prp-simultaneous-substitution}
@@ -610,7 +612,7 @@ u_{j} [t_j / y] &\sim u_{j} [s_j / y] \\
 \end{align*}
 $$
 
-So, $u_{j} \left[ t_j / y \right] = u_{j-1} \left[ t_{j-1} / y \right]$ for $j=2, \dots, n$.
+So, $u_{j} \left[ t_j / y \right] \sim u_{j-1} \left[ t_{j-1} / y \right]$ for $j=2, \dots, n$.
 
 Then,
 
@@ -723,6 +725,76 @@ s_{EX} \left(
 \by{cor-derived-op-quotient} &= t_{EX} \left( [u_1], \dots, [u_n] \right)
 \end{align*}
 $$
+
+**(ii)**
+
+Let 
+
+$$
+\hat{E} = \left\{ \left( s=t \right) : h(s)=h(t) \ \forall \ \Omega \text{ homomorphism } h \right\}
+$$
+
+We will show that $\hat{E}$ satisfies closure properties (a,b,c) of [Derived Equations](#def-derived-equation) and therefore $\tilde{E} \subseteq \hat{E}$.
+
+a.
+
+If $(t=s) \in E$ then the quotient homomorphism gives us $[s] = q(s) = q(t) = [t]$
+
+b. RST is easy.
+
+c. (i)
+
+If $(t=s) \in \hat{E}$, $h$ is any homomorphism, $u \in FX$ then the [substitution lemma](#lem-sub-general) gives us that $h(s[u / x_i]) = h'(s)$ where $h'$ is the unique homomorphism defined by agreeing with $h$ on $x_j: j \neq i$ and $h'(x_i) \coloneqq h(u)$.
+
+Hence,
+
+$$
+\begin{align*}
+h(s[u / x_i]) &= h'(s) = h'(t) = h(t[u / x_i])
+\end{align*}
+$$
+
+c. (ii)
+
+Again assume $(t=s) \in \hat{E}$, $h$ some $FX \to A$ homomorphism.
+
+The same substitution lemma gives us a new $h'$ homomorphism that agrees with $h$ on $x_j:j \neq i$ and $h'(x_i) \coloneqq h(s)$ where
+
+$$
+h \left( u [s / x_i] \right) = h' (u)
+$$
+
+This lemma also gives us $h''$ homomorphism that agrees with $h$ on $x_j : j \neq i$ and $h''(x_i) = h(t)$ where
+
+$$
+h \left( u [t / x_i] \right) = h'' (u)
+$$
+
+Both $h'$ and $h''$ agree on $x_j : j\neq i$ and agree on $x_i$ because $(s=t) \in \hat{E}$. Therefore $h'$ and $h''$ are identical and therefore
+
+$$
+h \left( u [t / x_i] \right) = h \left( u [s / x_i] \right)
+$$
+
+Because we have proven the closure properties for $\hat{E}$ we have that $\tilde{E} \subseteq \hat{E}$.
+
+Therefore all equations $(t=s) \in \tilde{E}$ have the property that $h(s)=h(t)$ for any homomorphism $h$.
+
+This means that any homomorphism $h$ factors through the quotient map:
+
+Define $k : EX \to A$ by $k([t]) \coloneqq h(t)$ which works for any equivalence class representative we choose because $\tilde{E} \subseteq \hat{E}$.
+
+$$
+\begin{array}{ccc}
+F_\Omega(X) & \xrightarrow{\;\;q\;\;} & F_{(\Omega,E)}(X) \\
+& \searrow_{\ h} & \big\downarrow{\scriptstyle k} \\
+& & A
+\end{array}
+$$
+
+i.e $h = k \circ q$
+
+
 :::
 
 :::proof[[OLD TO BE DELETED] Proof of Theorem: Equivalence classes satisfy E]
