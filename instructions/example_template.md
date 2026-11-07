@@ -144,24 +144,14 @@ $$
 
 - `\ref[Text]{id}` and `\by[Text]{id}` choose the text; they are required for other pages (`\by[Kunen 2.1]{other-note.md#thm-k}`) and for unnumbered targets whose titles contain math. Ordinary `\text{[…]}` reasons remain fine. A reference to an ID that does not exist fails the build.
 
-For nesting, make the outer fence longer than the inner fence:
-
-```markdown
-::::theorem[Result with a nested proof]{#thm-nested}
-Statement.
-
-:::proof
-Proof content. $\blacksquare$
-:::
-::::
-```
+Write every block fence as exactly `:::`, nested or not; a tool lengthens outer fences afterwards, so do not count colons.
 
 ### Labelled lists
 
 Write ordered lists with `1.`, `2.`, … and indent nested items under their parent. Markdown has no `a.` or `i.` list syntax: such lines become plain paragraphs or, when indented, code. To match a source's labels, wrap the list in `:::list` and name one marker per nesting level (up to three) from `1.` `(1)` `a.` `(a)` `A.` `(A)` `i.` `(i)` `I.` `(I)`:
 
 ```markdown
-::::definition[Derived equations]{#def-derived}
+:::definition[Derived equations]{#def-derived}
 $\tilde{E}$ satisfies:
 
 :::list{style="(a) (i)"}
@@ -171,7 +161,7 @@ $\tilde{E}$ satisfies:
     1. reflexive
     2. symmetric
 :::
-::::
+:::
 ```
 
 This renders as (a), (b) with (i), (ii) beneath. Write irregular labels such as (iii′) as text instead.

@@ -35,7 +35,7 @@ The proof goes here.
 - Targets must be identified `definition`, `theorem`, `lemma`, `proposition`, `corollary`, `example`, or `exercise` blocks. A `solution` takes the same attributes as a proof and is drawn the same way in graphs. Remarks, notation, asides and proofs can be linked normally, but are not relationship targets.
 - Ordinary links imply no dependencies. Do not infer relationships from prose or annotate existing proofs without the author's intent.
 
-Identified blocks automatically appear in `/theorems.json` with Markdown statements, rendered title/statement HTML, source locations, URLs and declared relationships; nested proofs are excluded from result statements. There is no manually maintained graph data. Unknown block types/options, duplicate block IDs and invalid declared relationships fail validation.
+Identified blocks automatically appear in `/theorems.json` with Markdown statements, rendered title/statement HTML, source locations, URLs and declared relationships; nested proofs are excluded from result statements. There is no manually maintained graph data. Write every block fence as `:::`; `npm run fences:fix` (also part of `npm run check`) lengthens outer fences so nested blocks parse, and reports unbalanced ones. Unknown block types/options, duplicate block IDs and invalid declared relationships fail validation.
 
 ## Numbering and books
 

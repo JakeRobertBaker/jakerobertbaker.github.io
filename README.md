@@ -70,7 +70,7 @@ See [Adding and maintaining notes](instructions/adding-notes.md) for repository 
 
 ### Everyday check — `npm run check`
 
-Runs Astro/TypeScript diagnostics. It is not a production build or a complete math/link check; preview the changed notes as described in the workflow above.
+Runs Astro/TypeScript diagnostics, then `npm run fences`, which checks that `:::` block fences are balanced and sized for their nesting (`npm run fences:fix` rewrites them; authors always write `:::`). It is not a production build or a complete math/link check; preview the changed notes as described in the workflow above.
 
 ### Full validation — `npm run validate`
 
@@ -82,7 +82,7 @@ The site suite discovers current built pages and checks links/assets/fragments, 
 
 ### Focused checks
 
-`npm run test:math` runs the Markdown/plugin unit tests. `npm run test:site` runs all built-site browser tests; `npm run test:theme` runs only the theme subset. Both browser commands use existing `dist/`, so build first after changes. `npm run test:preview` tests the screenshot utility itself; [preview instructions](instructions/site-preview.md) explain `npm run screenshots` for visual inspection.
+`npm run test:math` runs the Markdown/plugin and fence-normaliser unit tests. `npm run test:site` runs all built-site browser tests; `npm run test:theme` runs only the theme subset. Both browser commands use existing `dist/`, so build first after changes. `npm run test:preview` tests the screenshot utility itself; [preview instructions](instructions/site-preview.md) explain `npm run screenshots` for visual inspection.
 
 ### Dependencies
 

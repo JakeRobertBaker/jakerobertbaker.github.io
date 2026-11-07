@@ -12,9 +12,11 @@
     "dev": "astro dev",
     "build": "astro build --force",
     "preview": "astro preview",
-    "check": "astro check",
+    "check": "astro check && npm run fences",
+    "fences": "node scripts/fences.mjs",
+    "fences:fix": "node scripts/fences.mjs --fix",
     "validate": "npm run check && npm run test:math && npm run build && npm run test:preview && npm run test:site",
-    "test:math": "node --test tests/math-blocks.test.mjs",
+    "test:math": "node --test tests/math-blocks.test.mjs tests/fences.test.mjs",
     "test:site": "playwright test",
     "test:theme": "playwright test theme.spec.ts"
   },
