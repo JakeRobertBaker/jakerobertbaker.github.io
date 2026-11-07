@@ -67,6 +67,8 @@ Hence $A^0$ = $\left\{ \emptyset \right\}$.
 
 ## Chapter 1. Notes
 
+### Syntax
+
 :::definition[Finary Operation]{#def-Finary-Operation}
 
 A finary operation is a map from $G$ to $G^n, n \in \left\{ 0, 1, 2, \dots \right\}$
@@ -114,6 +116,8 @@ The operation symbols for a group make an operational type with $\Omega = \left\
 
 A helpful remark on how to think about things. Not from Johnstone.
 
+### Structure
+
 :::remark[Syntax, Semantics and Structure]{#rem-Structure}
 
 - Syntax is just strings of symbols with rules to follow.
@@ -125,7 +129,7 @@ Structure is what connects syntax to semantics.
 A structure is a set $A$ with a choice of what the symbols $\Omega$ mean on that set.
 :::
 
-:::definition[Operational Structure]{#def-OperationalStructure}
+:::definition[Operational Structure]{#def-op-structure}
 
 An operational structure $(\Omega, \alpha)$ is
 
@@ -137,7 +141,7 @@ $\omega_A$ is *the interpretation of abstract symbol* $\omega$ *in the structure
 
 :::
 
-:::definition[Homomorphism]{#def-Homomorphism}
+:::definition[Homomorphism]{#def-homomorphism}
 
 A map $f:A\mapsto B$ is a homomorphism of $\Omega$ structures $A$ & $B$ if
 
@@ -147,6 +151,8 @@ $$
 
 where $\alpha(\omega)=n$ and $\forall a_1,...,a_n \in A$
 :::
+
+### Terms
 
 :::definition[$\Omega$-terms properties]{#def-term-properties}
 Let $\Omega$ be an operational type and $X$ be a set.
@@ -455,6 +461,8 @@ s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
 $$
 :::
 
+### Equations
+
 :::definition[n-ary Equation]{#def-nary-eq}
 
 An n-ary equation in operational type $(\Omega, \alpha)$ is an expression $(s=t)$ for $s,t \in F_{\Omega}(X_n)$
@@ -617,14 +625,29 @@ $$
 
 In other words we have shown that $\omega_{EX} \left( [u_1], \dots, [u_m] \right) = \left[ \omega_{FX} \left( u_1, \dots, u_m \right) \right]$.
 
-Because of [derived operations commute](#lem-derived-ops-commute) we have corollary,
+Notice that $\by{lem-quotient-homomorphism}$ and $\by{prp-ex-operations-well-defined}$ really are just the same thing with different wording. These are what Johnstone means by interpretations in $FX$ of operations respect $\sim_{E}$ and hence induce operators on the quotient set $F_{\Omega, E} \left( X \right)$.
+
+Because  derived ops commute $\by{lem-derived-ops-commute}$, the quotient homomorphism $\by{lem-quotient-homomorphism}$ gives us a corollary.
 
 :::corollary[Derived Op Quotient]{#cor-derived-op-quotient}
 If $t \in FX$ then,
 
 $$
-t_{EX} \left( [u_1], \dots, [u_n] \right) =
+\begin{align*}
+t_{EX} \left( 
+q \left( u_1 \right), \dots
+q \left( u_n \right)
+\right)
+&=
+q \left( 
+t_{FX} \left( u_1, \dots, u_n \right)
+\right)
+\\
+\iff
+\\
+t_{EX} \left( [u_1], \dots, [u_n] \right) &=
 \left[ t_{FX} \left( u_1, \dots, u_n \right) \right]
+\end{align*}
 $$
 :::
 
@@ -638,7 +661,7 @@ $$
 
 :::
 
-:::proof[Proof of Theorem: Equivalence classes satisfy E]{open}
+:::proof[[OLD TO BE DELETED]Proof of Theorem: Equivalence classes satisfy E]
 
 **Part I**
 
