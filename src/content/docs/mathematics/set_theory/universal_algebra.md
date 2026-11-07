@@ -782,7 +782,7 @@ Therefore all equations $(t=s) \in \tilde{E}$ have the property that $h(s)=h(t)$
 
 This means that any homomorphism $h$ factors through the quotient map:
 
-Define $k : EX \to A$ by $k([t]) \coloneqq h(t)$ which works for any equivalence class representative we choose because $\tilde{E} \subseteq \hat{E}$.
+we obtain unique $k : EX \to A$ by $k([t]) \coloneqq h(t)$ which works for any equivalence class representative we choose because $\tilde{E} \subseteq \hat{E}$.
 
 $$
 \begin{array}{ccc}
@@ -794,6 +794,7 @@ $$
 
 i.e $h = k \circ q$
 
+In particular when $f : X \to A$ we have a unique homomorphism $\bar{f} : FX \to A$ which makes a unique map (denoted as $k$ above) $\tilde{f}: EX \to A$ extending $f$.
 
 :::
 
