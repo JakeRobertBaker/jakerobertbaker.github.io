@@ -798,3 +798,25 @@ In particular when $f : X \to A$ we have a unique homomorphism $\bar{f} : FX \to
 
 :::
 
+This gives way to ...
+
+:::corollary[Derived Equations $\iff$ true in all models]{#cor-der-eq-true-all-models}
+Let $\left( \Omega, E \right)$ be an Algebraic Theory. Then,
+
+$$
+\left( s=t \right) \in \tilde{E} \iff \left( s=t \right) \text{ satisfied in every } \left( \Omega, E \right) \text{ model}
+$$
+:::
+
+:::proof{proves="#cor-der-eq-true-all-models"}
+
+$\implies$
+
+Assume that $\left( s=t \right) \in \tilde{E}$.
+
+The equations satisfied in a particular $\left( \Omega, E \right)$ model obey the closure properties of [derived equations](#def-derived-equation).
+
+Therefore, the equations satisfied in every $\left( \Omega, E \right)$ model obey those closure properties.
+
+Therefore $\tilde{E} \subseteq \left\{ (s=t) : \text{satisfied in every} \left( \Omega, E \right) \text{ model} \right\}$.
+:::
