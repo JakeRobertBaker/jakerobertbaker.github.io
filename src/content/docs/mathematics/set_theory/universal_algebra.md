@@ -518,6 +518,26 @@ Let $E$ be a set of equations. The set $\tilde{E}$ of derived equation satisfies
 
 ::::
 
+Let's prove a more general version of c. (i).
+
+:::proposition[Simultaneous Substitution]{#prp-simultaneous-substitution}
+If $\left( s=t \right) \in \tilde{E}$ and $u_1, \dots u_n \in FX$ then $\left( s[\underline{u}/\underline{x}] = t[\underline{u}/\underline{x}] \right) \in \tilde{E}$.
+:::
+
+:::proof{proves="#prp-simultaneous-substitution"}
+
+Let's choose $y_1, \dots, y_n$ that share no $x_i$ with $s,t,$
+
+Apply c. (i) successively replacing $y_1/x_1, \dots, y_n/x_n$.
+
+We obtain $\left( s \left[ \underline{y} / \underline{x} \right] = t\left[ \underline{y} / \underline{x} \right] \right) \in \tilde{E}$.
+
+Now successively apply c. (i) replacing $u_1 / y_1, \dots, u_n / y_n$ to  obtain
+
+$(s[\underline{u} / \underline{x}] = t[\underline{u} / x]) \in \tilde{E}$
+:::
+
+
 This is just the smallest subset of all possible equations $(s=t)$ such that it is closed under a,b,c.
 
 :::example[Group Theory Example]{#exm-group_theory}
@@ -682,6 +702,10 @@ We can show that equations in $E$ are satisfied in $EX$.
 
 Assume $s,t \in FX$ such that $t \sim_{E} s$. We need to show that $t_{EX} \equiv s_{EX}$.
 
+Note that
+$\left( s[\underline{u}/\underline{x}] = t[\underline{u}/\underline{x}] \right) \in \tilde{E}$
+by $\by{prp-simultaneous-substitution}$.
+
 Let $u_1, \dots, u_n \in FX$. Then, 
 
 $$
@@ -691,7 +715,10 @@ s_{EX} \left(
 \right) \\
 \by{cor-derived-op-quotient} &=
 \left[ s_{FX} \left( u_1, \dots, u_n \right) \right] \\
-[\text{since } s_{FX} \equiv t_{FX}] &=
+\by{prp-derived-op-sub} &= [s[\underline{u} / \underline{x}]] \\
+\text{[above Note.]} &= [t[\underline{u} / \underline{x}]]
+\\
+\by{prp-derived-op-sub} &=
 \left[ t_{FX} \left( u_1, \dots, u_n \right) \right] \\
 \by{cor-derived-op-quotient} &= t_{EX} \left( [u_1], \dots, [u_n] \right)
 \end{align*}
