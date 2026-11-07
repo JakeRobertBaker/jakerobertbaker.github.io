@@ -455,7 +455,7 @@ s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
 $$
 :::
 
-:::definition[n-ary Equation]{#def-nary_equation}
+:::definition[n-ary Equation]{#def-nary-eq}
 
 An n-ary equation in operational type $(\Omega, \alpha)$ is an expression $(s=t)$ for $s,t \in F_{\Omega}(X_n)$
 :::
@@ -465,7 +465,7 @@ An n-ary equation in operational type $(\Omega, \alpha)$ is an expression $(s=t)
 An n-ary equation is satisfied in operational structure A iff $t_A \equiv s_A$
 :::
 
-:::definition[Algebraic Theory]{#def-algebraic_theory}
+:::definition[Algebraic Theory]{#def-theory}
 
 An Algebraic Theory $T=(\Omega, E)$ is an operational type $(\Omega, \alpha)$ and set $E$ of equations in $\Omega$
 :::
@@ -484,7 +484,7 @@ E=\{(m x_1 m x_2 x_3 = m m x_1 x_2 x_3), (mex_1=x_1), (m i x_1 x_1 = e)\}
 $$
 :::
 
-::::definition[Derived Equations]{#def-derived_equations}
+::::definition[Derived Equations]{#def-derived-equation}
 
 Let $E$ be a set of equations. The set $\tilde{E}$ of derived equation satisfies:
 
@@ -516,7 +516,9 @@ This is just the smallest subset of all possible equations $(s=t)$ such that it 
 
 Substitution  rule (c) (i)
 
-Let $t=mex_1$, $s=x_1$, then $(s=t) = (m e x_1 = x_1) \in \tilde{E}$
+Let $t=mex_1$, $s=x_1$, we have $(s=t) = (m e x_1 = x_1) \in \tilde{E}$.
+
+The rule gives us $(m e u = u) \in \tilde{E}, \ \forall u \in FX$
 
 Substitution rule (c) (ii)
 
