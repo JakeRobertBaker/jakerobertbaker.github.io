@@ -187,6 +187,8 @@ test('numbered blocks show their numbers and book tags; references in mathematic
   test.skip(!route, 'no page references a block from mathematics yet');
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(route!);
+  // Collapsed proofs cannot be hit-tested; open them so their references are checked too.
+  await page.evaluate(() => document.querySelectorAll('details').forEach((details) => { details.open = true; }));
   // Every link in the mathematics, not just the first align* row, must be hit-testable.
   const covered = await page.locator('.katex-html a[href^="#"]').evaluateAll((links) => links.filter((link) => {
     link.scrollIntoView({ block: 'center' });
