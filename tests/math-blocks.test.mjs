@@ -8,6 +8,7 @@ import mathBlocks, { createRegistry, failMathErrors, katexOptions, mathBlockHtml
 import { pageUrl, resolveReference } from '../src/lib/references.mjs';
 import headingLabels from '../src/lib/heading-labels.mjs';
 import listStyles from '../src/lib/list-styles.mjs';
+import { normalizeFences } from '../scripts/fences.mjs';
 
 const books = { JS: { name: 'Johnstone, Notes on Logic and Set Theory', short_name: 'Johnstone' }, KN: { name: 'Kunen, Set Theory', short_name: 'Kunen' } };
 const renderer = await createMarkdownProcessor({
@@ -372,4 +373,13 @@ test('one resolver preserves legacy routes, case, fragments and queries', () => 
   assert.equal(resolveReference('#def-x', 'note.md'), '#def-x');
   assert.equal(resolveReference('https://example.com/x.md#y', 'note.md'), 'https://example.com/x.md#y');
   assert.throws(() => resolveReference('../../secret', 'note.md'), /escapes the content root/);
+});
+
+test('a labelled list inside a block renders once fences are normalised; raw equal fences leak', async () => {
+  const source = ':::theorem[T]{#thm-t}\nStatement.\n\n:::list{style="(i)"}\n1. first\n\n1. second\n:::\n:::\n';
+  const leaked = await render(source);
+  assert.match(leaked.code, /<p>:::<\/p>/);
+  const fixed = await render(normalizeFences(source).text);
+  assert.doesNotMatch(fixed.code, /:::/);
+  assert.match(fixed.code, /<section class="math-block math-block--theorem"[^>]*id="thm-t"[\s\S]*<ol[\s\S]*second[\s\S]*<\/section>/);
 });
