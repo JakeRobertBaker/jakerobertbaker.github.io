@@ -1,6 +1,7 @@
 ---
 title: Universal Algebra
 numbering: true
+bracketColors: 0
 contentsBlocks: all
 ---
 

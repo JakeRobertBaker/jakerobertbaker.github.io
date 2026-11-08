@@ -43,6 +43,10 @@ The [template](example_template.md#numbering) defines the syntax. Book IDs used 
 
 Numbers and reference text are resolved per page while rendering, in `src/lib/math-blocks.mjs`: empty same-page links and `\ref`/`\by` in math take the target's number, and `\ref`/`\by` become KaTeX `\href` links (KaTeX trusts only same-site `\href`). References to other pages need explicit text, like proofs of results on other pages. Numbers appear in `/theorems.json` (`label`, `book`), graphs and previews. Unknown books, duplicate numbers in one series and references to missing blocks fail the build.
 
+## Bracket colours
+
+Optional rainbow brackets for deeply nested mathematics (`src/lib/bracket-colors.mjs`, a rehype step after KaTeX; colours are `--bracket-0…3` in `src/styles/book.css`). Enable it for a whole page with frontmatter `bracketColors: true`, or for one block with `{brackets}` on a result, proof or solution (`:::proof{proves="#lem-x" brackets}`). The number is how many outer nesting levels stay uncoloured: bare/`true` means 1, `0` colours everything (`bracketColors: 0`, `{brackets=0}`). The innermost scope wins. Colour changes need no restart; changing the plugin does (`npm run dev -- --force`).
+
 ## Proof graphs
 
 Declared relationships can be drawn as an interactive graph: results are cards, and each proof is a labelled arrow from what it `uses` to what it `proves`. Add an `.mdx` page and choose results by page or block, with references relative to that page:

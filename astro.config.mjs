@@ -9,6 +9,7 @@ import remarkDirective from 'remark-directive';
 import rehypeKatex from 'rehype-katex';
 import listStyles from './src/lib/list-styles.mjs';
 import mathBlocks, { failMathErrors, katexOptions, mathBlockHtml } from './src/lib/math-blocks.mjs';
+import bracketColors from './src/lib/bracket-colors.mjs';
 import headingLabels from './src/lib/heading-labels.mjs';
 import { loadBooks } from './src/lib/books.mjs';
 
@@ -29,7 +30,7 @@ export default defineConfig({
     processor: unified({
       smartypants: false,
       remarkPlugins: [remarkMath, remarkDirective, listStyles, [mathBlocks, { books }]],
-      rehypePlugins: [[rehypeKatex, katexOptions], failMathErrors, mathBlockHtml, headingLabels],
+      rehypePlugins: [[rehypeKatex, katexOptions], failMathErrors, bracketColors, mathBlockHtml, headingLabels],
     }),
   },
   integrations: [{

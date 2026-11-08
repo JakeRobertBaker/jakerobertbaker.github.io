@@ -11,6 +11,7 @@ export const collections = {
     // Block numbering and contents entries; see instructions/example_template.md.
     schema: docsSchema({ extend: z.object({
       numbering: z.boolean().optional(),
+      bracketColors: z.union([z.boolean(), z.number().int().min(0)]).optional(),
       contentsBlocks: z.union([z.literal('all'), z.array(z.enum([...resultKinds, ...expositionKinds] as [string, ...string[]]))]).optional(),
     }) }),
   }),
