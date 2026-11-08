@@ -113,8 +113,8 @@ export default function mathBlocks({ books = {} } = {}) {
         fail(`Unknown block type: ${kind}`, node)
       const attrs = node.attributes ?? {}
       const num = numbers.get(node)
-      const allowed = proofKinds.has(kind) ? ["id", "open", "proves", "uses"]
-        : numberedKinds.has(kind) ? ["id", "n", "book"] : ["id"]
+      const allowed = proofKinds.has(kind) ? ["id", "open", "proves", "uses", "brackets"]
+        : numberedKinds.has(kind) ? ["id", "n", "book", "brackets"] : ["id"]
       for (const key of Object.keys(attrs))
         if (!allowed.includes(key)) fail(`Unknown ${kind} metadata: ${key}`, node)
       if (attrs.proves !== undefined && !attrs.proves.trim()) fail("proves needs a target", node)
@@ -129,6 +129,8 @@ export default function mathBlocks({ books = {} } = {}) {
       if (id && !/^[A-Za-z][\w.-]*$/.test(id)) fail(`Invalid block ID: ${id}`, node)
       if (id && ids.has(id)) fail(`Duplicate block ID: ${id}${attrs.id ? "" : ` (give further ${kind}s their own {#id})`}`, node)
       if (id) ids.add(id)
+      if (attrs.brackets !== undefined && !/^\d*$/.test(attrs.brackets))
+        fail("brackets is the number of outer levels left uncoloured: {brackets} or {brackets=2}", node)
       if (attrs.open !== undefined && !["", "true"].includes(attrs.open))
         fail("Use the boolean {open} attribute for an initially expanded proof", node)
       const label = labelOf(node)
@@ -183,7 +185,8 @@ export default function mathBlocks({ books = {} } = {}) {
           hName: proofKinds.has(kind) ? "details" : "section",
           hProperties: {
             className: ["math-block", `math-block--${kind}`], "data-math-kind": kind,
-            ...(id ? { id } : {}), ...(attrs.open !== undefined ? { open: true } : {}),
+            ...(id ? { id } : {}), ...(attrs.brackets !== undefined ? { "data-brackets": attrs.brackets || "1" } : {}),
+            ...(attrs.open !== undefined ? { open: true } : {}),
           },
         },
         children: [

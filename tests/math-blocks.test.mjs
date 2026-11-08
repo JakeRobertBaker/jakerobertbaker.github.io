@@ -6,6 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import mathBlocks, { createRegistry, failMathErrors, katexOptions, mathBlockHtml } from '../src/lib/math-blocks.mjs';
 import { pageUrl, resolveReference } from '../src/lib/references.mjs';
+import bracketColors from '../src/lib/bracket-colors.mjs';
 import headingLabels from '../src/lib/heading-labels.mjs';
 import listStyles from '../src/lib/list-styles.mjs';
 import { normalizeFences } from '../scripts/fences.mjs';
@@ -382,4 +383,26 @@ test('a labelled list inside a block renders once fences are normalised; raw equ
   const fixed = await render(normalizeFences(source).text);
   assert.doesNotMatch(fixed.code, /:::/);
   assert.match(fixed.code, /<section class="math-block math-block--theorem"[^>]*id="thm-t"[\s\S]*<ol[\s\S]*second[\s\S]*<\/section>/);
+});
+
+test('bracket colours follow page and block scope, skipping outer levels', async () => {
+  const scoped = await createMarkdownProcessor({
+    smartypants: false, syntaxHighlight: false,
+    remarkPlugins: [remarkMath, remarkDirective, [mathBlocks, { books }]],
+    rehypePlugins: [[rehypeKatex, katexOptions], bracketColors],
+  });
+  const classes = async (markdown, frontmatter = {}) => {
+    const { code } = await scoped.render(markdown, { fileURL: new URL('../src/content/docs/testing.md', import.meta.url), frontmatter });
+    return [...code.matchAll(/class="(?:mopen|mclose)[^"]*?bracket-(\d)/g)].map((m) => m[1]).join('');
+  };
+  const formula = '$\\left\\{ (a,[b]) \\right\\}$ $[0,1)$';
+  assert.equal(await classes(formula), '');
+  // { ( [ ] ) } sit at depths 0,1,2,2,1,0; the unmatched [0,1) restarts in its own formula.
+  assert.equal(await classes(formula, { bracketColors: true }), '0110');
+  assert.equal(await classes(formula, { bracketColors: 0 }), '012210' + '00');
+  assert.equal(await classes(formula, { bracketColors: 2 }), '00');
+  const block = (attrs) => `:::lemma{#l ${attrs}}\n${formula}\n:::\n\n${formula}`;
+  assert.equal(await classes(block('brackets=0')), '012210' + '00');
+  assert.equal(await classes(block('brackets'), { bracketColors: 0 }), '0110' + '012210' + '00');
+  await assert.rejects(classes(block('brackets=x')), /brackets is the number/);
 });

@@ -34,6 +34,10 @@
   --notes-example-rule: #9e8a9c;
   --notes-neutral-rule: #746b60;
   --notes-rule-gap: 1.1rem;
+  --bracket-0: #d9a066;
+  --bracket-1: #9fbf8f;
+  --bracket-2: #86aecb;
+  --bracket-3: #c49bc0;
   /* Starlight's interface font: prose, controls, search and pagination. */
   --sl-font: 'ET Book', Georgia, serif;
   --notes-base: 1.3125rem;
@@ -70,6 +74,10 @@
   --notes-neutral-rule: #c6b9a7;
   --notes-definition-rule: #91a0a7;
   --notes-example-rule: #b09aa5;
+  --bracket-0: #9a5a1a;
+  --bracket-1: #4f7a3f;
+  --bracket-2: #2f6a96;
+  --bracket-3: #84508a;
 }
 
 .sl-markdown-content {
@@ -104,6 +112,11 @@
   text-underline-offset: .17em;
 }
 .sl-markdown-content .katex { font-size: 1.04em; }
+/* Rainbow brackets by depth: colours are --bracket-0…3 above; scope in instructions/adding-notes.md. */
+.katex .bracket-0 { color: var(--bracket-0); }
+.katex .bracket-1 { color: var(--bracket-1); }
+.katex .bracket-2 { color: var(--bracket-2); }
+.katex .bracket-3 { color: var(--bracket-3); }
 
 .sl-markdown-content .katex-display { margin-block: 1.15em; }
 .content-panel:first-child { padding-top: 3.5rem; padding-bottom: 1.75rem; }
