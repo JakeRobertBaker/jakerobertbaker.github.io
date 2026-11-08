@@ -426,6 +426,14 @@ t_A \left(
 $$
 :::
 
+A simpler wording could be,
+
+Given $f: X \to A$ we obtain the natural extending homomorphism $\bar{f}$ such that $\forall \ t \in FX$
+
+$$
+t_{A} \left( f(x_1), \dots f(x_n) \right) = \bar{f} (t)
+$$
+
 :::lemma[Substitution Lemma]{#lem-sub-general}
 Let,
 
