@@ -2,7 +2,7 @@ import { defineCollection } from 'astro:content';
 import { docsLoader } from '@astrojs/starlight/loaders';
 import { docsSchema } from '@astrojs/starlight/schema';
 import { z } from 'astro/zod';
-import { expositionKinds, resultKinds } from './lib/math-blocks.mjs';
+import { expositionKinds, resultKinds } from './lib/markdown/kinds.mjs';
 
 export const collections = {
   docs: defineCollection({

@@ -3,7 +3,7 @@
 // N cycling 0..levels-1; colours live in book.css.
 //
 // Scope: frontmatter `bracketColors: true | N` for a whole page, or
-// `{brackets}` / `{brackets=N}` on a block (src/lib/math-blocks.mjs). N is the
+// `{brackets}` / `{brackets=N}` on a block (see blocks.mjs). N is the
 // number of outer nesting levels left uncoloured: bare/true means 1, 0 colours
 // everything. The innermost scope wins.
 export const levels = 4

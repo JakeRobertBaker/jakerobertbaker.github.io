@@ -3,8 +3,8 @@
 // results it uses to the result it proves. Statements are the notes' own
 // build-time KaTeX HTML, so the graph needs no Markdown or math rendering.
 import { loadRegistry, type Block } from '../lib/registry';
-import { proofKinds, resultKinds } from '../lib/math-blocks.mjs';
-import { resolveReference } from '../lib/references.mjs';
+import { proofKinds, resultKinds } from '../lib/markdown/kinds.mjs';
+import { resolveReference } from '../lib/markdown/references.mjs';
 import '../styles/theorem-graph.css';
 
 interface Props {

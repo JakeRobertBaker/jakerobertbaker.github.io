@@ -26,9 +26,9 @@ Observes masthead visibility and extends the native sidebar popover to desktop.
 
 ### Mathematical contents labels
 
-`src/lib/heading-labels.mjs` and `src/route-data.ts` supply plain contents labels from the existing KaTeX MathML render, via cached Astro metadata and supported Starlight middleware. They do not change heading HTML/IDs or add a second math renderer.
+`src/lib/markdown/heading-labels.mjs` and `src/route-data.ts` supply plain contents labels from the existing KaTeX MathML render, via cached Astro metadata and supported Starlight middleware. They do not change heading HTML/IDs or add a second math renderer.
 
-Pages with frontmatter `contentsBlocks` also list their top-level identified blocks in both contents, under the nearest listed heading and before its subheadings; `math-blocks.mjs` records each block's headings and plain label. `src/scripts/contents-highlight.ts` widens Starlight's current-section anchors from headings to every contents target, so a listed block becomes current while it (or the prose after it) is read. Keep this in route data plus that selector extension rather than overriding Starlight's contents components or turning block titles into headings; `tocHeadingSelector` is a Starlight internal, re-test it on upgrades.
+Pages with frontmatter `contentsBlocks` also list their top-level identified blocks in both contents, under the nearest listed heading and before its subheadings; `src/lib/markdown/outline.mjs` records each block's headings and plain label. `src/scripts/contents-highlight.ts` widens Starlight's current-section anchors from headings to every contents target, so a listed block becomes current while it (or the prose after it) is read. Keep this in route data plus that selector extension rather than overriding Starlight's contents components or turning block titles into headings; `tocHeadingSelector` is a Starlight internal, re-test it on upgrades.
 
 ### Visual tests — `tests/site/theme.spec.ts`, `tests/site/theme/`
 

@@ -10,7 +10,7 @@ const text = (node) => {
   return node.children?.map(text).join('') ?? '';
 };
 // Plain text of rendered HTML, reading maths from its MathML presentation.
-// Also labels block entries in the contents (see math-blocks.mjs).
+// Also labels block entries in the contents (see block-html.mjs).
 export const presentationText = (node) => text(node).replace(/[\u200b\u2061]/g, '');
 
 export default function headingLabels() {

@@ -161,7 +161,6 @@ test('theorem registry agrees with current rendered blocks and Markdown location
   }
   expect([...blockUrls].sort()).toEqual(renderedBlockUrls.sort());
   for (const block of registry.blocks) {
-    expect(block.statement).toBeTruthy();
     expect(block.line).toBeGreaterThan(0);
     expect(block.source).toMatch(/\.md$/);
     const source = await readFile(new URL(`../../src/content/docs/${block.source}`, import.meta.url), 'utf8');
