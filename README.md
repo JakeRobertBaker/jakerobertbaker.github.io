@@ -60,7 +60,7 @@ See [Adding and maintaining notes](instructions/adding-notes.md) for repository 
 
 ### Interface and theme
 
-`src/components/` and `src/scripts/` hold small native UI overrides, navigation, progressive theorem previews and the [proof graph](instructions/adding-notes.md#proof-graphs) (`TheoremGraph.astro`, laid out client-side with `d3-force`). Prefer Starlight's supported configuration/hooks and scoped overrides rather than vendoring its UI. `src/styles/` and `src/assets/fonts/` hold the book theme and local fonts; see the [theme guide](instructions/book-theme.md).
+`src/components/` and `src/scripts/` hold small native UI overrides, navigation, progressive theorem previews and the [proof graph](instructions/adding-notes.md#proof-graphs) (`TheoremGraph.astro`; `src/scripts/theorem-graph/` has one module each for layout, edges, camera, gestures and selection). Prefer Starlight's supported configuration/hooks and scoped overrides rather than vendoring its UI. `src/styles/` and `src/assets/fonts/` hold the book theme and local fonts; see the [theme guide](instructions/book-theme.md).
 
 ### Assets and tests
 
