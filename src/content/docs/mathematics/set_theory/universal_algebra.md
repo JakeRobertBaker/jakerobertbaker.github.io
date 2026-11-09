@@ -529,7 +529,7 @@ Let $W \coloneqq \left\{ (s=t) : s,t \in FX \right\}$ denote the set of all poss
 
 ::::definition[Derived Equation Properties]{#def-derived-eq-properties}
 
-Let $E$ be a set of equations. A set $F \in \mathcal{C}$ of equations satisfies the derived equation properties iff,
+Let $E$ be a set of equations. A set $T \in \mathcal{C}$ of equations satisfies the derived equation properties iff,
 
 :::list{style="a. (i)"}
 
