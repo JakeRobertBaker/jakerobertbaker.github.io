@@ -401,6 +401,7 @@ test('bracket colours follow page and block scope, skipping outer levels', async
   assert.equal(await classes(formula, { bracketColors: true }), '0110');
   assert.equal(await classes(formula, { bracketColors: 0 }), '012210' + '00');
   assert.equal(await classes(formula, { bracketColors: 2 }), '00');
+  assert.equal(await classes('$(\\frac{(a)}{b})$', { bracketColors: 0 }), '0110', 'fractions add no depth');
   const block = (attrs) => `:::lemma{#l ${attrs}}\n${formula}\n:::\n\n${formula}`;
   assert.equal(await classes(block('brackets=0')), '012210' + '00');
   assert.equal(await classes(block('brackets'), { bracketColors: 0 }), '0110' + '012210' + '00');

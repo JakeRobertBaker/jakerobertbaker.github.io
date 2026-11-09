@@ -18,7 +18,8 @@ export default function bracketColors() {
         parent.children = parent.children.flatMap((node) => {
           if (node.type !== "element") return [node]
           const open = has(node, "mopen")
-          if (!open && !has(node, "mclose")) { walk(node); return [node] }
+          // \frac wraps itself in empty mopen/mclose nulldelimiter spans; not brackets.
+          if ((!open && !has(node, "mclose")) || has(node, "nulldelimiter")) { walk(node); return [node] }
           // KaTeX merges adjacent delimiters into one span ("))"); split them.
           const [only] = node.children
           const pieces = node.children.length === 1 && only.type === "text" && only.value.length > 1
