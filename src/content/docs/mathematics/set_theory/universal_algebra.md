@@ -208,6 +208,8 @@ If $\alpha(\omega)=n$ and $t_i$, $i \in \left\{ 1, \dots, n \right\}$ then by b.
 $F_{\Omega}(X)=\bigcup \lbrace F_{\Omega}(X^\prime) \mid X^\prime \subset X \text{ is finite} \rbrace$
 :::
 
+### Derived Operations
+
 :::definition[Derived Operations]{#def-derived_operation}
 
 Let $X_n= \lbrace x_1,...,x_n \rbrace$, $t \in F_{\Omega}(X_n)$, $A$ be a $\Omega$ structure.
@@ -273,6 +275,8 @@ a. Show $P(x)$ holds $\forall \ x \in X$.
 
 b. Show that if $P(t)$ holds for $ t \in \left\{ t_1, \dots, t_m \right\}$ then it holds for $t=\omega t_1 \dots t_m$
 :::
+
+### Derived Operation Results
 
 :::proposition[Derived Operations Substitute]{#prp-derived-op-sub}
 If, $t \in F_{\Omega} (X_n)$
@@ -470,7 +474,7 @@ s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
 $$
 :::
 
-These two results give us
+Considering these two results together we can see,
 
 $$
 \begin{align*}
@@ -517,17 +521,23 @@ E=\{(m x_1 m x_2 x_3 = m m x_1 x_2 x_3), (mex_1=x_1), (m i x_1 x_1 = e)\}
 $$
 :::
 
-::::definition[Derived Equations]{#def-derived-equation}
+### Derived Equations
 
-Let $E$ be a set of equations. The set $\tilde{E}$ of derived equation satisfies:
+We will make a similar inductive definition to $FX$.
+
+Let $W \coloneqq \left\{ (s=t) : s,t \in FX \right\}$ denote the set of all possible equations.
+
+::::definition[Derived Equation Properties]{#def-derived-eq-properties}
+
+Let $E$ be a set of equations. A set $F \in \mathcal{C}$ of equations satisfies the derived equation properties iff,
 
 :::list{style="a. (i)"}
 
-1. $E \subset \tilde{E}$
+1. $E \subset T$
 
-2. $\tilde{E}$ defines an equivalence relation $s \sim_E t \iff (s=t) \in \tilde{E}$ on the set of terms $F_{\Omega}(X)$
+2. $T$ defines an equivalence relation $s \sim_E t \iff (s=t) \in \tilde{E}$ on the set of terms $F_{\Omega}(X)$
 
-    1. reflexive: $(t=t) \in \tilde{E} \ \forall t \in F_{\Omega}(X)$
+    1. reflexive: $(t=t) \in T \ \forall t \in F_{\Omega}(X)$
 
     2. symmetric: $(s=t) \implies (t=s)$
 
@@ -535,13 +545,21 @@ Let $E$ be a set of equations. The set $\tilde{E}$ of derived equation satisfies
 
 3. Substitution rules:
 
-    1. $(s=t) \in \tilde{E} \implies (s[u / x_i] = t[u / x_i]) \in \tilde{E}$
+    1. $(s=t) \in T \implies (s[u / x_i] = t[u / x_i]) \in \tilde{E}$
 
-    2. $(s=t) \in \tilde{E}, u \in F_{\Omega}(X_n) \implies \left( u[s/x_i] = u[t/x_i] \right) \in \tilde{E}$
+    2. $(s=t) \in T, u \in F_{\Omega}(X_n) \implies \left( u[s/x_i] = u[t/x_i] \right) \in \tilde{E}$
 
 :::
 
 ::::
+
+:::definition[Derived Equations]{#def-derived-equation}
+Let $\mathcal{D} \coloneqq \left\{ T \subseteq W : \text{derived equation properties hold} \right\}$
+
+The set of derived equations $\tilde{E} \coloneqq \bigcap_{T \in \mathcal{D}} T$
+
+:::
+
 
 Note this definition really means the intersection of all sets with the above properties. This design is the same pattern we used in defining $FX$.
 
@@ -836,8 +854,6 @@ $$
 :::proof{proves="#cor-der-eq-true-all-models"}
 
 $\implies$
-
-Assume that $\left( s=t \right) \in \tilde{E}$.
 
 The equations satisfied in a particular $\left( \Omega, E \right)$ model obey the closure properties of [derived equations](#def-derived-equation).
 
