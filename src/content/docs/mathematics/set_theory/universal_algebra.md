@@ -470,6 +470,22 @@ s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
 $$
 :::
 
+These two results give us
+
+$$
+\begin{align*}
+{s[u/x_i]}_{FX}(a_1, \dots, a_n) &= \bar{f}(s[u / x_i])
+\\
+&= \bar{g}(s)
+\\
+&= s_{FX} (g(x_1), \dots, g(x_i), \dots , g(x_n))
+\\
+&= s_{FX} (f(x_1), \dots, \bar{f}(u), \dots , f(x_n))
+\\
+&= s_{FX} (a_1, \dots, u_{FX}(a_1, \dots, a_n), \dots , a_n)
+\end{align*}
+$$
+
 ### Equations
 
 :::definition[n-ary Equation]{#def-nary-eq}
