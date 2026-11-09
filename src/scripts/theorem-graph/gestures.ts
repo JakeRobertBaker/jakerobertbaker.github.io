@@ -75,6 +75,8 @@ export function attachGestures(viewport: HTMLElement, camera: Camera, items: Ite
       release();
     }
   };
+  // A native link drag would cancel the pointer gesture on titles and proofs.
+  viewport.addEventListener('dragstart', (event) => event.preventDefault());
   viewport.addEventListener('pointerup', end);
   viewport.addEventListener('pointercancel', end);
   viewport.addEventListener('wheel', (event) => {

@@ -324,3 +324,17 @@ test('proof graphs lay out registry results and proofs, select them, and degrade
   await expect(static_.locator('.tg-proof__route').first()).toBeVisible();
   await context.close();
 });
+
+test('proof graph cards can be dragged by their title links', async ({ page }) => {
+  await page.goto('/mathematics/analysis/companion_to_analysis/theory_graph/');
+  const card = page.locator('theorem-graph').first().locator('.tg-node').first();
+  await expect(card).toHaveAttribute('style', /translate/);
+  await card.scrollIntoViewIfNeeded();
+  const before = await card.getAttribute('style');
+  const box = (await card.locator('.tg-node__title a').boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width / 2 + 60, box.y + box.height / 2 + 40, { steps: 6 });
+  await expect.poll(() => card.getAttribute('style')).not.toBe(before);
+  await page.mouse.up();
+});
