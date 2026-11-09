@@ -1,21 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createMarkdownProcessor } from '@astrojs/markdown-remark';
-import remarkDirective from 'remark-directive';
-import remarkMath from 'remark-math';
-import rehypeKatex from 'rehype-katex';
-import mathBlocks, { createRegistry, failMathErrors, katexOptions, mathBlockHtml } from '../src/lib/math-blocks.mjs';
-import { pageUrl, resolveReference } from '../src/lib/references.mjs';
-import bracketColors from '../src/lib/bracket-colors.mjs';
-import headingLabels from '../src/lib/heading-labels.mjs';
-import listStyles from '../src/lib/list-styles.mjs';
+import { createRegistry } from '../src/lib/create-registry.mjs';
+import { notesMarkdown } from '../src/lib/markdown/index.mjs';
+import { pageUrl, resolveReference } from '../src/lib/markdown/references.mjs';
 import { normalizeFences } from '../scripts/fences.mjs';
 
 const books = { JS: { name: 'Johnstone, Notes on Logic and Set Theory', short_name: 'Johnstone' }, KN: { name: 'Kunen, Set Theory', short_name: 'Kunen' } };
 const renderer = await createMarkdownProcessor({
-  smartypants: false, syntaxHighlight: false,
-  remarkPlugins: [remarkMath, remarkDirective, listStyles, [mathBlocks, { books }]],
-  rehypePlugins: [[rehypeKatex, katexOptions], failMathErrors, mathBlockHtml, headingLabels],
+  smartypants: false, syntaxHighlight: false, ...notesMarkdown({ books }),
 });
 const render = (markdown, source = 'testing.md', frontmatter = {}) => renderer.render(markdown, {
   fileURL: new URL(`../src/content/docs/${source}`, import.meta.url), frontmatter,
@@ -58,8 +51,8 @@ A proof linking to [another result](#thm-id).
   assert.match(result.code, /katex/);
   const blocks = result.metadata.frontmatter.mathBlocks;
   assert.equal(blocks.length, 2);
-  assert.match(blocks[0].statement, /The statement \$x=x\$/);
-  assert.doesNotMatch(blocks[0].statement, /A proof/);
+  assert.match(blocks[0].html, /The statement /);
+  assert.doesNotMatch(blocks[0].html, /A proof/);
   assert.deepEqual(blocks[0].uses, []);
   const other = (await render(':::lemma[Identity]{#lem-id}\nOther statement.\n:::', 'other.md')).metadata.frontmatter.mathBlocks;
   const input = [{ blocks }, { blocks: other }];
@@ -194,7 +187,7 @@ test('solutions collapse like proofs, take default IDs and stay out of exercise 
   assert.match(result.code, /<details class="math-block math-block--solution"[^>]*id="solution-ex-one">\n<summary class="math-block__title">Solution to <a href="#ex-one">Show it<\/a>/);
   assert.match(result.code, /<details[^>]*id="sol-two" open>/);
   const blocks = result.metadata.frontmatter.mathBlocks;
-  assert.doesNotMatch(blocks[0].statement + blocks[0].html, /Working/);
+  assert.doesNotMatch(blocks[0].html, /Working/);
   const registry = createRegistry([{ blocks }]);
   assert.equal(registry.blocks.find((b) => b.id === 'solution-ex-one').proves, '/testing/#ex-one');
 });
@@ -386,13 +379,8 @@ test('a labelled list inside a block renders once fences are normalised; raw equ
 });
 
 test('bracket colours follow page and block scope, skipping outer levels', async () => {
-  const scoped = await createMarkdownProcessor({
-    smartypants: false, syntaxHighlight: false,
-    remarkPlugins: [remarkMath, remarkDirective, [mathBlocks, { books }]],
-    rehypePlugins: [[rehypeKatex, katexOptions], bracketColors],
-  });
   const classes = async (markdown, frontmatter = {}) => {
-    const { code } = await scoped.render(markdown, { fileURL: new URL('../src/content/docs/testing.md', import.meta.url), frontmatter });
+    const { code } = await render(markdown, 'testing.md', frontmatter);
     return [...code.matchAll(/class="(?:mopen|mclose)[^"]*?bracket-(\d)/g)].map((m) => m[1]).join('');
   };
   const formula = '$\\left\\{ (a,[b]) \\right\\}$ $[0,1)$';
@@ -401,6 +389,7 @@ test('bracket colours follow page and block scope, skipping outer levels', async
   assert.equal(await classes(formula, { bracketColors: true }), '0110');
   assert.equal(await classes(formula, { bracketColors: 0 }), '012210' + '00');
   assert.equal(await classes(formula, { bracketColors: 2 }), '00');
+  assert.equal(await classes('$(\\frac{(a)}{b})$', { bracketColors: 0 }), '0110', 'fractions add no depth');
   const block = (attrs) => `:::lemma{#l ${attrs}}\n${formula}\n:::\n\n${formula}`;
   assert.equal(await classes(block('brackets=0')), '012210' + '00');
   assert.equal(await classes(block('brackets'), { bracketColors: 0 }), '0110' + '012210' + '00');

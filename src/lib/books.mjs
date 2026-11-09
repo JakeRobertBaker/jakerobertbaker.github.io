@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs"
 import { parse } from "yaml"
 
-// The one place books are read and checked; math-blocks receives the result.
+// The one place books are read and checked; the Markdown pipeline receives the result.
 export function loadBooks(url) {
   const books = parse(readFileSync(url, "utf8")) ?? {}
   for (const [id, book] of Object.entries(books)) {

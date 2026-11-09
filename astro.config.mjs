@@ -4,13 +4,7 @@ import { parse as parseYaml } from 'yaml';
 import { copyFile } from 'node:fs/promises';
 import starlight from '@astrojs/starlight';
 import { unified } from '@astrojs/markdown-remark';
-import remarkMath from 'remark-math';
-import remarkDirective from 'remark-directive';
-import rehypeKatex from 'rehype-katex';
-import listStyles from './src/lib/list-styles.mjs';
-import mathBlocks, { failMathErrors, katexOptions, mathBlockHtml } from './src/lib/math-blocks.mjs';
-import bracketColors from './src/lib/bracket-colors.mjs';
-import headingLabels from './src/lib/heading-labels.mjs';
+import { notesMarkdown } from './src/lib/markdown/index.mjs';
 import { loadBooks } from './src/lib/books.mjs';
 
 // Read on each config reload; the watcher below restarts config on edits.
@@ -27,11 +21,7 @@ export default defineConfig({
   server: { host: '0.0.0.0', port: 2718 },
   vite: { server: { strictPort: true } },
   markdown: {
-    processor: unified({
-      smartypants: false,
-      remarkPlugins: [remarkMath, remarkDirective, listStyles, [mathBlocks, { books }]],
-      rehypePlugins: [[rehypeKatex, katexOptions], failMathErrors, bracketColors, mathBlockHtml, headingLabels],
-    }),
+    processor: unified({ smartypants: false, ...notesMarkdown({ books }) }),
   },
   integrations: [{
     name: 'watch-data',

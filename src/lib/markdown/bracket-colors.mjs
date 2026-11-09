@@ -3,7 +3,7 @@
 // N cycling 0..levels-1; colours live in book.css.
 //
 // Scope: frontmatter `bracketColors: true | N` for a whole page, or
-// `{brackets}` / `{brackets=N}` on a block (src/lib/math-blocks.mjs). N is the
+// `{brackets}` / `{brackets=N}` on a block (see blocks.mjs). N is the
 // number of outer nesting levels left uncoloured: bare/true means 1, 0 colours
 // everything. The innermost scope wins.
 export const levels = 4
@@ -18,7 +18,8 @@ export default function bracketColors() {
         parent.children = parent.children.flatMap((node) => {
           if (node.type !== "element") return [node]
           const open = has(node, "mopen")
-          if (!open && !has(node, "mclose")) { walk(node); return [node] }
+          // \frac wraps itself in empty mopen/mclose nulldelimiter spans; not brackets.
+          if ((!open && !has(node, "mclose")) || has(node, "nulldelimiter")) { walk(node); return [node] }
           // KaTeX merges adjacent delimiters into one span ("))"); split them.
           const [only] = node.children
           const pieces = node.children.length === 1 && only.type === "text" && only.value.length > 1

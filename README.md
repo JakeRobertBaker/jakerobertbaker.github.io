@@ -56,11 +56,11 @@ See [Adding and maintaining notes](instructions/adding-notes.md) for repository 
 
 `astro.config.mjs` configures static output, Starlight and Unified Markdown processing. Unified is selected explicitly because Astro 7 defaults to Sätteri. KaTeX renders local HTML/MathML, CSS and fonts at build time; math and native proof disclosure work without JavaScript.
 
-`src/lib/` handles math blocks (including numbering and references), labelled lists (`:::list`), optional [bracket colours](instructions/adding-notes.md#bracket-colours), books, links and mathematical contents labels. `src/lib/registry.ts` aggregates identified blocks, including their rendered KaTeX HTML, from per-page render metadata, without a second parser or process-global extraction cache; `src/pages/theorems.json.ts` publishes it. Proof dependencies are explicit and optional; ordinary links do not imply them. `src/route-data.ts` supplies contents labels and optional block entries from cached render metadata.
+`src/lib/markdown/` is the Markdown pipeline; `index.mjs` defines its plugin order, with one module per phase: numbering, block rewriting, references, heading IDs and contents, rendered block HTML, labelled lists (`:::list`) and optional [bracket colours](instructions/adding-notes.md#bracket-colours). `kinds.mjs` is the block vocabulary. `src/lib/registry.ts` aggregates identified blocks, including their rendered KaTeX HTML, from per-page render metadata, without a second parser or process-global extraction cache; `src/pages/theorems.json.ts` publishes it. Proof dependencies are explicit and optional; ordinary links do not imply them. `src/route-data.ts` supplies contents labels and optional block entries from cached render metadata.
 
 ### Interface and theme
 
-`src/components/` and `src/scripts/` hold small native UI overrides, navigation, progressive theorem previews and the [proof graph](instructions/adding-notes.md#proof-graphs) (`TheoremGraph.astro`, laid out client-side with `d3-force`). Prefer Starlight's supported configuration/hooks and scoped overrides rather than vendoring its UI. `src/styles/` and `src/assets/fonts/` hold the book theme and local fonts; see the [theme guide](instructions/book-theme.md).
+`src/components/` and `src/scripts/` hold small native UI overrides, navigation, progressive theorem previews and the [proof graph](instructions/adding-notes.md#proof-graphs) (`TheoremGraph.astro`; `src/scripts/theorem-graph/` has one module each for layout, edges, camera, gestures and selection). Prefer Starlight's supported configuration/hooks and scoped overrides rather than vendoring its UI. `src/styles/` and `src/assets/fonts/` hold the book theme and local fonts; see the [theme guide](instructions/book-theme.md).
 
 ### Assets and tests
 

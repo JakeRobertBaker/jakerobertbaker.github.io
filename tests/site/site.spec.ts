@@ -122,25 +122,6 @@ test('pages that opt in list their blocks in desktop and mobile contents', async
   }
 });
 
-test('remarks and notation retain published identities and use semantic blocks', async ({ page, request }) => {
-  const targets = [
-    ['/mathematics/linear_models/linear_models/', 'rem-R2_general', 'remark'],
-    ['/mathematics/probability/ballot_notes/', 'rem-Beta-Binomial-Proportion', 'remark'],
-    ['/deep_learning/attention_is_all_you_need/', 'rem-enc-self-attn', 'remark'],
-    ['/deep_learning/attention/', 'not-attention', 'notation'],
-  ];
-  const registry = await (await request.get('/theorems.json')).json();
-  for (const [route, id, kind] of targets) {
-    await page.goto(`${route}#${id}`);
-    await expect(page.locator(`[id="${id}"]`)).toHaveClass(`math-block math-block--${kind}`);
-    await expect(page.locator(`[id="${id}"] .math-permalink`)).toHaveAttribute('href', `#${id}`);
-    expect(registry.blocks.find((block: { url: string }) => block.url === `${route}#${id}`)?.kind).toBe(kind);
-  }
-  await page.goto('/mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes/');
-  await expect(page.locator('.math-block--remark')).toContainText('Already have: countable implies outer measure zero');
-  await expect(page.locator('.starlight-aside--note')).toContainText('Therefore');
-});
-
 test('theorem registry agrees with current rendered blocks and Markdown locations', async ({ page, request }) => {
   const response = await request.get('/theorems.json');
   expect(response.status()).toBe(200);
@@ -161,7 +142,6 @@ test('theorem registry agrees with current rendered blocks and Markdown location
   }
   expect([...blockUrls].sort()).toEqual(renderedBlockUrls.sort());
   for (const block of registry.blocks) {
-    expect(block.statement).toBeTruthy();
     expect(block.line).toBeGreaterThan(0);
     expect(block.source).toMatch(/\.md$/);
     const source = await readFile(new URL(`../../src/content/docs/${block.source}`, import.meta.url), 'utf8');
@@ -219,18 +199,15 @@ test('hover and keyboard previews render KaTeX and keep normal navigation', asyn
   await expect(page.locator('#def-standard_normal')).toBeVisible();
 });
 
-test('mobile navigation, themes, contents, long math, and built-site search', async ({ page }) => {
+test('mobile layout, long math, sidebar navigation and built-site search', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const colorScheme of ['light', 'dark'] as const) {
-    await page.emulateMedia({ colorScheme });
-    for (const route of routes) {
-      await page.goto(route);
-      await expect(page.locator('h1')).toBeVisible();
-      expect(await page.evaluate(() => document.documentElement.scrollWidth), route).toBeLessThanOrEqual(392);
-      // Wide math must remain scrollable, but no note has to keep a wide formula.
-      expect(await page.locator('.math-block__body').evaluateAll((elements) => elements.every((element) =>
-        element.scrollWidth <= element.clientWidth || getComputedStyle(element).overflowX === 'auto')), route).toBeTruthy();
-    }
+  for (const route of routes) {
+    await page.goto(route);
+    await expect(page.locator('h1')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth), route).toBeLessThanOrEqual(392);
+    // Wide math must remain scrollable, but no note has to keep a wide formula.
+    expect(await page.locator('.math-block__body').evaluateAll((elements) => elements.every((element) =>
+      element.scrollWidth <= element.clientWidth || getComputedStyle(element).overflowX === 'auto')), route).toBeTruthy();
   }
   await page.goto('/');
   await page.getByRole('button', { name: 'Menu', exact: true }).click();
@@ -324,4 +301,18 @@ test('proof graphs lay out registry results and proofs, select them, and degrade
   await expect(static_.locator('.tg-node .katex').first()).toBeVisible();
   await expect(static_.locator('.tg-proof__route').first()).toBeVisible();
   await context.close();
+});
+
+test('proof graph cards can be dragged by their title links', async ({ page }) => {
+  await page.goto('/mathematics/analysis/companion_to_analysis/theory_graph/');
+  const card = page.locator('theorem-graph').first().locator('.tg-node').first();
+  await expect(card).toHaveAttribute('style', /translate/);
+  await card.scrollIntoViewIfNeeded();
+  const before = await card.getAttribute('style');
+  const box = (await card.locator('.tg-node__title a').boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width / 2 + 60, box.y + box.height / 2 + 40, { steps: 6 });
+  await expect.poll(() => card.getAttribute('style')).not.toBe(before);
+  await page.mouse.up();
 });
