@@ -891,4 +891,26 @@ $$
 Therefore, the equations satisfied in every $\left( \Omega, E \right)$ model obey those closure properties.
 
 Therefore $\tilde{E} \subseteq \left\{ (s=t) : \text{satisfied in every} \left( \Omega, E \right) \text{ model} \right\}$.
+
+
+$\impliedby$
+
+Assume $(s=t)$ is satisfied in every $\left( \Omega, E \right)$ model.
+
+It is therefore satisfied in the model $EX$. In particular
+
+$s_{EX} \left( [x_1], \dots, [x_n] \right) = t_{EX} \left( [x_1], \dots, [x_n] \right)$
+
+Now,
+
+$$
+\begin{align*}
+s_{EX} \left( [x_1], \dots, [x_n] \right) \\
+\by{cor-derived-op-quotient}
+&= [s_{FX}(x_1, \dots, x_n)] \\
+&= [s]
+\end{align*}
+$$
+
+The same holds for $t$ and therefore $[s] = [t]$
 :::
