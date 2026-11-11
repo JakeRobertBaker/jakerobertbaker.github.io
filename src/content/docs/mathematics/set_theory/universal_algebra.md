@@ -474,6 +474,8 @@ s_A \left( \bar{f}(x_1), \dots, \bar{f}(u), \dots, \bar{f}(x_n) \right)
 $$
 :::
 
+#### Summary
+
 Considering these two results together we can see,
 
 $$
@@ -484,11 +486,11 @@ $$
 \\
 &= s_{FX} (g(x_1), \dots, g(x_i), \dots , g(x_n))
 \\
-&= s_{FX} (f(x_1), \dots, \bar{f}(u), \dots , f(x_n))
-\\
 &= s_{FX} (a_1, \dots, u_{FX}(a_1, \dots, a_n), \dots , a_n)
 \end{align*}
 $$
+
+because $g(x_j) = f(x_j) = a_j \ \forall j \neq i$ and $g(x_i) = \bar{f}(u) = u(a_1, \dots, a_n)$
 
 ### Equations
 
@@ -527,7 +529,7 @@ We will make a similar inductive definition to $FX$.
 
 Let $W \coloneqq \left\{ (s=t) : s,t \in FX \right\}$ denote the set of all possible equations.
 
-::::definition[Derived Equation Properties]{#def-derived-eq-properties}
+::::definition[Derived Equation Properties]{#def-eq-closure-properties}
 
 Let $E$ be a set of equations. A set $T \in \mathcal{C}$ of equations satisfies the derived equation properties iff,
 
@@ -855,7 +857,32 @@ $$
 
 $\implies$
 
-The equations satisfied in a particular $\left( \Omega, E \right)$ model obey the closure properties of [derived equations](#def-derived-equation).
+The equations satisfied in a particular $\left( \Omega, E \right)$ model obey the [closure properties](#def-eq-closure-properties) of derived equations.
+
+Properties (a) and (b) are easy. I will show c.
+
+c. (i)
+
+Assume $(s=t)$ is satisfied in model $A$. So $s_A \equiv t_A$.
+
+Our derived operation [results](#summary) give us that
+
+$$
+\begin{align*}
+s[u/x_i] &= s_A(a_1, \dots, u(a_1, \dots, a_n), \dots, a_n) \\
+&= t_A(a_1, \dots, u(a_1, \dots, a_n), \dots, a_n) &= t[u/x_i]
+\end{align*}
+$$
+
+c. (ii)
+
+$$
+\begin{align*}
+u[s/x_i] &= u_A \left( a_1, \dots, s \left( a_1, \dots, a_n \right), \dots, a_n \right) \\
+&= u_A \left( a_1, \dots, t \left( a_1, \dots, a_n \right), \dots, a_n \right)
+&= u[t/x_i]
+\end{align*}
+$$
 
 Therefore, the equations satisfied in every $\left( \Omega, E \right)$ model obey those closure properties.
 
