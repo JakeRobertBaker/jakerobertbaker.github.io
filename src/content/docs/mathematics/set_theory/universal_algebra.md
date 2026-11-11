@@ -861,9 +861,10 @@ The equations satisfied in a particular $\left( \Omega, E \right)$ model obey th
 
 Properties (a) and (b) are easy. I will show c.
 
+Assume $(s=t)$ is satisfied in model $A$. So $s_A \equiv t_A$. Let $a_1, \dots, a_n \in A$.
+
 c. (i)
 
-Assume $(s=t)$ is satisfied in model $A$. So $s_A \equiv t_A$.
 
 Our derived operation [results](#summary) give us that
 
