@@ -869,8 +869,10 @@ Our derived operation [results](#summary) give us that
 
 $$
 \begin{align*}
-s[u/x_i] &= s_A(a_1, \dots, u(a_1, \dots, a_n), \dots, a_n) \\
-&= t_A(a_1, \dots, u(a_1, \dots, a_n), \dots, a_n) &= t[u/x_i]
+{s[u/x_i]}_A \left( a_1, \dots, a_n \right)
+&= s_A(a_1, \dots, u_A(a_1, \dots, a_n), \dots, a_n) \\
+&= t_A(a_1, \dots, u_A(a_1, \dots, a_n), \dots, a_n)
+&= {t[u/x_i]}_A \left( a_1, \dots, a_n \right)
 \end{align*}
 $$
 
@@ -878,9 +880,10 @@ c. (ii)
 
 $$
 \begin{align*}
-u[s/x_i] &= u_A \left( a_1, \dots, s \left( a_1, \dots, a_n \right), \dots, a_n \right) \\
-&= u_A \left( a_1, \dots, t \left( a_1, \dots, a_n \right), \dots, a_n \right)
-&= u[t/x_i]
+{u[s/x_i] }_{A} \left( a_1, \dots, a_n \right)
+&= u_A \left( a_1, \dots, s_A \left( a_1, \dots, a_n \right), \dots, a_n \right) \\
+&= u_A \left( a_1, \dots, t_A \left( a_1, \dots, a_n \right), \dots, a_n \right)
+&= {u[t/x_i]}_{A} \left( a_1, \dots, a_n \right)
 \end{align*}
 $$
 
