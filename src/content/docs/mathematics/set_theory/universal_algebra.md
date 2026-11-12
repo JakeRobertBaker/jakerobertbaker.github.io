@@ -912,5 +912,9 @@ s_{EX} \left( [x_1], \dots, [x_n] \right) \\
 \end{align*}
 $$
 
-The same holds for $t$ and therefore $[s] = [t]$
+The same holds for $t$ and therefore $[s] = [t]$.
 :::
+
+The above corollary is a bit like a completeness theorem.
+
+$\left( s=t \right) \in \tilde{E}$ is like saying that an equation is provable.
