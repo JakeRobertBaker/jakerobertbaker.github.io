@@ -953,3 +953,53 @@ The arities are:
 A Boolean algebra is an $(\Omega,E)$-algebra where $\Omega$ is as above and $E$ is the set of all equations satisfied in $2$.
 :::
 
+Notice that $E$ contains
+
+$$
+\begin{align*}
+\top &= (\bot \Rightarrow \bot) \\
+\neg x &= (x \Rightarrow \bot) \\
+(x \lor y) &= (\neg x \Rightarrow y) \\
+(x \land y) &= \neg(\neg x \lor \neg y) \\
+(x \Leftrightarrow y) &= (x \Rightarrow y) \land (y \Rightarrow x).
+\end{align*}
+$$
+
+These are easily verified by checking that they are satisfied in $2$. Formally, the notation says that:
+
+$$
+\Rightarrow_2(\bot,\bot) = \Rightarrow_2(1,1) = 1
+$$
+
+$$
+\top_2 = 1.
+$$
+
+:::note[Transcription note]
+The handwritten line above uses $(1,1)$ for $(\bot,\bot)$; the preceding definition $\bot_2=0$ would instead give $(0,0)$. The handwritten line is preserved here.
+:::
+
+Similarly, for $\neg x = (x \Rightarrow \bot)$,
+
+$$
+\Rightarrow_2(x,\bot) = \Rightarrow_2(x,0).
+$$
+
+Then
+
+$$
+\begin{align*}
+\Rightarrow_2(1,0) &= 0 = \neg_2(1) \\
+\Rightarrow_2(0,0) &= 1 = \neg_2(0).
+\end{align*}
+$$
+
+Similarly for the others:
+
+| $x$ | $y$ | $\neg x \Rightarrow y$ | $\neg x \lor \neg y$ | $\neg(\neg x \lor \neg y)$ | $x \Rightarrow y$ | $y \Rightarrow x$ | $x \Leftrightarrow y$ |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| $0$ | $0$ | $0$ | $1$ | $0$ | $1$ | $1$ | $1$ |
+| $1$ | $0$ | $1$ | $1$ | $0$ | $0$ | $1$ | $0$ |
+| $0$ | $1$ | $1$ | $1$ | $0$ | $1$ | $0$ | $0$ |
+| $1$ | $1$ | $1$ | $0$ | $1$ | $1$ | $1$ | $1$ |
+
