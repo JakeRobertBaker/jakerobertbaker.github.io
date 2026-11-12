@@ -92,7 +92,7 @@ Dependencies are pinned by the lockfile. When changing them, run full validation
 
 GitHub Pages deploys from GitHub Actions (repository Settings → Pages → Source: **GitHub Actions**). Pushing or merging to `main` runs `.github/workflows/ci.yml`:
 
-1. The reusable, read-only `validate.yml` runs `npm run validate` and uploads the tested `dist/` as the Pages artifact.
+1. The reusable, read-only `validate.yml` installs Chromium and its system dependencies with up to three 3-minute attempts (10-minute step limit), runs `npm run validate` and uploads the tested `dist/` as the Pages artifact. Installation failures stop validation and deployment; rerun failed jobs after transient package-mirror/network outages.
 2. A separate `deploy` job publishes that exact artifact with `actions/deploy-pages`. Only it has `pages`/`id-token` write access, and it runs no project code.
 
 Branch pushes validate without deploying; their checks also appear on pull requests. Failed validation leaves the live site unchanged, and deployments are serialized. Each deployment replaces the whole site, so a page cached before a deploy may briefly request removed assets until it refreshes.
