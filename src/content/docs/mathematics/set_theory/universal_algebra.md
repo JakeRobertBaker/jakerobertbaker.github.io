@@ -918,3 +918,8 @@ The same holds for $t$ and therefore $[s] = [t]$.
 The above corollary is a bit like a completeness theorem.
 
 $\left( s=t \right) \in \tilde{E}$ is like saying that an equation is provable.
+
+## Boolean Algebra
+
+An important example.
+
