@@ -923,3 +923,33 @@ $\left( s=t \right) \in \tilde{E}$ is like saying that an equation is provable.
 
 An important example.
 
+Let $2 \coloneqq \{0,1\}$ and
+
+$$
+\Omega \coloneqq \{\top, \bot, \neg, \land, \lor, \Rightarrow, \Leftrightarrow\}.
+$$
+
+The interpretation on $A=2$ is defined as follows:
+
+$$
+\begin{align*}
+\top_2 &= 1 \\
+\bot_2 &= 0 \\
+\neg_2(a) &= 1-a \\
+\land_2(a,b) &= \min(a,b) \\
+\lor_2(a,b) &= \max(a,b) \\
+\Rightarrow_2(a,b) &= 0 \iff a=1 \text{ and } b=0 \\
+\Leftrightarrow_2(a,b) &= 1 \iff a=b.
+\end{align*}
+$$
+
+The arities are:
+
+- $\alpha(\omega)=0$ for $\omega \in \{\top,\bot\}$.
+- $\alpha(\neg)=1$.
+- $\alpha(\omega)=2$ for $\omega \in \{\land,\lor,\Rightarrow,\Leftrightarrow\}$.
+
+:::definition[Boolean Algebra]{#def-boolean-algebra}
+A Boolean algebra is an $(\Omega,E)$-algebra where $\Omega$ is as above and $E$ is the set of all equations satisfied in $2$.
+:::
+
