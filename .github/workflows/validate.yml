@@ -15,6 +15,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
         with:
@@ -24,7 +25,22 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - name: Install Chromium and system dependencies
+        timeout-minutes: 10
+        run: |
+          # Bound each attempt as well as the step: apt/DNS can otherwise hang for hours.
+          for attempt in 1 2 3; do
+            echo "Browser installation attempt $attempt/3"
+            if timeout --kill-after=15s 3m npx playwright install --with-deps chromium; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 3 ]; then
+              echo "::warning::Browser installation failed; retrying in 15 seconds."
+              sleep 15
+            fi
+          done
+          echo "::error::Browser installation failed after 3 attempts."
+          exit 1
       - run: npm run validate
       - name: Upload the tested site for deployment
         if: inputs.publish

@@ -6,7 +6,7 @@ Personal mathematics and deep-learning notes built with Astro + Starlight and bu
 
 ### Install and edit — `npm ci`, `npm run dev`
 
-Use Node **22.22+** (`.node-version` records the tested version):
+Use Node **22.23.4+** (`.node-version` records the tested version):
 
 ```bash
 npm ci
@@ -92,7 +92,7 @@ Dependencies are pinned by the lockfile. When changing them, run full validation
 
 GitHub Pages deploys from GitHub Actions (repository Settings → Pages → Source: **GitHub Actions**). Pushing or merging to `main` runs `.github/workflows/ci.yml`:
 
-1. The reusable, read-only `validate.yml` runs `npm run validate` and uploads the tested `dist/` as the Pages artifact.
+1. The reusable, read-only `validate.yml` installs Chromium (time-limited and retried), runs `npm run validate` and uploads the tested `dist/` as the Pages artifact. If a transient package-mirror outage still fails the job, rerun it.
 2. A separate `deploy` job publishes that exact artifact with `actions/deploy-pages`. Only it has `pages`/`id-token` write access, and it runs no project code.
 
 Branch pushes validate without deploying; their checks also appear on pull requests. Failed validation leaves the live site unchanged, and deployments are serialized. Each deployment replaces the whole site, so a page cached before a deploy may briefly request removed assets until it refreshes.
