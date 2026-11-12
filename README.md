@@ -6,7 +6,7 @@ Personal mathematics and deep-learning notes built with Astro + Starlight and bu
 
 ### Install and edit — `npm ci`, `npm run dev`
 
-Use Node **22.22+** (`.node-version` records the tested version):
+Use Node **22.23.4+** (`.node-version` records the tested version):
 
 ```bash
 npm ci
