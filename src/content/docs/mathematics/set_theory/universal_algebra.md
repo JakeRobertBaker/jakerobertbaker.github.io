@@ -1001,3 +1001,44 @@ Similarly for the others:
 
 
 Therefore we can have define $\Omega = \left\{ \bot, \implies \right\}$ and let the symbols $\top, \neg, \dots$ denote derived operations defined by the equations above.
+
+$$
+\begin{align*}
+(s=t) \in E
+&\iff s_2 \equiv t_2 \\
+&\iff (s \Leftrightarrow t)_2 \equiv 1 \\
+&\iff (s \Leftrightarrow t)_2 \equiv \top_2 \\
+&\iff ((s \Leftrightarrow t)=\top) \in E.
+\end{align*}
+$$
+
+We can then focus on equations of the form $(t=\top)$.
+
+:::definition[Tautology]{#def-tautology}
+If $(t=\top) \in E$, $t$ is a *tautology*.
+
+Equivalently, $t_2 : 2^n \to 2$ constantly returns $1$.
+:::
+
+::::example[Tautologies]{#exm-tautologies}
+:::list{style="a."}
+1. $x \Rightarrow (y \Rightarrow x)$.
+2. $(x \Rightarrow (y \Rightarrow z)) \Rightarrow ((x \Rightarrow y) \Rightarrow (x \Rightarrow z))$.
+3. $((x \Rightarrow \bot) \Rightarrow \bot) \Rightarrow x$.
+:::
+::::
+
+For (b), let $s=x \Rightarrow (y \Rightarrow z)$ and $t=(x \Rightarrow y) \Rightarrow (x \Rightarrow z)$.
+
+| $x$ | $y$ | $z$ | $y \Rightarrow z$ | $x \Rightarrow y$ | $x \Rightarrow z$ | $s$ | $t$ | $s \Rightarrow t$ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| $0$ | $0$ | $0$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ |
+| $0$ | $0$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ |
+| $0$ | $1$ | $0$ | $0$ | $1$ | $1$ | $1$ | $1$ | $1$ |
+| $0$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ |
+| $1$ | $0$ | $1$ | $1$ | $0$ | $1$ | $1$ | $1$ | $1$ |
+| $1$ | $0$ | $0$ | $1$ | $0$ | $0$ | $1$ | $1$ | $1$ |
+| $1$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ | $1$ |
+| $1$ | $1$ | $0$ | $0$ | $1$ | $0$ | $0$ | $0$ | $1$ |
+
+In fact, $s \Leftrightarrow t$.
