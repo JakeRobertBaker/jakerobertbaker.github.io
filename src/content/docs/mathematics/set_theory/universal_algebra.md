@@ -1042,3 +1042,5 @@ For (b), let $s=x \Rightarrow (y \Rightarrow z)$ and $t=(x \Rightarrow y) \Right
 | $1$ | $1$ | $0$ | $0$ | $1$ | $0$ | $0$ | $0$ | $1$ |
 
 In fact, $s \Leftrightarrow t$.
+
+(c) is obvious when you note that it is just $\neg \neg x \implies x$.
