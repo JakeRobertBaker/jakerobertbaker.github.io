@@ -999,3 +999,5 @@ Similarly for the others:
 | $0$ | $1$ | $1$ | $1$ | $0$ | $1$ | $0$ | $0$ |
 | $1$ | $1$ | $1$ | $0$ | $1$ | $1$ | $1$ | $1$ |
 
+
+Therefore we can have define $\Omega = \left\{ \bot, \implies \right\}$ and let the symbols $\top, \neg, \dots$ denote derived operations defined by the equations above.
