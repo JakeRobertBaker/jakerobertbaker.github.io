@@ -968,16 +968,12 @@ $$
 These are easily verified by checking that they are satisfied in $2$. Formally, the notation says that:
 
 $$
-\Rightarrow_2(\bot,\bot) = \Rightarrow_2(1,1) = 1
+\Rightarrow_2(\bot,\bot) = \Rightarrow_2(0,0) = 1
 $$
 
 $$
 \top_2 = 1.
 $$
-
-:::note[Transcription note]
-The handwritten line above uses $(1,1)$ for $(\bot,\bot)$; the preceding definition $\bot_2=0$ would instead give $(0,0)$. The handwritten line is preserved here.
-:::
 
 Similarly, for $\neg x = (x \Rightarrow \bot)$,
 
