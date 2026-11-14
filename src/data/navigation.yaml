@@ -27,6 +27,8 @@
       items:
         - label: Universal Algebra
           slug: mathematics/set_theory/universal_algebra
+        - label: Propositional Calculus
+          slug: mathematics/set_theory/propositional_calculus
     - label: Combinatorics
       collapsed: true
       items:

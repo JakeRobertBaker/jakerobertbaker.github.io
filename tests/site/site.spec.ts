@@ -118,6 +118,20 @@ test('pages that opt in list their blocks in desktop and mobile contents', async
     await link.click();
     await expect(page).toHaveURL(`${route}#${id}`);
     await expect(page.locator(`[id="${id}"]`)).toBeInViewport();
+  }
+});
+
+test('block contents track reading position on desktop and mobile', async ({ page }) => {
+  // Use a long-page fixture: end-of-page anchors cannot always reach the scrollspy zone.
+  const route = '/mathematics/set_theory/universal_algebra/';
+  const id = 'def-ordered-pair';
+  for (const width of [1440, 390]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto(route);
+    if (width === 390) await page.locator('#starlight__on-this-page--mobile').click();
+    const scope = width === 390 ? 'mobile-starlight-toc' : 'starlight-toc';
+    const link = page.locator(`${scope} a[href="#${id}"]`);
+    await link.click();
     await expect(link).toHaveAttribute('aria-current', 'true');
   }
 });
