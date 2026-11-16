@@ -531,19 +531,19 @@ Let $W \coloneqq \left\{ (s=t) : s,t \in FX \right\}$ denote the set of all poss
 
 ::::definition[Derived Equation Properties]{#def-eq-closure-properties}
 
-Let $E$ be a set of equations. A set $T \in \mathcal{C}$ of equations satisfies the derived equation properties iff,
+Let $E$ be a set of equations. A set $T \subseteq W$ of equations satisfies the derived equation properties iff,
 
 :::list{style="a. (i)"}
 
 1. $E \subset T$
 
-2. $T$ defines an equivalence relation $s \sim_E t \iff (s=t) \in \tilde{E}$ on the set of terms $F_{\Omega}(X)$
+2. $T$ defines an equivalence relation $s \sim\iff (s=t) \in T$ on the set of terms $F_{\Omega}(X)$
 
     1. reflexive: $(t=t) \in T \ \forall t \in F_{\Omega}(X)$
 
-    2. symmetric: $(s=t) \implies (t=s)$
+    2. symmetric: $(s=t) \in T \implies (t=s) \in T$
 
-    3. transitive: $(s=t),(t=u) \implies (s=u)$
+    3. transitive: $(s=t),(t=u) \in T \implies (s=u) \in T$
 
 3. Substitution rules:
 
