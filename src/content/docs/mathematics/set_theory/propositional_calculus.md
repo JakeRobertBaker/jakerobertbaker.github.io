@@ -15,6 +15,12 @@ contentsBlocks: all
 | An $\Omega$-term in $X$ | Propositions (handwritten qualifier unclear): $\{\bot, \Rightarrow\}$-terms in $P$ |
 | $x \in 2 = \{0,1\}$ | Truth values |
 
+Let
+
+$$
+FP \coloneqq F_{\left\{ \bot, \Rightarrow \right\}} \left( P \right)
+$$
+
 A valuation is a map
 
 $$
@@ -40,13 +46,6 @@ $$
 
 that has $\bar{v}(s) = 1$ for all $s \in S$, we have $\bar{v}(t) = 1$.
 :::
-
-
-Let
-
-$$
-FP \coloneqq F_{\left\{ \bot, \Rightarrow \right\}}
-$$
 
 :::proposition[Substitution preserves semantic entailment]{#prp-substitution-semantic-entailment}
 If $S \models t$, then
