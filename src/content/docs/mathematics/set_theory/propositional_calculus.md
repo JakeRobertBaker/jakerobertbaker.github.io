@@ -89,3 +89,50 @@ $$
 \end{align*}
 $$
 :::
+
+### Syntax
+
+As noted in the [Chapter 1 remark on syntax, semantics and structure](universal_algebra.md#rem-Structure), syntax is about shuffling symbols without access to truth tables. Semantics is about valuation of truth values.
+
+:::definition[Axiom set]{#def-axiom-set}
+The axiom set $\mathrm{Ax} \subset FP$ is defined as
+
+$$
+\begin{align*}
+\mathrm{Ax} \coloneqq {}& \{(s \Rightarrow (t \Rightarrow s)) : s,t \in FP\} \\
+&\cup \{(x \Rightarrow (y \Rightarrow z)) \Rightarrow ((x \Rightarrow y) \Rightarrow (x \Rightarrow z)) : x,y,z \in FP\} \\
+&\cup \{(\neg\neg t \Rightarrow t) : t \in FP\},
+\end{align*}
+$$
+
+where $\neg x \coloneqq (x \Rightarrow \bot)$, as defined as shorthand in Chapter 1.
+:::
+
+An easier definition could be:
+
+:::definition[Axiom set via derived operations]{#def-axiom-set-derived-operations}
+Let $a \coloneqq p \Rightarrow (q \Rightarrow p) \in FP$ be the term for (a).
+
+Then
+
+$$
+a_{FP}(s,t) = a_{FP}[s,t/p,q]
+$$
+
+by [simultaneous substitution](universal_algebra.md#prp-simultaneous-substitution) (Chapter 1).
+
+The map
+
+$$
+\begin{aligned}
+a_{FP} : FP^2 &\to FP \\
+(s,t) &\mapsto a_{FP}(s,t)
+\end{aligned}
+$$
+
+has image $a_{FP}(FP^2)$. Define similar constructions for $b,c$. Then
+
+$$
+\mathrm{Ax} \coloneqq a_{FP}(FP^2) \cup b_{FP}(FP^3) \cup c_{FP}(FP).
+$$
+:::
