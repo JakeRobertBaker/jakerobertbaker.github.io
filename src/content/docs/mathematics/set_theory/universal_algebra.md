@@ -480,17 +480,17 @@ Considering these two results together we can see,
 
 $$
 \begin{align*}
-{s[u/x_i]}_{FX}(a_1, \dots, a_n) &= \bar{f}(s[u / x_i])
+{s[u/x_i]}_{A}(a_1, \dots, a_n) &= \bar{f}(s[u / x_i])
 \\
 &= \bar{g}(s)
 \\
-&= s_{FX} (g(x_1), \dots, g(x_i), \dots , g(x_n))
+&= s_{A} (g(x_1), \dots, g(x_i), \dots , g(x_n))
 \\
-&= s_{FX} (a_1, \dots, u_{FX}(a_1, \dots, a_n), \dots , a_n)
+&= s_{A} (a_1, \dots, u_{A}(a_1, \dots, a_n), \dots , a_n)
 \end{align*}
 $$
 
-because $g(x_j) = f(x_j) = a_j \ \forall j \neq i$ and $g(x_i) = \bar{f}(u) = u(a_1, \dots, a_n)$
+because $g(x_j) = f(x_j) = a_j \ \forall j \neq i$ and $g(x_i) = \bar{f}(u) = u_{A}(a_1, \dots, a_n)$
 
 ### Equations
 
