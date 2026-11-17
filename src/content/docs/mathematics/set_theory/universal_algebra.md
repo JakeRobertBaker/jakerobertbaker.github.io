@@ -547,9 +547,9 @@ Let $E$ be a set of equations. A set $T \subseteq W$ of equations satisfies the 
 
 3. Substitution rules:
 
-    1. $(s=t) \in T \implies (s[u / x_i] = t[u / x_i]) \in \tilde{E}$
+    1. $(s=t) \in T \implies (s[u / x_i] = t[u / x_i]) \in T$
 
-    2. $(s=t) \in T, u \in F_{\Omega}(X_n) \implies \left( u[s/x_i] = u[t/x_i] \right) \in \tilde{E}$
+    2. $(s=t) \in T, u \in F_{\Omega}(X_n) \implies \left( u[s/x_i] = u[t/x_i] \right) \in T$
 
 :::
 
