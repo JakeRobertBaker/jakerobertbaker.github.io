@@ -190,3 +190,47 @@ $$
 
 hence $t \in \mathrm{Th}(S)$.
 :::
+
+### Deductions
+
+:::definition[Deduction (Johnstone)]{#def-deduction}
+A *deduction* from $S \subseteq FP$ to $t \in FP$ is a sequence of propositions in $FP$ such that each member is either an axiom, in $S$, or obtained by modus ponens.
+:::
+
+We can show that $S \vdash t$ if and only if there exists a deduction from $S$ to $t$.
+
+:::proposition[Construction of $\mathrm{Th}(S)$]{#prp-construction-th-s}
+Let
+
+$$
+\begin{align*}
+D_0 &\coloneqq \mathrm{Ax} \cup S, \\
+D_{n+1} &\coloneqq D_n \cup \{t : \exists s,\ s, (s \Rightarrow t) \in D_n\}
+\qquad \text{for all } n \in \mathbb{N}_0.
+\end{align*}
+$$
+
+Then
+
+$$
+\mathrm{Th}(S) = \bigcup_{n \in \mathbb{N}_0} D_n.
+$$
+:::
+
+:::proof{proves="#prp-construction-th-s"}
+The inclusion $\mathrm{Th}(S) \subseteq \bigcup_n D_n$ is shown via $\bigcup_n D_n$ being $S$-closed. Clearly (i) and (ii) hold via the definition of $D_0$.
+
+If $s, (s \Rightarrow t) \in \bigcup_n D_n$, then $s \in D_n$ and $(s \Rightarrow t) \in D_m$ for some $n,m \in \mathbb{N}_0$. Let $N \coloneqq \max(n,m)$. Then, since $D_n \subseteq D_{n+1}$, we have $s, (s \Rightarrow t) \in D_N$. Thus $t \in D_{N+1}$ by definition.
+
+The inclusion $\bigcup_n D_n \subseteq \mathrm{Th}(S)$ is shown via $D_n \subseteq D$ for all $D \in \mathcal{D}_S$.
+
+Let $D \in \mathcal{D}_S$. Then $D_0 \subseteq D$ by (ii) and (iii).
+
+Assume that $D_k \subseteq D$ for all $k \leq n$. Then, if $t \in D_{n+1}$, we have $s, (s \Rightarrow t) \in D_n$ by the definition of $D_n$. Thus $s, (s \Rightarrow t) \in D$, which gives $t \in D$. Hence $D_{n+1} \subseteq D$.
+
+Hence, by induction, $D_n \subseteq D$ for all $n$, and so $\bigcup_n D_n \subseteq D$. Hence $\bigcup_n D_n \subseteq \mathrm{Th}(S)$. $\blacksquare$
+:::
+
+:::definition[Theorem]{#def-theorem}
+A deduction from the empty set, $\emptyset \vdash t$, is abbreviated $\vdash t$, and we refer to $t$ as a *theorem* (of the propositional calculus).
+:::
