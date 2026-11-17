@@ -177,8 +177,16 @@ and define $S \vdash t \iff t \in \mathrm{Th}(S)$.
 - It is easy to show that $\mathrm{Th}(S) \in \mathcal{D}_S$, since it satisfies (i)–(iii). For example, for (iii):
 
 $$
-s, (s \Rightarrow t) \in \mathrm{Th}(S) \implies s, (s \Rightarrow t) \in D \ \forall D \in \mathcal{D}_S,
+\begin{align*}
+& \text{If }s, (s \Rightarrow t) \in \mathrm{Th}(S) 
+\\
+& \text{then }s, (s \Rightarrow t) \in D \ \forall D \in \mathcal{D}_S
+\\
+& \text{then } t \in D \ \forall D \in \mathcal{D}_S
+\\
+& \text{then } t \in \mathrm{Th}(S)
+\end{align*}
 $$
 
-so $t \in D$ for all $D \in \mathcal{D}_S$, hence $t \in \mathrm{Th}(S)$.
+hence $t \in \mathrm{Th}(S)$.
 :::
