@@ -135,3 +135,50 @@ $$
 \mathrm{Ax} \coloneqq a_{FP}(FP^2) \cup b_{FP}(FP^3) \cup c_{FP}(FP).
 $$
 :::
+
+Note that Johnstone states this less formally as: adopt as axioms all substitution instances of
+
+:::list{style="(a)"}
+1. $(p \Rightarrow (q \Rightarrow p))$
+2. $((p \Rightarrow (q \Rightarrow r)) \Rightarrow ((p \Rightarrow q) \Rightarrow (p \Rightarrow r)))$
+3. $(\neg\neg p \Rightarrow p)$
+:::
+
+Johnstone also gives a rule of inference, *modus ponens*: from $p$ and $(p \Rightarrow q)$ we may infer $q$. Allow all substitution instances of this rule. We get this rule via (iii) of the construction below.
+
+::::definition[$S$-closed]{#def-s-closed}
+Let $S \subseteq FP$. A set $D \subseteq FP$ is *$S$-closed* if
+
+:::list{style="(i)"}
+1. $\mathrm{Ax} \subseteq D$,
+2. $S \subseteq D$,
+3. if $s \in D$ and $(s \Rightarrow t) \in D$, then $t \in D$.
+:::
+::::
+
+:::definition[Syntactic entailment]{#def-syntactic-entailment}
+Let $S \subseteq FP$ and
+
+$$
+\mathcal{D}_S \coloneqq \{D \subseteq FP : D \text{ is } S\text{-closed}\}.
+$$
+
+Define
+
+$$
+\mathrm{Th}(S) \coloneqq \bigcap_{D \in \mathcal{D}_S} D,
+$$
+
+and define $S \vdash t \iff t \in \mathrm{Th}(S)$.
+:::
+
+:::remark
+- $\mathcal{D}_S \neq \emptyset$ since $FP \in \mathcal{D}_S$.
+- It is easy to show that $\mathrm{Th}(S) \in \mathcal{D}_S$, since it satisfies (i)–(iii). For example, for (iii):
+
+$$
+s, (s \Rightarrow t) \in \mathrm{Th}(S) \implies s, (s \Rightarrow t) \in D \ \forall D \in \mathcal{D}_S,
+$$
+
+so $t \in D$ for all $D \in \mathcal{D}_S$, hence $t \in \mathrm{Th}(S)$.
+:::
