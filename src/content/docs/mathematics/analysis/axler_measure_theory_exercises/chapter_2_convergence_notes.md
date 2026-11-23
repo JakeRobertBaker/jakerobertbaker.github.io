@@ -1,10 +1,78 @@
 ---
-title: Chapter 2 - Luzin Theorem
+title: "Chapter 2 - Egorov & Luzin Theorems"
+tableOfContents:
+  maxHeadingLevel: 4
 ---
 
-Numbered 2.91 in Axler.
-
 Rewrote in my own words and scanned the notes to markdown. A personal exercise. 
+
+## Egorov's Theorem
+
+:::theorem[Egorov's Theorem]{#thm-egorov}
+S'pose,
+
+- $(X,\mathcal{S},\mu)$ measure space.
+- $\mu(X)<\infty$
+- $(f_k)_{k\in\mathbb{N}}$ sequence of $\mathcal{S}$ measurable $X\to\mathbb{R}$ that converges pointwise to $f:X\to\mathbb{R}$
+
+Then, $\forall\varepsilon>0$ $\exists E\in\mathcal{S}$ s.t. $\mu(X\setminus E)<\varepsilon$ & $(f_k)$ converges uniformly to $f$ on $E$.
+:::
+
+### Proof Idea
+
+Use pointwise convergence to write $X$ as union of $x$ that satisfy a bound for a particular $\varepsilon=\frac{1}{n}$.
+
+Fix $n\in\mathbb{N}$, $A_{mn}$ is the set of $x$ that satisfy the bound $\forall k\geq m$.
+
+$$
+A_{mn}:=\bigcap_{k=m}^{\infty}\left\{x:|f_k(x)-f(x)|<\frac{1}{n}\right\}
+$$
+
+Then pointwise convergence gives us that all $x$ have some $m$ s.t. the bound holds $\forall k\geq m$. i.e. all $x\in A_{mn}$, some $m$. So
+
+$$
+\bigcup_{m=1}^{\infty}A_{mn}=X \tag{2.86}
+$$
+
+$X$ finite & 2.59 [measure of increasing union] gives $\displaystyle\lim_{m\to\infty}\mu(A_{mn})=\mu(X)$.
+
+Then $\exists m_n$ s.t.
+
+$$
+\mu(X)-\mu(A_{m_n n})<\frac{\varepsilon}{2^n}. \tag{2.87}
+$$
+
+If we intersect $A_{m_n n}$ $\forall n\in\mathbb{N}$ we have made the size $\mu(X\setminus E)$ small by (2.87) & can show uniform convergence.
+
+$$
+\begin{align*}
+\mu(X\setminus E)
+&=\mu\left(X\setminus\bigcap_{n=1}^{\infty}A_{m_n n}\right) \\
+&=\mu\left(\bigcup_{n=1}^{\infty}(X\setminus A_{m_n n})\right) \\
+&\leq\sum_{n=1}^{\infty}\mu(X\setminus A_{m_n n}) \\
+&<\sum_{n=1}^{\infty}\frac{\varepsilon}{2^n}=\varepsilon
+\end{align*}
+$$
+
+**Note:** $f_k-f$ is $\mathcal{S}$ measurable by 2.48 [limit of $\mathcal{S}$ measurable] & 2.46 [algebra of measurable functions], therefore
+
+$$
+\left\{x:|f_k(x)-f(x)|<\frac{1}{n}\right\}=(f_k-f)^{-1}\left(\left(-\frac{1}{n},\frac{1}{n}\right)\right)\in\mathcal{S}
+$$
+
+so $A_{mn}\in\mathcal{S}$.
+
+Then 2.57 [measure preserve order & set difference] or even just the fact that measures are countably additive on $\mathcal{S}$ gives $\mu(X\setminus A_{m_n n})=\mu(X)-\mu(A_{m_n n})$ which is used above.
+
+Can show uniform convergence on $E$. Let $\varepsilon'>0$. Take $n$ s.t. $\frac{1}{n}<\varepsilon'$. Then $E\subseteq A_{m_n n}$ therefore $\forall x\in E$
+
+$$
+|f_k(x)-f(x)|<\frac{1}{n}<\varepsilon'\quad\forall k\geq m_n.
+$$
+
+## Luzin's Theorem
+
+Numbered 2.91 in Axler.
 
 :::theorem[Luzin Theorem [2.91]]
 
@@ -13,18 +81,18 @@ Rewrote in my own words and scanned the notes to markdown. A personal exercise.
 Then $\forall \varepsilon>0$, $\exists$ closed $F\subseteq\mathbb{R}$ s.t. $|\mathbb{R}\setminus F|<\varepsilon$ & $g|_F$ continuous on $F$.
 :::
 
-## Proof Idea
+### Proof Idea
 
 1. Prove Luzin for simple functions.
 2. Apply Luzin to simple approximation.
 3. Apply Egorov to get uniform continuity. Note Egorov need finite $(n,n+1)$.
 4. Uniform limits preserve continuity.
 
-## Proof
+### Proof
 
 :::proof
 
-### Proof on simple functions
+#### Proof on simple functions
 
 Let
 
@@ -111,7 +179,7 @@ $\Rightarrow g$ identically $0$ on $\bigcap_{k=1}^n\mathbb{R}\setminus G_k\Right
 
 Hence by Ex 9 (disjoint open continuity union is continuous) $g|_F$ is continuous.
 
-### Apply Luzin to simple approximations
+#### Apply Luzin to simple approximations
 
 By simple approximation of measurable functions (2.89) $\exists g_k:\mathbb{R}\to\mathbb{R}$ $\forall k\in\mathbb{Z}^+$ that converges pointwise to $g$ where $g_k$ simple, Borel measurable.
 
@@ -141,7 +209,7 @@ $$
 \frac{\varepsilon}{2}.
 $$
 
-### Apply Egorov to each finite $(m,m+1)$, $n\in\mathbb{Z}$
+#### Apply Egorov to each finite $(m,m+1)$, $n\in\mathbb{Z}$
 
 For each $n\in\mathbb{Z}$ the sequence $g_k|_{(m,m+1)}$ converges pointwise to $g$.
 

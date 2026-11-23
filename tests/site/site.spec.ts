@@ -79,7 +79,7 @@ test('native proofs, nested blocks, preserved image attributes and source math i
 });
 
 test('native desktop and mobile contents use mathematical labels once and keep original anchors', async ({ page }) => {
-  const route = '/mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91/';
+  const route = '/mathematics/analysis/axler_measure_theory_exercises/chapter_2_convergence_notes/';
   const id = 'apply-egorov-to-each-finite-mm1-ninmathbbz';
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 1000 });
