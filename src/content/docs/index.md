@@ -26,7 +26,7 @@ The [Theory Graph](mathematics/analysis/companion_to_analysis/theory_graph.mdx) 
 
 Liked LADR so learning measure theory from Axler's *Measure, Integration & Real Analysis*
 
-[Measure notes](mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes.md) · [Luzin](mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91.md) · [1A](mathematics/analysis/axler_measure_theory_exercises/exercises_1A.md) · [2A](mathematics/analysis/axler_measure_theory_exercises/exercises_2A.md) · [2D](mathematics/analysis/axler_measure_theory_exercises/exercises_2D.md)
+[Measure notes](mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes.md) · [Egorov & Luzin](mathematics/analysis/axler_measure_theory_exercises/chapter_2_convergence_notes.md) · [1A](mathematics/analysis/axler_measure_theory_exercises/exercises_1A.md) · [2A](mathematics/analysis/axler_measure_theory_exercises/exercises_2A.md) · [2D](mathematics/analysis/axler_measure_theory_exercises/exercises_2D.md)
 
 </section>
 <section>

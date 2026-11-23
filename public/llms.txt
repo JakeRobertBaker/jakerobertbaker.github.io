@@ -36,7 +36,7 @@ The notes are a reference and study aid rather than a polished textbook. Mathema
 - [Axler Measure Theory Exercises 2A](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/exercises_2A/): Questions and worked proofs on outer measure on the real line from section 2A of Axler's Measure, Integration & Real Analysis.
 - [Axler Measure Theory Exercises 2D](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/exercises_2D/): Worked measure-theory exercises involving Borel sets, decimal expansions, and Lebesgue measure.
 - [Axler Chapter 2 Measure Notes](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes/): Definitions and results on outer measure, sigma-algebras, measurable spaces, Borel sets, and Lebesgue measure.
-- [Luzin's Theorem](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/luzin_theorem_2_91/): A proof of Axler's Theorem 2.91 using simple-function approximation, Egorov's theorem, and uniform limits.
+- [Axler Chapter 2 Egorov & Luzin Notes](https://jakerobertbaker.github.io/mathematics/analysis/axler_measure_theory_exercises/chapter_2_convergence_notes/): Egorov's theorem via sets of uniform bounds, and a proof of Axler's Theorem 2.91 (Luzin) using simple-function approximation, Egorov's theorem, and uniform limits.
 
 ## Deep Learning
 
