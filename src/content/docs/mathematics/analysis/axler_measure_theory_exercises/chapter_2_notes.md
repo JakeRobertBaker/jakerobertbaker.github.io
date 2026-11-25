@@ -1,10 +1,97 @@
 ---
-title: "Chapter 2 - Egorov & Luzin Theorems"
+title: Chapter 2 - Notes
 tableOfContents:
   maxHeadingLevel: 4
 ---
 
 Rewrote in my own words and scanned the notes to markdown. A personal exercise. 
+
+## Union of Open Intervals Sharing a Point
+
+:::lemma[Union of open intervals sharing a point is an open interval]{#lem-union_open_intervals_sharing_point}
+Let $t\in\mathbb{R}$,
+
+- $\mathcal{C}_t \subseteq \{I\mid I\text{ an open interval},\ t\in I\}$
+- $\displaystyle G_t:=\bigcup_{I\in\mathcal{C}_t}I$
+
+Then $G_t$ is an open interval.
+:::
+
+:::proof
+Let,
+
+$$
+\begin{aligned}
+a&=\inf\{u\mid(u,v)\in\mathcal{C}_t\text{ for some }v\in\mathbb{R}\} \\
+b&=\sup\{v\mid(u,v)\in\mathcal{C}_t\text{ for some }u\in\mathbb{R}\}.
+\end{aligned}
+$$
+
+Then $G_t=(a,b)$. By proof below. Note $a\leq u<t<v\leq b$ $\forall(u,v)\in\mathcal{C}_t$.
+
+$\supseteq$: S'pose $x\in(a,b)$.
+
+If $x=t$ then $x\in I$ $\forall I\in\mathcal{C}_t$ so $x\in G_t$.
+
+If $x<t$ then $a<x<t<b$. Since $a$ is the greatest lower bound $x$ cannot be. So $\exists(u,v)\in\mathcal{C}_t$ s.t. $u<x$. So $u<x<t<v$. Hence $x\in(u,v)$.
+
+If $x>t$ then $a<t<x<b$. Similarly $b$ supremum means $\exists(u,v)\in\mathcal{C}_t$ s.t. $v>x$. So $u<t<x<v<b$. So $x\in(u,v)$.
+
+In both cases $x\in I$, some $I\in\mathcal{C}_t$ so $x\in G_t$.
+
+$\subseteq$: S'pose $x\in G_t$.
+
+Then $x\in(u,v)$ for some $(u,v)\in\mathcal{C}_t$.
+
+Clearly $a\leq u$ & $v\leq b$ & therefore $(u,v)\subseteq(a,b)$ so $x\in(a,b)$.
+:::
+
+Note. The fundamental axiom is the key ingredient above.
+
+## Intersection of $\sigma$-Algebras
+
+[easy but an important point].
+
+:::lemma[Axler Lemma 2.27]{#lem-sigma_algebra_intersection}
+S'pose,
+
+- $X$ a set
+- $\mathcal{A}$ a set of subsets of $X$
+
+Then, the intersection of all $\sigma$-algebras that contain $\mathcal{A}$ is a $\sigma$-algebra on $X$.
+:::
+
+:::proof
+Let,
+
+$$
+\mathcal{N}:=\bigcap_{\mathcal{S}\in\mathcal{C}}\mathcal{S},\qquad \mathcal{C}:=\{\mathcal{S}:\mathcal{S}\text{ is a }\sigma\text{-algebra on }X,\ \mathcal{A}\subseteq\mathcal{S}\}
+$$
+
+Closure rules.
+
+(i)
+
+$\varnothing\in\mathcal{N}$ since $\varnothing\in\mathcal{S}$ $\forall\mathcal{S}\in\mathcal{C}$.
+
+(ii)
+
+$$
+E\in\mathcal{N}\iff E\in\mathcal{S}\ \forall\mathcal{S}\in\mathcal{C}\implies X\setminus E\in\mathcal{S}\ \forall\mathcal{S}\in\mathcal{C}\iff X\setminus E\in\mathcal{N}.
+$$
+
+(iii)
+
+$$
+\begin{aligned}
+\{E_k:k\in\mathbb{N}\}\subseteq\mathcal{N}&\implies\{E_k:k\in\mathbb{N}\}\subseteq\mathcal{S}\ \forall\mathcal{S}\in\mathcal{C} \\
+&\implies\bigcup_{k\in\mathbb{N}}E_k\in\mathcal{S}\ \forall\mathcal{S}\in\mathcal{C} \\
+&\implies\bigcup_{k\in\mathbb{N}}E_k\in\mathcal{N}.
+\end{aligned}
+$$
+
+There exists at least one $\mathcal{S}\in\mathcal{C}$, $\mathcal{P}(X)\in\mathcal{C}$.
+:::
 
 ## Egorov's Theorem
 

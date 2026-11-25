@@ -1,5 +1,5 @@
 ---
-title: Chapter 2 - Measure Notes
+title: Chapter 2 - Cheat Sheet
 ---
 
 **Source:** Axler, *Measure, Integration & Real Analysis* (MIRA), Chapter 2.
