@@ -6,7 +6,7 @@ import { reviewNavigation, watchPage } from './navigation.mjs';
 
 const routes = [
   ['linear', '/mathematics/linear_models/linear_models/', '#rem-R2_general'],
-  ['measure', '/mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes/', '.math-block--remark'],
+  ['measure', '/mathematics/analysis/axler_measure_theory_exercises/chapter_2_cheat_sheet/', '.math-block--remark'],
   ['notation', '/deep_learning/attention/', '#not-attention'],
   ['attention', '/deep_learning/attention_is_all_you_need/', '#rem-enc-self-attn'],
   ['ballot', '/mathematics/probability/ballot_notes/', '#rem-Beta-Binomial-Proportion'],

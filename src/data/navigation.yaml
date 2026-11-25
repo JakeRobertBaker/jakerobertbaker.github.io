@@ -71,10 +71,10 @@
               slug: mathematics/analysis/axler_measure_theory_exercises/exercises_2A
             - label: Chapter 2 Exercises D
               slug: mathematics/analysis/axler_measure_theory_exercises/exercises_2D
-            - label: Chapter 2 - Measure Notes
-              slug: mathematics/analysis/axler_measure_theory_exercises/chapter_2_measure_notes
-            - label: Chapter 2 - Egorov & Luzin Theorems
-              slug: mathematics/analysis/axler_measure_theory_exercises/chapter_2_convergence_notes
+            - label: Chapter 2 - Cheat Sheet
+              slug: mathematics/analysis/axler_measure_theory_exercises/chapter_2_cheat_sheet
+            - label: Chapter 2 - Notes
+              slug: mathematics/analysis/axler_measure_theory_exercises/chapter_2_notes
     - label: Problems
       collapsed: true
       items:
