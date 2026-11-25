@@ -68,7 +68,9 @@ $$
 \mathcal{N}:=\bigcap_{\mathcal{S}\in\mathcal{C}}\mathcal{S},\qquad \mathcal{C}:=\{\mathcal{S}:\mathcal{S}\text{ is a }\sigma\text{-algebra on }X,\ \mathcal{A}\subseteq\mathcal{S}\}
 $$
 
-Closure rules.
+There exists at least one $\mathcal{S}\in\mathcal{C}$, $\mathcal{P}(X)\in\mathcal{C}$.
+
+Closure rules are satisfied.
 
 (i)
 
@@ -89,8 +91,6 @@ $$
 &\implies\bigcup_{k\in\mathbb{N}}E_k\in\mathcal{N}.
 \end{aligned}
 $$
-
-There exists at least one $\mathcal{S}\in\mathcal{C}$, $\mathcal{P}(X)\in\mathcal{C}$.
 :::
 
 ## Egorov's Theorem
