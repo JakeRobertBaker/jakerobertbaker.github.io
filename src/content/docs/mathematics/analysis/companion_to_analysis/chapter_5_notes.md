@@ -52,6 +52,8 @@ $S_n$ converges and $\lvert S \rvert_{n}$ not converging implies that both $S_{n
 
 ## Exercise 5.21
 
+:::exercise[Non Absoloutely Convergent Sums have any limit]{#ex-non-absoloutely-convergent-sums-have-any-limit n=5.21 book=Korner}
+
 Suppose that $\sum_{j=1}^{\infty} a_{j}$ is convergent but not absolutely convergent. 
 
 Let $l \in \mathbb{R}$ and,
@@ -85,6 +87,9 @@ $$
 $$
 
 In other words if the sum is above $l$ pick the next negative term and vice versa.
+:::
+
+:::solution{proves="#ex-non-absoloutely-convergent-sums-have-any-limit"}
 
 ### [ii] $\sigma$ is a permutation
 
@@ -144,6 +149,7 @@ So $0 \leq \hat{S}_{j} - l \leq \hat{S}_{k} - l < a_{\sigma(k)}$ for all $j \in 
 $\hat{S}_{k+1} \leq l$
 
 ![Diagram](tikz_series_plot_variant_below.svg)
+:::
 
 ## Lemma 5.60 Proof Note
 
@@ -158,8 +164,9 @@ $$
 
 See [composition of limits](chapter_4_notes.md#lem-compose-limits) in Chapter 4.
 
-## Exercise 5.66 One-dimensional inverse function theorem.
+The key idea is to use the fact that $k(h) \to 0$ as $h\to0$
 
+:::exercise[One-dimensional inverse function theorem]{#ex-one-dimensional-inverse-function-theorem n=5.66 book=Korner}
 Suppose,
 - $f : \left[ a,b \right] \to \left[ c,d \right]$ is continuous
 - $f$ is differentiable on $\left( a,b \right)$ 
@@ -174,8 +181,9 @@ Show,
 $$
 \left( f^{-1} \right)'(x) = \frac{1}{f'(f^{-1}(x))}
 $$
- 
-### Solution
+:::
+
+:::solution{proves="#ex-one-dimensional-inverse-function-theorem"}
 $f$ is strictly increasing due to [1.48 extension](chapter_1_notes.md#lem-strict-increasing-derivative). This uses the mean value inequality.
 
 
@@ -223,3 +231,4 @@ $$
 \frac{1}{f'(g(x))}
 $$
 .
+:::
