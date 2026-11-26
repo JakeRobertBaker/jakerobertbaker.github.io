@@ -1,6 +1,8 @@
 ---
 title: Chapter 5
 ---
+
+## Series Convergence Results
 Note exercise 5.19 gives us key results and notation:
 
 $$
@@ -50,7 +52,7 @@ In other words.
 
 $S_n$ converges and $\lvert S \rvert_{n}$ not converging implies that both $S_{n}^{+}$ and $S_{n}^{-}$ do not converge.
 
-## Exercise 5.21
+### Exercise 5.21
 
 :::exercise[Non Absoloutely Convergent Sums have any limit]{#ex-non-absoloutely-convergent-sums-have-any-limit n=5.21 book=Korner}
 
@@ -150,6 +152,34 @@ $\hat{S}_{k+1} \leq l$
 
 ![Diagram](tikz_series_plot_variant_below.svg)
 :::
+
+## Exponential Function
+
+:::definition[Exponential function]{#def-e-z}
+
+Define $e : \mathbb{C} \to \mathbb{C}$ by
+$$
+e(z) = 
+\sum_{j=0}^{\infty} \frac{z^{j}}{j!}
+$$
+:::
+
+:::lemma[e has $\infty$ radius of convergence]{#lem-e-has-infty-radius-of-convergence n=5.36 book=Korner}
+The series $e(z)$ converges $\forall \ z \in \mathbb{C}$.
+:::
+
+Poof is easy via the ratio test.
+
+:::lemma[e is multiplicative]{#lem-e-is-multiplicative}
+$$
+\forall \ z,w \in \mathbb{C} \\
+e(z+w) = e(z) + e(w)
+$$
+:::
+
+The proof is note too hard. It uses the earlier results about swapping triangles and squares [Korner Lemma 5.27] that union to the same set.
+
+[Korner Ex 5.38] was a good example of a more general result to use in proving the above lemma.
 
 ## Lemma 5.60 Proof Note
 
