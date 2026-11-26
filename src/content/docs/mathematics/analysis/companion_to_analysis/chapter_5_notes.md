@@ -1,5 +1,6 @@
 ---
 title: Chapter 5
+contentsBlocks: all
 ---
 
 ## Series Convergence Results
@@ -248,7 +249,7 @@ $$
 :::
 
 :::solution{proves="#ex-real-e-properties"}
-(i)
+#### (i)
 
 Let $z=h, n=2$ in [Lemma 5.42](#lem-remainder-bound) and let $e_m(z)$ denote the sum of the first $m$ terms.
 
@@ -274,7 +275,7 @@ for $|h| < 1$
 
 Hence $e'(0)=1$
 
-(ii)
+#### (ii)
 
 Multiplicative rule gives
 
@@ -298,7 +299,7 @@ $$
 
 This difference can be arbitrarily small as $h\to 0$ and $e(x)$ is fixed. Hence the derivative at $x$ is $e(x)$.
 
-(iii)
+#### (iii)
 
 If $x\geq 0$ then $e_N(x) = \sum_{j=0}^{N} \frac{x^j}{j!} \geq 1$ for all $N \in \mathbb{N}$.
 
@@ -310,13 +311,13 @@ We already showed $e(x) \neq 0$ so $e(x)e(-x)=1$ gives us that $e(-x) = \frac{1}
 
 If $x\geq 0$ we have that $e(x) > 0$ therefore $e(-x) = \frac{1}{e(x)}$ > 0. Hence both non negative and negative $x$ have $e(x) > 0$. 
 
-(iv)
+#### (iv)
 
 Since $e'(x) = e(x) > 0$ then
 [Lemma 1.48 (positive derivatives imply monotonic)](chapter_1_notes.md#lem-strict-increasing-derivative)
 gives us that $e$ is strictly increasing.
 
-(v)
+#### (v)
 
 $$
 e_N(x) = 1 + x + \sum_{j=2}^{N} \frac{x^j}{j!} > x
@@ -333,7 +334,7 @@ Hence $\forall K \in \mathbb{R} \ \exists X \in R$ such that $e(x) > K$ for all 
 
 Hence $e(x) \to \infty$ as $x\to \infty$
 
-(vi)
+#### (vi)
 
 Let $y>0$.
 
@@ -345,7 +346,7 @@ and $e(1/y + 1) > 1/y \iff y > e(-1/y -1)$
 
 Hence by intermediate value theorem there exists $c$ between $-1/y-1$ and $y+1$ such that $e(c) = y$
 
-(vii)
+#### (vii)
 
 We have already showed that the image of $e$ is $\mathbb{R}^{++}$ in (iii).
 
@@ -354,6 +355,51 @@ We have just shown that $e$ surjects onto that image in part (iv).
 It is a fundamental [fact](chapter_1_notes.md#fundamental-facts) that a strict monotonic implies injective.
 
 Hence $e: \mathbb{R} \to \mathbb{R}^{++}$ bijects.
+
+#### (viii)
+
+Let's consider polynomial $P(x) = \sum_{j=0}^{M} a_j x^{j}$. If $x>1$ then,
+
+$$
+\left| P(x) \right| \leq \left| \sum_{j=0}^{M} \left| a_j \right| x^j \right|
+\leq b x^M
+$$
+
+for $b \coloneqq \sum_{j=0}^{M} |a_j|$.
+
+Also, still assuming $x\geq 1$ we have that for $N>M+2$,
+
+$$
+e_N(x) = 1 + \dots + \frac{x^{M+1}}{(M+1)!} + \sum_{j=M+2}^{N} \frac{x^j}{j!} > \frac{x^{M+1}}{(M+1)!}
+$$
+
+Therefore
+
+$$
+e(x) = |e(x)| \geq \frac{x^{M+1}}{(M+1)!}
+$$
+
+Then,
+
+$$
+\left| \frac{e(x)}{P(x)} \right| \geq \frac{1}{b x^{M}} \frac{x^{M+1}}{(M+1)!} = \frac{x}{b (M+1)!}
+$$
+
+Hence $\left| \frac{e(x)}{P(x)} \right| \to \infty$ as $x \to \infty$.
+
+Hence $\left| \frac{P(x)}{e(x)} \right| \to 0$ as $x \to \infty$
+
+#### (ix)
+
+Assume that $e(x) = \frac{P(x)}{Q(x)}$.
+
+Then,
+
+$$
+\left| \frac{P(x)}{e(x)} \right| = \left| Q(x) \right| \geq q_M \left| x \right|^M \to \infty \text{ as } x\to \infty
+$$
+
+Which contradicts (viii). Hence e is not equal to any polynomial fraction.
 
 :::
 
