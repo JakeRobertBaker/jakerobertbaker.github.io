@@ -181,6 +181,182 @@ The proof is note too hard. It uses the earlier results about swapping triangles
 
 [Korner Ex 5.38] was a good example of a more general result to use in proving the above lemma.
 
+Some manual bookwork...
+
+:::proposition[$e(z)\neq0$]{#prp-e-z-neq0}
+$e : \mathbb{C} \to \mathbb{C} \setminus \left\{ 0 \right\}$
+:::
+
+:::proof{proves="#prp-e-z-neq0"}
+We know that $e(0)=1$.
+
+Suppose $e( \omega ) = 0$.
+
+Then $e(0) = e(\omega + - \omega) = e(\omega) e(-\omega) = 0 e(-\omega) = 0$. Contradiction.
+:::
+
+Korner states a helpful error bound on the finite series. I shall rewrite in my own words as a personal exercise.
+
+:::lemma[Remainder Bound]{#lem-remainder-bound n=5.42 book=Korner}
+If $|z| < n/2$, then
+
+$$
+\left| e(z) - \sum_{j=0}^{n-1} \frac{z^j}{j!} \right|
+\leq \frac{2 |z|^n}{n!}
+$$
+:::
+
+:::proof{proves="#lem-remainder-bound"}
+See that
+$$
+\begin{align*}
+\left| e(z) - \sum_{j=0}^{n-1} \frac{z^j}{j!} \right| =
+\left| \sum_{j=n}^{\infty} \frac{z^j}{j!} \right|
+& \leq \sum_{j=n}^{\infty} \frac{|z|^j}{j!}
+\\ &=
+\sum_{k=0}^{\infty} \frac{|z|^n}{n!} \frac{|z|^k}{(n+1)(n+1)\dots (n+k)} 
+\\ &\leq
+\sum_{k=0}^{\infty} \frac{|z|^n}{n!} \frac{|z|^k}{(n+1)^k}
+\\ &=
+\frac{|z|^n}{n!} \frac{1}{1-\frac{|z|}{n+1}} 
+\\ &=
+\frac{|z|^n}{n!} \frac{n+1}{n+1 - |z|}
+\end{align*}
+$$
+
+Notice that since $|z| < n/2$ we have that
+
+$$
+n+1 - |z| > n/2 + 1
+$$
+
+Therefore
+
+$$
+\frac{n+1}{n+1-|z|} < \frac{n+2}{n/2 + 1} = 2
+$$
+
+And so,
+
+$$
+\left| e(z) - \sum_{j=0}^{n-1} \frac{z^j}{j!} \right| < 2 \frac{z^n}{n!}
+$$
+:::
+
+:::exercise[$e : \mathbb{R} \to \mathbb{R}$ properties]{#ex-real-e-properties}
+(i) TODO
+:::
+
+:::solution{proves="#ex-real-e-properties"}
+(i)
+
+Let $z=h, n=2$ in [Lemma 5.42](#lem-remainder-bound) and let $e_m(z)$ denote the sum of the first $m$ terms.
+
+So, for $|h| < 1$
+
+$$
+\begin{align*}
+\left| e(h) - e_{1}(h) \right| &< 2 h^2 / 2
+\\
+\left| e(h) - 1 - h \right| &< h^2
+\end{align*}
+$$
+
+We see that the derivative quotient minus 1 is
+
+$$
+\left| \frac{e(0+h) - e(0)}{h} - 1 \right|
+=
+\frac{1}{|h|} \left| e(h) - 1 - h \right| < |h|
+$$
+
+for $|h| < 1$
+
+Hence $e'(0)=1$
+
+(ii)
+
+Multiplicative rule gives
+
+$$
+e(x+h) - e(x) = e(x)e(h) - e(x) = e(x) \left( e(h) - 1 \right)
+$$
+
+Hence the derivative quotient minus $e(x)$ is
+
+$$
+\begin{align*}
+\left| \frac{e(x+h) - e(x)}{h} - e(x)  \right|
+&=
+\left| e(x) \right|
+\left| \frac{e(h) - 1}{h} - 1 \right|
+\\
+\text{[by the previous bound]} &<
+\left| e(x) \right| |h|
+\end{align*}
+$$
+
+This difference can be arbitrarily small as $h\to 0$ and $e(x)$ is fixed. Hence the derivative at $x$ is $e(x)$.
+
+(iii)
+
+If $x\geq 0$ then $e_N(x) = \sum_{j=0}^{N} \frac{x^j}{j!} \geq 1$ for all $N \in \mathbb{N}$.
+
+$$
+e(x) = \lim_{N \to \infty} e_N(x) \geq 1
+$$
+
+We already showed $e(x) \neq 0$ so $e(x)e(-x)=1$ gives us that $e(-x) = \frac{1}{e(x)}$.
+
+If $x\geq 0$ we have that $e(x) > 0$ therefore $e(-x) = \frac{1}{e(x)}$ > 0. Hence both non negative and negative $x$ have $e(x) > 0$. 
+
+(iv)
+
+Since $e'(x) = e(x) > 0$ then
+[Lemma 1.48 (positive derivatives imply monotonic)](chapter_1_notes.md#lem-strict-increasing-derivative)
+gives us that $e$ is strictly increasing.
+
+(v)
+
+$$
+e_N(x) = 1 + x + \sum_{j=2}^{N} \frac{x^j}{j!} > x
+\ \forall x\geq 0
+$$
+
+Taking limit $N\to \infty$ gives
+
+$$
+e(x) \geq x \ \forall x\geq 0
+$$
+
+Hence $\forall K \in \mathbb{R} \ \exists X \in R$ such that $e(x) > K$ for all $x > X$. Taking $X=K+1$ and noting that $e$ is strict monotonic is enough.
+
+Hence $e(x) \to \infty$ as $x\to \infty$
+
+(vi)
+
+Let $y>0$.
+
+We have that $e$ is continuous via $e$ everywhere differentiable.
+
+We have that $e(y+1) > y$ 
+
+and $e(1/y + 1) > 1/y \iff y > e(-1/y -1)$ 
+
+Hence by intermediate value theorem there exists $c$ between $-1/y-1$ and $y+1$ such that $e(c) = y$
+
+(vii)
+
+We have already showed that the image of $e$ is $\mathbb{R}^{++}$ in (iii).
+
+We have just shown that $e$ surjects onto that image in part (iv).
+
+It is a fundamental [fact](chapter_1_notes.md#fundamental-facts) that a strict monotonic implies injective.
+
+Hence $e: \mathbb{R} \to \mathbb{R}^{++}$ bijects.
+
+:::
+
 ## Lemma 5.60 Proof Note
 
 $y=f(x)$, $ k(h) \coloneqq f(x+h) - f(x) $
