@@ -60,5 +60,6 @@ import TheoremGraph from '../../../../../components/TheoremGraph.astro';
 - A proof appears only when every result it uses and proves is included. Proofs with no `uses` draw no arrow.
 - Proof titles become arrow labels, so give graph proofs short explicit titles, e.g. `:::proof[Theorem 1.35]{proves="#thm-IVT" uses="#def-fundamental-axiom"}`.
 - A reference that matches no result fails the build.
+- The build lays out each graph (`bestLayout` in `src/scripts/theorem-graph/layout.ts`): it runs a force simulation from many seeded starting positions and keeps the one with the fewest crossing arrows and arrows through cards. The browser only refines that layout to the measured card sizes, so graphs render without a layout delay and look the same on every load; Relayout returns to the build's layout after dragging.
 
 [Theory Graph](../src/content/docs/mathematics/theory_graph/theory_graph.mdx) documents the syntax with a small example; [Fundamental Axiom Theory Graph](../src/content/docs/mathematics/analysis/companion_to_analysis/fundamental_axiom_theory_graph.mdx) is the working analysis graph.

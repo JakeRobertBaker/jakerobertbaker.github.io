@@ -20,7 +20,8 @@ class TheoremGraph extends HTMLElement {
     const world = this.querySelector<HTMLElement>('.theorem-graph__world')!;
     const svg = this.querySelector<SVGSVGElement>('.theorem-graph__edges')!;
     const panel = this.querySelector<HTMLElement>('.theorem-graph__panel')!;
-    const edges: Edge[] = JSON.parse(this.querySelector('script[type="application/json"]')!.textContent!);
+    const { edges, positions }: { edges: Edge[]; positions: number[][] } =
+      JSON.parse(this.querySelector('script[type="application/json"]')!.textContent!);
     const cards = [...this.querySelectorAll<HTMLElement>('.tg-node')];
     const chips = [...this.querySelectorAll<HTMLAnchorElement>('.tg-proof')];
     this.toggleAttribute('data-ready', true);
@@ -32,7 +33,7 @@ class TheoremGraph extends HTMLElement {
     const items = [...nodes, ...proofs];
     const { simulation, linkForce } = createSimulation(nodes, proofs, edges);
     const { groups, draw: drawEdges } = createEdges(svg, edges, nodes, proofs);
-    const camera = createCamera(viewport, world);
+    const camera = createCamera(viewport, world, panel);
 
     const draw = () => {
       // Centre-anchored, so labels enlarged at far zoom stay on their curves.
@@ -40,11 +41,16 @@ class TheoremGraph extends HTMLElement {
         item.el.style.transform = `translate(${item.x!.toFixed(1)}px, ${item.y!.toFixed(1)}px) translate(-50%, -50%)`;
       drawEdges();
     };
+    // The build chose the layout from estimated box sizes; a brief settle fits it to the measured ones.
     const layout = (animate: boolean) => {
-      for (const item of items) delete item.x, delete item.y, delete item.vx, delete item.vy, item.fx = item.fy = null;
-      simulation.nodes(items).alpha(1);
+      items.forEach((item, i) => {
+        [item.x, item.y] = positions[i];
+        item.vx = item.vy = 0;
+        item.fx = item.fy = null;
+      });
+      simulation.nodes(items).alpha(.1);
       if (animate && !reducedMotion.matches) { simulation.restart(); return; }
-      simulation.tick(Math.ceil(Math.log(simulation.alphaMin()) / Math.log(1 - simulation.alphaDecay())));
+      simulation.tick(30);
       draw();
       camera.fit(items);
     };

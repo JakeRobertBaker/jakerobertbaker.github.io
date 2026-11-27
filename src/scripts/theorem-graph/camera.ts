@@ -4,7 +4,7 @@ import type { Item } from './layout';
 export const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 export type Camera = ReturnType<typeof createCamera>;
 
-export function createCamera(viewport: HTMLElement, world: HTMLElement) {
+export function createCamera(viewport: HTMLElement, world: HTMLElement, panel: HTMLElement) {
   let view = { x: 0, y: 0, k: 1 };
   const apply = () => {
     const { x, y, k } = view;
@@ -41,12 +41,23 @@ export function createCamera(viewport: HTMLElement, world: HTMLElement) {
   };
   // Pan the least distance that brings a whole box into view, favouring its
   // top-left corner when it is larger than the viewport.
+  // An open panel (anchored bottom right) also counts as out of view: the box moves left of it,
+  // or above it when there is no room to the left.
   const reveal = (item: Item) => {
     const { x, y, k } = view, margin = 24;
     const shift = (start: number, size: number, room: number) =>
       Math.max(margin - start, Math.min(0, room - margin - start - size));
-    const dx = shift((item.x! - item.w / 2) * k + x, item.w * k, viewport.clientWidth);
-    const dy = shift((item.y! - item.h / 2) * k + y, item.h * k, viewport.clientHeight);
+    const left = (item.x! - item.w / 2) * k + x, top = (item.y! - item.h / 2) * k + y;
+    let dx = shift(left, item.w * k, viewport.clientWidth), dy = shift(top, item.h * k, viewport.clientHeight);
+    if (!panel.hidden) {
+      const port = viewport.getBoundingClientRect(), box = panel.getBoundingClientRect();
+      const clearX = box.left - port.left - margin - (left + dx + item.w * k);
+      const clearY = box.top - port.top - margin - (top + dy + item.h * k);
+      if (clearX < 0 && clearY < 0) {
+        if (left + dx + clearX >= margin) dx += clearX;
+        else dy += clearY;
+      }
+    }
     if (!dx && !dy) return;
     view = { k, x: x + dx, y: y + dy };
     glide();

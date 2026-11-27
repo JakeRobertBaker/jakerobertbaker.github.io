@@ -318,6 +318,16 @@ test('proof graphs lay out registry results and proofs, select them, and degrade
   await context.close();
 });
 
+test('proof graphs lay out the same way on every load', async ({ page }) => {
+  const route = '/mathematics/analysis/companion_to_analysis/fundamental_axiom_theory_graph/';
+  const positions = async () => {
+    await page.goto(route);
+    await expect(page.locator('theorem-graph').first()).toHaveAttribute('data-ready', '');
+    return page.locator('theorem-graph').first().locator('.tg-node, .tg-proof').evaluateAll((items) => items.map((item) => item.getAttribute('style')));
+  };
+  expect(await positions()).toEqual(await positions());
+});
+
 test('proof graph cards can be dragged by their title links', async ({ page }) => {
   await page.goto('/mathematics/analysis/companion_to_analysis/fundamental_axiom_theory_graph/');
   const card = page.locator('theorem-graph').first().locator('.tg-node').first();
