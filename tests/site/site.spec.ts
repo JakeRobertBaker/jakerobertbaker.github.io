@@ -275,8 +275,9 @@ test('proof graphs lay out registry results and proofs, select them, and degrade
   const { blocks } = await (await request.get('/theorems.json')).json();
   const page_ = '/mathematics/analysis/companion_to_analysis/theory/';
   const results = blocks.filter((block: { url: string; kind: string }) => block.url.startsWith(page_) && !['proof', 'solution'].includes(block.kind));
-  const proofs = blocks.filter((block: { url: string; kind: string; proves: string | null }) =>
-    block.kind === 'proof' && block.proves?.startsWith(page_));
+  // Proofs with no `uses` draw no arrow.
+  const proofs = blocks.filter((block: { url: string; kind: string; proves: string | null; uses: string[] }) =>
+    block.kind === 'proof' && block.proves?.startsWith(page_) && block.uses.length > 0);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(route);
   const graph = page.locator('theorem-graph', { has: page.getByRole('group', { name: 'Companion to Analysis theory graph' }) });
