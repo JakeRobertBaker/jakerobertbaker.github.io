@@ -403,6 +403,72 @@ Which contradicts (viii). Hence e is not equal to any polynomial fraction.
 
 :::
 
+:::exercise[e is irrational]{#ex-e-is-irrational}
+$e(1)$ is irrational.
+:::
+
+:::solution{proves="#ex-e-is-irrational"}
+Assume that $e \coloneqq e(1) = \frac{m}{n}$ for some $m,n \in \mathbb{N}$
+
+If $N>n$ then 
+$$
+N! exp(1) = N (N-1) \dots (n+1) n (n-1) \dots 1 \times \frac{m}{n} 
+\\
+= N (N-1) \dots (n+1) (n-1) \dots 1 \times m \in \mathbb{N}
+$$
+
+and
+
+$$
+N! \sum_{j=0}^{N} \frac{1}{j!} = \sum_{j=0}^{N} \frac{N (N-1) \dots (j+1) j!}{j!}
+\\
+= \sum_{j=0}^{N} N (N-1) \dots (j+1) \in \mathbb{N}
+$$
+
+We also know that $e(1) \neq e_N(1)$ therefore 
+
+$$
+N! \left( 
+\exp(1) - \sum_{j=0}^{N} \frac{1}{j!}
+\right)
+$$
+
+is a non zero integer.
+
+Therefore it's magnitude is at least 1.
+
+$$
+N! \left| 
+\exp(1) - \sum_{j=0}^{N} \frac{1}{j!}
+\right|
+\geq 1
+$$
+
+However the remainder bound also gives us that for 
+
+$|x| < \frac{N+1}{2}$, which holds when $x=1$, that
+
+
+$$
+\left| 
+\exp (1) - \sum_{j=0}^{N} \frac{1}{j!}
+\right|
+\leq \frac{2}{(N+1)!} = \frac{2}{(N+1) N!}
+$$
+
+So
+
+$$
+N!
+\left| 
+\exp (1) - \sum_{j=0}^{N} \frac{1}{j!}
+\right|
+\leq \frac{2}{N+1}
+$$
+
+Which contradicts at most $1$ magnitude.
+:::
+
 ## Lemma 5.60 Proof Note
 
 $y=f(x)$, $ k(h) \coloneqq f(x+h) - f(x) $
