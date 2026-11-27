@@ -24,7 +24,7 @@ See Exercise 1.54 of the book.
 See Theorem 1.53 of the book.
 :::
 
-:::theorem[1.35 Intermediate Value Theorem]{#thm-IVT}
+:::theorem[Intermediate Value Theorem]{#thm-IVT n=1.35 book=Korner}
 If,
 - $f: [a,b] \to \mathbb{R}$ is continuous
 - $f(a) \geq 0 \geq f(b)$
@@ -40,7 +40,7 @@ See Theorem 1.35 of the book.
 See Theorem 3.12 of the book.
 :::
 
-:::theorem[1.42 The mean value inequality]{#thm-MVI}
+:::theorem[The mean value inequality]{#thm-MVI n=1.42 book=Korner}
 Let,
 - $U=\left( \alpha, \beta \right)$ be an open interval on $\mathbb{R}$.
 - $a,b \in U$ and $a<b$
@@ -67,7 +67,7 @@ $\alpha$ is the least upper bound (supremum) of A if
 2. $\beta \geq a \ \forall a \in A \implies \beta \geq \alpha$
 :::
 
-:::theorem[Theorem 3.7 Supremum Principle]{#thm-Sup}
+:::theorem[Supremum Principle]{#thm-Sup n=3.7 book=Korner}
 Let,
 - $A \subseteq \mathbb{R}$ be non empty.
 - $A$ is bounded above, $\exists K \in \mathbb{R} : a \leq K\ \forall a \in A$
@@ -77,4 +77,53 @@ Then, $A$ has a supremum.
 
 :::proof[Theorem 3.7; Exercises 3.9 or 3.10]{#prf-SUP-from-FA proves="#thm-Sup" uses="#def-fundamental-axiom"}
 See Theorem 3.7 and Exercises 3.9 or 3.10 of the book. [Exercise 3.9](chapter_3_notes.md#exercise-39) is worked in the chapter 3 notes.
+:::
+
+:::theorem[Bolzano-Wierstrass]{#thm-bolzano-wierstrass n=3.17 book=Korner}
+
+Every bounded sequence has a convergent subsequence.
+
+Formally, if
+
+- $x_{n} \in \mathbb{R}$
+- $\exists \ K \in \mathbb{N}$ such that $\left| x_n \right| \leq K \ \forall n \in \mathbb{N}$
+
+There exists subsequence $n(1) < n(2) < \dots$ and $x \in \mathbb{R}$ such that $x_{n(j)} \to x$ as $j \to \infty$.
+
+:::
+
+This can easily be proved if we have already proved that all sequences have a monotonic subsequence.
+
+:::lemma[Monotonic Subsequence]{#lem-monotonic-subsequence n=3.19 book=Korner}
+All sequences in $\mathbb{R}$ have a monotonic subsequence.
+
+Formally, if $x_{n} \in \mathbb{R}$ then either
+
+#### (A)
+
+There exists $m(1) < m(2) < \dots$ such that $x_{m(j)} \geq x_{m(j+1)} \ \forall j \in \mathbb{N}$
+
+#### (B)
+There exists $n(1) < n(2) < \dots$ such that $x_{n(j)} \leq x_{n(j+1)} \ \forall j \in \mathbb{N}$
+
+:::
+
+:::proof{proves="#lem-monotonic-subsequence"}
+Say that a term $x_n$ is far seeing if it is larger than all terms that follow it.
+
+$$
+x_n \geq x_m \ \forall m \geq n
+$$
+
+If there are infinitely many far seeing terms then we have (A).
+
+If there are finitely many far seeing terms then there exists an $N \in \mathbb{N}$ where there are no far seeing terms afterwards.
+
+This means that for when $n \geq N$ all $x_n$ are followed by a larger term $x_{n'} > x_n$ for some $n' > n$.
+
+We can use this to inductively construct an increasing subsequence. Hence (B).
+:::
+
+:::proof{proves="#thm-bolzano-wierstrass" uses="#def-fundamental-axiom"}
+We have a monotonic subsequence $x_{n(j)}$ by $\by{lem-monotonic-subsequence}$. We have $x_{n(j)} \leq K \ \forall j \in \mathbb{N}$. Fundamental axiom makes this monotonic subsequence convergent. 
 :::
