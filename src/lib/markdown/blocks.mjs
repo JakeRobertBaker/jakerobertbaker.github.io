@@ -12,6 +12,13 @@ const sourceText = (nodes) => nodes.map((node) =>
 export function rewriteBlocks(tree, { source, fail, lineOffset }, { numbers, targets, titles }) {
   const blocks = []
   const ids = new Set()
+  // A header remark-directive cannot parse (e.g. a comma between attributes) is
+  // left as paragraph text, silently dropping the block and its relationships.
+  visit(tree, "paragraph", (node) => {
+    const first = node.children[0]
+    if (first?.type === "text" && /^:::+[A-Za-z]/.test(first.value))
+      fail(`Malformed block header: ${first.value.split("\n")[0]}… Separate attributes with spaces, e.g. {#id proves="#a" uses="#b #c"}`, node)
+  })
   visit(tree, "containerDirective", (node) => {
     const kind = node.name
     if (kind === listDirective) return

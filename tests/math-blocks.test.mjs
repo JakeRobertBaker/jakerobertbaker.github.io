@@ -328,6 +328,9 @@ test('metadata and KaTeX errors fail with source context', async (t) => {
     [':::proof{proves="other.md"}\nOne.\n:::', /must name a block/],
     [':::lemma{#x}\nOne.\n:::\n\n:::proof{proves="#x"}\nA.\n:::\n\n:::proof{proves="#x"}\nB.\n:::', /give further proofs their own/],
     [':::proof{#p uses="#x"}\nOne.\n:::', /explicit proves target/],
+    [':::lemma{#x}\nOne.\n:::\n\n:::proof{proves="#x", uses="#x"}\nA.\n:::', /Malformed block header: :::proof\{proves="#x",/],
+    [':::theorem[T]{#x n=1\nOne.\n:::', /Malformed block header/],
+    [':::theorem[$x$]{#x book="JS}\nOne.\n:::', /Malformed block header/],
     [':::proof{open="false"}\nOne.\n:::', /boolean/],
     ['$\\noSuchCommand$', /Undefined control sequence/],
   ]) await assert.rejects(render(markdown), message);
