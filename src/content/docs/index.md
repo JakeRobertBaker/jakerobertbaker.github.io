@@ -15,7 +15,7 @@ Personal notes on mathematics stuff and deep learning bits.
 
 Revising old Analysis modules. Körner's *A Companion to Analysis* covers my content and is easier to read than my ancient lecture notes.  
 
-The [Theory Graph](mathematics/analysis/companion_to_analysis/theory_graph.mdx) map is WIP!
+The [Theory Graph](mathematics/analysis/companion_to_analysis/fundamental_axiom_theory_graph.mdx) map is WIP!
 
 [Overview](mathematics/analysis/companion_to_analysis/companion_to_analysis_overview.md) · [Ch 1](mathematics/analysis/companion_to_analysis/chapter_1_notes.md) · [Ch 3](mathematics/analysis/companion_to_analysis/chapter_3_notes.md) · [Ch 4](mathematics/analysis/companion_to_analysis/chapter_4_notes.md) · [Ch 5](mathematics/analysis/companion_to_analysis/chapter_5_notes.md)
 

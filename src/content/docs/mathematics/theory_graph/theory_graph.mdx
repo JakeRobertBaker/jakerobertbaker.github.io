@@ -2,7 +2,7 @@
 title: Theory Graph
 description: Interactive graph of the results in Theory and the proofs between them.
 ---
-import TheoremGraph from '../../../../../components/TheoremGraph.astro';
+import TheoremGraph from '../../../../components/TheoremGraph.astro';
 
 
 ## Blocks
@@ -54,10 +54,10 @@ Clicking a card expands its statement and opens its relationships.
 - `HIGHLIGHT` dims everything except direct neighbours, all upstream, or all downstream results
 
 ## Graph Object
-You can specify the pages or single blocks (e.g. `'theory.md#thm-IVT'`) to include. The graph below is produced by
+You can specify the pages or single blocks (e.g. `'theory.md#thm-IVT'`) to include.
 
 ```markdown
 <TheoremGraph include={['theory.md']} label="Companion to Analysis theory graph" />
 ```
 
-Is in mdx [file](fundamental_axiom_theory_graph.mdx)
+Is in mdx [file](../analysis/companion_to_analysis/fundamental_axiom_theory_graph.mdx)

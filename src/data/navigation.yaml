@@ -61,7 +61,7 @@
             - label: Chapter 5
               slug: mathematics/analysis/companion_to_analysis/chapter_5_notes
             - label: Theory Graph
-              slug: mathematics/analysis/companion_to_analysis/theory_graph
+              slug: mathematics/analysis/companion_to_analysis/fundamental_axiom_theory_graph
         - label: Axler Measure Theory
           collapsed: true
           items:
@@ -75,6 +75,8 @@
               slug: mathematics/analysis/axler_measure_theory_exercises/chapter_2_cheat_sheet
             - label: Chapter 2 - Notes
               slug: mathematics/analysis/axler_measure_theory_exercises/chapter_2_notes
+    - label: Theory Graphs
+      slug: mathematics/theory_graph/theory_graph
     - label: Problems
       collapsed: true
       items:

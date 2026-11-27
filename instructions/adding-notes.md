@@ -61,4 +61,4 @@ import TheoremGraph from '../../../../../components/TheoremGraph.astro';
 - Proof titles become arrow labels, so give graph proofs short explicit titles, e.g. `:::proof[Theorem 1.35]{proves="#thm-IVT" uses="#def-fundamental-axiom"}`.
 - A reference that matches no result fails the build.
 
-[Theory Graph](../src/content/docs/mathematics/analysis/companion_to_analysis/theory_graph.mdx) is the working example.
+[Theory Graph](../src/content/docs/mathematics/theory_graph/theory_graph.mdx) documents the syntax with a small example; [Fundamental Axiom Theory Graph](../src/content/docs/mathematics/analysis/companion_to_analysis/fundamental_axiom_theory_graph.mdx) is the working analysis graph.

@@ -271,7 +271,7 @@ test('static mathematics and proof disclosure work without client JavaScript', a
 });
 
 test('proof graphs lay out registry results and proofs, select them, and degrade to a list', async ({ page, request, browser }) => {
-  const route = '/mathematics/analysis/companion_to_analysis/theory_graph/';
+  const route = '/mathematics/analysis/companion_to_analysis/fundamental_axiom_theory_graph/';
   const { blocks } = await (await request.get('/theorems.json')).json();
   const page_ = '/mathematics/analysis/companion_to_analysis/theory/';
   const results = blocks.filter((block: { url: string; kind: string }) => block.url.startsWith(page_) && !['proof', 'solution'].includes(block.kind));
@@ -318,7 +318,7 @@ test('proof graphs lay out registry results and proofs, select them, and degrade
 });
 
 test('proof graph cards can be dragged by their title links', async ({ page }) => {
-  await page.goto('/mathematics/analysis/companion_to_analysis/theory_graph/');
+  await page.goto('/mathematics/analysis/companion_to_analysis/fundamental_axiom_theory_graph/');
   const card = page.locator('theorem-graph').first().locator('.tg-node').first();
   await expect(card).toHaveAttribute('style', /translate/);
   await card.scrollIntoViewIfNeeded();
